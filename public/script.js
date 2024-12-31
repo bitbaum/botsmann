@@ -1,62 +1,43 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('consultationForm');
+document.getElementById('consultationForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    console.log('Form submitted'); // Debug log
     
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const button = form.querySelector('button');
-        const spinner = button.querySelector('.spinner');
-        const buttonText = button.querySelector('span');
-        
-        buttonText.style.opacity = '0';
-        spinner.style.display = 'block';
-        button.disabled = true;
+    const formStatus = document.getElementById('formStatus');
+    formStatus.textContent = '';
 
-        try {
-            const formData = {
-                name: form.name.value,
-                email: form.email.value,
-                message: form.message.value
-            };
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
 
-            const response = await fetch('/api/consultations', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+    console.log('Form data:', { name, email, message }); // Debug log
 
-            if (!response.ok) {
-                throw new Error('Submission failed');
-            }
+    if (!name || !email || !message) {
+        formStatus.textContent = 'All fields are required.';
+        formStatus.style.color = 'red';
+        return;
+    }
 
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                window.location.href = '/thank-you.html';
-            }, 500);
-
-        } catch (error) {
-            console.error(error);
-            alert('Something went wrong. Please try again.');
-            
-            buttonText.style.opacity = '1';
-            spinner.style.display = 'none';
-            button.disabled = false;
-        }
-    });
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', e => {
-            e.preventDefault();
-            document.querySelector(anchor.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+    try {
+        console.log('Sending request...'); // Debug log
+        const response = await fetch('/api/consultations', {  // Changed this line - removed hardcoded port
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, message })
         });
-    });
 
-    window.addEventListener('scroll', () => {
-        const scroll = window.pageYOffset;
-        document.querySelector('.hero').style.transform = `translateY(${scroll * 0.5}px)`;
-    });
+        console.log('Response received:', response); // Debug log
+
+        if (response.ok) {
+            window.location.href = '/thank-you';
+        } else {
+            const error = await response.json();
+            console.error('Error:', error); // Debug log
+            formStatus.textContent = error.message || 'An error occurred.';
+            formStatus.style.color = 'red';
+        }
+    } catch (err) {
+        console.error('Request failed:', err); // Debug log
+        formStatus.textContent = 'Failed to send your message. Try again later.';
+        formStatus.style.color = 'red';
+    }
 });

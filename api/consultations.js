@@ -1,85 +1,51 @@
-const mongoose = require('mongoose');
-const nodemailer = require('nodemailer');
-require('dotenv').config();
-
-const rateLimit = require('express-rate-limit');
-const xss = require('xss');
-
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 5
-});
-
-const ConsultationSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    message: String,
-    timestamp: { type: Date, default: Date.now },
-    ip: String
-});
-
-const Consultation = mongoose.models.Consultation || mongoose.model('Consultation', ConsultationSchema);
-
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
-});
-
 module.exports = async (req, res) => {
+    console.log('Received request:', req.method);
+    console.log('Request body:', req.body);
+
     if (req.method !== 'POST') {
         return res.status(405).end();
     }
 
     try {
-        limiter(req, res, async () => {
-            const { name, email, message } = req.body;
-            
-            if (!name || !email || !message) {
-                return res.status(400).json({ error: 'Missing required fields' });
-            }
+        const { name, email, message } = req.body;
 
-            const sanitizedData = {
-                name: xss(name),
-                email: xss(email),
-                message: xss(message),
-                ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress
-            };
+        if (!name || !email || !message) {
+            console.log('Missing required fields');
+            return res.status(400).json({ error: 'All fields are required.' });
+        }
 
-            await mongoose.connect(process.env.MONGODB_URI);
-            
-            const consultation = new Consultation(sanitizedData);
-            await consultation.save();
+        console.log('Connecting to MongoDB...');
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log('Connected to MongoDB');
 
-            await Promise.all([
-                transporter.sendMail({
-                    to: email,
-                    subject: 'Thanks for contacting Botsmann',
-                    html: `
-                        <h2>Hello ${sanitizedData.name},</h2>
-                        <p>We've received your message and will respond within 24 hours.</p>
-                        <p>Best regards,<br>Botsmann Team</p>
-                    `
-                }),
-                transporter.sendMail({
-                    to: process.env.EMAIL_TO,
-                    subject: 'New Botsmann Consultation Request',
-                    html: `
-                        <h2>New Contact Form Submission</h2>
-                        <p><strong>Name:</strong> ${sanitizedData.name}</p>
-                        <p><strong>Email:</strong> ${sanitizedData.email}</p>
-                        <p><strong>Message:</strong> ${sanitizedData.message}</p>
-                        <p><strong>IP:</strong> ${sanitizedData.ip}</p>
-                    `
-                })
-            ]);
-
-            res.status(200).json({ success: true });
+        const consultation = new Consultation({
+            name,
+            email,
+            message,
+            ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
         });
+        
+        console.log('Saving to database...');
+        await consultation.save();
+        console.log('Saved to database');
+
+        console.log('Sending emails...');
+        await transporter.sendMail({
+            to: email,
+            subject: 'Thanks for contacting Botsmann',
+            html: `<p>Hello ${name},<br>We've received your message and will get back to you shortly.<br>Best, Botsmann Team</p>`,
+        });
+
+        await transporter.sendMail({
+            to: process.env.EMAIL_TO,
+            subject: 'New Consultation Request',
+            html: `<p>Name: ${name}<br>Email: ${email}<br>Message: ${message}</p>`,
+        });
+        console.log('Emails sent');
+
+        res.status(201).json({ message: 'Your consultation request has been received.' });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Server error' });
+        console.error('Error in API:', error);
+        res.status(500).json({ error: 'Internal server error', details: error.message });
     }
 };
