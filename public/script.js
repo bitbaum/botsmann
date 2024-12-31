@@ -1,43 +1,35 @@
 document.getElementById('consultationForm').addEventListener('submit', async (event) => {
     event.preventDefault();
-    console.log('Form submitted'); // Debug log
     
     const formStatus = document.getElementById('formStatus');
-    formStatus.textContent = '';
+    formStatus.textContent = 'Sending...';
+    formStatus.style.color = 'blue';
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
-
-    console.log('Form data:', { name, email, message }); // Debug log
-
-    if (!name || !email || !message) {
-        formStatus.textContent = 'All fields are required.';
-        formStatus.style.color = 'red';
-        return;
-    }
+    const formData = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        message: document.getElementById('message').value.trim()
+    };
 
     try {
-        console.log('Sending request...'); // Debug log
-        const response = await fetch('/api/consultations', {  // Changed this line - removed hardcoded port
+        const response = await fetch('/api/consultations', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, message })
+            body: JSON.stringify(formData)
         });
 
-        console.log('Response received:', response); // Debug log
+        const data = await response.json();
 
         if (response.ok) {
-            window.location.href = '/thank-you';
+            window.location.href = '/thank-you.html';
         } else {
-            const error = await response.json();
-            console.error('Error:', error); // Debug log
-            formStatus.textContent = error.message || 'An error occurred.';
+            formStatus.textContent = data.error || 'An error occurred';
             formStatus.style.color = 'red';
+            console.error('Submission error:', data);
         }
-    } catch (err) {
-        console.error('Request failed:', err); // Debug log
-        formStatus.textContent = 'Failed to send your message. Try again later.';
+    } catch (error) {
+        formStatus.textContent = 'Failed to send message. Please try again.';
         formStatus.style.color = 'red';
+        console.error('Request error:', error);
     }
 });
