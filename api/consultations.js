@@ -22,6 +22,9 @@ const transporter = nodemailer.createTransport({
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
@@ -33,27 +36,37 @@ module.exports = async (req, res) => {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    try {
-        // Validate input
-        const { name, email, message } = req.body;
-        if (!name || !email || !message) {
-            return res.status(400).json({ error: 'All fields are required' });
-        }
+    const { name, email, message } = req.body;
 
+    // Validate input
+    if (!name || !email || !message) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    try {
         // Connect to MongoDB
         console.log('Connecting to MongoDB...');
         await mongoose.connect(process.env.MONGODB_URI);
         console.log('Connected to MongoDB');
+    } catch (dbConnectionError) {
+        console.error('Error connecting to MongoDB:', dbConnectionError);
+        return res.status(500).json({ error: 'Database connection failed' });
+    }
 
+    try {
         // Save to database
         const consultation = new Consultation({ name, email, message });
+        console.log('Saving to database:', consultation);
         await consultation.save();
         console.log('Saved to database');
+    } catch (dbSaveError) {
+        console.error('Error saving to database:', dbSaveError);
+        return res.status(500).json({ error: 'Failed to save data to the database' });
+    }
 
-        // Send emails
-        console.log('Sending emails...');
-        
-        // Email to customer
+    try {
+        // Send email to customer
+        console.log('Sending email to customer...');
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: email,
@@ -65,8 +78,15 @@ module.exports = async (req, res) => {
                 <p>Best regards,<br>Botsmann Team</p>
             `
         });
+        console.log('Customer email sent');
+    } catch (emailError) {
+        console.error('Error sending Customer email:', emailError);
+        return res.status(500).json({ error: 'Failed to send confirmation email' });
+    }
 
-        // Email to admin
+    // Optionally send email to admin
+    try {
+        console.log('Sending email to admin...');
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: process.env.EMAIL_TO,
@@ -78,12 +98,11 @@ module.exports = async (req, res) => {
                 <p><strong>Message:</strong> ${message}</p>
             `
         });
-
-        console.log('Emails sent successfully');
-        res.status(200).json({ success: true });
-
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: error.message });
+        console.log('Admin email sent');
+    } catch (adminEmailError) {
+        console.error('Error sending admin email:', adminEmailError);
     }
+
+    // Final success response
+    res.status(200).json({ success: true, message: 'Email submitted successfully' });
 };
