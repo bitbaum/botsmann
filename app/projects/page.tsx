@@ -37,9 +37,12 @@ export default function Projects() {
               href={project.href}
               className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white transition-shadow hover:shadow-lg"
             >
-              <div className="aspect-video w-full bg-gray-100">
-                {/* Add proper image handling later */}
-                <div className="h-full w-full bg-gradient-to-br from-gray-200 to-gray-300" />
+              <div className="aspect-video w-full bg-gray-100 relative">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="p-4 rounded-lg bg-white/80 backdrop-blur-sm">
+                    <h3 className="text-xl font-medium text-gray-900">{project.title}</h3>
+                  </div>
+                </div>
               </div>
               <div className="p-8">
                 <h2 className="mb-3 text-2xl font-semibold text-gray-900">{project.title}</h2>
