@@ -16,6 +16,9 @@ export default function Header() {
           <Link href="/libertech" className="text-sm font-medium text-gray-600 hover:text-openai-green transition-colors">
             LiberTech
           </Link>
+          <Link href="/roboshop" className="text-sm font-medium text-gray-600 hover:text-openai-green transition-colors">
+            Roboshop
+          </Link>
           <Link href="/blog" className="text-sm font-medium text-gray-600 hover:text-openai-green transition-colors">
             Blog
           </Link>
