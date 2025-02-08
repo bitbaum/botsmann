@@ -52,6 +52,22 @@ const bots: Bot[] = [
       'Timeline-based interface'
     ],
     details: 'Our Government Spending Tracker brings transparency to public finances by creating a social, Venmo-like interface for every government payment. Each transaction includes a unique ID, date, sender (government agency), receiver, amount, legal basis, and purpose. The platform protects individual privacy while maximizing transparency, allowing citizens to monitor, discuss, and engage with government spending decisions.'
+  },
+  {
+    slug: 'auto-shopper',
+    title: 'Professional Auto-Shopper',
+    description: 'One-word shopping queries across multiple e-commerce platforms',
+    overview: 'Simply input a single word and let our AI find exactly what you need across Amazon, Ricardo, and other platforms.',
+    features: [
+      'One-word natural language queries',
+      'Multi-platform product search',
+      'Real-time price comparison',
+      'Smart product recommendations',
+      'Secure transaction handling',
+      'Direct donation support',
+      'Community engagement features'
+    ],
+    details: 'Our Professional Auto-Shopper revolutionizes online shopping with a minimalist one-word query system. Using advanced NLP, it understands exactly what you need and searches across multiple e-commerce platforms to find the perfect match. The system includes integrated donation support for ongoing development and community engagement features.'
   }
 ];
 
