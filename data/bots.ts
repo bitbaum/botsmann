@@ -9,65 +9,60 @@ export interface Bot {
 
 const bots: Bot[] = [
   {
-    slug: 'lawyer-bot',
-    title: 'Legal Assistant Bot',
-    description: 'AI-powered legal assistant for document review and analysis',
-    overview: 'Our Legal Assistant Bot helps streamline document review processes and provides quick legal insights.',
+    slug: 'swiss-german-teacher',
+    title: 'Swiss German Teacher',
+    description: 'Master Swiss German with our AI language tutor',
+    overview: 'Learn authentic dialects and cultural nuances through interactive conversations with our specialized language AI.',
     features: [
-      'Document analysis and review',
-      'Legal research assistance',
-      'Contract clause identification',
-      'Risk assessment',
-      'Compliance checking'
+      'Dialect-specific lessons',
+      'Interactive conversations',
+      'Cultural context',
+      'Pronunciation feedback',
+      'Customized learning pace'
     ],
-    details: 'Powered by advanced natural language processing, our Legal Assistant Bot helps legal professionals work more efficiently.'
+    details: 'Our Swiss German Teacher AI provides personalized language instruction, helping you master both the language and cultural aspects of Swiss German communication.'
   },
   {
-    slug: 'customer-service-bot',
-    title: 'Customer Service Bot',
-    description: 'Intelligent customer support automation',
-    overview: 'Our Customer Service Bot provides 24/7 support and handles common customer inquiries.',
+    slug: 'medical-expert',
+    title: 'Medical Expert Assistant',
+    description: 'AI-powered medical knowledge and consultation support',
+    overview: 'Supporting healthcare professionals with evidence-based insights and comprehensive research analysis.',
     features: [
-      'Natural language understanding',
-      'Multi-language support',
-      'Ticket creation and routing',
-      'FAQ automation',
-      'Sentiment analysis'
+      'Evidence-based insights',
+      'Research assistance',
+      'Case analysis',
+      'Medical literature review',
+      'Clinical guidelines integration'
     ],
-    details: 'Built with state-of-the-art AI models to provide human-like customer interactions.'
+    details: 'Designed to assist medical professionals in staying current with research, analyzing cases, and making informed decisions based on the latest medical evidence.'
   },
   {
-    slug: 'gov-spending-tracker',
-    title: 'Government Spending Tracker',
-    description: 'Transparent government spending monitoring with social features',
-    overview: 'Track and analyze government spending with a Venmo-like social interface for maximum transparency and accountability.',
+    slug: 'legal-expert',
+    title: 'Legal Expert Assistant',
+    description: 'Navigate legal complexities with AI guidance',
+    overview: 'Comprehensive legal research and analysis support for legal professionals.',
     features: [
-      'Real-time payment tracking with unique IDs',
-      'Sender and receiver details with privacy controls',
-      'Payment amount and purpose tracking',
-      'Legal basis documentation',
-      'Social features (like, comment, share)',
-      'Donation capabilities',
-      'Privacy protection for welfare recipients',
-      'Timeline-based interface'
+      'Legal research',
+      'Document analysis',
+      'Case law insights',
+      'Regulatory compliance',
+      'Contract review assistance'
     ],
-    details: 'Our Government Spending Tracker brings transparency to public finances by creating a social, Venmo-like interface for every government payment. Each transaction includes a unique ID, date, sender (government agency), receiver, amount, legal basis, and purpose. The platform protects individual privacy while maximizing transparency, allowing citizens to monitor, discuss, and engage with government spending decisions.'
+    details: 'Our Legal Expert Assistant combines advanced legal knowledge with AI capabilities to provide comprehensive support for legal research and analysis.'
   },
   {
-    slug: 'auto-shopper',
-    title: 'Professional Auto-Shopper',
-    description: 'One-word shopping queries across multiple e-commerce platforms',
-    overview: 'Simply input a single word and let our AI find exactly what you need across Amazon, Ricardo, and other platforms.',
+    slug: 'artistic-advisor',
+    title: 'Artistic Advisor',
+    description: 'Enhance your creative process with AI insights',
+    overview: 'Get expert guidance on composition, style analysis, and technique refinement for your artistic projects.',
     features: [
-      'One-word natural language queries',
-      'Multi-platform product search',
-      'Real-time price comparison',
-      'Smart product recommendations',
-      'Secure transaction handling',
-      'Direct donation support',
-      'Community engagement features'
+      'Style analysis',
+      'Composition guidance',
+      'Technique suggestions',
+      'Color theory assistance',
+      'Art history insights'
     ],
-    details: 'Our Professional Auto-Shopper revolutionizes online shopping with a minimalist one-word query system. Using advanced NLP, it understands exactly what you need and searches across multiple e-commerce platforms to find the perfect match. The system includes integrated donation support for ongoing development and community engagement features.'
+    details: 'The Artistic Advisor AI helps artists explore new techniques, refine their style, and gain insights from art history while maintaining their unique creative vision.'
   }
 ];
 

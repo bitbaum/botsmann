@@ -41,17 +41,18 @@ export default function ConsultationForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-          Name
-        </label>
-        <input
-          {...register('name', { required: 'Name is required' })}
-          type="text"
-          id="name"
-          className="mt-1 block w-full rounded-md border-gray-200 bg-white px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-openai-green sm:text-sm"
-        />
+    <div className="mx-auto max-w-xl">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            Name
+          </label>
+          <input
+            {...register('name', { required: 'Name is required' })}
+            type="text"
+            id="name"
+            className="mt-1 block w-full rounded-md border-gray-200 bg-white px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-openai-green sm:text-sm"
+          />
         {errors.name && (
           <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
         )}
@@ -115,5 +116,6 @@ export default function ConsultationForm() {
         {isSubmitting ? 'Submitting...' : 'Submit'}
       </button>
     </form>
+    </div>
   );
 }
