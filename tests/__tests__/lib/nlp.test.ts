@@ -1,4 +1,4 @@
-import { processQuery } from '@/lib/nlp';
+import { processQuery } from '@/src/lib/nlp';
 
 describe('NLP Processing', () => {
   beforeEach(() => {
