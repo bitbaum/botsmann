@@ -1,4 +1,4 @@
-import { createErrorResponse } from '../schemas/errors';
+import { createErrorResponse } from '@/src/lib/schemas/errors';
 
 const API_KEY = process.env.API_KEY || 'development-key';
 
