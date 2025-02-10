@@ -4,13 +4,14 @@ import { Consultation } from '@/src/lib/models/consultation';
 import { rateLimit } from '@/src/lib/rate-limit';
 
 const limiter = rateLimit({
+  limit: 5, // 5 requests per interval
   interval: 60 * 1000, // 1 minute
   uniqueTokenPerInterval: 500,
 });
 
 export async function POST(req: Request) {
   try {
-    await limiter.check(5, 'CONSULTATION_FORM');
+    const { isRateLimited } = await limiter.check('CONSULTATION_FORM');
     
     const { name, email, message } = await req.json();
     await connectDB();
@@ -36,4 +37,4 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
-}
+}  
