@@ -1,5 +1,5 @@
-import { searchAmazon } from '@/lib/platforms/amazon';
-import { searchRicardo } from '@/lib/platforms/ricardo';
+import { searchAmazon } from '@/src/lib/platforms/amazon';
+import { searchRicardo } from '@/src/lib/platforms/ricardo';
 
 describe('Platform Integrations', () => {
   describe('Amazon Integration', () => {
