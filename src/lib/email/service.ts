@@ -8,10 +8,10 @@ export class EmailService {
 
   constructor() {
     this.ses = new SESClient({
-      region: 'eu-central-1', // Frankfurt region for Swiss compliance
+      region: process.env.NEXT_AWS_REGION || 'eu-central-1', // Frankfurt region for Swiss compliance
       credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''
+        accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID || '',
+        secretAccessKey: process.env.NEXT_AWS_SECRET_ACCESS_KEY || ''
       }
     });
     this.fromEmail = process.env.FROM_EMAIL || 'noreply@botsmann.com';
