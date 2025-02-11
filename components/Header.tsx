@@ -14,7 +14,7 @@ export default function Header() {
             <button className="text-sm font-medium text-gray-600 hover:text-openai-green transition-colors">
               Bots
             </button>
-            <div className="absolute left-0 hidden group-hover:block w-48 py-2 mt-1 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+            <div className="absolute left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-48 py-2 mt-1 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
               <Link href="/bots/artistic-advisor" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                 Artistic Advisor
               </Link>
@@ -39,7 +39,7 @@ export default function Header() {
             <button className="text-sm font-medium text-gray-600 hover:text-openai-green transition-colors">
               Projects
             </button>
-            <div className="absolute left-0 hidden group-hover:block w-48 py-2 mt-1 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+            <div className="absolute left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-48 py-2 mt-1 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
               <Link href="/projects/libertech/gov-spending" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                 Gov Spending
               </Link>
