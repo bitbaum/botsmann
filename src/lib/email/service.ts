@@ -1,59 +1,72 @@
-import formData from 'form-data';
-import Mailgun from 'mailgun.js';
-import Client from 'mailgun.js/dist/lib/client';
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
+import type { Customer } from '@/src/lib/schemas/customer';
 
 export class EmailService {
-  private client: Client;
-  private domain: string;
+  private ses: SESClient;
   private fromEmail: string;
+  private adminEmail: string;
 
   constructor() {
-    const mailgun = new Mailgun(formData);
-    this.client = mailgun.client({
-      username: 'api',
-      key: process.env.MAILGUN_API_KEY || '',
-      url: 'https://api.eu.mailgun.net'  // EU endpoint for Swiss compliance
+    this.ses = new SESClient({
+      region: 'eu-central-1', // Frankfurt region for Swiss compliance
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''
+      }
     });
-    this.domain = process.env.MAILGUN_DOMAIN || '';
-    this.fromEmail = process.env.MAILGUN_FROM_EMAIL || '';
+    this.fromEmail = process.env.FROM_EMAIL || 'noreply@botsmann.com';
+    this.adminEmail = process.env.ADMIN_EMAIL || 'REDACTED_EMAIL';
   }
 
-  async sendWelcomeEmail(customer: any) {
+  async sendWelcomeEmail(customer: Customer): Promise<void> {
+    const params = {
+      Source: this.fromEmail,
+      Destination: {
+        ToAddresses: [customer.email]
+      },
+      Message: {
+        Subject: {
+          Data: 'Welcome to Botsmann!'
+        },
+        Body: {
+          Text: {
+            Data: `Hello ${customer.name},\n\nThank you for your interest in Botsmann! We've received your message and will get back to you soon.\n\nBest regards,\nThe Botsmann Team`
+          }
+        }
+      }
+    };
+
     try {
-      await this.client.messages.create(this.domain, {
-        from: this.fromEmail,
-        to: customer.email,
-        subject: 'Welcome to Botsmann!',
-        template: 'welcome-email',
-        'h:X-Mailgun-Variables': JSON.stringify({
-          name: customer.name,
-          preferences: customer.preferences || {},
-          dashboardUrl: process.env.DASHBOARD_URL
-        })
-      });
+      await this.ses.send(new SendEmailCommand(params));
     } catch (error) {
       console.error('Failed to send welcome email:', error);
+      throw error;
     }
   }
 
-  async sendAdminNotification(customer: any) {
+  async sendAdminNotification(customer: Customer): Promise<void> {
+    const params = {
+      Source: this.fromEmail,
+      Destination: {
+        ToAddresses: [this.adminEmail]
+      },
+      Message: {
+        Subject: {
+          Data: 'New Customer Registration'
+        },
+        Body: {
+          Text: {
+            Data: `New customer registration:\n\nName: ${customer.name}\nEmail: ${customer.email}\nMessage: ${customer.message}\n\nPreferences:\n- Newsletter: ${customer.preferences.newsletter ? 'Yes' : 'No'}\n- Product Updates: ${customer.preferences.productUpdates ? 'Yes' : 'No'}`
+          }
+        }
+      }
+    };
+
     try {
-      await this.client.messages.create(this.domain, {
-        from: this.fromEmail,
-        to: process.env.ADMIN_EMAIL || '',
-        subject: 'New Customer Registration',
-        text: `
-New customer registration:
-Name: ${customer.name}
-Email: ${customer.email}
-Message: ${customer.message}
-Preferences:
-- Newsletter: ${customer.preferences?.newsletter ? 'Yes' : 'No'}
-- Product Updates: ${customer.preferences?.productUpdates ? 'Yes' : 'No'}
-`
-      });
+      await this.ses.send(new SendEmailCommand(params));
     } catch (error) {
       console.error('Failed to send admin notification:', error);
+      throw error;
     }
   }
 }
