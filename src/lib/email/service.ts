@@ -1,47 +1,59 @@
-import sgMail from '@sendgrid/mail';
-import { Customer } from '../schemas/customer';
+import formData from 'form-data';
+import Mailgun from 'mailgun.js';
+import Client from 'mailgun.js/dist/lib/client';
 
 export class EmailService {
+  private client: Client;
+  private domain: string;
+  private fromEmail: string;
+
   constructor() {
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+    const mailgun = new Mailgun(formData);
+    this.client = mailgun.client({
+      username: 'api',
+      key: process.env.MAILGUN_API_KEY || '',
+      url: 'https://api.eu.mailgun.net'  // EU endpoint for Swiss compliance
+    });
+    this.domain = process.env.MAILGUN_DOMAIN || '';
+    this.fromEmail = process.env.MAILGUN_FROM_EMAIL || '';
   }
 
-  async sendWelcomeEmail(customer: Customer): Promise<void> {
+  async sendWelcomeEmail(customer: any) {
     try {
-      await sgMail.send({
+      await this.client.messages.create(this.domain, {
+        from: this.fromEmail,
         to: customer.email,
-        from: process.env.EMAIL_FROM!,
-        templateId: process.env.SENDGRID_WELCOME_TEMPLATE_ID!,
-        dynamicTemplateData: {
+        subject: 'Welcome to Botsmann!',
+        template: 'welcome-email',
+        'h:X-Mailgun-Variables': JSON.stringify({
           name: customer.name,
-          preferences: customer.preferences,
-          dashboardUrl: process.env.DASHBOARD_URL,
-        },
+          preferences: customer.preferences || {},
+          dashboardUrl: process.env.DASHBOARD_URL
+        })
       });
     } catch (error) {
       console.error('Failed to send welcome email:', error);
-      throw new Error('Failed to send welcome email');
     }
   }
 
-  async sendAdminNotification(customer: Customer): Promise<void> {
+  async sendAdminNotification(customer: any) {
     try {
-      await sgMail.send({
-        to: process.env.ADMIN_EMAIL!,
-        from: process.env.EMAIL_FROM!,
+      await this.client.messages.create(this.domain, {
+        from: this.fromEmail,
+        to: process.env.ADMIN_EMAIL || '',
         subject: 'New Customer Registration',
         text: `
 New customer registration:
 Name: ${customer.name}
 Email: ${customer.email}
 Message: ${customer.message}
-Preferences: ${JSON.stringify(customer.preferences)}
-Metadata: ${JSON.stringify(customer.metadata)}
-        `.trim(),
+Preferences:
+- Newsletter: ${customer.preferences?.newsletter ? 'Yes' : 'No'}
+- Product Updates: ${customer.preferences?.productUpdates ? 'Yes' : 'No'}
+`
       });
     } catch (error) {
       console.error('Failed to send admin notification:', error);
-      // Don't throw error for admin notifications
     }
   }
 }
