@@ -6,6 +6,9 @@ export default defineConfig({
     outputFolder: "admin",
     publicFolder: "public",
   },
+  flags: {
+    useLocalBranchAsPreviewBranch: true
+  },
   media: {
     tina: {
       mediaRoot: "uploads",

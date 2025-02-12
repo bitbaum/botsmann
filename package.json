@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
-    "build": "next build && cp -r netlify/functions . && cp public/_redirects out/ && cp -r public/admin out/",
+    "build": "TINA_PUBLIC_IS_LOCAL=true next build && cp -r netlify/functions . && cp public/_redirects out/ && cp -r public/admin out/",
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch"
