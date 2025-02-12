@@ -12,7 +12,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     date: new Date().toISOString(),
     body: {
       type: 'root',
-      children: [{ type: 'text', text: 'Sample content' }]
+      children: [{
+        type: 'paragraph',
+        children: [{ type: 'text', text: 'Sample content' }]
+      }]
     }
   };
 
