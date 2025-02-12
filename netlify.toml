@@ -7,8 +7,6 @@
   NODE_VERSION = "18"
   NEXT_PUBLIC_TINA_CLIENT_ID = "c7fe2362-7424-4956-a241-4d246238f406"
   TINA_TOKEN = "9de4fe3a4f7ddefcf391fdebc4480d4b0a5b0e20"
-  TINA_PUBLIC_IS_LOCAL = "true"
-  BRANCH = "main"
 
 [functions]
   node_bundler = "esbuild"
@@ -20,7 +18,11 @@
   status = 200
 
 [[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  force = true

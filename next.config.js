@@ -9,7 +9,6 @@ const nextConfig = {
     return config
   },
   trailingSlash: true,
-  distDir: '.next',
 };
 
 module.exports = nextConfig;
