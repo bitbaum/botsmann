@@ -1,19 +1,12 @@
 import { defineConfig } from "tinacms";
 
 export default defineConfig({
-  branch: process.env.HEAD || process.env.BRANCH || "main",
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
   token: process.env.TINA_TOKEN || "",
   build: {
     publicFolder: "public",
     outputFolder: "admin",
     basePath: "",
-  },
-  search: {
-    tina: {
-      indexerToken: process.env.TINA_TOKEN || "",
-      stopwordLanguages: ["eng"],
-    },
   },
   media: {
     tina: {
