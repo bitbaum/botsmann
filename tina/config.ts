@@ -5,6 +5,11 @@ export default defineConfig({
     outputFolder: "admin",
     publicFolder: "public",
   },
+  backend: {
+    name: "git-gateway",
+    branch: "main",
+  },
+  local: true,
   schema: {
     collections: [
       {
