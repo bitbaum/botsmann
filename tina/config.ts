@@ -5,7 +5,37 @@ export default defineConfig({
     outputFolder: "admin",
     publicFolder: "public",
   },
-  contentApiUrlOverride: "/api/tina",
+  schema: {
+    collections: [
+      {
+        name: "post",
+        label: "Blog Posts",
+        path: "content/posts",
+        format: "mdx",
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Date",
+            required: true,
+          },
+          {
+            type: "rich-text",
+            name: "body",
+            label: "Body",
+            isBody: true,
+          },
+        ],
+      },
+    ],
+  },
   media: {
     tina: {
       mediaRoot: "uploads",
