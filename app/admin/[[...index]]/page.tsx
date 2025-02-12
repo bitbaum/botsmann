@@ -9,9 +9,8 @@ const TinaWrapper = dynamic(() => import('tinacms').then((mod) => {
       <TinaProvider
         cms={new TinaCMS({
           clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
-          token: process.env.TINA_TOKEN,
-          organization: "g-but",
-          isLocalClient: true,
+          enabled: true,
+          sidebar: true,
         })}
       >
         {children}
