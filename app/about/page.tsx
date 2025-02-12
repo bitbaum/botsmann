@@ -1,5 +1,6 @@
 import React from 'react';
 import ConsultationForm from '@/components/ConsultationForm';
+import { NextSection } from '@/src/components/navigation/NextSection';
 
 export default function About() {
   return (
@@ -16,6 +17,12 @@ export default function About() {
           <ConsultationForm />
         </div>
       </div>
+
+      <NextSection
+        nextPage="/solutions"
+        title="Explore Our Solutions"
+        description="Discover how our AI-powered solutions can help automate your workflows and transform your business."
+      />
     </div>
   );
 }
