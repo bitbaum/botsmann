@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && mkdir -p netlify/functions/api && cp -r app/api netlify/functions/",
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch"
