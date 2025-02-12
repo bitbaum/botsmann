@@ -1,22 +1,17 @@
-  // For local development, we'll handle content through the TinaCMS admin interface
+import { TinaMarkdown } from 'tinacms/dist/rich-text';
 
-  const postsResponse = await client.queries.postConnection();
-  return postsResponse.data.postConnection.edges?.map((edge) => ({
-    slug: edge?.node?._sys.filename
-  })) || [];
+// For development, we'll use static data until TinaCMS is fully configured
+export async function generateStaticParams() {
+  return [];
 }
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
-  // For local development, we'll handle content through the TinaCMS admin interface
-
-  const response = await client.queries.post({
-    relativePath: `${params.slug}.mdx`,
-  });
-  if (!response.data.post) {
-    return <div>Post not found</div>;
-  }
-
-  const post = response.data.post;
+  // Mock data for development
+  const post = {
+    title: 'Sample Post',
+    date: new Date().toISOString(),
+    body: 'Sample content'
+  };
 
   return (
     <article className="max-w-4xl mx-auto py-16 px-4">
