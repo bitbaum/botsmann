@@ -1,12 +1,4 @@
-import { Client } from 'tina/__generated__/client';
-import { TinaMarkdown } from 'tinacms/dist/rich-text';
-
-export async function generateStaticParams() {
-  const client = new Client({
-    token: process.env.TINA_TOKEN || '',
-    clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || '',
-    branch: process.env.BRANCH || 'main'
-  });
+  // For local development, we'll handle content through the TinaCMS admin interface
 
   const postsResponse = await client.queries.postConnection();
   return postsResponse.data.postConnection.edges?.map((edge) => ({
@@ -15,11 +7,7 @@ export async function generateStaticParams() {
 }
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const client = new Client({
-    token: process.env.TINA_TOKEN || '',
-    clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || '',
-    branch: process.env.BRANCH || 'main'
-  });
+  // For local development, we'll handle content through the TinaCMS admin interface
 
   const response = await client.queries.post({
     relativePath: `${params.slug}.mdx`,

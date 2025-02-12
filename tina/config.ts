@@ -3,11 +3,12 @@ import { defineConfig } from "tinacms";
 export default defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
   token: process.env.TINA_TOKEN || "",
-  branch: process.env.BRANCH || "main",
   build: {
     outputFolder: "admin",
     publicFolder: "public",
   },
+  contentApiUrlOverride: "/api/tina/gql",
+  localContentApiUrlOverride: "http://localhost:4001/graphql",
   media: {
     tina: {
       mediaRoot: "uploads",
