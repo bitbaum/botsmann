@@ -3,14 +3,11 @@ import { defineConfig } from "tinacms";
 export default defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
   token: process.env.TINA_TOKEN || "",
+  branch: process.env.BRANCH || "main",
   build: {
     outputFolder: "admin",
     publicFolder: "public",
   },
-  branch: process.env.BRANCH || "main",
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
-  token: process.env.TINA_TOKEN || "",
-  local: true,
   media: {
     tina: {
       mediaRoot: "uploads",
