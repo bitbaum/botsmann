@@ -1,9 +1,8 @@
 import { defineConfig } from "tinacms";
 
 export default defineConfig({
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
-  token: process.env.TINA_TOKEN || "",
-  branch: "devin/1739369831-add-tina-cms",
+  contentApiUrlOverride: "/api/tina/gql",
+  localContentPath: "content",
   media: {
     tina: {
       publicFolder: "public",
