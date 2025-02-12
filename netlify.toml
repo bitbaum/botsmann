@@ -12,24 +12,3 @@
   node_bundler = "esbuild"
   included_files = ["app/api/**"]
   external_node_modules = ["mongodb"]
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept, x-api-key"
-    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
