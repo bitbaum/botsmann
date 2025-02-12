@@ -10,7 +10,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   const post = {
     title: 'Sample Post',
     date: new Date().toISOString(),
-    body: 'Sample content'
+    body: {
+      type: 'root',
+      children: [{ type: 'text', text: 'Sample content' }]
+    }
   };
 
   return (
