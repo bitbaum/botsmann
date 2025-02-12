@@ -19,7 +19,8 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         date: '',
         body: {
           compiledSource: '',
-          scope: {}
+          scope: {},
+          frontmatter: {}
         }
       }
     },
