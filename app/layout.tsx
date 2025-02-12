@@ -4,7 +4,23 @@ import Footer from '@/components/Footer';
 import './globals.css';
 import dynamic from 'next/dynamic';
 
-const TinaEditProvider = dynamic(() => import('tinacms').then((mod) => mod.TinaEditProvider), { ssr: false });
+const TinaProvider = dynamic(() => import('tinacms').then((mod) => {
+  const { TinaProvider } = mod;
+  return function TinaWrapper({ children }: { children: React.ReactNode }) {
+    return (
+      <TinaProvider
+        cms={new (mod.TinaCMS)({
+          clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
+          branch: "main",
+          token: process.env.TINA_TOKEN,
+          isLocalClient: Boolean(process.env.TINA_PUBLIC_IS_LOCAL),
+        })}
+      >
+        {children}
+      </TinaProvider>
+    );
+  };
+}), { ssr: false });
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,11 +37,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TinaEditProvider>
+        <TinaProvider>
           <Header />
           <main>{children}</main>
           <Footer />
-        </TinaEditProvider>
+        </TinaProvider>
       </body>
     </html>
   );
