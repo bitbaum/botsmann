@@ -13,9 +13,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     body: {
       type: 'root',
       children: [{
-        type: 'paragraph',
+        type: 'p',
         children: [{ type: 'text', text: 'Sample content' }]
-      }]
+      }],
+      frontmatter: {}
     }
   };
 
