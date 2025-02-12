@@ -17,7 +17,10 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
       post: {
         title: '',
         date: '',
-        body: '',
+        body: {
+          compiledSource: '',
+          scope: {}
+        }
       }
     },
   });
