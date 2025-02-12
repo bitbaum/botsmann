@@ -2,12 +2,12 @@ import { defineConfig } from "tinacms";
 
 export default defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
   token: process.env.TINA_TOKEN || "",
   build: {
     outputFolder: "admin",
     publicFolder: "public",
   },
+  isLocalClient: true,
   media: {
     tina: {
       mediaRoot: "uploads",
