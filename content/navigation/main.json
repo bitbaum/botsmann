@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "label": "About",
+      "path": "/about"
+    },
+    {
+      "label": "Solutions",
+      "path": "/solutions",
+      "children": [
+        {
+          "label": "Venture Credit",
+          "path": "/solutions/venture-credit"
+        }
+      ]
+    },
+    {
+      "label": "Projects",
+      "path": "/projects",
+      "children": [
+        {
+          "label": "Libertech",
+          "path": "/projects/libertech"
+        },
+        {
+          "label": "Roboshop",
+          "path": "/projects/roboshop"
+        }
+      ]
+    },
+    {
+      "label": "Bots",
+      "path": "/bots"
+    },
+    {
+      "label": "Blog",
+      "path": "/blog"
+    }
+  ]
+}
