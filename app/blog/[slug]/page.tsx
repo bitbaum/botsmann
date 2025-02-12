@@ -1,5 +1,4 @@
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
-import { tinaField } from "tinacms/dist/react";
 
 // For development, we'll use static data until TinaCMS is fully configured
 export async function generateStaticParams() {
@@ -21,7 +20,13 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         {new Date(post.date).toLocaleDateString()}
       </time>
       <div className="prose prose-lg">
-        <div {...tinaField(post, '_body')}>{post._body}</div>
+        <TinaMarkdown content={{
+          type: 'root',
+          children: [{
+            type: 'paragraph',
+            children: [{ type: 'text', text: post._body }]
+          }]
+        }} />
       </div>
     </article>
   );
