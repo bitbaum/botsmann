@@ -1,5 +1,5 @@
 const request = require('supertest');
-const baseURL = process.env.VERCEL_URL || 'http://localhost:3000';
+const baseURL = process.env.NETLIFY_URL || 'http://localhost:3000';
 
 describe('API Tests', () => {
     test('POST /api/consultations with valid data', async () => {

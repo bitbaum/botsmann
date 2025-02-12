@@ -23,18 +23,22 @@ export default function ConsultationForm() {
       
       const response = await fetch('/api/consultations', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'x-api-key': process.env.NEXT_PUBLIC_API_KEY || ''
+        },
         body: JSON.stringify(data),
       });
       
       if (!response.ok) {
-        throw new Error('Submission failed');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Submission failed');
       }
       
       reset();
       setSubmitSuccess(true);
-    } catch (error) {
-      setSubmitError('Failed to submit form. Please try again.');
+    } catch (error: any) {
+      setSubmitError(error.message || 'Failed to submit form. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
