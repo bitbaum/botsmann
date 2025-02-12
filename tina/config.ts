@@ -1,9 +1,12 @@
 import { defineConfig } from "tinacms";
 
+const isLocal = process.env.NODE_ENV === 'development';
+
 export default defineConfig({
-  clientId: "c7fe2362-7424-4956-a241-4d246238f406",
-  token: "9de4fe3a4f7ddefcf391fdebc4480d4b0a5b0e20",
-  branch: "devin/1739369831-add-tina-cms",
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
+  token: process.env.TINA_TOKEN!,
+  branch: process.env.VERCEL_GIT_COMMIT_REF || process.env.HEAD || "main",
+  contentApiUrlOverride: "/api/tina/gql",
   build: {
     outputFolder: "admin",
     publicFolder: "public",
