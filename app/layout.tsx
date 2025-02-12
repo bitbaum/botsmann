@@ -11,10 +11,9 @@ const TinaProvider = dynamic(() => import('tinacms').then((mod) => {
       <TinaProvider
         cms={new (mod.TinaCMS)({
           clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
-          token: process.env.TINA_TOKEN,
-          isLocalClient: Boolean(process.env.TINA_PUBLIC_IS_LOCAL),
-          cmsCallback: (cms) => {
-            cms.flags.set("branch-switcher", true);
+          enabled: process.env.NODE_ENV === "development" || Boolean(process.env.TINA_PUBLIC_IS_LOCAL),
+          sidebar: {
+            position: "overlay"
           }
         })}
       >

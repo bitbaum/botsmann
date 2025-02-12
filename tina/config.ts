@@ -21,6 +21,9 @@ export default defineConfig({
         label: "Blog Posts",
         path: "content/posts",
         format: "mdx",
+        ui: {
+          router: ({ document }) => `/blog/${document._sys.filename}`,
+        },
         fields: [
           {
             type: "string",
@@ -40,6 +43,24 @@ export default defineConfig({
             name: "body",
             label: "Body",
             isBody: true,
+            templates: [
+              {
+                name: "CallToAction",
+                label: "Call to Action",
+                fields: [
+                  {
+                    name: "text",
+                    label: "Text",
+                    type: "string",
+                  },
+                  {
+                    name: "url",
+                    label: "URL",
+                    type: "string",
+                  },
+                ],
+              },
+            ],
           },
         ],
       },
