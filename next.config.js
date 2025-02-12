@@ -8,6 +8,7 @@ const nextConfig = {
     config.resolve.fallback = { fs: false, path: false }
     return config
   },
+  trailingSlash: true,
 };
 
 module.exports = nextConfig;
