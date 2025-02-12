@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { NextSection } from '@/src/components/navigation/NextSection';
+import { NextSection } from '@/components/navigation/NextSection';
 
 export default function ProjectFinance() {
   return (
