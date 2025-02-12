@@ -1,8 +1,6 @@
 "use client";
 
-import { TinaProvider } from "tinacms/dist/react";
-import TinaCMS from "tinacms";
-import { TinaEditProvider } from "tinacms/dist/edit-state";
+import { TinaProvider, TinaCMS } from "tinacms";
 
 export default function AdminPage() {
   return (
@@ -13,9 +11,7 @@ export default function AdminPage() {
       organization: "g-but",
       isLocalClient: Boolean(process.env.TINA_PUBLIC_IS_LOCAL),
     })}>
-      <TinaEditProvider>
         <div>Loading...</div>
-      </TinaEditProvider>
     </TinaProvider>
   );
 }
