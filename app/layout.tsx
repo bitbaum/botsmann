@@ -2,7 +2,9 @@ import { Inter } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import './globals.css';
-import { TinaEditProvider } from 'tinacms';
+import dynamic from 'next/dynamic';
+
+const TinaEditProvider = dynamic(() => import('tinacms').then((mod) => mod.TinaEditProvider), { ssr: false });
 
 const inter = Inter({ subsets: ['latin'] });
 
