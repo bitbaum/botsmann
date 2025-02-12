@@ -14,10 +14,6 @@ export default defineConfig({
   },
   schema: {
     collections: [
-    },
-  },
-  schema: {
-    collections: [
       {
         name: "post",
         label: "Blog Posts",
