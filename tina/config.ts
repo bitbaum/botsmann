@@ -37,6 +37,53 @@ export default defineConfig({
           },
         ],
       },
+      {
+        name: "navigation",
+        label: "Navigation",
+        path: "content/navigation",
+        format: "json",
+        ui: {
+          global: true,
+        },
+        fields: [
+          {
+            type: "object",
+            name: "items",
+            label: "Navigation Items",
+            list: true,
+            fields: [
+              {
+                type: "string",
+                name: "label",
+                label: "Label",
+              },
+              {
+                type: "string",
+                name: "path",
+                label: "Path",
+              },
+              {
+                type: "object",
+                name: "children",
+                label: "Submenu Items",
+                list: true,
+                fields: [
+                  {
+                    type: "string",
+                    name: "label",
+                    label: "Label",
+                  },
+                  {
+                    type: "string",
+                    name: "path",
+                    label: "Path",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   media: {
