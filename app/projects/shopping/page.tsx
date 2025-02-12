@@ -3,12 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function Roboshop() {
+export default function Shopping() {
   return (
     <div className="min-h-screen bg-white">
       <main className="mx-auto max-w-screen-xl px-6 py-16">
         <div className="mb-16">
-          <h1 className="mb-4 text-4xl font-semibold tracking-tight text-gray-900">Roboshop</h1>
+          <h1 className="mb-4 text-4xl font-semibold tracking-tight text-gray-900">Shopping Assistant</h1>
           <p className="mb-8 text-lg text-gray-600">
             AI-powered shopping assistant that finds exactly what you need with just one word.
           </p>
@@ -79,7 +79,7 @@ export default function Roboshop() {
           <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
             <p className="mb-6 text-lg text-gray-600">
               Ready to revolutionize your shopping experience? Contact us to learn more about
-              implementing Roboshop in your business.
+              implementing our AI shopping assistant in your business.
             </p>
             <Link
               href="/about"

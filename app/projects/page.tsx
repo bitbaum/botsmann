@@ -6,16 +6,28 @@ import Image from 'next/image';
 
 const projects = [
   {
-    title: 'LiberTech',
-    description: 'Technologies dedicated to maximizing human liberty and minimizing government power. Featuring innovative solutions like the Venmo-style government spending tracker.',
-    href: '/projects/libertech',
-    image: '/libertech.png'
+    title: 'Governance',
+    description: 'Technologies dedicated to maximizing transparency and accountability in government spending, featuring innovative solutions like the Venmo-style spending tracker.',
+    href: '/projects/governance',
+    image: '/governance.png'
   },
   {
-    title: 'Roboshop',
+    title: 'Credit',
+    description: 'Enterprise-grade automation for venture credit operations. Automatically ingest and analyze portfolio company reports, monitor debt metrics, and make data-driven decisions.',
+    href: '/projects/credit',
+    image: '/credit.png'
+  },
+  {
+    title: 'Shopping',
     description: 'AI-powered shopping assistant that finds exactly what you need with just one word. Integrating with multiple e-commerce platforms for the best results.',
-    href: '/projects/roboshop',
-    image: '/roboshop.png'
+    href: '/projects/shopping',
+    image: '/shopping.png'
+  },
+  {
+    title: 'Project Finance',
+    description: 'Full transparency project finance and management tool. Start projects, manage funding through donations/credit/investments, track tasks and costs, with complete public visibility.',
+    href: '/projects/finance',
+    image: '/finance.png'
   }
 ];
 
@@ -26,7 +38,8 @@ export default function Projects() {
         <div className="mb-16 text-center">
           <h1 className="mb-4 text-4xl font-semibold tracking-tight text-gray-900">Projects</h1>
           <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Explore our ambitious projects aimed at transforming society through technology.
+            Explore our transformative projects focused on governance, finance, and automation. 
+            Each project represents our commitment to transparency, efficiency, and technological innovation.
           </p>
         </div>
 
