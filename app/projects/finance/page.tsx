@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { NextSection } from '@/components/navigation/NextSection';
+import { NextSection } from '@/src/components/navigation/NextSection';
 
 export default function ProjectFinance() {
   return (
@@ -43,7 +43,7 @@ export default function ProjectFinance() {
           </div>
 
           <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <h3 className="mb-2 text-xl font-semibold">Insights & Analytics</h3>
+            <h3 className="mb-2 text-xl font-semibold">Insights and Analytics</h3>
             <p className="text-gray-600">Data-driven insights into project performance, spending patterns, and milestone achievement rates.</p>
           </div>
         </div>
