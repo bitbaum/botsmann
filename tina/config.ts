@@ -7,7 +7,7 @@ export default defineConfig({
     outputFolder: "admin",
     publicFolder: "public",
   },
-  isLocalClient: true,
+  localContentPath: "content",
   media: {
     tina: {
       mediaRoot: "uploads",
