@@ -13,6 +13,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
       }
     }`,
     variables: { relativePath: `${params.slug}.mdx` },
+    data: { post: null },
   });
 
   if (!data?.post) return <div>Loading...</div>;
