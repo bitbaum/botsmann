@@ -2,7 +2,7 @@ import { defineConfig } from "tinacms";
 
 export default defineConfig({
   contentApiUrlOverride: "/api/tina/gql",
-  localContentPath: "content",
+  localContent: true,
   media: {
     tina: {
       publicFolder: "public",
