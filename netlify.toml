@@ -5,6 +5,9 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  NEXT_PUBLIC_TINA_CLIENT_ID = ""
+  TINA_TOKEN = ""
+  TINA_PUBLIC_IS_LOCAL = "true"
 
 [functions]
   node_bundler = "esbuild"
