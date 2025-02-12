@@ -9,7 +9,12 @@ export default defineConfig({
     outputFolder: "admin",
     basePath: "",
   },
-  local: true,
+  search: {
+    tina: {
+      indexerToken: process.env.TINA_TOKEN || "",
+      stopwordLanguages: ["eng"],
+    },
+  },
   media: {
     tina: {
       mediaRoot: "uploads",
