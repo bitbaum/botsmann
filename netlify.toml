@@ -5,6 +5,8 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  TINA_BRANCH = "main"
+  TINA_PUBLIC_IS_LOCAL = "false"
 
 [functions]
   node_bundler = "esbuild"
@@ -13,6 +15,11 @@
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
   status = 200
 
 [[redirects]]
