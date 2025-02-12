@@ -1,14 +1,12 @@
 import { defineConfig } from "tinacms";
 
+// Configuration is handled via environment variables
+// NEXT_PUBLIC_TINA_CLIENT_ID - The client ID from your Tina Cloud project
+// TINA_TOKEN - Your Tina Cloud token
 export default defineConfig({
-  clientId: "c7fe2362-7424-4956-a241-4d246238f406",
-  token: "9de4fe3a4f7ddefcf391fdebc4480d4b0a5b0e20",
-  branch: "main",
-  backend: {
-    name: "git",
-    repo: "g-but/botsmann",
-    branch: "main",
-  },
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
+  token: process.env.TINA_TOKEN || "",
+  branch: process.env.VERCEL_GIT_COMMIT_REF || process.env.HEAD || "main",
   build: {
     outputFolder: "admin",
     publicFolder: "public",
