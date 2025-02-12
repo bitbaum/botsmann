@@ -1,13 +1,11 @@
 import { defineConfig } from "tinacms";
 
 export default defineConfig({
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
-  token: process.env.TINA_TOKEN || "",
-  branch: process.env.BRANCH || "main",
   build: {
     outputFolder: "admin",
     publicFolder: "public",
   },
+  contentApiUrlOverride: "/api/tina",
   media: {
     tina: {
       mediaRoot: "uploads",
