@@ -9,6 +9,28 @@ export default defineConfig({
     publicFolder: "public",
   },
   schema: {
-    collections: []
-  }
+    collections: [
+      {
+        name: "post",
+        label: "Posts",
+        path: "content/posts",
+        format: "mdx",
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "rich-text",
+            name: "body",
+            label: "Body",
+            isBody: true,
+          },
+        ],
+      },
+    ],
+  },
 });
