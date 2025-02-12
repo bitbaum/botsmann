@@ -1,7 +1,7 @@
 import { defineConfig } from "tinacms";
 
 export default defineConfig({
-  branch: process.env.VERCEL_GIT_COMMIT_REF || process.env.HEAD || "main",
+  branch: process.env.HEAD || process.env.BRANCH || "main",
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
   token: process.env.TINA_TOKEN || "",
   build: {
@@ -9,6 +9,7 @@ export default defineConfig({
     outputFolder: "admin",
     basePath: "",
   },
+  local: true,
   media: {
     tina: {
       mediaRoot: "uploads",
