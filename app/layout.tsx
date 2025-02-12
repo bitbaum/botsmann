@@ -2,26 +2,6 @@ import { Inter } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import './globals.css';
-import dynamic from 'next/dynamic';
-
-const TinaProvider = dynamic(() => import('tinacms').then((mod) => {
-  const { TinaProvider } = mod;
-  return function TinaWrapper({ children }: { children: React.ReactNode }) {
-    return (
-      <TinaProvider
-        cms={new (mod.TinaCMS)({
-          clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
-          enabled: process.env.NODE_ENV === "development" || Boolean(process.env.TINA_PUBLIC_IS_LOCAL),
-          sidebar: {
-            position: "overlay"
-          }
-        })}
-      >
-        {children}
-      </TinaProvider>
-    );
-  };
-}), { ssr: false });
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,11 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TinaProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </TinaProvider>
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
