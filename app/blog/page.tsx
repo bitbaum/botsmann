@@ -20,8 +20,8 @@ const blogPosts: BlogPost[] = [
     author: 'Botsmann Team'
   },
   {
-    slug: 'libertech-revolution',
-    title: 'The LiberTech Revolution: Transparency Through Technology',
+    slug: 'transparency-revolution',
+    title: 'The Transparency Revolution: Technology for Public Good',
     excerpt: 'Exploring how our government spending tracker is bringing unprecedented transparency to public finance.',
     date: '2024-03-14',
     author: 'Botsmann Team'
@@ -29,7 +29,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'future-of-shopping',
     title: 'The Future of Shopping: One Word is All You Need',
-    excerpt: 'How our Roboshop AI is revolutionizing e-commerce with natural language understanding.',
+    excerpt: 'How our AI shopping assistant is revolutionizing e-commerce with natural language understanding.',
     date: '2024-03-13',
     author: 'Botsmann Team'
   }

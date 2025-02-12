@@ -3,14 +3,14 @@
 import React from 'react';
 import { NextSection } from '../../../src/components/navigation/NextSection';
 
-export default function VentureCredit() {
+export default function Credit() {
   return (
     <div className="mx-auto max-w-screen-xl px-6 py-12">
-      <h1 className="mb-8 text-4xl font-semibold tracking-tight">Venture Credit Workflow Automation</h1>
+      <h1 className="mb-8 text-4xl font-semibold tracking-tight">Credit Workflow Automation</h1>
       
       <div className="mb-12">
         <p className="text-lg text-gray-600">
-          Streamline your venture credit operations with our AI-powered workflow automation solution. 
+          Streamline your credit operations with our AI-powered workflow automation solution. 
           Monitor portfolio companies, analyze financial data, and make informed decisions faster.
         </p>
       </div>
@@ -87,7 +87,7 @@ export default function VentureCredit() {
       <section className="rounded-lg bg-gray-50 p-8 text-center">
         <h2 className="mb-4 text-2xl font-semibold">Ready to Transform Your Workflow?</h2>
         <p className="mb-6 text-lg text-gray-600">
-          Let us help you automate your venture credit operations and make better decisions faster.
+          Let us help you automate your credit operations and make better decisions faster.
         </p>
         <a
           href="/contact"
