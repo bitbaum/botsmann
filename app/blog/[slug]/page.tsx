@@ -20,13 +20,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         {new Date(post.date).toLocaleDateString()}
       </time>
       <div className="prose prose-lg">
-        <TinaMarkdown content={{
-          type: 'root',
-          children: [{
-            type: 'paragraph',
-            children: [{ type: 'text', text: post._body }]
-          }]
-        }} />
+        <div className="prose">{post._body}</div>
       </div>
     </article>
   );
