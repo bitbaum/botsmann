@@ -3,13 +3,12 @@ import { defineConfig } from "tinacms";
 export default defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
   token: process.env.TINA_TOKEN || "",
-  branch: process.env.TINA_BRANCH || "devin/1739369831-add-tina-cms",
+  branch: "devin/1739369831-add-tina-cms",
   media: {
-    loadCustomStore: async () => {
-      const pack = await import("next-tinacms-s3");
-      return pack.createMediaStore();
+    tina: {
+      publicFolder: "public",
+      mediaRoot: "uploads",
     },
-    publicFolder: "public",
   },
   build: {
     outputFolder: "admin",
