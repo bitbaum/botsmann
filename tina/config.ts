@@ -1,9 +1,16 @@
 import { defineConfig } from "tinacms";
 
 export default defineConfig({
-  contentApiUrlOverride: "/api/tina",
-  localMode: true,
-  branch: "devin/1739369831-add-tina-cms",
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
+  token: process.env.TINA_TOKEN || "",
+  branch: process.env.TINA_BRANCH || "devin/1739369831-add-tina-cms",
+  media: {
+    loadCustomStore: async () => {
+      const pack = await import("next-tinacms-s3");
+      return pack.createMediaStore();
+    },
+    publicFolder: "public",
+  },
   build: {
     outputFolder: "admin",
     publicFolder: "public",
