@@ -3,6 +3,11 @@
 import { useTina } from 'tinacms/dist/react';
 import { MDXRemote } from 'next-mdx-remote';
 
+export async function generateStaticParams() {
+  // For now, return an empty array since we'll populate this with actual blog posts later
+  return [];
+}
+
 export default function BlogPost({ params }: { params: { slug: string } }) {
   const { data } = useTina({
     query: `query getPost($relativePath: String!) {
