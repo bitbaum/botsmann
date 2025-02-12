@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
 
 interface NavigationItem {
   label: string;
@@ -17,7 +15,7 @@ export default function Navigation() {
   const [data, setData] = useState<NavigationData | null>(null);
 
   useEffect(() => {
-    fetch('/content/navigation/main.json')
+    fetch('/api/navigation')
       .then(res => res.json())
       .then(setData)
       .catch(console.error);
