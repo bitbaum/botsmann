@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEvent } from 'react';
 import Link from 'next/link';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
-  const toggleMenu = (e: React.MouseEvent) => {
+  const toggleMenu = (e: MouseEvent) => {
     e.stopPropagation();
     setIsMenuOpen(!isMenuOpen);
   };
