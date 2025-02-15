@@ -1,7 +1,7 @@
-'use client';
-
 import React from 'react';
 import { MDXProvider } from '@mdx-js/react';
+
+'use client';
 
 const components = {
   h1: (props: any) => (
