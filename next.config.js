@@ -5,6 +5,7 @@ const withMDX = createMDXConfig({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withMDX({
+  output: 'export',
   images: {
     unoptimized: true,
   },
