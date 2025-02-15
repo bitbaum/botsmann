@@ -1,26 +1,12 @@
-'use client';
-
-import { useState, useEffect, type MouseEventHandler } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const MobileMenu = dynamic(() => import('./MobileMenu'), {
+  ssr: false
+});
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  const toggleMenu: MouseEventHandler = (e) => {
-    e.stopPropagation();
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: Event) => {
-      const target = event.target as Element;
-      if (isMenuOpen && !target.closest('#mobile-menu')) {
-        setIsMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isMenuOpen]);
+  // Mobile menu is handled by MobileMenu component
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-xl">
@@ -30,24 +16,7 @@ export default function Header() {
           <span className="text-xs text-gray-400">v0.0.1</span>
         </Link>
         
-        {/* Hamburger Menu Button (mobile only) */}
-        <button
-          type="button"
-          onClick={toggleMenu}
-          className="lg:hidden rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-openai-green focus:outline-none focus:ring-2 focus:ring-openai-green"
-          aria-controls="mobile-menu"
-          aria-expanded={isMenuOpen}
-        >
-          <span className="sr-only">Open main menu</span>
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} 
-            />
-          </svg>
-        </button>
+        <MobileMenu />
 
         <nav className="hidden lg:flex items-center space-x-8">
           <div className="relative group">
