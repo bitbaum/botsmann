@@ -1,14 +1,15 @@
-'use client';
-
-import React, { useState } from 'react';
 import Link from 'next/link';
-import { MenuButton } from './MenuButton';
+import dynamic from 'next/dynamic';
+
+const MenuButton = dynamic(() => import('./MenuButton'), {
+  ssr: false
+});
 
 export default function MobileMenu() {
-  const [isOpen, setIsOpen] = useState(false);
+  let isOpen = false;
   
   const handleToggle = (state: boolean) => {
-    setIsOpen(state);
+    isOpen = state;
   };
 
   return (
