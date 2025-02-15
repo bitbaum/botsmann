@@ -1,51 +1,20 @@
-'use client';
-
-import React, { useState, useEffect, type MouseEventHandler } from 'react';
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { MenuButton } from './MenuButton';
 
 export default function MobileMenu() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
   
-  const toggleMenu: MouseEventHandler = (e) => {
-    e.stopPropagation();
-    setIsMenuOpen(!isMenuOpen);
+  const handleToggle = (state: boolean) => {
+    setIsOpen(state);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: Event) => {
-      const target = event.target as Element;
-      if (isMenuOpen && !target.closest('#mobile-menu')) {
-        setIsMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isMenuOpen]);
-
   return (
-    <Fragment>
-      <button
-        type="button"
-        onClick={toggleMenu}
-        className="lg:hidden rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-openai-green focus:outline-none focus:ring-2 focus:ring-openai-green"
-        aria-controls="mobile-menu"
-        aria-expanded={isMenuOpen}
-      >
-        <span className="sr-only">Open main menu</span>
-        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth={2} 
-            d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} 
-          />
-        </svg>
-      </button>
-
+    <>
+      <MenuButton onToggle={handleToggle} />
+      
       <div
         className={`${
-          isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+          isOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
         } fixed inset-0 top-16 z-50 transform bg-white transition-all duration-300 ease-in-out lg:hidden`}
       >
         <nav className="h-full overflow-y-auto px-6 py-6">
