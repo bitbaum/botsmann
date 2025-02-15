@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type MouseEventHandler } from 'react';
 import Link from 'next/link';
-import type { MouseEvent, MouseEventHandler } from 'react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,7 +12,7 @@ export default function Header() {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: globalThis.MouseEvent) => {
+    const handleClickOutside = (event: Event) => {
       const target = event.target as Element;
       if (isMenuOpen && !target.closest('#mobile-menu')) {
         setIsMenuOpen(false);
