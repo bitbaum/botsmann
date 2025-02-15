@@ -13,6 +13,15 @@ export function MenuButton({ onToggle }: MenuButtonProps) {
     const newState = !isOpen;
     setIsOpen(newState);
     onToggle(newState);
+    
+    // Toggle menu visibility using DOM
+    const menu = document.querySelector('#mobile-menu-overlay');
+    if (menu) {
+      menu.classList.toggle('translate-y-0');
+      menu.classList.toggle('opacity-100');
+      menu.classList.toggle('-translate-y-full');
+      menu.classList.toggle('opacity-0');
+    }
   };
 
   useEffect(() => {
