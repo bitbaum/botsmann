@@ -12,7 +12,7 @@ export default function Header() {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: globalThis.MouseEvent) => {
       const target = event.target as Element;
       if (isMenuOpen && !target.closest('#mobile-menu')) {
         setIsMenuOpen(false);
