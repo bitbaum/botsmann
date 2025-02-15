@@ -1,9 +1,14 @@
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { MenuButton } from './MenuButton';
 
 export default function MobileMenu() {
+  const [isOpen, setIsOpen] = useState(false);
+  
   const handleToggle = (state: boolean) => {
-    // State is handled in MenuButton component
+    setIsOpen(state);
   };
 
   return (
@@ -12,7 +17,9 @@ export default function MobileMenu() {
       
       <div
         id="mobile-menu-overlay"
-        className="-translate-y-full opacity-0 fixed inset-0 top-16 z-50 transform bg-white transition-all duration-300 ease-in-out lg:hidden"
+        className={`${
+          isOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+        } fixed inset-0 top-16 z-50 transform bg-white transition-all duration-300 ease-in-out lg:hidden`}
       >
         <nav className="h-full overflow-y-auto px-6 py-6">
           <div className="flex flex-col space-y-4">
