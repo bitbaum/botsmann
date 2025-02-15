@@ -1,9 +1,5 @@
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const MobileMenu = dynamic(() => import('./MobileMenu'), {
-  ssr: false
-});
+import MobileMenu from './MobileMenu';
 
 export default function Header() {
 
