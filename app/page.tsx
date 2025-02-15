@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import ConsultationForm from '../components/ConsultationForm';
+import ConsultationForm from '@/components/ConsultationForm';
 
 export default function HomePage() {
   return (
