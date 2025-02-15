@@ -1,9 +1,5 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
-
-const MDXProviderWrapper = dynamic(() => import('./mdx-provider'), {
-  ssr: true
-});
+import { MDXProviderWrapper } from './mdx-provider';
 
 export default function BlogLayout({
   children,

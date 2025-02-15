@@ -29,8 +29,8 @@ const components: MDXComponents = {
   ),
 };
 
-export default function MDXProviderWrapper({ children }: { children: React.ReactNode }) {
+export function MDXProviderWrapper({ children }: { children: React.ReactNode }) {
   return <MDXProvider components={components}>{children}</MDXProvider>;
 }
 
-export { components };
+export { components, MDXProviderWrapper };
