@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
-const MobileMenu = dynamic(() => import('./MobileMenu'), {
+const MobileMenu = dynamic(() => import('../components/MobileMenu'), {
   ssr: false
 });
 
