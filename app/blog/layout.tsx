@@ -1,9 +1,11 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { MDXContent as MDXContentType } from './mdx-provider';
 
-const MDXContent = dynamic(() => import('./mdx-provider'), {
-  ssr: true
-});
+const MDXContent = dynamic<MDXContentType>(
+  () => import('./mdx-provider').then(mod => mod.default),
+  { ssr: true }
+);
 
 export default function BlogLayout({
   children,
