@@ -30,8 +30,8 @@ const components = {
   ),
 };
 
-export function MDXProviderWrapper({ children }: { children: React.ReactNode }) {
+function MDXProviderWrapper({ children }: { children: React.ReactNode }) {
   return <MDXProvider components={components}>{children}</MDXProvider>;
 }
 
-export { components };
+export { MDXProviderWrapper as default, components };
