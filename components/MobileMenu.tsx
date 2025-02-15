@@ -1,8 +1,11 @@
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { MenuButton } from './MenuButton';
 
 export default function MobileMenu() {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   
   const handleToggle = (state: boolean) => {
     setIsOpen(state);
@@ -62,6 +65,6 @@ export default function MobileMenu() {
           </div>
         </nav>
       </div>
-    </Fragment>
+    </>
   );
 }
