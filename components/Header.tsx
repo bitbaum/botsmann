@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, MouseEvent as ReactMouseEvent } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import type { MouseEventHandler } from 'react';
+import type { MouseEvent, MouseEventHandler } from 'react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
