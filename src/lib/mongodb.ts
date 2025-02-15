@@ -27,8 +27,21 @@ export async function connectDB() {
   if (!MONGODB_URI) {
     throw new Error('MongoDB URI is required');
   }
+
+  const opts = {
+    bufferCommands: false,
+    maxPoolSize: 10,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+    family: 4
+  };
   
-  cached.promise = mongoose.connect(MONGODB_URI as string);
-  cached.conn = await cached.promise;
-  return cached.conn;
+  try {
+    cached.promise = mongoose.connect(MONGODB_URI as string, opts);
+    cached.conn = await cached.promise;
+    return cached.conn;
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    throw new Error('Failed to connect to MongoDB');
+  }
 }
