@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, type MouseEventHandler } from 'react';
+import React, { useState, useEffect, type MouseEventHandler } from 'react';
 import Link from 'next/link';
+import { Fragment } from 'react';
 
 export default function MobileMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +24,7 @@ export default function MobileMenu() {
   }, [isMenuOpen]);
 
   return (
-    <>
+    <Fragment>
       <button
         type="button"
         onClick={toggleMenu}
@@ -92,6 +93,6 @@ export default function MobileMenu() {
           </div>
         </nav>
       </div>
-    </>
+    </Fragment>
   );
 }
