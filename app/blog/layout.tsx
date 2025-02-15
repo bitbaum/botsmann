@@ -1,7 +1,10 @@
-'use client';
-
 import React from 'react';
-import { MDXProvider } from '@mdx-js/react';
+import dynamic from 'next/dynamic';
+
+const MDXProvider = dynamic(
+  () => import('@mdx-js/react').then(mod => mod.MDXProvider),
+  { ssr: true }
+);
 
 const components = {
   h1: (props: any) => (
