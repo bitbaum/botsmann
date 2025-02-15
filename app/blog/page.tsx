@@ -1,6 +1,3 @@
-'use client';
-
-import React from 'react';
 import Link from 'next/link';
 
 interface BlogPost {
@@ -58,14 +55,17 @@ export default function Blog() {
                 <span>{post.author}</span>
               </div>
               <h2 className="mt-4 text-2xl font-semibold tracking-tight text-gray-900">
-                <Link href={`/blog/${post.slug}`} className="hover:text-openai-green">
+                <Link 
+                  href={{ pathname: '/blog/[slug]', query: { slug: post.slug } }}
+                  className="hover:text-openai-green"
+                >
                   {post.title}
                 </Link>
               </h2>
               <p className="mt-4 text-gray-600">{post.excerpt}</p>
               <div className="mt-4">
                 <Link
-                  href={`/blog/${post.slug}`}
+                  href={{ pathname: '/blog/[slug]', query: { slug: post.slug } }}
                   className="inline-flex items-center text-sm font-medium text-openai-green hover:text-opacity-80"
                 >
                   Read more

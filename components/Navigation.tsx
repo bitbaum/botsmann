@@ -28,7 +28,7 @@ export default function Navigation() {
       {data.items.map((item, i) => (
         <div key={i} className="relative group">
           <Link
-            href={item.path}
+            href={{ pathname: item.path }}
             className="text-gray-600 hover:text-gray-900"
           >
             {item.label}
@@ -38,7 +38,7 @@ export default function Navigation() {
               {item.children.map((child, j) => (
                 <Link
                   key={j}
-                  href={child.path}
+                  href={{ pathname: child.path }}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   {child.label}
