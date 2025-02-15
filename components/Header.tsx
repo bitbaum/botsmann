@@ -2,7 +2,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
 const MobileMenu = dynamic(() => import('./MobileMenu'), {
-  loading: () => null,
+  loading: () => <div className="lg:hidden" />,
   ssr: false
 });
 
