@@ -1,12 +1,5 @@
-const createMDX = require('@next/mdx');
-
-const withMDX = createMDX({
+const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-    providerImportSource: "@mdx-js/react",
-  },
 });
 
 /** @type {import('next').NextConfig} */
@@ -15,6 +8,9 @@ const nextConfig = {
     unoptimized: true,
   },
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  experimental: {
+    mdxRs: true,
+  },
 };
 
 module.exports = withMDX(nextConfig);
