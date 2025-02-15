@@ -2,8 +2,9 @@
 
 import React from 'react';
 import { MDXProvider } from '@mdx-js/react';
+import type { MDXComponents } from 'mdx/types';
 
-const components = {
+const components: MDXComponents = {
   h1: (props: any) => (
     <h1 className="mb-8 text-4xl font-semibold tracking-tight text-gray-900" {...props} />
   ),
@@ -30,8 +31,8 @@ const components = {
   ),
 };
 
-function MDXProviderWrapper({ children }: { children: React.ReactNode }) {
+export default function MDXProviderWrapper({ children }: { children: React.ReactNode }) {
   return <MDXProvider components={components}>{children}</MDXProvider>;
 }
 
-export { MDXProviderWrapper as default, components };
+export { components };
