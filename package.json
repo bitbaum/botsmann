@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && cp -r netlify/functions . && cp public/_redirects out/",
+    "build": "next build",
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch"
@@ -33,7 +33,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@netlify/functions": "^3.0.0",
+
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@types/jest": "^29.5.14",
