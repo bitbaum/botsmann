@@ -6,7 +6,10 @@ import Link from 'next/link';
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -108,7 +111,7 @@ export default function Header() {
         {/* Mobile Menu Overlay */}
         <div
           className={`${
-            isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
+            isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
           } fixed inset-0 top-16 z-50 transform bg-white transition-all duration-300 ease-in-out lg:hidden`}
         >
           <nav className="h-full overflow-y-auto px-6 py-6">
