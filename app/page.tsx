@@ -1,9 +1,5 @@
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const ConsultationForm = dynamic(() => import('@/components/ConsultationForm'), {
-  loading: () => <div>Loading...</div>
-});
+import ConsultationForm from '@/components/ConsultationForm';
 
 export default function HomePage() {
   return (
