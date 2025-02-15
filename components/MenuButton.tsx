@@ -2,7 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 
-export function MenuButton({ onToggle }: { onToggle: (isOpen: boolean) => void }) {
+interface MenuButtonProps {
+  onToggle: (isOpen: boolean) => void;
+}
+
+export function MenuButton({ onToggle }: MenuButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   
   const handleClick = () => {
