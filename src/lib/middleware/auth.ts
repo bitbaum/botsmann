@@ -3,8 +3,8 @@ import { createErrorResponse } from '@/src/lib/schemas/errors';
 const API_KEY = process.env.API_KEY || 'development-key';
 
 export async function validateApiKey(req: Request) {
-  // Skip validation during build time
-  if (process.env.NODE_ENV === 'production' && process.env.NEXT_PHASE === 'phase-production-build') {
+  // Skip validation during build time or static generation
+  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.NEXT_PHASE === 'phase-static-generation') {
     return;
   }
 
