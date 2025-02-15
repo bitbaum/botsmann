@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import type { MDXComponents } from 'mdx/types';
