@@ -1,11 +1,10 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { MDXContent as MDXContentType } from './mdx-provider';
 
-const MDXContent = dynamic<MDXContentType>(
+const MDXContent = dynamic(
   () => import('./mdx-provider').then(mod => mod.default),
   { ssr: true }
-);
+) as React.ComponentType<{ children: React.ReactNode }>;
 
 export default function BlogLayout({
   children,
