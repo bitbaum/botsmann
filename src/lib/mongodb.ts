@@ -30,10 +30,15 @@ export async function connectDB() {
 
   const opts = {
     bufferCommands: false,
-    maxPoolSize: 10,
-    serverSelectionTimeoutMS: 5000,
-    socketTimeoutMS: 45000,
-    family: 4
+    maxPoolSize: 5, // Reduced for serverless
+    serverSelectionTimeoutMS: 10000,
+    socketTimeoutMS: 30000,
+    family: 4,
+    retryWrites: true,
+    retryReads: true,
+    w: 'majority',
+    keepAlive: true,
+    keepAliveInitialDelay: 300000
   };
   
   try {
