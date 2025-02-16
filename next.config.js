@@ -15,13 +15,17 @@ const nextConfig = {
     MONGODB_URI: process.env.MONGODB_URI,
   },
   // Ensure proper handling of API routes
-  rewrites: async () => {
-    return [
-      {
-        source: '/api/:path*',
-        destination: '/api/:path*',
-      },
-    ];
+  trailingSlash: false,
+  skipTrailingSlashRedirect: true,
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/api/:path*',
+          destination: '/api/:path*',
+        },
+      ],
+    };
   },
 };
 
