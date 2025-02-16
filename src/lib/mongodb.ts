@@ -28,17 +28,14 @@ export async function connectDB() {
     throw new Error('MongoDB URI is required');
   }
 
-  const opts = {
+  const opts: mongoose.ConnectOptions = {
     bufferCommands: false,
     maxPoolSize: 5, // Reduced for serverless
     serverSelectionTimeoutMS: 10000,
     socketTimeoutMS: 30000,
     family: 4,
-    retryWrites: true,
-    retryReads: true,
-    w: 'majority',
-    keepAlive: true,
-    keepAliveInitialDelay: 300000
+    connectTimeoutMS: 10000,
+    heartbeatFrequencyMS: 30000
   };
   
   try {
