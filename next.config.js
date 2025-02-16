@@ -7,6 +7,9 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
   },
+  generateBuildId: async () => {
+    return 'build-' + Date.now();
+  },
 };
 
 module.exports = nextConfig;
