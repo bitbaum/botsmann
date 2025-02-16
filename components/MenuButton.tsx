@@ -20,7 +20,7 @@ export function MenuButton({ onToggle }: MenuButtonProps) {
   useEffect(() => {
     const handleClickOutside = (event: Event) => {
       const target = event.target as Element;
-      if (isOpen && !target.closest('#mobile-menu')) {
+      if (isOpen && !target.closest('#mobile-menu-overlay')) {
         setIsOpen(false);
         onToggle(false);
       }

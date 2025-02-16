@@ -13,7 +13,7 @@ export default function Header() {
       <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-6">
         <Link href={{ pathname: '/' }} className="flex items-center flex-col">
           <span className="text-xl font-semibold text-openai-gray">Botsmann</span>
-          <span className="text-xs text-gray-400">v0.0.1</span>
+          <span className="text-xs text-gray-400">Updated: {process.env.NEXT_PUBLIC_DEPLOY_TIME || new Date().toUTCString()}</span>
         </Link>
         
         <MobileMenu />
