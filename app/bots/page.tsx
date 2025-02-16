@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import type { Route } from 'next';
 import { Bot } from '@/data/bots';
 import bots from '@/data/bots';
 
@@ -11,7 +12,7 @@ export default function BotsList() {
         {bots.map((bot) => (
           <Link 
             key={bot.slug} 
-            href={`/bots/${bot.slug}`}
+            href={`/bots/${bot.slug}` as Route}
             className="group flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
           >
             <div>
