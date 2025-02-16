@@ -38,7 +38,21 @@ async function handler(req: NextRequest) {
     
     // Connect to DB (skipped in test environment)
     if (process.env.NODE_ENV !== 'test') {
-      await connectDB();
+      try {
+        await connectDB();
+      } catch (error) {
+        console.error('Failed to connect to database:', error);
+        return new Response(
+          JSON.stringify(createErrorResponse(
+            'Database connection error',
+            'INTERNAL_ERROR'
+          )),
+          { 
+            status: 503,
+            headers: { 'Content-Type': 'application/json' }
+          }
+        );
+      }
     }
     
     const consultation = await Consultation.create(validatedData);
@@ -107,4 +121,4 @@ async function handler(req: NextRequest) {
   }
 }
 
-export const POST = (req: NextRequest) => monitorRequest(req, handler);           
+export const POST = (req: NextRequest) => monitorRequest(req, handler);                                            

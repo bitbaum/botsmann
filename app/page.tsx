@@ -1,8 +1,10 @@
-'use client';
-
-import React from 'react';
 import Link from 'next/link';
-import ConsultationForm from '../components/ConsultationForm';
+import dynamic from 'next/dynamic';
+
+const ConsultationForm = dynamic(() => import('@/components/ConsultationForm'), {
+  loading: () => <div className="min-h-screen flex items-center justify-center">Loading...</div>,
+  ssr: false
+});
 
 export default function HomePage() {
   return (
