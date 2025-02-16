@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
+  output: "export",
   distDir: ".next",
   images: {
     unoptimized: true,
@@ -11,10 +11,6 @@ const nextConfig = {
   env: {
     MONGODB_URI: process.env.MONGODB_URI,
   },
-  // Ensure proper route handling
-  basePath: '',
-  poweredByHeader: false,
-  generateEtags: false,
 };
 
 module.exports = nextConfig;
