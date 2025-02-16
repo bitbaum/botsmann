@@ -11,6 +11,10 @@ const nextConfig = {
   env: {
     MONGODB_URI: process.env.MONGODB_URI,
   },
+  // Ensure proper route handling
+  basePath: '',
+  poweredByHeader: false,
+  generateEtags: false,
 };
 
 module.exports = nextConfig;
