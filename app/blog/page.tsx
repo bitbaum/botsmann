@@ -56,7 +56,7 @@ export default function Blog() {
               </div>
               <h2 className="mt-4 text-2xl font-semibold tracking-tight text-gray-900">
                 <Link 
-                  href={{ pathname: '/blog/[slug]', query: { slug: post.slug } }}
+                  href={`/blog/${post.slug}`}
                   className="hover:text-openai-green"
                 >
                   {post.title}
@@ -65,7 +65,7 @@ export default function Blog() {
               <p className="mt-4 text-gray-600">{post.excerpt}</p>
               <div className="mt-4">
                 <Link
-                  href={{ pathname: '/blog/[slug]', query: { slug: post.slug } }}
+                  href={`/blog/${post.slug}`}
                   className="inline-flex items-center text-sm font-medium text-openai-green hover:text-opacity-80"
                 >
                   Read more
