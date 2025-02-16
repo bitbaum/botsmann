@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import type { Route } from 'next';
 import { MenuButton } from './MenuButton';
 
 export default function MobileMenu() {
@@ -58,7 +59,7 @@ export default function MobileMenu() {
               About
             </Link>
             <Link 
-              href="/contact"
+              href={'/contact' as Route}
               className="inline-flex items-center justify-center rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity"
             >
               Contact Us
