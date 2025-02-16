@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Route } from 'next';
 
 interface BlogPost {
   slug: string;
@@ -56,7 +57,7 @@ export default function Blog() {
               </div>
               <h2 className="mt-4 text-2xl font-semibold tracking-tight text-gray-900">
                 <Link 
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${post.slug}` as Route}
                   className="hover:text-openai-green"
                 >
                   {post.title}
@@ -65,7 +66,7 @@ export default function Blog() {
               <p className="mt-4 text-gray-600">{post.excerpt}</p>
               <div className="mt-4">
                 <Link
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${post.slug}` as Route}
                   className="inline-flex items-center text-sm font-medium text-openai-green hover:text-opacity-80"
                 >
                   Read more
