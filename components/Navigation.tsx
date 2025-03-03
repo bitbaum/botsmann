@@ -42,7 +42,7 @@ export default function Navigation() {
                   onMouseLeave={() => setOpenDropdown(null)}
                 >
                   <Link 
-                    href={typeof item.path === 'string' ? item.path : '/'}
+                    href={item.path as string}
                     className={`text-sm font-medium ${isActive ? 'text-openai-green' : 'text-gray-600'} hover:text-openai-green transition-colors`}
                   >
                     {item.label}
@@ -85,7 +85,7 @@ export default function Navigation() {
             return (
               <Link 
                 key={i}
-                href={typeof item.path === 'string' ? item.path : '/'}
+                href={item.path as string}
                 className={`text-sm font-medium ${isActive ? 'text-openai-green' : 'text-gray-600'} hover:text-openai-green transition-colors`}
               >
                 {item.label}
@@ -162,19 +162,16 @@ export default function Navigation() {
                   </div>
                   
                   <nav className="p-4 space-y-4">
-                    {menuItems.map((item, i) => (
-                      <Link
-                        key={i}
-                        href={typeof item.path === 'string' ? item.path : '/'}
-                        className={`block px-3 py-2 rounded-md ${
-                          pathname === item.path 
-                            ? 'bg-gray-100 text-openai-green' 
-                            : 'text-gray-700 hover:bg-gray-50'
-                        }`}
-                        onClick={() => close()}
-                      >
-                        {item.label}
-                      </Link>
+                    {menuItems.map((item) => (
+                      <div key={item.label}>
+                        <Link
+                          href={item.path}
+                          className="block text-gray-700 hover:text-gray-900 py-2"
+                          onClick={() => close()}
+                        >
+                          {item.label}
+                        </Link>
+                      </div>
                     ))}
                   </nav>
                 </div>
