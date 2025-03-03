@@ -30,7 +30,8 @@ export default function Navigation() {
 
             // Check if current path matches this menu item
             const isActive = pathname === item.path || 
-                          (pathname?.startsWith(item.path) && item.path !== '/');
+                          (pathname?.startsWith(typeof item.path === 'string' ? item.path : String(item.path)) && 
+                           (typeof item.path === 'string' ? item.path !== '/' : String(item.path) !== '/'));
 
             // Items with children need dropdown handling
             if (item.children && item.children.length > 0) {
@@ -42,7 +43,7 @@ export default function Navigation() {
                   onMouseLeave={() => setOpenDropdown(null)}
                 >
                   <Link 
-                    href={item.path as string}
+                    href={item.path}
                     className={`text-sm font-medium ${isActive ? 'text-openai-green' : 'text-gray-600'} hover:text-openai-green transition-colors`}
                   >
                     {item.label}
@@ -65,7 +66,7 @@ export default function Navigation() {
                           return (
                             <Link 
                               key={j}
-                              href={typeof child.path === 'string' ? child.path : '/'}
+                              href={child.path}
                               className={`${
                                 isChildActive ? 'bg-gray-100 text-openai-green' : 'text-gray-700'
                               } block px-4 py-2 text-sm hover:bg-gray-100 hover:text-openai-green`}
@@ -85,7 +86,7 @@ export default function Navigation() {
             return (
               <Link 
                 key={i}
-                href={item.path as string}
+                href={item.path}
                 className={`text-sm font-medium ${isActive ? 'text-openai-green' : 'text-gray-600'} hover:text-openai-green transition-colors`}
               >
                 {item.label}
@@ -101,7 +102,7 @@ export default function Navigation() {
               return (
                 <Link 
                   key={i}
-                  href={typeof item.path === 'string' ? item.path : '/'}
+                  href={item.path}
                   className="rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity"
                 >
                   {item.label}
@@ -189,7 +190,7 @@ export default function Navigation() {
 }
 
 // Body scroll lock component
-function MobileMenuEffect({ isOpen }) {
+function MobileMenuEffect({ isOpen }: { isOpen: boolean }) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';

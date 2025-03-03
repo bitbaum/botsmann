@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { NextSection } from '../navigation/NextSection';
-import type { BotPageProps, Feature, Step } from '@/src/types/bot';
+import type { BotPageProps, Feature, Step } from '@/types/bot';
 
 function Overview({ content }: { content: string }) {
   return (
