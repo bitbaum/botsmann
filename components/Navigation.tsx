@@ -42,7 +42,7 @@ export default function Navigation() {
                   onMouseLeave={() => setOpenDropdown(null)}
                 >
                   <Link 
-                    href={item.path}
+                    href={typeof item.path === 'string' ? item.path : '/'}
                     className={`text-sm font-medium ${isActive ? 'text-openai-green' : 'text-gray-600'} hover:text-openai-green transition-colors`}
                   >
                     {item.label}
@@ -65,7 +65,7 @@ export default function Navigation() {
                           return (
                             <Link 
                               key={j}
-                              href={child.path}
+                              href={typeof child.path === 'string' ? child.path : '/'}
                               className={`${
                                 isChildActive ? 'bg-gray-100 text-openai-green' : 'text-gray-700'
                               } block px-4 py-2 text-sm hover:bg-gray-100 hover:text-openai-green`}
@@ -85,7 +85,7 @@ export default function Navigation() {
             return (
               <Link 
                 key={i}
-                href={item.path}
+                href={typeof item.path === 'string' ? item.path : '/'}
                 className={`text-sm font-medium ${isActive ? 'text-openai-green' : 'text-gray-600'} hover:text-openai-green transition-colors`}
               >
                 {item.label}
@@ -101,7 +101,7 @@ export default function Navigation() {
               return (
                 <Link 
                   key={i}
-                  href={item.path}
+                  href={typeof item.path === 'string' ? item.path : '/'}
                   className="rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity"
                 >
                   {item.label}
@@ -165,7 +165,7 @@ export default function Navigation() {
                     {menuItems.map((item, i) => (
                       <Link
                         key={i}
-                        href={item.path}
+                        href={typeof item.path === 'string' ? item.path : '/'}
                         className={`block px-3 py-2 rounded-md ${
                           pathname === item.path 
                             ? 'bg-gray-100 text-openai-green' 
