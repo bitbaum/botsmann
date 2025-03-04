@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
 
 // Define custom MDX components with Tailwind styling
 const MDXComponents = {
@@ -52,7 +53,14 @@ const MDXComponents = {
   },
   
   // Media elements
-  img: ({ src, alt, ...props }: { src: string; alt?: string; [key: string]: any }) => {
+  img: (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
+    // Safely extract src and alt from props
+    const { src, alt, ...rest } = props;
+    
+    if (!src) {
+      return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
+    }
+    
     return (
       <div className="my-8">
         <Image 
@@ -61,7 +69,7 @@ const MDXComponents = {
           width={800}
           height={450}
           className="rounded-lg"
-          {...props}
+          // Don't pass the rest of the props as they might conflict with Next.js Image props
         />
         {alt && <p className="mt-2 text-sm text-gray-500 italic">{alt}</p>}
       </div>
