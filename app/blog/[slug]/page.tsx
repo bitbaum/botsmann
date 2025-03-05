@@ -1,14 +1,10 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import { fetchBlogPosts, fetchBlogPostBySlug } from '@/lib/blog';
-import MDXComponents from '@/components/blog/MDXComponents';
 import Comments from '@/components/blog/Comments';
+import ClientMDXContent from '@/components/blog/ClientMDXContent';
 import { Metadata } from 'next';
 import { format } from 'date-fns';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import remarkGfm from 'remark-gfm';
 
 // Generate static paths for all blog posts
 export async function generateStaticParams() {
@@ -83,20 +79,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       notFound();
     }
     
-    // Create a modified components object that includes the slug for all components
-    const componentsWithSlug = {
-      ...MDXComponents,
-      img: (props: any) => {
-        console.log('Rendering img with slug:', params.slug);
-        // Make a defensive copy of props to avoid mutation issues
-        return MDXComponents.img({ 
-          ...props, 
-          slug: params.slug,
-          key: `img-${props.src}-${params.slug}` // Add key for React rendering
-        });
-      },
-    };
-    
     return (
       <article className="mx-auto max-w-3xl px-6 py-16">
         <header className="mb-12">
@@ -139,18 +121,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           )}
         </header>
         
-        <div className="prose prose-gray max-w-none">
-          <MDXRemote 
-            source={post.content} 
-            components={componentsWithSlug}
-            options={{
-              mdxOptions: {
-                remarkPlugins: [remarkGfm],
-                rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]]
-              }
-            }}
-          />
-        </div>
+        <ClientMDXContent content={post.content} slug={post.slug} />
         
         <Comments slug={post.slug} />
       </article>
