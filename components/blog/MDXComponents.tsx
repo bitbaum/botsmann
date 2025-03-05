@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { DetailedHTMLProps, ImgHTMLAttributes, useState, useEffect } from 'react';
+import { useContext } from 'react';
 
 // Helper function to transform image paths
 const transformImageSrc = (src: string, slug: string) => {
@@ -114,13 +115,31 @@ const MDXComponents = {
       return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
     }
     
-    // Process the image source
+    // Extract slug from URL if not provided directly
     useEffect(() => {
       // Log the image source and slug for debugging
       console.log('MDX img processing:', { src, slug });
       
-      // Get the slug from props
-      const contextSlug = typeof slug === 'string' ? slug : '';
+      // Get the slug from props or extract from URL
+      let contextSlug = typeof slug === 'string' ? slug : '';
+      
+      // If slug is not provided directly, try to extract from URL pathname
+      if (!contextSlug && typeof window !== 'undefined') {
+        const urlPath = window.location.pathname;
+        const pathParts = urlPath.split('/');
+        // Assuming URL structure is /blog/[slug]
+        if (pathParts.length >= 3 && pathParts[1] === 'blog') {
+          contextSlug = pathParts[2];
+          console.log('Extracted slug from URL:', contextSlug);
+        }
+      }
+      
+      // Use welcome-post as a last resort fallback, but we should never need this
+      // if the ClientMDXContent is passing the slug correctly
+      if (!contextSlug) {
+        contextSlug = 'welcome-post';
+        console.log('Using fallback slug as last resort:', contextSlug);
+      }
       
       try {
         let fullSrc = '';
@@ -138,6 +157,7 @@ const MDXComponents = {
           
           const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
           fullSrc = `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${contextSlug}/${imagePath}`;
+          console.log('Using dynamic slug for image path:', { contextSlug, imagePath, fullSrc });
         } else {
           // For any other format, just use the src as is
           fullSrc = src;
@@ -222,8 +242,11 @@ const MDXComponents = {
       success: 'bg-green-50 border-green-200 text-green-800'
     };
     
+    // Ensure type is a valid value
+    const safeType = (type && ['info', 'warning', 'success'].includes(type)) ? type : 'info';
+    
     return (
-      <div className={`my-6 rounded-lg border-l-4 p-4 ${styles[type]}`}>
+      <div className={`my-6 rounded-lg border-l-4 p-4 ${styles[safeType]}`}>
         {children}
       </div>
     );

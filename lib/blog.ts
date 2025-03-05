@@ -34,6 +34,11 @@ async function fileExistsOnGitHub(path: string): Promise<boolean> {
   }
 }
 
+// Function to get the current date in YYYY-MM-DD format
+function getCurrentDate(): string {
+  return new Date().toISOString().split('T')[0]; // e.g., "2023-03-05"
+}
+
 // Function to fetch all blog posts
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
   try {
@@ -82,6 +87,10 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
           return null;
         }
         
+        // Set post date to current date if published is true and no date is provided
+        // or use the provided date if one exists
+        const postDate = data.published ? (data.date || getCurrentDate()) : data.date;
+        
         // Process featured image
         let featuredImage: string | undefined = undefined;
         
@@ -118,7 +127,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
         return {
           slug,
           title: data.title,
-          date: data.date,
+          date: postDate,
           author: data.author || 'Botsmann Team',
           excerpt: data.excerpt || '',
           content,
@@ -170,6 +179,11 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
       return null;
     }
     
+    // Set post date to current date if published is true and no date is provided
+    // or use the provided date if one exists
+    const postDate = data.published ? (data.date || getCurrentDate()) : data.date;
+    console.log(`Post date for ${slug}:`, postDate, 'Original date:', data.date);
+    
     // Process featured image
     let featuredImage: string | undefined = undefined;
     
@@ -204,7 +218,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
     return {
       slug,
       title: data.title,
-      date: data.date,
+      date: postDate,
       author: data.author || 'Botsmann Team',
       excerpt: data.excerpt || '',
       content,
