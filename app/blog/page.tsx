@@ -1,39 +1,25 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import { fetchBlogPosts } from '@/lib/blog';
+import { Metadata } from 'next';
 import type { Route } from 'next';
+import { format } from 'date-fns';
 
-interface BlogPost {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  author: string;
-}
-
-const blogPosts: BlogPost[] = [
-  {
-    slug: 'welcome-to-botsmann',
-    title: 'Welcome to Botsmann: AI Solutions for Human Progress',
-    excerpt: 'Discover how our suite of specialized AI bots and innovative projects are transforming industries and promoting transparency.',
-    date: '2024-03-15',
-    author: 'Botsmann Team'
-  },
-  {
-    slug: 'transparency-revolution',
-    title: 'The Transparency Revolution: Technology for Public Good',
-    excerpt: 'Exploring how our government spending tracker is bringing unprecedented transparency to public finance.',
-    date: '2024-03-14',
-    author: 'Botsmann Team'
-  },
-  {
-    slug: 'future-of-shopping',
-    title: 'The Future of Shopping: One Word is All You Need',
-    excerpt: 'How our AI shopping assistant is revolutionizing e-commerce with natural language understanding.',
-    date: '2024-03-13',
-    author: 'Botsmann Team'
+export const metadata: Metadata = {
+  title: 'Blog | Botsmann',
+  description: 'Insights and updates from the Botsmann team on AI, technology, and innovation.',
+  openGraph: {
+    title: 'Blog | Botsmann',
+    description: 'Insights and updates from the Botsmann team on AI, technology, and innovation.',
+    url: 'https://botsmann.com/blog',
+    siteName: 'Botsmann',
+    type: 'website',
   }
-];
+};
 
-export default function Blog() {
+export default async function Blog() {
+  const blogPosts = await fetchBlogPosts();
+  
   return (
     <div className="min-h-screen bg-white">
       <main className="mx-auto max-w-screen-xl px-6 py-16">
@@ -44,50 +30,89 @@ export default function Blog() {
           </p>
         </div>
 
-        <div className="space-y-8">
-          {blogPosts.map((post) => (
-            <article
-              key={post.slug}
-              className="group relative rounded-2xl border border-gray-200 bg-white p-8 transition-shadow hover:shadow-lg"
-            >
-              <div className="flex items-center gap-4 text-sm text-gray-500">
-                <time dateTime={post.date}>{post.date}</time>
-                <span>•</span>
-                <span>{post.author}</span>
-              </div>
-              <h2 className="mt-4 text-2xl font-semibold tracking-tight text-gray-900">
-                <Link 
-                  href={`/blog/${post.slug}` as Route}
-                  className="hover:text-openai-green"
-                >
-                  {post.title}
-                </Link>
-              </h2>
-              <p className="mt-4 text-gray-600">{post.excerpt}</p>
-              <div className="mt-4">
-                <Link
-                  href={`/blog/${post.slug}` as Route}
-                  className="inline-flex items-center text-sm font-medium text-openai-green hover:text-opacity-80"
-                >
-                  Read more
-                  <svg
-                    className="ml-2 h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+        {blogPosts.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-gray-600">No blog posts available yet. Check back soon!</p>
+          </div>
+        ) : (
+          <div className="space-y-8">
+            {blogPosts.map((post) => (
+              <article
+                key={post.slug}
+                className="group relative rounded-2xl border border-gray-200 bg-white p-8 transition-shadow hover:shadow-lg"
+              >
+                <div className="flex flex-col md:flex-row md:gap-8">
+                  {post.featuredImage && (
+                    <div className="md:w-1/3 mb-6 md:mb-0">
+                      <div className="relative h-48 w-full overflow-hidden rounded-lg">
+                        <Image 
+                          src={post.featuredImage}
+                          alt={post.title}
+                          fill
+                          className="object-cover transition-transform group-hover:scale-105"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className={post.featuredImage ? "md:w-2/3" : "w-full"}>
+                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <time dateTime={post.date}>
+                        {format(new Date(post.date), 'MMMM d, yyyy')}
+                      </time>
+                      <span>•</span>
+                      <span>{post.author}</span>
+                    </div>
+                    
+                    <h2 className="mt-4 text-2xl font-semibold tracking-tight text-gray-900">
+                      <Link 
+                        href={`/blog/${post.slug}` as Route}
+                        className="hover:text-openai-green"
+                      >
+                        {post.title}
+                      </Link>
+                    </h2>
+                    
+                    <p className="mt-4 text-gray-600">{post.excerpt}</p>
+                    
+                    {post.tags && post.tags.length > 0 && (
+                      <div className="mt-6 flex flex-wrap gap-2">
+                        {post.tags.map(tag => (
+                          <span 
+                            key={tag} 
+                            className="inline-block rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    
+                    <Link
+                      href={`/blog/${post.slug}` as Route}
+                      className="mt-6 inline-flex items-center text-sm font-medium text-openai-green hover:text-opacity-80"
+                    >
+                      Read more
+                      <svg
+                        className="ml-2 h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );
