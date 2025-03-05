@@ -1,0 +1,5 @@
+[33mcommit 2b310bfa9d7c4a7748d0ce3e9fe44b0b90198012[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/github-mdx-blog[m[33m)[m
+Author: g-but <REDACTED_EMAIL>
+Date:   Wed Mar 5 09:23:05 2025 +0100
+
+    Fix server-side rendering issues with blog post images

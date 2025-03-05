@@ -2,7 +2,14 @@
 const nextConfig = {
   output: "standalone",
   images: { 
-    unoptimized: true 
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        pathname: '/g-but/botsmann-blog-content/**',
+      },
+    ],
   },
   experimental: { 
     typedRoutes: true 
@@ -15,7 +22,7 @@ const nextConfig = {
     headers: [
       {
         key: 'Cache-Control',
-        value: 'no-store, must-revalidate'
+        value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=60'
       }
     ]
   }]
