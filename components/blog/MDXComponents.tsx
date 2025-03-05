@@ -11,6 +11,9 @@ const transformImageSrc = (src: string, slug: string) => {
   // If it's already an absolute URL, return it as is
   if (src.startsWith('http')) return src;
   
+  // If no slug is provided, return the original src
+  if (!slug) return src;
+  
   // If it's a relative path, convert to GitHub raw URL
   if (src.startsWith('./') || src.startsWith('../')) {
     const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
@@ -82,10 +85,23 @@ const MDXComponents = {
     // Default to attempting to extract slug from context - this is a fallback approach
     const contextSlug = typeof slug === 'string' ? slug : '';
     
+    // Pre-process the src to avoid client-side only logic
+    let imageSrc = src;
+    
+    // If it's already an absolute URL, use it as is
+    if (src.startsWith('http')) {
+      imageSrc = src;
+    }
+    // If it's a relative path and we have a slug, convert to GitHub raw URL
+    else if ((src.startsWith('./') || src.startsWith('../')) && contextSlug) {
+      const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
+      imageSrc = `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${contextSlug}/${imagePath}`;
+    }
+    
     return (
       <div className="my-8">
         <Image 
-          src={transformImageSrc(src, contextSlug)}
+          src={imageSrc}
           alt={alt || ''}
           width={800}
           height={450}
