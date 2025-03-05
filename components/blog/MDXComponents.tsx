@@ -2,7 +2,24 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { DetailedHTMLProps, ImgHTMLAttributes, useEffect, useState } from 'react';
+import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
+
+// Helper function to transform image paths
+const transformImageSrc = (src: string, slug: string) => {
+  if (!src) return '';
+  
+  // If it's already an absolute URL, return it as is
+  if (src.startsWith('http')) return src;
+  
+  // If it's a relative path, convert to GitHub raw URL
+  if (src.startsWith('./') || src.startsWith('../')) {
+    const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
+    return `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${slug}/${imagePath}`;
+  }
+  
+  // Return the original src if it doesn't match any criteria
+  return src;
+};
 
 // Define custom MDX components with Tailwind styling
 const MDXComponents = {
@@ -55,38 +72,25 @@ const MDXComponents = {
   },
   
   // Media elements
-  img: (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
-    const { src, alt, ...rest } = props;
-    const [fullSrc, setFullSrc] = useState<string>(src || '');
-    
-    useEffect(() => {
-      if (!src) return;
-      
-      // If it's a relative path, convert to GitHub raw URL
-      if (src.startsWith('./') || src.startsWith('../')) {
-        // Extract the post slug from the URL
-        const pathParts = window.location.pathname.split('/');
-        if (pathParts.length >= 3 && pathParts[1] === 'blog') {
-          const postSlug = pathParts[2];
-          const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
-          
-          setFullSrc(`https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${postSlug}/${imagePath}`);
-        }
-      }
-    }, [src]);
+  img: (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { slug?: string }) => {
+    const { src, alt, slug, ...rest } = props;
     
     if (!src) {
       return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
     }
     
+    // Default to attempting to extract slug from context - this is a fallback approach
+    const contextSlug = typeof slug === 'string' ? slug : '';
+    
     return (
       <div className="my-8">
         <Image 
-          src={fullSrc}
+          src={transformImageSrc(src, contextSlug)}
           alt={alt || ''}
           width={800}
           height={450}
           className="rounded-lg"
+          {...rest}
         />
         {alt && <p className="mt-2 text-sm text-gray-500 italic">{alt}</p>}
       </div>
@@ -96,7 +100,7 @@ const MDXComponents = {
   // Custom components
   YouTube: ({ id }: { id: string }) => (
     <div className="my-8 aspect-video overflow-hidden rounded-lg">
-      <iframe
+      <iframe 
         src={`https://www.youtube.com/embed/${id}`}
         className="h-full w-full"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

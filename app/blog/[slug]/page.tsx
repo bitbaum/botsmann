@@ -62,6 +62,12 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     notFound();
   }
   
+  // Create a modified components object that includes the slug
+  const componentsWithSlug = {
+    ...MDXComponents,
+    img: (props: any) => MDXComponents.img({ ...props, slug: params.slug }),
+  };
+  
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">
       <header className="mb-12">
@@ -107,7 +113,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       <div className="prose prose-gray max-w-none">
         <MDXRemote 
           source={post.content} 
-          components={MDXComponents}
+          components={componentsWithSlug}
           options={{
             mdxOptions: {
               remarkPlugins: [remarkGfm],
