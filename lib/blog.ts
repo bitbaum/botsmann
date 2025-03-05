@@ -20,6 +20,8 @@ const GITHUB_BRANCH = 'main';
 // Function to fetch all blog posts
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
   try {
+    console.log('Fetching all blog posts');
+    
     // Fetch all directories in the posts folder
     const res = await fetch(
       `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/posts`,
@@ -27,7 +29,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
     );
     
     if (!res.ok) {
-      console.error('Failed to fetch posts');
+      console.error('Failed to fetch posts', res.status, res.statusText);
       return [];
     }
     
@@ -39,6 +41,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
         if (dir.type !== 'dir') return null;
         
         const slug = dir.name;
+        console.log('Processing post directory:', slug);
         
         // Fetch the index.mdx file for this post
         const mdxRes = await fetch(
@@ -46,7 +49,10 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
           { cache: 'no-store' }
         );
         
-        if (!mdxRes.ok) return null;
+        if (!mdxRes.ok) {
+          console.error(`Failed to fetch MDX for ${slug}:`, mdxRes.status, mdxRes.statusText);
+          return null;
+        }
         
         const mdxContent = await mdxRes.text();
         
@@ -55,14 +61,29 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
         
         // Skip posts that aren't published
         if (data.published !== true) {
+          console.log(`Skipping unpublished post: ${slug}`);
           return null;
         }
         
-        // Check for featured image
+        // Process featured image
         let featuredImage: string | undefined = undefined;
         
         if (data.featuredImage) {
-          featuredImage = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/posts/${slug}/${data.featuredImage.replace(/^\.\//, '')}`;
+          // Remove ./ prefix if present
+          const imagePath = data.featuredImage.replace(/^\.\//, '');
+          featuredImage = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/posts/${slug}/${imagePath}`;
+          
+          // Verify the image exists
+          try {
+            const imageRes = await fetch(featuredImage, { method: 'HEAD' });
+            if (!imageRes.ok) {
+              console.warn(`Featured image not found for ${slug}: ${featuredImage}`);
+              featuredImage = undefined;
+            }
+          } catch (error) {
+            console.error(`Error checking featured image for ${slug}:`, error);
+            featuredImage = undefined;
+          }
         }
         
         return {
@@ -83,7 +104,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
       .filter((post): post is BlogPost => post !== null)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
-    console.error('Failed to fetch posts');
+    console.error('Failed to fetch posts:', error);
     return [];
   }
 }
@@ -91,6 +112,8 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
 // Function to fetch a single blog post by slug
 export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
+    console.log('Fetching blog post for slug:', slug);
+    
     // Fetch the index.mdx file for this post
     const mdxRes = await fetch(
       `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/posts/${slug}/index.mdx`,
@@ -98,7 +121,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
     );
     
     if (!mdxRes.ok) {
-      console.error('Failed to fetch post');
+      console.error(`Failed to fetch post for ${slug}:`, mdxRes.status, mdxRes.statusText);
       return null;
     }
     
@@ -109,14 +132,20 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
     
     // Skip posts that aren't published
     if (data.published !== true) {
+      console.log(`Skipping unpublished post: ${slug}`);
       return null;
     }
     
-    // Check for featured image
+    // Process featured image
     let featuredImage: string | undefined = undefined;
     
     if (data.featuredImage) {
-      featuredImage = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/posts/${slug}/${data.featuredImage.replace(/^\.\//, '')}`;
+      // Remove ./ prefix if present
+      const imagePath = data.featuredImage.replace(/^\.\//, '');
+      featuredImage = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/posts/${slug}/${imagePath}`;
+      
+      // Log the resolved featured image URL
+      console.log(`Resolved featured image for ${slug}:`, featuredImage);
     }
     
     // Return the blog post data
@@ -131,7 +160,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
       featuredImage
     };
   } catch (error) {
-    console.error('Failed to fetch post');
+    console.error(`Failed to fetch post for ${slug}:`, error);
     return null;
   }
 } 

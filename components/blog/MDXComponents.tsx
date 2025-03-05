@@ -24,6 +24,35 @@ const transformImageSrc = (src: string, slug: string) => {
   return src;
 };
 
+// Function to safely handle image errors by attempting to find alternative formats
+const useAlternativeImageFormat = async (src: string): Promise<string | null> => {
+  if (!src) return null;
+  
+  // Try with a different extension if loading fails
+  if (src.endsWith('.jpg')) {
+    // Try .jfif as alternative
+    const jfifSrc = src.replace(/\.jpg$/, '.jfif');
+    try {
+      const response = await fetch(jfifSrc, { method: 'HEAD' });
+      if (response.ok) return jfifSrc;
+    } catch (error) {
+      console.error('Failed to check jfif alternative', error);
+    }
+  } else if (src.endsWith('.jfif')) {
+    // Try .jpg as alternative
+    const jpgSrc = src.replace(/\.jfif$/, '.jpg');
+    try {
+      const response = await fetch(jpgSrc, { method: 'HEAD' });
+      if (response.ok) return jpgSrc;
+    } catch (error) {
+      console.error('Failed to check jpg alternative', error);
+    }
+  }
+  
+  // No viable alternative found
+  return null;
+};
+
 // Define custom MDX components with Tailwind styling
 const MDXComponents = {
   // Headings
@@ -79,37 +108,66 @@ const MDXComponents = {
     const { src, alt, slug } = props;
     
     if (!src) {
+      console.error('Image source missing');
       return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
     }
     
-    // Default to attempting to extract slug from context - this is a fallback approach
+    // Log the image source and slug for debugging
+    console.log('MDX img processing:', { src, slug });
+    
+    // Get the slug from props
     const contextSlug = typeof slug === 'string' ? slug : '';
     
-    // Pre-process the src to avoid client-side only logic
-    let imageSrc = src;
-    
-    // If it's already an absolute URL, use it as is
-    if (src.startsWith('http')) {
-      imageSrc = src;
+    try {
+      // Process the image source
+      let fullSrc = '';
+      
+      if (src.startsWith('http')) {
+        // If it's already an absolute URL, use it as is
+        fullSrc = src;
+      } else if (src.startsWith('./') || src.startsWith('../')) {
+        // If it's a relative path and we have a slug, convert to GitHub raw URL
+        if (!contextSlug) {
+          console.error('Missing slug for relative image path:', src);
+          return <div className="my-8 p-4 bg-yellow-50 text-yellow-700">Unable to resolve image: missing post context</div>;
+        }
+        
+        const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
+        fullSrc = `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${contextSlug}/${imagePath}`;
+      } else {
+        // For any other format, just use the src as is
+        fullSrc = src;
+      }
+      
+      // Log the processed image source for debugging
+      console.log('Processed image source:', fullSrc);
+      
+      return (
+        <div className="my-8">
+          <Image 
+            src={fullSrc}
+            alt={alt || ''}
+            width={800}
+            height={450}
+            className="rounded-lg"
+            onError={async (e) => {
+              console.error('Image load error:', fullSrc);
+              
+              // Try to find an alternative format
+              const altSrc = await useAlternativeImageFormat(fullSrc);
+              if (altSrc) {
+                console.log('Using alternative image format:', altSrc);
+                (e.target as HTMLImageElement).src = altSrc;
+              }
+            }}
+          />
+          {alt && <p className="mt-2 text-sm text-gray-500 italic">{alt}</p>}
+        </div>
+      );
+    } catch (error) {
+      console.error('Error processing image:', error);
+      return <div className="my-8 p-4 bg-red-50 text-red-500">Failed to load image</div>;
     }
-    // If it's a relative path and we have a slug, convert to GitHub raw URL
-    else if ((src.startsWith('./') || src.startsWith('../')) && contextSlug) {
-      const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
-      imageSrc = `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${contextSlug}/${imagePath}`;
-    }
-    
-    return (
-      <div className="my-8">
-        <Image 
-          src={imageSrc}
-          alt={alt || ''}
-          width={800}
-          height={450}
-          className="rounded-lg"
-        />
-        {alt && <p className="mt-2 text-sm text-gray-500 italic">{alt}</p>}
-      </div>
-    );
   },
   
   // Custom components
