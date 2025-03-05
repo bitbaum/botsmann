@@ -17,6 +17,23 @@ const GITHUB_USERNAME = 'g-but';
 const GITHUB_REPO = 'botsmann-blog-content';
 const GITHUB_BRANCH = 'main';
 
+// Base URL for raw GitHub content
+const GITHUB_RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
+
+// Function to check if a file exists on GitHub
+async function fileExistsOnGitHub(path: string): Promise<boolean> {
+  try {
+    const response = await fetch(`${GITHUB_RAW_BASE}/${path}`, { 
+      method: 'HEAD',
+      cache: 'no-store'
+    });
+    return response.ok;
+  } catch (error) {
+    console.error(`Error checking if file exists: ${path}`, error);
+    return false;
+  }
+}
+
 // Function to fetch all blog posts
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
   try {
@@ -45,7 +62,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
         
         // Fetch the index.mdx file for this post
         const mdxRes = await fetch(
-          `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/posts/${slug}/index.mdx`,
+          `${GITHUB_RAW_BASE}/posts/${slug}/index.mdx`,
           { cache: 'no-store' }
         );
         
@@ -71,14 +88,26 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
         if (data.featuredImage) {
           // Remove ./ prefix if present
           const imagePath = data.featuredImage.replace(/^\.\//, '');
-          featuredImage = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/posts/${slug}/${imagePath}`;
+          featuredImage = `${GITHUB_RAW_BASE}/posts/${slug}/${imagePath}`;
           
           // Verify the image exists
           try {
-            const imageRes = await fetch(featuredImage, { method: 'HEAD' });
-            if (!imageRes.ok) {
+            const imageExists = await fileExistsOnGitHub(`posts/${slug}/${imagePath}`);
+            if (!imageExists) {
               console.warn(`Featured image not found for ${slug}: ${featuredImage}`);
-              featuredImage = undefined;
+              
+              // Try alternative image formats
+              const fileNameWithoutExt = imagePath.replace(/\.(jpg|jpeg|png|gif|webp|jfif)$/, '');
+              
+              // Try common image extensions
+              for (const ext of ['jpg', 'jpeg', 'png', 'webp', 'jfif']) {
+                const altPath = `posts/${slug}/${fileNameWithoutExt}.${ext}`;
+                if (await fileExistsOnGitHub(altPath)) {
+                  featuredImage = `${GITHUB_RAW_BASE}/${altPath}`;
+                  console.log(`Found alternative featured image for ${slug}: ${featuredImage}`);
+                  break;
+                }
+              }
             }
           } catch (error) {
             console.error(`Error checking featured image for ${slug}:`, error);
@@ -114,9 +143,14 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
   try {
     console.log('Fetching blog post for slug:', slug);
     
+    if (!slug) {
+      console.error('Attempted to fetch blog post with empty slug');
+      return null;
+    }
+    
     // Fetch the index.mdx file for this post
     const mdxRes = await fetch(
-      `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/posts/${slug}/index.mdx`,
+      `${GITHUB_RAW_BASE}/posts/${slug}/index.mdx`,
       { cache: 'no-store' } // Always fetch fresh content
     );
     
@@ -142,10 +176,28 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
     if (data.featuredImage) {
       // Remove ./ prefix if present
       const imagePath = data.featuredImage.replace(/^\.\//, '');
-      featuredImage = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/posts/${slug}/${imagePath}`;
+      featuredImage = `${GITHUB_RAW_BASE}/posts/${slug}/${imagePath}`;
       
       // Log the resolved featured image URL
       console.log(`Resolved featured image for ${slug}:`, featuredImage);
+      
+      // Verify the image exists
+      const imageExists = await fileExistsOnGitHub(`posts/${slug}/${imagePath}`);
+      if (!imageExists) {
+        console.warn(`Featured image not found: ${featuredImage}`);
+        
+        // Try alternative formats
+        const fileNameWithoutExt = imagePath.replace(/\.(jpg|jpeg|png|gif|webp|jfif)$/, '');
+        
+        for (const ext of ['jpg', 'jpeg', 'png', 'webp', 'jfif']) {
+          const altPath = `posts/${slug}/${fileNameWithoutExt}.${ext}`;
+          if (await fileExistsOnGitHub(altPath)) {
+            featuredImage = `${GITHUB_RAW_BASE}/${altPath}`;
+            console.log(`Found alternative featured image: ${featuredImage}`);
+            break;
+          }
+        }
+      }
     }
     
     // Return the blog post data

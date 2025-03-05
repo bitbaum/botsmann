@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
+import { DetailedHTMLProps, ImgHTMLAttributes, useState, useEffect } from 'react';
 
 // Helper function to transform image paths
 const transformImageSrc = (src: string, slug: string) => {
@@ -106,68 +106,91 @@ const MDXComponents = {
   // Media elements
   img: (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { slug?: string }) => {
     const { src, alt, slug } = props;
+    const [imageSrc, setImageSrc] = useState<string>('');
+    const [isError, setIsError] = useState(false);
     
     if (!src) {
       console.error('Image source missing');
       return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
     }
     
-    // Log the image source and slug for debugging
-    console.log('MDX img processing:', { src, slug });
-    
-    // Get the slug from props
-    const contextSlug = typeof slug === 'string' ? slug : '';
-    
-    try {
-      // Process the image source
-      let fullSrc = '';
+    // Process the image source
+    useEffect(() => {
+      // Log the image source and slug for debugging
+      console.log('MDX img processing:', { src, slug });
       
-      if (src.startsWith('http')) {
-        // If it's already an absolute URL, use it as is
-        fullSrc = src;
-      } else if (src.startsWith('./') || src.startsWith('../')) {
-        // If it's a relative path and we have a slug, convert to GitHub raw URL
-        if (!contextSlug) {
-          console.error('Missing slug for relative image path:', src);
-          return <div className="my-8 p-4 bg-yellow-50 text-yellow-700">Unable to resolve image: missing post context</div>;
+      // Get the slug from props
+      const contextSlug = typeof slug === 'string' ? slug : '';
+      
+      try {
+        let fullSrc = '';
+        
+        if (src.startsWith('http')) {
+          // If it's already an absolute URL, use it as is
+          fullSrc = src;
+        } else if (src.startsWith('./') || src.startsWith('../')) {
+          // If it's a relative path and we have a slug, convert to GitHub raw URL
+          if (!contextSlug) {
+            console.error('Missing slug for relative image path:', src);
+            setIsError(true);
+            return;
+          }
+          
+          const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
+          fullSrc = `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${contextSlug}/${imagePath}`;
+        } else {
+          // For any other format, just use the src as is
+          fullSrc = src;
         }
         
-        const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
-        fullSrc = `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${contextSlug}/${imagePath}`;
-      } else {
-        // For any other format, just use the src as is
-        fullSrc = src;
+        // Log the processed image source for debugging
+        console.log('Processed image source:', fullSrc);
+        setImageSrc(fullSrc);
+      } catch (error) {
+        console.error('Error processing image:', error);
+        setIsError(true);
       }
-      
-      // Log the processed image source for debugging
-      console.log('Processed image source:', fullSrc);
-      
-      return (
-        <div className="my-8">
-          <Image 
-            src={fullSrc}
-            alt={alt || ''}
-            width={800}
-            height={450}
-            className="rounded-lg"
-            onError={async (e) => {
-              console.error('Image load error:', fullSrc);
-              
-              // Try to find an alternative format
-              const altSrc = await useAlternativeImageFormat(fullSrc);
-              if (altSrc) {
-                console.log('Using alternative image format:', altSrc);
-                (e.target as HTMLImageElement).src = altSrc;
-              }
-            }}
-          />
-          {alt && <p className="mt-2 text-sm text-gray-500 italic">{alt}</p>}
-        </div>
-      );
-    } catch (error) {
-      console.error('Error processing image:', error);
+    }, [src, slug]);
+    
+    if (isError) {
       return <div className="my-8 p-4 bg-red-50 text-red-500">Failed to load image</div>;
     }
+    
+    if (!imageSrc) {
+      return <div className="my-8 p-4 bg-gray-50 text-gray-500">Loading image...</div>;
+    }
+    
+    // Check for alternative formats when the image fails to load
+    const handleImageError = () => {
+      console.error('Image load error:', imageSrc);
+      
+      // Try alternative format
+      if (imageSrc.endsWith('.jpg')) {
+        const jfifSrc = imageSrc.replace(/\.jpg$/, '.jfif');
+        console.log('Trying alternative format:', jfifSrc);
+        setImageSrc(jfifSrc);
+      } else if (imageSrc.endsWith('.jfif')) {
+        const jpgSrc = imageSrc.replace(/\.jfif$/, '.jpg');
+        console.log('Trying alternative format:', jpgSrc);
+        setImageSrc(jpgSrc);
+      } else {
+        setIsError(true);
+      }
+    };
+    
+    return (
+      <div className="my-8">
+        <Image 
+          src={imageSrc}
+          alt={alt || ''}
+          width={800}
+          height={450}
+          className="rounded-lg"
+          onError={handleImageError}
+        />
+        {alt && <p className="mt-2 text-sm text-gray-500 italic">{alt}</p>}
+      </div>
+    );
   },
   
   // Custom components

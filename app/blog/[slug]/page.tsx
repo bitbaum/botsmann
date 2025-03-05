@@ -12,53 +12,70 @@ import remarkGfm from 'remark-gfm';
 
 // Generate static paths for all blog posts
 export async function generateStaticParams() {
-  const posts = await fetchBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  try {
+    const posts = await fetchBlogPosts();
+    return posts.map((post) => ({
+      slug: post.slug,
+    }));
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    return [];
+  }
 }
 
 // Generate metadata for the page
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = await fetchBlogPostBySlug(params.slug);
-  
-  if (!post) {
+  try {
+    const post = await fetchBlogPostBySlug(params.slug);
+    
+    if (!post) {
+      return {
+        title: 'Post Not Found | Botsmann',
+      };
+    }
+    
     return {
-      title: 'Post Not Found | Botsmann',
+      title: `${post.title} | Botsmann Blog`,
+      description: post.excerpt,
+      openGraph: {
+        title: post.title,
+        description: post.excerpt,
+        type: 'article',
+        publishedTime: post.date,
+        authors: [post.author],
+        images: post.featuredImage ? [
+          {
+            url: post.featuredImage,
+            width: 1200,
+            height: 630,
+            alt: post.title
+          }
+        ] : [],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: post.title,
+        description: post.excerpt,
+        images: post.featuredImage ? [post.featuredImage] : [],
+      }
+    };
+  } catch (error) {
+    console.error("Error generating metadata:", error);
+    return {
+      title: 'Error | Botsmann',
     };
   }
-  
-  return {
-    title: `${post.title} | Botsmann Blog`,
-    description: post.excerpt,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      type: 'article',
-      publishedTime: post.date,
-      authors: [post.author],
-      images: post.featuredImage ? [
-        {
-          url: post.featuredImage,
-          width: 1200,
-          height: 630,
-          alt: post.title
-        }
-      ] : [],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.excerpt,
-      images: post.featuredImage ? [post.featuredImage] : [],
-    }
-  };
 }
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
   console.log('Rendering blog post for slug:', params.slug);
   
   try {
+    if (!params.slug) {
+      console.error('Missing slug parameter');
+      notFound();
+    }
+    
     const post = await fetchBlogPostBySlug(params.slug);
     
     if (!post) {
@@ -71,7 +88,12 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       ...MDXComponents,
       img: (props: any) => {
         console.log('Rendering img with slug:', params.slug);
-        return MDXComponents.img({ ...props, slug: params.slug });
+        // Make a defensive copy of props to avoid mutation issues
+        return MDXComponents.img({ 
+          ...props, 
+          slug: params.slug,
+          key: `img-${props.src}-${params.slug}` // Add key for React rendering
+        });
       },
     };
     
