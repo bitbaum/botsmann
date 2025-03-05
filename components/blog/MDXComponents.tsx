@@ -73,7 +73,7 @@ const MDXComponents = {
   
   // Media elements
   img: (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { slug?: string }) => {
-    const { src, alt, slug, ...rest } = props;
+    const { src, alt, slug } = props;
     
     if (!src) {
       return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
@@ -90,7 +90,6 @@ const MDXComponents = {
           width={800}
           height={450}
           className="rounded-lg"
-          {...rest}
         />
         {alt && <p className="mt-2 text-sm text-gray-500 italic">{alt}</p>}
       </div>
