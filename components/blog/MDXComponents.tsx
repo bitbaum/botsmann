@@ -57,7 +57,7 @@ const MDXComponents = {
   // Media elements
   img: (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
     const { src, alt, ...rest } = props;
-    const [fullSrc, setFullSrc] = useState(src);
+    const [fullSrc, setFullSrc] = useState<string>(src || '');
     
     useEffect(() => {
       if (!src) return;
