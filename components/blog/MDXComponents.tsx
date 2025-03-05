@@ -1,6 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
+import { DetailedHTMLProps, ImgHTMLAttributes, useEffect, useState } from 'react';
 
 // Define custom MDX components with Tailwind styling
 const MDXComponents = {
@@ -54,8 +56,24 @@ const MDXComponents = {
   
   // Media elements
   img: (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
-    // Safely extract src and alt from props
     const { src, alt, ...rest } = props;
+    const [fullSrc, setFullSrc] = useState(src);
+    
+    useEffect(() => {
+      if (!src) return;
+      
+      // If it's a relative path, convert to GitHub raw URL
+      if (src.startsWith('./') || src.startsWith('../')) {
+        // Extract the post slug from the URL
+        const pathParts = window.location.pathname.split('/');
+        if (pathParts.length >= 3 && pathParts[1] === 'blog') {
+          const postSlug = pathParts[2];
+          const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
+          
+          setFullSrc(`https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${postSlug}/${imagePath}`);
+        }
+      }
+    }, [src]);
     
     if (!src) {
       return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
@@ -64,12 +82,11 @@ const MDXComponents = {
     return (
       <div className="my-8">
         <Image 
-          src={src}
+          src={fullSrc}
           alt={alt || ''}
           width={800}
           height={450}
           className="rounded-lg"
-          // Don't pass the rest of the props as they might conflict with Next.js Image props
         />
         {alt && <p className="mt-2 text-sm text-gray-500 italic">{alt}</p>}
       </div>
