@@ -20,6 +20,14 @@ const GITHUB_BRANCH = 'main';
 // Base URL for raw GitHub content
 const GITHUB_RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
 
+// Configuration options
+const CONFIG = {
+  // Set to true to always use the current date for published posts, even if they have a date
+  FORCE_CURRENT_DATE_FOR_PUBLISHED: true,
+  // Set to true to enable more verbose logging
+  VERBOSE_LOGGING: true
+};
+
 // Function to check if a file exists on GitHub
 async function fileExistsOnGitHub(path: string): Promise<boolean> {
   try {
@@ -37,6 +45,26 @@ async function fileExistsOnGitHub(path: string): Promise<boolean> {
 // Function to get the current date in YYYY-MM-DD format
 function getCurrentDate(): string {
   return new Date().toISOString().split('T')[0]; // e.g., "2023-03-05"
+}
+
+// Function to determine the post date based on our configuration and the post data
+function determinePostDate(data: any): string {
+  const currentDate = getCurrentDate();
+  
+  // If post is published
+  if (data.published === true) {
+    // If we're forcing current date for all published posts OR if no date is provided
+    if (CONFIG.FORCE_CURRENT_DATE_FOR_PUBLISHED || !data.date) {
+      if (CONFIG.VERBOSE_LOGGING) {
+        console.log(`Using current date (${currentDate}) for published post.`, 
+                    data.date ? `Original date was: ${data.date}` : 'No original date was provided.');
+      }
+      return currentDate;
+    }
+  }
+  
+  // Otherwise use the provided date or fallback to current date
+  return data.date || currentDate;
 }
 
 // Function to fetch all blog posts
@@ -87,9 +115,8 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
           return null;
         }
         
-        // Set post date to current date if published is true and no date is provided
-        // or use the provided date if one exists
-        const postDate = data.published ? (data.date || getCurrentDate()) : data.date;
+        // Determine the post date based on our configuration
+        const postDate = determinePostDate(data);
         
         // Process featured image
         let featuredImage: string | undefined = undefined;
@@ -179,10 +206,13 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
       return null;
     }
     
-    // Set post date to current date if published is true and no date is provided
-    // or use the provided date if one exists
-    const postDate = data.published ? (data.date || getCurrentDate()) : data.date;
-    console.log(`Post date for ${slug}:`, postDate, 'Original date:', data.date);
+    // Determine the post date based on our configuration
+    const postDate = determinePostDate(data);
+    
+    if (CONFIG.VERBOSE_LOGGING) {
+      console.log(`Post date for ${slug}:`, postDate, 
+                  data.date ? `Original date: ${data.date}` : 'No original date found');
+    }
     
     // Process featured image
     let featuredImage: string | undefined = undefined;
@@ -193,7 +223,9 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
       featuredImage = `${GITHUB_RAW_BASE}/posts/${slug}/${imagePath}`;
       
       // Log the resolved featured image URL
-      console.log(`Resolved featured image for ${slug}:`, featuredImage);
+      if (CONFIG.VERBOSE_LOGGING) {
+        console.log(`Resolved featured image for ${slug}:`, featuredImage);
+      }
       
       // Verify the image exists
       const imageExists = await fileExistsOnGitHub(`posts/${slug}/${imagePath}`);
