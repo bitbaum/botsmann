@@ -175,53 +175,55 @@ export default function SwissGermanTeacher() {
             <p className="text-sm text-gray-500 mt-2">Input redirects to ChatGPT for responses.</p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 max-w-3xl mx-auto">
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 className="mb-4 text-xl font-semibold text-gray-900">Input: "dog"</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">d'Iigabä</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">d'Bedütig</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Es Satz uf Hochdütsch</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Es Satz uf Züridütsch</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">de Hund, -</td>
-                      <td className="px-4 py-3 text-sm text-gray-500">CH: de Hund DE: der Hund Es Tier mit…</td>
-                      <td className="px-4 py-3 text-sm text-gray-500">Der Hund bellt laut.</td>
-                      <td className="px-4 py-3 text-sm text-gray-500">De Hund böllt luut.</td>
-                    </tr>
-                  </tbody>
-                </table>
+          <div className="max-w-3xl mx-auto">
+            <div className="grid gap-8 md:grid-cols-2">
+              <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h3 className="mb-4 text-xl font-semibold text-gray-900">Input: "dog"</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">d'Iigabä</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">d'Bedütig</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Es Satz uf Hochdütsch</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Es Satz uf Züridütsch</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">de Hund, -</td>
+                        <td className="px-4 py-3 text-sm text-gray-500">CH: de Hund DE: der Hund Es Tier mit…</td>
+                        <td className="px-4 py-3 text-sm text-gray-500">Der Hund bellt laut.</td>
+                        <td className="px-4 py-3 text-sm text-gray-500">De Hund böllt luut.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h3 className="mb-4 text-xl font-semibold text-gray-900">Input: "Can you draft an email for me?"</h3>
+                <div className="mb-4">
+                  <h4 className="text-lg font-medium text-gray-900">Hochdeutsch:</h4>
+                  <p className="text-sm text-gray-600">"Betreff: Ihre Anfrage – Sehr geehrte Frau Müller…"</p>
+                </div>
+                <div>
+                  <h4 className="text-lg font-medium text-gray-900">Züridütsch Note:</h4>
+                  <p className="text-sm text-gray-600">"Wöu du öppis änders wöu, säg mir Bescheid!"</p>
+                </div>
               </div>
             </div>
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 className="mb-4 text-xl font-semibold text-gray-900">Input: "Can you draft an email for me?"</h3>
-              <div className="mb-4">
-                <h4 className="text-lg font-medium text-gray-900">Hochdeutsch:</h4>
-                <p className="text-sm text-gray-600">"Betreff: Ihre Anfrage – Sehr geehrte Frau Müller…"</p>
-              </div>
-              <div>
-                <h4 className="text-lg font-medium text-gray-900">Züridütsch Note:</h4>
-                <p className="text-sm text-gray-600">"Wöu du öppis änders wöu, säg mir Bescheid!"</p>
-              </div>
+            <div className="mt-6 text-center">
+              {bot.tryLink && (
+                <a
+                  href={bot.tryLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
+                >
+                  Try It Yourself
+                </a>
+              )}
             </div>
-          </div>
-          <div className="mt-6 text-center">
-            {bot.tryLink && (
-              <a
-                href={bot.tryLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
-              >
-                Try It Yourself
-              </a>
-            )}
           </div>
         </div>
 
@@ -329,8 +331,8 @@ export default function SwissGermanTeacher() {
                     type="submit"
                     disabled={submitting}
                     className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 
-                      ${submitting ? 'bg-gray-400' : 'bg-indigo-600 hover:bg-indigo-700'} 
-                      text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                      ${submitting ? 'bg-gray-400' : 'bg-openai-green hover:bg-opacity-90'} 
+                      text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-openai-green`}
                   >
                     {submitting ? 'Submitting...' : 'Join Waitlist'}
                   </button>
@@ -345,7 +347,7 @@ export default function SwissGermanTeacher() {
         </div>
 
         {/* Future Vision & Contributors Section */}
-        <div className="py-12 text-center bg-gray-50 rounded-2xl my-16">
+        <div className="py-12 text-center bg-gray-50 rounded-2xl my-16 max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">What's Next for Heidi?</h2>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
             Heidi's just getting started! We're building her to be the ultimate companion for immigrants settling into Switzerland, making it easier to connect with local communities and embrace Swiss dialects. Here's what's coming:
@@ -364,7 +366,7 @@ export default function SwissGermanTeacher() {
           </p>
           <a 
             href="mailto:contribute@botsmann.com" 
-            className="bg-blue-600 text-white px-6 py-3 rounded-md inline-block hover:bg-blue-700"
+            className="bg-openai-green text-white px-6 py-3 rounded-md inline-block hover:bg-opacity-90"
           >
             Join the Heidi Community
           </a>
