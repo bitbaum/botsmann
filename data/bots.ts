@@ -22,7 +22,7 @@ const bots: Bot[] = [
       'Swiss Culture: Insider tips on history and social life.',
       'Local Smarts: Navigate Switzerland like you belong.'
     ],
-    details: 'Type a word, and Heidi delivers a table comparing High German and Züridütsch with real-life examples. Send a sentence or email, and get a tailored response to communicate effortlessly. With cultural tips and local know-how, she's your shortcut to thriving in Switzerland. Curious? Try her yourself and see the magic.',
+    details: "Type a word, and Heidi delivers a table comparing High German and Züridütsch with real-life examples. Send a sentence or email, and get a tailored response to communicate effortlessly. With cultural tips and local know-how, she's your shortcut to thriving in Switzerland. Curious? Try her yourself and see the magic.",
     tryLink: 'https://chatgpt.com/g/g-rni41WTSh-heidi-tell'
   },
   {
