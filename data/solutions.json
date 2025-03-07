@@ -2,24 +2,26 @@
   "individuals": [
     {
       "slug": "swiss-german-teacher",
-      "title": "Swiss German Teacher",
-      "overview": "Learn Swiss German efficiently with our AI-powered language tutor.",
+      "title": "Heidi – Your Swiss German Companion",
+      "overview": "Master Swiss German with Heidi - Your AI companion for High German and Züridütsch.",
       "features": [
-        "Personalized learning paths",
-        "Dialect-specific pronunciation feedback",
-        "Conversational practice with AI",
-        "Cultural context and expressions",
-        "Progress tracking and adaptive lessons"
+        "Adapts to You: Tables for words, replies for sentences—built for your needs.",
+        "Dual-Language Power: High German and Züridütsch, side by side.",
+        "Real Context: Words and phrases come alive with examples.",
+        "Instant Writing: Emails and texts crafted in both languages.",
+        "Swiss Culture: Insider tips on history and social life.",
+        "Local Smarts: Navigate Switzerland like you belong."
       ],
-      "details": "Our Swiss German Teacher uses advanced language models to create a personalized learning experience tailored to your pace and goals. Practice conversations, receive immediate feedback on pronunciation, and learn cultural contexts that textbooks miss.",
+      "details": "Type a word, and Heidi delivers a table comparing High German and Züridütsch with real-life examples. Send a sentence or email, and get a tailored response to communicate effortlessly. With cultural tips and local know-how, she's your shortcut to thriving in Switzerland. Curious? Try her yourself and see the magic.",
       "customSections": {
-        "caseStudies": ["How AI helped a traveler master Swiss German"],
-        "testimonials": ["Improved my fluency in just 3 months!"],
+        "caseStudies": ["How Heidi helped an expat master Swiss German in just 3 months"],
+        "testimonials": ["Improved my fluency in just 3 months! Heidi's tables make learning intuitive."],
         "faq": [
-          "How long does it take to learn Swiss German?",
-          "Can this be used for business conversations?"
+          "How does Heidi adapt to different types of input?",
+          "Can Heidi help with both High German and Swiss German?"
         ]
-      }
+      },
+      "tryLink": "https://chatgpt.com/g/g-rni41WTSh-heidi-tell"
     },
     {
       "slug": "auto-shopper",
