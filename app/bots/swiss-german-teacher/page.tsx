@@ -152,7 +152,7 @@ export default function SwissGermanTeacher() {
           <p className="mb-8 text-center text-lg text-gray-600">Try Heidi right here—see what she can do!</p>
           
           {/* Add input field and redirection button */}
-          <div className="mb-8 mx-auto max-w-2xl">
+          <div className="mb-8 mx-auto max-w-3xl">
             <div className="flex flex-col sm:flex-row gap-4">
               <input
                 type="text"
@@ -175,11 +175,11 @@ export default function SwissGermanTeacher() {
             <p className="text-sm text-gray-500 mt-2">Input redirects to ChatGPT for responses.</p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-2 max-w-3xl mx-auto">
             <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
               <h3 className="mb-4 text-xl font-semibold text-gray-900">Input: "dog"</h3>
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
+                <table className="w-full text-sm divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">d'Iigabä</th>
@@ -342,6 +342,32 @@ export default function SwissGermanTeacher() {
               )}
             </div>
           </div>
+        </div>
+
+        {/* Future Vision & Contributors Section */}
+        <div className="py-12 text-center bg-gray-50 rounded-2xl my-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">What's Next for Heidi?</h2>
+          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            Heidi's just getting started! We're building her to be the ultimate companion for immigrants settling into Switzerland, making it easier to connect with local communities and embrace Swiss dialects. Here's what's coming:
+          </p>
+          <ul className="list-disc text-left max-w-xl mx-auto mb-8 text-gray-700 px-8">
+            <li className="mb-2">Personalized learning paths tailored to your Swiss German goals.</li>
+            <li className="mb-2">Zurich event suggestions to dive into local culture.</li>
+            <li className="mb-2">Daily blogs, videos, and audios in Züridütsch to immerse you in the language.</li>
+            <li className="mb-2">Custom communication—Heidi chats with you based on your needs.</li>
+          </ul>
+          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            Our mission? To help immigrants integrate and grow the number of Swiss dialect speakers. Unlike Germany's uniform Hochdeutsch, Switzerland's local dialects are a beautiful part of its identity—and we want to keep it that way.
+          </p>
+          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            Love this vision? Join us! We need Swiss German experts and software engineers, but welcome anyone passionate about this project. Get in touch to shape Heidi's future with us!
+          </p>
+          <a 
+            href="mailto:contribute@botsmann.com" 
+            className="bg-blue-600 text-white px-6 py-3 rounded-md inline-block hover:bg-blue-700"
+          >
+            Join the Heidi Community
+          </a>
         </div>
       </main>
     </div>
