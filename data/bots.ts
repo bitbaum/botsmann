@@ -5,22 +5,25 @@ export interface Bot {
   overview: string;
   features: string[];
   details: string;
+  tryLink?: string;
 }
 
 const bots: Bot[] = [
   {
     slug: 'swiss-german-teacher',
-    title: 'Swiss German Teacher',
-    description: 'Master Swiss German with our AI language tutor',
-    overview: 'Learn authentic dialects and cultural nuances through interactive conversations with our specialized language AI.',
+    title: 'Heidi – Your Swiss German Companion',
+    description: 'Your AI companion for High German and Züridütsch—try her now and see the difference.',
+    overview: 'Smart, simple tools to speak and live like a local.',
     features: [
-      'Dialect-specific lessons',
-      'Interactive conversations',
-      'Cultural context',
-      'Pronunciation feedback',
-      'Customized learning pace'
+      'Adapts to You: Tables for words, replies for sentences—built for your needs.',
+      'Dual-Language Power: High German and Züridütsch, side by side.',
+      'Real Context: Words and phrases come alive with examples.',
+      'Instant Writing: Emails and texts crafted in both languages.',
+      'Swiss Culture: Insider tips on history and social life.',
+      'Local Smarts: Navigate Switzerland like you belong.'
     ],
-    details: 'Our Swiss German Teacher AI provides personalized language instruction, helping you master both the language and cultural aspects of Swiss German communication.'
+    details: "Type a word, and Heidi delivers a table comparing High German and Züridütsch with real-life examples. Send a sentence or email, and get a tailored response to communicate effortlessly. With cultural tips and local know-how, she's your shortcut to thriving in Switzerland. Curious? Try her yourself and see the magic.",
+    tryLink: 'https://chatgpt.com/g/g-rni41WTSh-heidi-tell'
   },
   {
     slug: 'medical-expert',
