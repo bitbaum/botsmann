@@ -40,9 +40,9 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Auto Shopper</h3>
-                <p className="text-gray-600 mb-4">Automate your shopping experience with AI-powered price comparison and smart purchasing decisions.</p>
-                <Link href="/bots/auto-shopper" className="text-openai-green hover:text-opacity-80 font-medium">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Swiss German Teacher</h3>
+                <p className="text-gray-600 mb-4">Master Swiss German with our AI-powered teacher that provides contextual learning and cultural insights for Switzerland.</p>
+                <Link href="/bots/swiss-german-teacher" className="text-openai-green hover:text-opacity-80 font-medium">
                   Learn more →
                 </Link>
               </div>
