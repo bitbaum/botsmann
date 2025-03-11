@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function Shopping() {
+export default function RecurringFulfillment() {
   return (
     <div className="min-h-screen bg-white">
       <main className="mx-auto max-w-screen-xl px-6 py-16">

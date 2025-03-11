@@ -30,7 +30,8 @@ export const menuItems: MenuItem[] = [
       { label: "Credit", path: "/projects/credit" },
       { label: "Finance", path: "/projects/finance" },
       { label: "Governance", path: "/projects/governance" },
-      { label: "Shopping", path: "/projects/shopping" }
+      { label: "Recurring Fulfillment", path: "/projects/shopping" },
+      { label: "Techno-Capital", path: "/projects/techno-capital" }
     ]
   },
   {

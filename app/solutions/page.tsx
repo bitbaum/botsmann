@@ -1,8 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import type { Route } from 'next';
+import solutions from '@/data/solutions.json';
 
 export default function SolutionsPage() {
+  const allSolutions = [
+    ...solutions.individuals.map(s => ({ ...s, category: 'individuals' })),
+    ...solutions.businesses.map(s => ({ ...s, category: 'businesses' })),
+    ...solutions.governments.map(s => ({ ...s, category: 'governments' }))
+  ];
+  
   return (
     <div className="mx-auto max-w-screen-xl px-6 py-12">
       <div className="mb-12 text-center">
@@ -17,7 +25,7 @@ export default function SolutionsPage() {
       {/* Customer Categories */}
       <div className="grid gap-10 md:grid-cols-3">
         {/* Individuals */}
-        <div className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md">
+        <div className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md relative">
           <div className="relative h-48 w-full overflow-hidden bg-gray-200">
             <div className="absolute inset-0 bg-gray-300 flex items-center justify-center">
               <span className="text-gray-600 font-medium">Individuals</span>
@@ -42,7 +50,10 @@ export default function SolutionsPage() {
         </div>
 
         {/* Businesses */}
-        <div className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md">
+        <div className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md relative">
+          <span className="absolute right-4 top-4 z-10 inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+            Coming Soon
+          </span>
           <div className="relative h-48 w-full overflow-hidden bg-gray-200">
             <div className="absolute inset-0 bg-gray-300 flex items-center justify-center">
               <span className="text-gray-600 font-medium">Businesses</span>
@@ -67,7 +78,10 @@ export default function SolutionsPage() {
         </div>
 
         {/* Governments */}
-        <div className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md">
+        <div className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md relative">
+          <span className="absolute right-4 top-4 z-10 inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+            Coming Soon
+          </span>
           <div className="relative h-48 w-full overflow-hidden bg-gray-200">
             <div className="absolute inset-0 bg-gray-300 flex items-center justify-center">
               <span className="text-gray-600 font-medium">Governments</span>
@@ -89,6 +103,33 @@ export default function SolutionsPage() {
               </svg>
             </Link>
           </div>
+        </div>
+      </div>
+
+      {/* All Solutions Section */}
+      <div className="mt-16">
+        <h2 className="mb-8 text-3xl font-semibold text-gray-900">All Solutions</h2>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {allSolutions.map((solution) => (
+            <Link 
+              key={`${solution.category}-${solution.slug}`} 
+              href={`/solutions/${solution.category}/${solution.slug}` as Route}
+              className="group flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md relative"
+            >
+              {solution.slug !== 'swiss-german-teacher' && (
+                <span className="absolute right-4 top-4 inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+                  Coming Soon
+                </span>
+              )}
+              <div>
+                <h2 className="mb-2 text-xl font-semibold text-gray-900">{solution.title}</h2>
+                <p className="mb-4 text-gray-600 min-h-[3rem]">{solution.overview}</p>
+              </div>
+              <span className="text-sm font-medium text-openai-green group-hover:underline mt-auto">
+                Learn more →
+              </span>
+            </Link>
+          ))}
         </div>
       </div>
 
