@@ -6,6 +6,12 @@ import Image from 'next/image';
 
 const projects = [
   {
+    title: 'Techno-Capital',
+    description: 'Investing in technology to drive humanity toward technological singularity through commodities, public companies, startups, research, and SubSpace Capital.',
+    href: '/projects/techno-capital',
+    image: '/images/techno-capital.jpg'
+  },
+  {
     title: 'Governance',
     description: 'Technologies dedicated to maximizing transparency and accountability in government spending, featuring innovative solutions like the Venmo-style spending tracker.',
     href: '/projects/governance',
@@ -18,8 +24,8 @@ const projects = [
     image: '/credit.png'
   },
   {
-    title: 'Shopping',
-    description: 'AI-powered shopping assistant that finds exactly what you need with just one word. Integrating with multiple e-commerce platforms for the best results.',
+    title: 'Recurring Fulfillment',
+    description: 'AI-powered platform for managing recurring purchases, subscriptions, and services. Automate your replenishment process and inventory management with predictive analytics.',
     href: '/projects/shopping',
     image: '/shopping.png'
   },

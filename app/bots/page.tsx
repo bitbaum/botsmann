@@ -13,8 +13,13 @@ export default function BotsList() {
           <Link 
             key={bot.slug} 
             href={`/bots/${bot.slug}` as Route}
-            className="group flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+            className="group flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md relative"
           >
+            {bot.slug !== 'swiss-german-teacher' && (
+              <span className="absolute right-4 top-4 inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+                Coming Soon
+              </span>
+            )}
             <div>
               <h2 className="mb-2 text-xl font-semibold text-gray-900">{bot.title}</h2>
               <p className="mb-4 text-gray-600 min-h-[3rem]">{bot.description}</p>
