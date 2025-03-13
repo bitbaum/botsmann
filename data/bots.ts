@@ -12,17 +12,17 @@ const bots: Bot[] = [
   {
     slug: 'swiss-german-teacher',
     title: 'Heidi – Your Swiss German Companion',
-    description: 'Your AI companion for High German and Züridütsch—try her now and see the difference.',
-    overview: 'Smart, simple tools to speak and live like a local.',
+    description: 'Your AI companion for High German and Züridütsch—learn the language and discover tonight\'s events in Zurich.',
+    overview: 'Smart, simple tools to speak, learn, and live like a local in Zurich.',
     features: [
-      'Adapts to You: Tables for words, replies for sentences—built for your needs.',
+      'Adapts to You: Learns your tastes and tests your progress in a smart way.',
+      'Events in Zurich: Discover tonight\'s events and activities for this week.',
       'Dual-Language Power: High German and Züridütsch, side by side.',
       'Real Context: Words and phrases come alive with examples.',
       'Instant Writing: Emails and texts crafted in both languages.',
-      'Swiss Culture: Insider tips on history and social life.',
-      'Local Smarts: Navigate Switzerland like you belong.'
+      'Swiss Culture: Insider tips on history and social life.'
     ],
-    details: "Type a word, and Heidi delivers a table comparing High German and Züridütsch with real-life examples. Send a sentence or email, and get a tailored response to communicate effortlessly. With cultural tips and local know-how, she's your shortcut to thriving in Switzerland. Curious? Try her yourself and see the magic.",
+    details: "Type a word, and Heidi delivers a table comparing High German and Züridütsch with real-life examples. Send a sentence or email, and get a tailored response to communicate effortlessly. Discover tonight's events in Zurich with the 'Browse Events' feature. Heidi follows your learning progress, tests you in a smart way, and helps you remember more while introducing you to local activities. With cultural tips and local know-how, she's your shortcut to thriving in Switzerland.",
     tryLink: 'https://chatgpt.com/g/g-rni41WTSh-heidi-tell'
   },
   {
