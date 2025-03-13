@@ -12,7 +12,7 @@ export default function BotsList() {
         {bots.map((bot) => (
           <Link 
             key={bot.slug} 
-            href={`/bots/${bot.slug}` as Route}
+            href={`/bots/${bot.slug}`}
             className="group flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md relative"
           >
             {bot.slug !== 'swiss-german-teacher' && (
