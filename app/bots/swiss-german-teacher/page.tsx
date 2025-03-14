@@ -17,6 +17,257 @@ const TextGenerator = dynamic(() => import("./components/TextGenerator"), {
   loading: () => <div className="h-80 bg-gray-100 rounded-lg animate-pulse"></div>
 });
 
+// Vocabulary Builder Component
+const VocabularyBuilder = ({ getTryLink }: { getTryLink: () => string }) => {
+  const [input, setInput] = useState("cat");
+  const [showResponse, setShowResponse] = useState(false);
+
+  const handleTranslate = () => {
+    if (input.toLowerCase() === "cat") {
+      setShowResponse(true);
+    }
+  };
+
+  const response = {
+    iigaba: "Chatz",
+    iigabetyp: "Es Wort (es Nomen, Englisch)",
+    table: [
+      { term: "d'Chatz, -e", meaning: "CH: d'Chatz, -e DE: die Katze 1) Es Tier mit schnusigem Fell, wo gärn Muus fangt und schnurrt.", highGerman: "Die Katze schläft den ganzen Tag.", swissGerman: "D'Chatz schlaft de ganze Tag." },
+      { term: "de Büsi, -", meaning: "CH: de Büsi, - DE: das Kätzchen 1) E chliini oder liebi Chatz.", highGerman: "Das Kätzchen spielt mit einem Wollknäuel.", swissGerman: "S'Büsi spielt mit em Wullechnäuel." },
+      { term: "de Kater, -", meaning: "CH: de Kater, - DE: der Kater 1) E männlichi Chatz.", highGerman: "Der Kater sitzt auf dem Dach.", swissGerman: "De Kater sitzt ufem Dach." },
+      { term: "s'Chätzli, -", meaning: "CH: s'Chätzli, - DE: das Kätzchen 1) E jungi oder chliini Chatz.", highGerman: "Das Kätzchen jagt eine Maus.", swissGerman: "S'Chätzli jagt e Muus." },
+      { term: "d'Hauschatz, -e", meaning: "CH: d'Hauschatz, -e DE: die Hauskatze 1) E Chatz, wo bi de Lüüt im Huus lebt.", highGerman: "Die Hauskatze jagt keine Mäuse.", swissGerman: "D'Hauschatz jagt kei Muus." },
+      { term: "d'Wildchatz, -e", meaning: "CH: d'Wildchatz, -e DE: die Wildkatze 1) E Chatz, wo wild und nöd zahm isch.", highGerman: "Wildkatzen leben in Wäldern.", swissGerman: "Wildchätz lebed i de Wäld." },
+      { term: "d'Schmusechatz, -e", meaning: "CH: d'Schmusechatz, -e DE: die Schmusekatze 1) E Chatz, wo gärn kuschelt und gestreichelt wird.", highGerman: "Meine Katze ist eine richtige Schmusekatze.", swissGerman: "Mini Chatz isch e richtige Schmusechatz." },
+      { term: "de Stubetiger, -", meaning: "CH: de Stubetiger, - DE: der Stubentiger 1) En häusligi Name für e Chatz.", highGerman: "Unser Stubentiger schläft auf dem Sofa.", swissGerman: "Oise Stubetiger schlaft uf em Sofa." },
+      { term: "d'Mieze, -e", meaning: "CH: d'Mieze, -e DE: die Mieze 1) E liebi Usgang für e Chatz.", highGerman: "Die Mieze versteckt sich unter dem Tisch.", swissGerman: "D'Mieze versteckt sich under em Tisch." },
+      { term: "de Fellchnäuel, -", meaning: "CH: de Fellchnäuel, - DE: der Fellknäuel 1) E liebi Beschribig für e Chatz mit vill Fell.", highGerman: "Der kleine Fellknäuel schnurrt zufrieden.", swissGerman: "De chlii Fellchnäuel schnurrt zfriede." },
+    ],
+    text: "D'Chatz vom Nachbar chunnt jede Tag i üsi Garte und macht sich do bequem. Sie legt sich uf mis Lounge-Polster und gseht mi mit ihre grossä, grüene Auge aa. Wenn ich nocher mit de Füdle chume, schnurrt sie und drückt sich an min Bei. Ich ha d'Chatz so gärn, aber sie ghört leider nöd mir. Villecht hol ich mir doch mal es Büsi für mis eiges Dihei."
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row gap-4">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyPress={(e) => e.key === "Enter" && handleTranslate()}
+          placeholder="Enter a word"
+          className="flex-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-openai-green"
+          aria-label="Vocabulary input"
+        />
+        <button
+          onClick={handleTranslate}
+          className="px-6 py-3 bg-openai-green text-white rounded-md font-medium hover:bg-emerald-600 transition-all"
+          aria-label="Translate word"
+        >
+          Translate
+        </button>
+      </div>
+      {showResponse && (
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 animate-slide-down">
+          <h4 className="text-lg font-medium text-gray-900 mb-2">Iigabä: {response.iigaba}</h4>
+          <p className="text-gray-600 mb-4">Iigabetyp: {response.iigabetyp}</p>
+          <div className="overflow-x-auto mb-6">
+            <table className="w-full text-sm border border-gray-200 divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-3 py-2 text-left font-medium text-gray-700">d'Iigabä</th>
+                  <th className="px-3 py-2 text-left font-medium text-gray-700">d'Bedütig</th>
+                  <th className="px-3 py-2 text-left font-medium text-gray-700">Es Satz uf Hochdütsch</th>
+                  <th className="px-3 py-2 text-left font-medium text-gray-700">Es Satz uf Züridütsch</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {response.table.map((row: any, index: number) => (
+                  <tr key={index} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                    <td className="px-3 py-2 text-gray-600">{row.term}</td>
+                    <td className="px-3 py-2 text-gray-600">{row.meaning}</td>
+                    <td className="px-3 py-2 text-gray-600">{row.highGerman}</td>
+                    <td className="px-3 py-2 text-gray-600">{row.swissGerman}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="mb-6">
+            <h4 className="text-lg font-medium text-gray-900 mb-2">5-Satz-Text uf Züridütsch</h4>
+            <p className="text-gray-600">{response.text}</p>
+          </div>
+          <div className="text-center">
+            <a href={getTryLink()} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-openai-green text-white rounded-md font-medium hover:bg-emerald-600 transition-all">
+              Try More with Heidi
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Conversation Practice Component
+const ConversationPractice = ({ getTryLink }: { getTryLink: () => string }) => {
+  const [response, setResponse] = useState("");
+  const router = useRouter();
+
+  const handleResponseSubmit = () => {
+    if (response.trim()) {
+      const chatGptUrl = `${getTryLink()}?q=${encodeURIComponent(`Sali! Wöu mit mir es Kaffi trinke? - ${response}`)}`;
+      window.open(chatGptUrl, "_blank");
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="bg-white p-4 rounded-md shadow-sm">
+        <p className="font-medium text-gray-900 mb-2">Nachricht:</p>
+        <p className="text-gray-600">Sali! Wöu mit mir es Kaffi trinke?</p>
+        <p className="text-xs text-gray-500 mt-1">Translation: Hi! Want to grab a coffee with me?</p>
+      </div>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <input
+          type="text"
+          value={response}
+          onChange={(e) => setResponse(e.target.value)}
+          onKeyPress={(e) => e.key === "Enter" && handleResponseSubmit()}
+          placeholder="Type your response here..."
+          className="flex-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-openai-green"
+          aria-label="Conversation response input"
+        />
+        <button
+          onClick={handleResponseSubmit}
+          className="px-6 py-3 bg-openai-green text-white rounded-md font-medium hover:bg-emerald-600 transition-all"
+          aria-label="Send response to Heidi"
+        >
+          Send to Heidi
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Grammar Explanations Component
+const GrammarPractice = ({ getTryLink }: { getTryLink: () => string }) => {
+  const [input, setInput] = useState("to sleep");
+  const [showResponse, setShowResponse] = useState(false);
+
+  const handlePractice = () => {
+    if (input.toLowerCase() === "to sleep") {
+      setShowResponse(true);
+    }
+  };
+
+  const response = {
+    iigaba: "schlafe",
+    iigabetyp: "Es Wort (es Verb, Englisch)",
+    table: [
+      { term: "schlafe", meaning: "CH: schlafe / ha gschlofe DE: schlafen / schlief / habe geschlafen – Im Ruhezustand si, vor allem i de Nacht.", highGerman: "Ich schlafe jede Nacht acht Stunden.", swissGerman: "Ich schlaf jede Nacht acht Stund." },
+      { term: "gschlofe", meaning: "CH: ha gschlofe / werd schlafe DE: habe geschlafen / schlief / werde schlafen – Vergangeni oder spöteri Ziit vom Schlafe.", highGerman: "Ich habe sehr schlecht geschlafen.", swissGerman: "Ich ha sehr schlächt gschlofe." },
+      { term: "s'Nickerli", meaning: "CH: mach es Nickerli / ha es Nickerli gmacht DE: mache ein Nickerchen / machte ein Nickerchen / habe ein Nickerchen gemacht – Es churzi Schlafe am Tag.", highGerman: "Ich mache ein kurzes Nickerchen.", swissGerman: "Ich mach es chliises Nickerli." },
+      { term: "müed", meaning: "CH: bin müed / bin müed gsi DE: bin müde / war müde / bin müde gewesen – Wenn me Schlaf bruucht.", highGerman: "Ich bin sehr müde.", swissGerman: "Ich bin sehr müed." },
+      { term: "schnarche", meaning: "CH: schnarche / ha gschnarcht DE: schnarche / schnarchte / habe geschnarcht – Laute Geräusch im Schlaf mache.", highGerman: "Er schnarcht jede Nacht.", swissGerman: "Er schnarcht jede Nacht." },
+      { term: "erwache", meaning: "CH: erwach / bi erwacht DE: wache auf / wachte auf / bin aufgewacht – Vom Schlafe wieder wache werde.", highGerman: "Ich wache um sechs Uhr auf.", swissGerman: "Ich erwach am sechs Uhr." },
+      { term: "i Schlaf cho", meaning: "CH: chum i Schlaf / bi i Schlaf cho DE: schlafe ein / schlief ein / bin eingeschlafen – Mit Schlafe afange.", highGerman: "Ich bin schnell eingeschlafen.", swissGerman: "Ich bi schnäll i Schlaf cho." },
+      { term: "d'Ruhe", meaning: "CH: bruuch Ruhe / ha Ruhe gha DE: brauche Ruhe / brauchte Ruhe / habe Ruhe gebraucht – Wenn's still isch und me entspanne chan.", highGerman: "Ich brauche Ruhe zum Schlafen.", swissGerman: "Ich bruuch Rueh zum Schlafe." },
+      { term: "der Traum", meaning: "CH: träum / ha troome DE: träume / träumte / habe geträumt – Bilder und Gschichte im Schlaf.", highGerman: "Ich hatte einen schönen Traum.", swissGerman: "Ich ha es schöns Träumli gha." },
+      { term: "d'Insomnia", meaning: "CH: ha Insomnia / ha Insomnia gha DE: habe Schlaflosigkeit / hatte Schlaflosigkeit / habe Schlaflosigkeit gehabt – Wenn me nöd chan schlafe.", highGerman: "Schlaflosigkeit ist mühsam.", swissGerman: "Insomnia isch mega müehsam." },
+    ],
+    conjugation: {
+      "Jetzt-Ziit": ["schlaf", "schlafsch", "schlaft", "schlöfed", "schlöfed", "schlöfed"],
+      "Vergangeni Ziit": ["ha gschlofe", "hesch gschlofe", "hät gschlofe", "händ gschlofe", "händ gschlofe", "händ gschlofe"],
+      "Spöteri Ziit": ["werd schlafe", "wirsch schlafe", "wird schlafe", "werde schlafe", "werde schlafe", "werde schlafe"]
+    },
+    text: "Ich schlaf viel z'wänig, drum bin ich morns immer müed. 🥱 Gschter ha ich nur vier Stund gschlofe, und das gspür ich hüt de ganz Tag. Wenn ich müed bi, chan ich überall i Schlaf cho, sogar im Tram. 🚋 Aber s'Beschti isch, wenn me am Wuchenänd so lang schlofe chan, wie me wett. 😴 Hüt am Abig goh ich extra früe is Bett, dass ich mal wieder richtig erholt bi."
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row gap-4">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyPress={(e) => e.key === "Enter" && handlePractice()}
+          placeholder="Enter a verb (e.g., 'to sleep')"
+          className="flex-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-openai-green"
+          aria-label="Grammar input"
+        />
+        <button
+          onClick={handlePractice}
+          className="px-6 py-3 bg-openai-green text-white rounded-md font-medium hover:bg-emerald-600 transition-all"
+          aria-label="Practice grammar"
+        >
+          Practice
+        </button>
+      </div>
+      {showResponse && (
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 animate-slide-down">
+          <h4 className="text-lg font-medium text-gray-900 mb-2">Iigabä: {response.iigaba}</h4>
+          <p className="text-gray-600 mb-4">Iigabetyp: {response.iigabetyp}</p>
+          <div className="overflow-x-auto mb-6">
+            <table className="w-full text-sm border border-gray-200 divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-3 py-2 text-left font-medium text-gray-700">d'Iigabä</th>
+                  <th className="px-3 py-2 text-left font-medium text-gray-700">d'Bedütig</th>
+                  <th className="px-3 py-2 text-left font-medium text-gray-700">Es Satz uf Hochdütsch</th>
+                  <th className="px-3 py-2 text-left font-medium text-gray-700">Es Satz uf Züridütsch</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {response.table.map((row: any, index: number) => (
+                  <tr key={index} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                    <td className="px-3 py-2 text-gray-600">{row.term}</td>
+                    <td className="px-3 py-2 text-gray-600">{row.meaning}</td>
+                    <td className="px-3 py-2 text-gray-600">{row.highGerman}</td>
+                    <td className="px-3 py-2 text-gray-600">{row.swissGerman}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="mb-6">
+            <h4 className="text-lg font-medium text-gray-900 mb-2">Wie me „{response.iigaba}" im Züridütsch brucht</h4>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border border-gray-200 divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-3 py-2 text-left font-medium text-gray-700">Person</th>
+                    <th className="px-3 py-2 text-left font-medium text-gray-700">Jetzt-Ziit</th>
+                    <th className="px-3 py-2 text-left font-medium text-gray-700">Vergangeni Ziit</th>
+                    <th className="px-3 py-2 text-left font-medium text-gray-700">Spöteri Ziit</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {["Ich", "Du", "Er / Sie / Es", "Mir", "Ihr", "Sie"].map((person, index) => (
+                    <tr key={index} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                      <td className="px-3 py-2 text-gray-600">{person}</td>
+                      <td className="px-3 py-2 text-gray-600">{response.conjugation["Jetzt-Ziit"][index]}</td>
+                      <td className="px-3 py-2 text-gray-600">{response.conjugation["Vergangeni Ziit"][index]}</td>
+                      <td className="px-3 py-2 text-gray-600">{response.conjugation["Spöteri Ziit"][index]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="mb-6">
+            <h4 className="text-lg font-medium text-gray-900 mb-2">5-Satz-Text uf Züridütsch</h4>
+            <p className="text-gray-600">{response.text}</p>
+          </div>
+          <div className="text-center">
+            <a href={getTryLink()} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-openai-green text-white rounded-md font-medium hover:bg-emerald-600 transition-all">
+              Try More with Heidi
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default function SwissGermanTeacher() {
   // State variables
   const [email, setEmail] = useState("");
@@ -211,7 +462,7 @@ export default function SwissGermanTeacher() {
                   <h3 className="text-xl font-semibold text-gray-900">Language Learning</h3>
                 </div>
                 <p className="text-gray-600 mb-4">
-                  Master Swiss German through vocabulary building, conversation practice, and grammar lessons
+                  Master Swiss German through personalized lessons, vocabulary building, and conversation practice with Heidi's intuitive tools.
                 </p>
                 <div className="mt-auto text-openai-green font-medium flex items-center">
                   Explore
@@ -274,7 +525,7 @@ export default function SwissGermanTeacher() {
                   <h3 className="text-xl font-semibold text-gray-900">Swiss Content</h3>
                 </div>
                 <p className="text-gray-600 mb-4">
-                  Explore authentic Swiss German content curated to match your proficiency level
+                  Enhance your learning with authentic Swiss German content curated to match your proficiency level
                 </p>
                 <div className="mt-auto text-openai-green font-medium flex items-center">
                   Explore
@@ -302,135 +553,25 @@ export default function SwissGermanTeacher() {
                   <h2 className="text-3xl font-semibold text-gray-900">Language Learning</h2>
                 </div>
                 <p className="text-lg text-gray-600 mb-8 ml-14">
-                  Master Swiss German through personalized lessons, vocabulary building, and conversation practice.
+                  Master Swiss German through personalized lessons, vocabulary building, and conversation practice with Heidi's intuitive tools.
                 </p>
 
-                {/* Vocabulary Builder */}
                 <div id="vocabulary-builder" className={`${cardStyle} mb-10`}>
                   <h3 className="text-xl font-semibold mb-2">Vocabulary Builder</h3>
-                  <p className="mb-4">Build your Swiss German vocabulary with contextually-relevant words and phrases.</p>
-                  
-                  <div className="bg-white p-3 rounded-md text-sm mb-4 shadow-sm">
-                    <p className="font-medium mb-3">Example: Words for "cat" in Swiss German</p>
-                    <div className="overflow-x-auto">
-                      <table className="min-w-full text-sm border-separate border-spacing-0">
-                        <thead>
-                          <tr className="bg-gray-50">
-                            <th className="text-left p-2 border-b">Swiss German Term</th>
-                            <th className="text-left p-2 border-b">Meaning</th>
-                            <th className="text-left p-2 border-b">Usage Example</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td className="p-2 border-b">d'Chatz</td>
-                            <td className="p-2 border-b">cat (standard)</td>
-                            <td className="p-2 border-b">D'Chatz schloft uf em Sofa.</td>
-                          </tr>
-                          <tr>
-                            <td className="p-2 border-b">s'Büsi</td>
-                            <td className="p-2 border-b">cat (affectionate)</td>
-                            <td className="p-2 border-b">Lueg mal wie herzig das Büsi isch!</td>
-                          </tr>
-                          <tr>
-                            <td className="p-2 border-b">de Stubetiger</td>
-                            <td className="p-2 border-b">house cat</td>
-                            <td className="p-2 border-b">Euse Stubetiger fangt kei Müüs.</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  
-                  <div className="cursor-pointer text-center p-2 bg-green-100 hover:bg-green-200 rounded-md text-green-800 transition-colors mb-4" onClick={togglePopup}>
-                    <span className="font-medium">Try an Interactive Example</span>
-                  </div>
-                  
-                  <div className="mt-4 text-center">
-                    <a href={getTryLink()} target="_blank" rel="noopener noreferrer" className={btnPrimary}>
-                      Start Building Your Vocabulary
-                    </a>
-                  </div>
+                  <p className="mb-4">Build your Swiss German vocabulary with contextually-relevant words and phrases—try translating "cat" below!</p>
+                  <VocabularyBuilder getTryLink={getTryLink} />
                 </div>
 
-                {/* Conversation Practice */}
                 <div id="conversation-practice" className={`${cardStyle} mb-10`}>
                   <h3 className="text-xl font-semibold mb-2">Conversation Practice</h3>
-                  <p className="mb-4">
-                    Practice everyday conversations with guidance on pronunciation, grammar, and cultural context.
-                  </p>
-                  
-                  <div className="space-y-4">
-                    <div className="bg-white p-3 rounded-md text-sm shadow-sm">
-                      <p className="font-medium mb-2">Example Dialogue: Ordering Coffee</p>
-                      <div className="space-y-2">
-                        <p><strong>Barista:</strong> Grüezi, was dörfs sii?</p>
-                        <p className="text-xs text-gray-500">Translation: Hello, what would you like?</p>
-                        
-                        <p><strong>You:</strong> Grüezi, ich hätt gern en Caffè Latte, bitte.</p>
-                        <p className="text-xs text-gray-500">Translation: Hello, I'd like a latte, please.</p>
-                        
-                        <p><strong>Barista:</strong> Gern. Zum da trinke oder zum mitneh?</p>
-                        <p className="text-xs text-gray-500">Translation: Gladly. To drink here or to take away?</p>
-                        
-                        <p><strong>You:</strong> Zum mitneh, bitte.</p>
-                        <p className="text-xs text-gray-500">Translation: To take away, please.</p>
-                        
-                        <p><strong>Barista:</strong> Das macht vier Franke füfzg.</p>
-                        <p className="text-xs text-gray-500">Translation: That's four francs fifty.</p>
-                        
-                        <p><strong>You:</strong> Da isch s'Geld. Merci villmal.</p>
-                        <p className="text-xs text-gray-500">Translation: Here's the money. Thank you very much.</p>
-                        
-                        <p><strong>Barista:</strong> Danke au. En schöne Tag no.</p>
-                        <p className="text-xs text-gray-500">Translation: Thank you too. Have a nice day.</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6 text-center">
-                    <a href={getTryLink()} target="_blank" rel="noopener noreferrer" className={btnPrimary}>
-                      Practice Conversations
-                    </a>
-                  </div>
+                  <p className="mb-4">Practice everyday conversations by responding to messages—Heidi will take it from there!</p>
+                  <ConversationPractice getTryLink={getTryLink} />
                 </div>
 
-                {/* Grammar Explanations */}
-                <div id="grammar-explanations" className={`${cardStyle} mb-10 relative`}>
-                  <div className={comingSoonBadge}>Coming Soon</div>
+                <div id="grammar-explanations" className={`${cardStyle} mb-10`}>
                   <h3 className="text-xl font-semibold mb-2">Grammar Explanations</h3>
-                  <p className="mb-4">
-                    Learn Swiss German grammar with clear, concise explanations and examples that highlight the differences from Standard German.
-                  </p>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                    <div className="p-4 bg-white rounded-md shadow-sm">
-                      <h4 className="font-medium text-gray-900 mb-2">Articles and Gender</h4>
-                      <ul className="space-y-2 text-sm text-gray-600">
-                        <li>• The three genders in Swiss German</li>
-                        <li>• When to use "de", "d'" and "s'"</li>
-                        <li>• Differences from Standard German</li>
-                      </ul>
-                    </div>
-                    
-                    <div className="p-4 bg-white rounded-md shadow-sm">
-                      <h4 className="font-medium text-gray-900 mb-2">Verb Conjugation</h4>
-                      <ul className="space-y-2 text-sm text-gray-600">
-                        <li>• Present tense forms</li>
-                        <li>• Past tense expressions</li>
-                        <li>• Modal verbs in Swiss German</li>
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6 text-center">
-                    <button
-                      onClick={() => document.getElementById('waitlist-form')?.scrollIntoView({ behavior: 'smooth' })}
-                      className={btnSecondary}
-                    >
-                      Get Notified When Available
-                    </button>
-                  </div>
+                  <p className="mb-4">Learn Swiss German grammar by practicing any topic—start with "to sleep" below!</p>
+                  <GrammarPractice getTryLink={getTryLink} />
                 </div>
               </section>
 
@@ -1122,12 +1263,17 @@ export default function SwissGermanTeacher() {
       )}
       
       <style jsx global>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in {
-          animation: fadeIn 0.3s ease-in-out;
+        .animate-slide-down {
+          animation: slideDown 0.3s ease-in-out;
+        }
+        
+        /* Add scroll margin to section headings to account for fixed header */
+        section[id] {
+          scroll-margin-top: 80px;
         }
       `}</style>
     </div>
