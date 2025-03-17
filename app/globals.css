@@ -29,13 +29,13 @@ body {
 
 @layer components {
   .btn-primary {
-    @apply rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity;
+    @apply rounded-md bg-green-600 px-4 py-2 text-sm md:text-base font-medium text-white hover:bg-opacity-90 transition-all shadow-sm hover:shadow md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50;
   }
   .btn-secondary {
-    @apply rounded-md border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors;
+    @apply rounded-md border border-gray-200 px-4 py-2 text-sm md:text-base font-medium text-gray-600 hover:bg-gray-50 transition-all shadow-sm hover:shadow-md md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-opacity-50;
   }
   .input-primary {
-    @apply w-full rounded-xl border-2 border-gray-200 bg-transparent px-4 py-3 text-gray-900 outline-none transition-colors focus:border-green-600;
+    @apply w-full rounded-xl border-2 border-gray-200 bg-transparent px-4 py-3 text-gray-900 outline-none transition-colors focus:border-green-600 focus:ring-2 focus:ring-green-100;
   }
 }
 
@@ -97,4 +97,69 @@ body.overflow-hidden {
 header {
   max-height: auto !important;
   max-width: 100% !important;
+}
+
+/* Add these animation classes to your existing globals.css file */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+/* Hide scrollbar for clean UI */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Add these to your global CSS to fix dropdown behavior */
+
+/* Dropdown and Navigation Z-index Hierarchy */
+.dropdown-menu {
+  z-index: 1000 !important; /* Extremely high z-index to ensure it's above everything */
+  position: absolute !important;
+  background-color: white !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+#botsmann-header {
+  z-index: 900 !important; 
+  position: relative !important;
+}
+
+.bot-navigation {
+  z-index: 800 !important; /* Lower than Botsmann header but higher than content */
+}
+
+/* Ensure all dropdown content is clickable */
+.dropdown-menu * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Add pointer-events: none to elements that should not intercept clicks when dropdowns are open */
+.dropdown-open .bot-navigation {
+  pointer-events: none !important;
+}
+
+/* Mobile responsiveness improvements */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
 }

@@ -1,0 +1,60 @@
+/* Additional styles for section transitions and navigation */
+.imhotep-navigation {
+  z-index: 50 !important;
+}
+
+/* Section transitions */
+section {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Responsive call-to-action button */
+@media (max-width: 640px) {
+  .imhotep-navigation .call-to-action {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  /* Make sure logo text doesn't overflow */
+  .imhotep-navigation .logo-text {
+    font-size: 1.1rem;
+  }
+}
+
+/* Buttons */
+.btn-primary {
+  @apply px-6 py-3 bg-green-600 text-white font-medium rounded-lg shadow-sm transition-all;
+}
+
+.btn-primary:hover {
+  @apply bg-green-700 shadow;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  @apply px-6 py-3 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg transition-all;
+}
+
+.btn-secondary:hover {
+  @apply bg-gray-50 shadow-sm;
+  transform: translateY(-1px);
+}
+
+/* Section dividers */
+.section-divider {
+  height: 6px;
+  background: linear-gradient(90deg, rgba(16,185,129,0.2) 0%, rgba(59,130,246,0.2) 100%);
+  margin: 3rem 0;
+  border-radius: 3px;
+}
+
+/* Improve scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion) {
+  html {
+    scroll-behavior: auto;
+  }
+} 

@@ -5,6 +5,9 @@ import { Bot } from '@/data/bots';
 import bots from '@/data/bots';
 
 export default function BotsList() {
+  // Define which bots are ready (not coming soon)
+  const readyBots = ['swiss-german-teacher'];
+  
   return (
     <div className="mx-auto max-w-screen-xl px-6 py-12">
       <h1 className="mb-8 text-4xl font-semibold tracking-tight">Our AI Bots</h1>
@@ -15,7 +18,7 @@ export default function BotsList() {
             href={`/bots/${bot.slug}`}
             className="group flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md relative"
           >
-            {bot.slug !== 'swiss-german-teacher' && (
+            {!readyBots.includes(bot.slug) && (
               <span className="absolute right-4 top-4 inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
                 Coming Soon
               </span>
