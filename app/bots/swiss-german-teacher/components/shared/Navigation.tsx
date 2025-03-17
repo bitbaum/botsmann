@@ -3,9 +3,10 @@ import { btnPrimary } from '../../utils/constants';
 
 interface NavigationProps {
   getTryLink: () => string;
+  className?: string;
 }
 
-const Navigation = ({ getTryLink }: NavigationProps) => {
+const Navigation = ({ getTryLink, className = '' }: NavigationProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -30,7 +31,7 @@ const Navigation = ({ getTryLink }: NavigationProps) => {
   ];
 
   return (
-    <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
+    <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'} ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
