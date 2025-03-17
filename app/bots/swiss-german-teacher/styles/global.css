@@ -1,0 +1,66 @@
+/* Custom scrollbar for demo section */
+.demo-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.demo-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.demo-scroll::-webkit-scrollbar-thumb {
+  background: #c5c5c5;
+  border-radius: 10px;
+}
+
+.demo-scroll::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out;
+}
+
+/* Text highlight for vocabulary */
+.vocab-highlight {
+  background: linear-gradient(120deg, rgba(56, 178, 172, 0.2) 0%, rgba(56, 178, 172, 0) 100%);
+  padding: 0.25rem 0.5rem;
+  margin: 0 -0.5rem;
+  border-radius: 4px;
+}
+
+/* Custom gradient text */
+.gradient-text {
+  background: linear-gradient(90deg, #10b981 0%, #0ea5e9 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Focus outlines with custom color for better accessibility */
+.custom-focus:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+  border-color: #10b981;
+} 

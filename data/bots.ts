@@ -26,6 +26,22 @@ const bots: Bot[] = [
     tryLink: 'https://chatgpt.com/g/g-rni41WTSh-heidi-tell'
   },
   {
+    slug: 'research-assistant',
+    title: 'Research Assistant',
+    description: 'AI-powered research companion for organizing data, generating insights, and discovering connections.',
+    overview: 'Elevate your research workflow with AI automation that organizes materials, provides real-time updates, and sparks innovation.',
+    features: [
+      'Automated Research Systematization',
+      'Web Scraping for Updates',
+      'AI-Generated Research Drafts',
+      'Daily Thought-Provoking Questions',
+      'Big Discovery Mode',
+      'Integration & Collaboration'
+    ],
+    details: 'The Research Assistant Bot transforms how academics, scientists, journalists, and industry professionals conduct research. It automatically organizes uploaded materials, keeps you updated with the latest developments in your field, generates structured content with proper citations, and challenges your thinking with insightful questions. The unique Big Discovery Mode helps identify research gaps and novel connections between concepts, potentially leading to breakthrough insights.',
+    tryLink: 'https://chatgpt.com/g/research-assistant'
+  },
+  {
     slug: 'medical-expert',
     title: 'Medical Expert Assistant',
     description: 'AI-powered medical knowledge and consultation support',

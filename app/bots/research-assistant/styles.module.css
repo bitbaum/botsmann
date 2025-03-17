@@ -1,0 +1,770 @@
+/* Research Assistant Bot - CSS Module Styles */
+
+/* General section styles */
+.featureSection {
+  margin: 3rem 0 5rem;
+  padding: 1rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.featureTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.featureSubtitle {
+  font-size: 1.125rem;
+  color: #4b5563;
+  margin-bottom: 3rem;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.featureFooter {
+  margin-top: 3rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 2rem;
+}
+
+/* Button styles */
+.primaryButton {
+  display: inline-block;
+  background-color: #4f46e5;
+  color: white;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.primaryButton:hover {
+  background-color: #4338ca;
+}
+
+.secondaryButton {
+  display: inline-block;
+  background-color: white;
+  color: #4f46e5;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #4f46e5;
+  transition: background-color 0.3s;
+}
+
+.secondaryButton:hover {
+  background-color: #f5f3ff;
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  background-color: #f9fafb;
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.iconButton:hover {
+  background-color: #f3f4f6;
+}
+
+/* Feature card styles */
+.featureCard {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.featureCard:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-color: #c7d2fe;
+}
+
+/* Research Draft Section Styles */
+.draftSectionContainer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.draftTypeSelector {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.draftTypeButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.draftTypeButton {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.draftTypeButton:hover {
+  border-color: #a5b4fc;
+}
+
+.activeDraftType {
+  border-color: #6366f1;
+  background-color: #eef2ff;
+}
+
+.draftTypeIcon {
+  margin-right: 0.75rem;
+}
+
+.draftTypeActiveIndicator {
+  margin-left: auto;
+  color: #6366f1;
+}
+
+.draftPreviewContainer {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.draftPreviewHeader {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.draftTypeBadge {
+  padding: 0.25rem 0.75rem;
+  background-color: #eef2ff;
+  color: #4f46e5;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.draftContent {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.draftSources {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.375rem;
+}
+
+.draftSources h4 {
+  margin-bottom: 0.75rem;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+.draftSources ul {
+  padding-left: 1.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.draftSources li {
+  margin-bottom: 0.5rem;
+}
+
+.draftFeatures {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.draftFeatureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.workflowSteps {
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.workflowSteps li {
+  position: relative;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: #4f46e5;
+  color: white;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.stepText {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+/* Big Discovery Section Styles */
+.discoveryContainer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.domainSelector {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.domainButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.domainButton {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.domainButton:hover {
+  border-color: #a5b4fc;
+}
+
+.activeDomain {
+  border-color: #6366f1;
+  background-color: #eef2ff;
+  font-weight: 500;
+}
+
+.discoveryContent {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.discoveryHeader {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.insightsContainer {
+  margin-bottom: 2rem;
+}
+
+.insightsList {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.insightItem {
+  display: flex;
+  margin-bottom: 1rem;
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.375rem;
+}
+
+.insightBullet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  background-color: #4f46e5;
+  color: white;
+  border-radius: 999px;
+  margin-right: 0.75rem;
+  font-weight: 600;
+}
+
+.discoveryVisual {
+  margin-top: 2rem;
+}
+
+.visualPlaceholder {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.375rem;
+  border: 1px dashed #d1d5db;
+  height: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.connectionGraph {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.graphNode {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #6366f1;
+  border-radius: 50%;
+}
+
+.graphEdge {
+  position: absolute;
+  height: 2px;
+  background-color: #a5b4fc;
+}
+
+.visualCaption {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+.discoveryMethodology {
+  margin-top: 3rem;
+}
+
+.methodologyGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.methodologyItem {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.methodologyIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background-color: #eef2ff;
+  color: #4f46e5;
+  border-radius: 999px;
+  margin: 0 auto 1rem;
+  font-weight: 600;
+}
+
+.discoveryCallToAction {
+  margin-top: 3rem;
+  text-align: center;
+  padding: 2rem;
+  background-color: #eef2ff;
+  border-radius: 0.5rem;
+}
+
+/* Daily Questions Section Styles */
+.questionSectionContainer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.fieldSelector {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.fieldButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.fieldButton {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fieldButton:hover {
+  border-color: #a5b4fc;
+}
+
+.activeField {
+  border-color: #6366f1;
+  background-color: #eef2ff;
+  font-weight: 500;
+}
+
+.questionsContainer {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.questionsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.questionActions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.questionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.questionCard {
+  background-color: #f9fafb;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.questionText {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.questionCardFooter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.answerButton, .saveButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.answerButton:hover, .saveButton:hover {
+  background-color: #f3f4f6;
+}
+
+.answeringActive {
+  background-color: #eef2ff;
+  border-color: #a5b4fc;
+  color: #4f46e5;
+}
+
+.answerArea {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.answerTextarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.answerActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.questionFeatures {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.questionSchedule {
+  margin-top: 3rem;
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.scheduleOptions {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 1.5rem 0;
+}
+
+.scheduleOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Integration Section Styles */
+.integrationContainer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.toolSelector {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.toolButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.toolButton {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toolButton:hover {
+  border-color: #a5b4fc;
+}
+
+.activeTool {
+  border-color: #6366f1;
+  background-color: #eef2ff;
+}
+
+.toolIconPlaceholder {
+  width: 2rem;
+  height: 2rem;
+  background-color: #e5e7eb;
+  border-radius: 0.25rem;
+  margin-right: 0.75rem;
+}
+
+.toolDetails {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.toolHeader {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.toolFeatures {
+  margin-bottom: 1.5rem;
+}
+
+.featuresList {
+  margin-top: 0.75rem;
+  padding-left: 1.5rem;
+}
+
+.featureItem {
+  margin-bottom: 0.5rem;
+}
+
+.toolVisual {
+  margin-bottom: 1.5rem;
+}
+
+.toolConnect {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.learnMoreLink {
+  color: #4f46e5;
+  text-decoration: underline;
+  font-size: 0.875rem;
+}
+
+.collaborationSection {
+  margin-bottom: 3rem;
+}
+
+.collaborationFeatures {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.collaborationFeature {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.featureIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #eef2ff;
+  color: #4f46e5;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.apiSection {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.apiCodeExample {
+  margin: 1.5rem 0;
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.375rem;
+  overflow-x: auto;
+}
+
+.codeBlock {
+  font-family: monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.apiDocsLink {
+  color: #4f46e5;
+  text-decoration: underline;
+  font-size: 0.875rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .draftSectionContainer,
+  .discoveryContainer,
+  .questionSectionContainer,
+  .integrationContainer,
+  .methodologyGrid,
+  .questionFeatures,
+  .collaborationFeatures {
+    grid-template-columns: 1fr;
+  }
+  
+  .workflowSteps {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .questionsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .scheduleOptions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+} 
