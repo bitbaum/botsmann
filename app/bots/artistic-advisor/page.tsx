@@ -30,7 +30,7 @@ export default function ArtisticAdvisor() {
         botDescription="Creative Guidance AI"
         accentColor="amber"
         menuItems={menuItems}
-        chatLink="/chat?bot=artistic-advisor"
+        chatLink={bot.tryLink || 'https://chat.openai.com/'}
       />
       
       <main className="mx-auto max-w-screen-xl px-6 pt-24">

@@ -12,6 +12,8 @@
  */
 
 import React from 'react';
+import Link from 'next/link';
+import bots from '../../../data/bots';
 import HeroSection from './components/hero/HeroSection';
 import FeaturesSection from './components/features/FeaturesSection';
 import TryItSection from './components/workflow/TryItSection';
@@ -25,7 +27,13 @@ import JoinSection from './components/join/JoinSection';
 import BotNavigation from '../BotNavigation';
 import './styles.css';
 
-export default function ProductManagerBot() {
+export default function ProductManager() {
+  const bot = bots.find((b: { slug: string }) => b.slug === 'product-manager');
+
+  if (!bot) {
+    return <div>Bot not found</div>;
+  }
+
   // Menu items organized by value proposition
   const menuItems = [
     { id: 'features', label: 'Features', icon: '🛠️', section: 'features' },
@@ -48,7 +56,7 @@ export default function ProductManagerBot() {
         botDescription="AI Product Manager"
         accentColor="blue"
         menuItems={menuItems}
-        chatLink="/chat?bot=product-manager"
+        chatLink={bot.tryLink || 'https://chat.openai.com/'}
       />
       
       <main className="max-w-screen-xl mx-auto px-6 pt-24">  
