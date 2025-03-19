@@ -1,13 +1,16 @@
 'use client';
 
 import React from 'react';
-import { Bot } from '@/data/bots';
-import bots from '@/data/bots';
+import bots from '../../../data/bots';
 import BotNavigation from '../BotNavigation';
 
-export default function GovSpendingTracker() {
-  const bot = bots.find(b => b.slug === 'gov-spending-tracker');
-  
+export default function GovernmentSpendingTracker() {
+  const bot = bots.find(b => b.slug === 'government-spending-tracker');
+
+  if (!bot) {
+    return <div>Bot not found</div>;
+  }
+
   // Menu items for navigation
   const menuItems = [
     { id: 'overview', label: 'Overview', icon: '📊', section: 'overview' },
@@ -19,14 +22,13 @@ export default function GovSpendingTracker() {
   
   return (
     <div className="min-h-screen bg-white">
-      {/* Bot-specific Navigation */}
       <BotNavigation
-        botTitle="Government Spending Tracker"
+        botTitle="GovTrack"
         botEmoji="💰"
-        botDescription="AI Transparency Tool"
-        accentColor="teal"
+        botDescription="Government Spending Tracker"
+        accentColor="blue"
         menuItems={menuItems}
-        chatLink="https://chat.openai.com/"
+        chatLink={bot.tryLink || 'https://chat.openai.com/'}
       />
       
       <main className="mx-auto max-w-screen-xl px-6 pt-24">

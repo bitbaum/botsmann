@@ -46,7 +46,7 @@ export default function MedicalExpert() {
 
   // Function to get the ChatGPT bot URL
   const getTryLink = () => {
-    return 'https://chatgpt.com/g/g-oAUMruOWt-dr-imhotep';
+    return bot?.tryLink || 'https://chat.openai.com/';
   };
 
   // Menu items for navigation

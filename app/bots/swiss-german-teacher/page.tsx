@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
+import Link from 'next/link';
+import bots from '../../../data/bots';
 import dynamic from 'next/dynamic';
 
 // Components
@@ -14,13 +16,13 @@ import FutureVisionSection from './components/future/FutureVisionSection';
 import WaitlistForm from './components/shared/WaitlistForm';
 
 const SwissGermanTeacher = () => {
+  const bot = bots.find(b => b.slug === 'swiss-german-teacher');
   // Use ref to prevent double scrolling in React Strict Mode
   const hasScrolledToTop = useRef(false);
   
   // Function to generate a link to try the bot
   const getTryLink = () => {
-    // Ensure this exact URL is used
-    return 'https://chatgpt.com/g/g-rni41WTSh-heidi-tell';
+    return bot?.tryLink || 'https://chat.openai.com/';
   };
 
   // Navigation menu items

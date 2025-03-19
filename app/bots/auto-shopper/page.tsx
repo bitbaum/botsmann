@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import bots from '../../../data/bots';
 import BotNavigation from '../BotNavigation';
 
 interface ProductResult {
@@ -14,6 +15,12 @@ interface ProductResult {
 }
 
 export default function AutoShopper() {
+  const bot = bots.find(b => b.slug === 'auto-shopper');
+
+  if (!bot) {
+    return <div>Bot not found</div>;
+  }
+
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<ProductResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -56,12 +63,12 @@ export default function AutoShopper() {
     <div className="min-h-screen bg-white">
       {/* Bot-specific Navigation */}
       <BotNavigation
-        botTitle="Auto Shopper"
-        botEmoji="🛒"
-        botDescription="AI Shopping Assistant"
-        accentColor="purple"
+        botTitle="AutoShopper"
+        botEmoji="🚗"
+        botDescription="AI Car Shopping Assistant"
+        accentColor="blue"
         menuItems={menuItems}
-        chatLink="https://chat.openai.com/"
+        chatLink={bot.tryLink || 'https://chat.openai.com/'}
       />
       
       <main className="mx-auto max-w-screen-xl px-6 pt-24">
