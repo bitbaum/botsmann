@@ -19,7 +19,7 @@ export default function LegalExpert() {
 
   // Function to get the chat link
   const getChatLink = () => {
-    return bot?.chatLink || 'https://chat.openai.com/';
+    return bot?.tryLink || 'https://chat.openai.com/';
   };
 
   if (!bot) {
