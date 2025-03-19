@@ -32,7 +32,7 @@ const CoreComponentsSection: React.FC = () => {
         { label: 'Cost Savings', value: '$4.2M' },
         { label: 'Trust Increase', value: '+47%' }
       ],
-      link: '/projects/governance/transparent-transactions' as const
+      link: '/projects/governance/transparency' as const
     },
     {
       id: 'law',
@@ -42,66 +42,66 @@ const CoreComponentsSection: React.FC = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
         </svg>
       ),
-      description: 'Ensure accountability and clear metrics for every law. Our framework establishes measurable goals, continuous monitoring, and automatic review triggers if laws don\'t meet their intended outcomes.',
+      description: 'Measure and track the effectiveness of legislation with our innovative framework. Every law is tied to specific, measurable outcomes that can be monitored in real-time.',
       features: [
-        'Goal-based legislation framework',
-        'Quantifiable success metrics',
-        'Regular effectiveness reporting',
-        'Citizen-friendly law summaries',
-        'Automatic review triggers'
+        'Outcome-based legislation',
+        'Real-time effectiveness tracking',
+        'Automated compliance monitoring',
+        'Impact assessment tools',
+        'Performance dashboards'
       ],
       stats: [
-        { label: 'Policy Effectiveness', value: '+63%' },
-        { label: 'Civic Understanding', value: '+215%' },
-        { label: 'Legislative Efficiency', value: '47%' }
+        { label: 'Policy Effectiveness', value: '82%' },
+        { label: 'Compliance Rate', value: '94%' },
+        { label: 'Cost Reduction', value: '$2.8M' }
       ],
-      link: '/projects/governance/law-framework' as const
+      link: '/projects/governance/open-law' as const
     },
     {
       id: 'marketplace',
-      name: 'Government Function Marketplace',
+      name: 'Open Service Marketplace',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
       ),
-      description: 'A competitive, transparent marketplace for government services. Our platform enables multiple providers to compete for delivering government functions, driving innovation and cost efficiency.',
+      description: 'A decentralized marketplace for government services. Connect citizens with service providers through smart contracts and automated verification.',
       features: [
-        'Competitive service provisioning',
-        'Performance-based contracting',
-        'Quality and price transparency',
-        'Citizen feedback integration',
-        'Seamless provider transitions'
+        'Smart contract automation',
+        'Service provider ratings',
+        'Automated payments',
+        'Quality assurance',
+        'Performance tracking'
       ],
       stats: [
-        { label: 'Cost Reduction', value: '32%' },
-        { label: 'Service Quality', value: '+47%' },
-        { label: 'Innovation Rate', value: '3.8x' }
+        { label: 'Service Delivery', value: '95%' },
+        { label: 'Cost Efficiency', value: '45%' },
+        { label: 'User Satisfaction', value: '92%' }
       ],
-      link: '/projects/governance/marketplace' as const
+      link: '/projects/governance/open-service' as const
     },
     {
       id: 'voting',
-      name: 'Direct Democracy Voting System',
+      name: 'Open Vote System',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
-      description: 'Enable citizens to directly participate in governance decisions. Our secure, accessible voting platform allows for direct democracy at scale, from local to national levels.',
+      description: 'Secure, verifiable, and accessible voting system for all government decisions. Built on blockchain technology for maximum transparency and trust.',
       features: [
-        'Secure digital voting',
-        'Comprehensive issue information',
-        'Multi-platform accessibility',
-        'Deliberation tools',
-        'Real-time results and analytics'
+        'Secure voting protocol',
+        'Real-time results',
+        'Vote verification',
+        'Accessibility features',
+        'Audit trail'
       ],
       stats: [
-        { label: 'Citizen Participation', value: '+312%' },
-        { label: 'Policy Alignment', value: '87%' },
-        { label: 'Trust in Government', value: '+68%' }
+        { label: 'Voter Turnout', value: '78%' },
+        { label: 'System Uptime', value: '99.9%' },
+        { label: 'Trust Score', value: '95%' }
       ],
-      link: '/projects/governance/voting-system' as const
+      link: '/projects/governance/open-vote' as const
     }
   ];
   
