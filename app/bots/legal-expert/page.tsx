@@ -3,9 +3,24 @@
 import React from 'react';
 import Link from 'next/link';
 import bots from '../../../data/bots';
+import BotNavigation from '../BotNavigation';
 
 export default function LegalExpert() {
   const bot = bots.find(b => b.slug === 'legal-expert');
+
+  // Menu items for navigation
+  const menuItems = [
+    { id: 'features', label: 'Features', icon: '⚖️', section: 'features' },
+    { id: 'use-cases', label: 'Use Cases', icon: '📝', section: 'use-cases' },
+    { id: 'limitations', label: 'Limitations', icon: '⚠️', section: 'limitations' },
+    { id: 'legal-topics', label: 'Legal Topics', icon: '📚', section: 'legal-topics' },
+    { id: 'get-started', label: 'Get Started', icon: '🚀', section: 'get-started' }
+  ];
+
+  // Function to get the chat link
+  const getChatLink = () => {
+    return bot?.chatLink || 'https://chat.openai.com/';
+  };
 
   if (!bot) {
     return <div>Bot not found</div>;
@@ -13,10 +28,20 @@ export default function LegalExpert() {
 
   return (
     <div className="min-h-screen bg-white">
-      <main className="mx-auto max-w-screen-xl px-6 py-16">
+      {/* Bot-specific Navigation */}
+      <BotNavigation
+        botTitle="Lex"
+        botEmoji="⚖️"
+        botDescription="AI Legal Assistant"
+        accentColor="blue"
+        menuItems={menuItems}
+        chatLink={getChatLink()}
+      />
+      
+      <main className="mx-auto max-w-screen-xl px-6 pt-24">
         {/* Title and Overview */}
-        <div className="mb-16">
-          <h1 className="mb-4 text-4xl font-semibold tracking-tight text-gray-900">{bot.title}</h1>
+        <div className="mb-16" id="features">
+          <h1 className="mb-4 text-4xl font-semibold tracking-tight text-gray-900">Lex</h1>
           
           {/* Legal Disclaimer */}
           <div className="mb-8 rounded-xl bg-yellow-50 p-4 border border-yellow-200">
@@ -27,7 +52,7 @@ export default function LegalExpert() {
               <div>
                 <h3 className="font-medium text-yellow-800">Important Disclaimer</h3>
                 <p className="text-yellow-700 text-sm mt-1">
-                  The Legal Expert provides information of a general nature and is designed for informational purposes only. 
+                  Lex provides information of a general nature and is designed for informational purposes only. 
                   It is not a substitute for professional legal advice. Always consult with a qualified attorney for specific legal matters.
                 </p>
               </div>
@@ -99,7 +124,7 @@ export default function LegalExpert() {
 
         {/* Interactive Demo Section */}
         <section className="mt-16 mb-16">
-          <h2 className="mb-8 text-3xl font-semibold text-gray-900">Try Legal Expert</h2>
+          <h2 className="mb-8 text-3xl font-semibold text-gray-900">Try Lex</h2>
           <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
             <p className="mb-4 text-gray-600">Enter a legal question or upload a document for analysis.</p>
             
@@ -173,7 +198,7 @@ export default function LegalExpert() {
             </p>
             <div className="flex justify-center gap-4">
               <button className="rounded-md bg-openai-green px-6 py-3 text-lg font-medium text-white hover:bg-opacity-90 transition-opacity">
-                Try {bot.title} Now
+                Try Lex Now
               </button>
               <button className="rounded-md border-2 border-openai-green px-6 py-3 text-lg font-medium text-openai-green hover:bg-gray-50 transition-colors">
                 Learn More

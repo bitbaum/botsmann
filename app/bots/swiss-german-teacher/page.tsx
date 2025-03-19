@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 
 // Components
-import Navigation from './components/shared/Navigation';
+import BotNavigation from '../BotNavigation';
 import HeroSection from './components/hero/HeroSection';
 import LanguageLearningSection from './components/language-learning/LanguageLearningSection';
 import CommunicationSection from './components/communication/CommunicationSection';
@@ -23,6 +23,16 @@ const SwissGermanTeacher = () => {
     return 'https://chatgpt.com/g/g-rni41WTSh-heidi-tell';
   };
 
+  // Navigation menu items
+  const menuItems = [
+    { id: 'language-learning', label: 'Language Learning', icon: '📝', section: 'language-learning' },
+    { id: 'communication', label: 'Communication', icon: '💬', section: 'communication' },
+    { id: 'integration', label: 'Social', icon: '👥', section: 'integration' },
+    { id: 'swiss-content', label: 'Swiss Content', icon: '🇨🇭', section: 'swiss-content' },
+    { id: 'future', label: 'Future', icon: '🔮', section: 'future' },
+    { id: 'waitlist', label: 'Join Beta', icon: '✨', section: 'waitlist' }
+  ];
+
   // Handle scroll to section if hash is present in URL
   useEffect(() => {
     const handleHashChange = () => {
@@ -30,7 +40,7 @@ const SwissGermanTeacher = () => {
       if (hash) {
         const element = document.querySelector(hash);
         if (element) {
-    setTimeout(() => {
+          setTimeout(() => {
             element.scrollIntoView({ behavior: 'smooth' });
           }, 100);
         }
@@ -53,22 +63,40 @@ const SwissGermanTeacher = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation className="bot-navigation" getTryLink={getTryLink} />
+      {/* Bot-specific Navigation */}
+      <BotNavigation
+        botTitle="Heidi"
+        botEmoji="🇨🇭"
+        botDescription="Swiss German Companion"
+        accentColor="green"
+        menuItems={menuItems}
+        chatLink={getTryLink()}
+      />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
         <HeroSection getTryLink={getTryLink} />
         
-        <LanguageLearningSection getTryLink={getTryLink} />
+        <section id="language-learning" className="scroll-mt-24 my-16">
+          <LanguageLearningSection getTryLink={getTryLink} />
+        </section>
         
-        <CommunicationSection getTryLink={getTryLink} />
+        <section id="communication" className="scroll-mt-24 my-16">
+          <CommunicationSection getTryLink={getTryLink} />
+        </section>
         
-        <SocialSection getTryLink={getTryLink} />
+        <section id="integration" className="scroll-mt-24 my-16">
+          <SocialSection getTryLink={getTryLink} />
+        </section>
         
-        <SwissContentSection />
+        <section id="swiss-content" className="scroll-mt-24 my-16">
+          <SwissContentSection />
+        </section>
         
-        <FutureVisionSection />
+        <section id="future" className="scroll-mt-24 my-16">
+          <FutureVisionSection />
+        </section>
         
-        <section id="waitlist" className="mb-24">
+        <section id="waitlist" className="scroll-mt-24 my-16 mb-24">
           <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl shadow-sm overflow-hidden">
             <div className="px-6 py-12 max-w-3xl mx-auto">
               <h2 className="text-3xl font-semibold text-gray-900 text-center mb-2">
@@ -79,9 +107,9 @@ const SwissGermanTeacher = () => {
               </p>
               
               <WaitlistForm />
-                  </div>
-                </div>
-              </section>
+            </div>
+          </div>
+        </section>
       </main>
       
       <footer className="bg-gray-50 border-t border-gray-200">
@@ -90,16 +118,16 @@ const SwissGermanTeacher = () => {
             <div className="flex items-center mb-4 md:mb-0">
               <svg className="h-8 w-8 text-green-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" />
-                    </svg>
+              </svg>
               <span className="ml-2 font-bold text-xl text-gray-900">Heidi</span>
-                </div>
+            </div>
 
             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-8">
               <a href="#" className="text-gray-500 hover:text-gray-700">Terms of Service</a>
               <a href="#" className="text-gray-500 hover:text-gray-700">Privacy Policy</a>
               <a href="mailto:hello@botsmann.com" className="text-gray-500 hover:text-gray-700">Contact Us</a>
-                      </div>
-                    </div>
+            </div>
+          </div>
 
           <div className="mt-8 text-center text-gray-500 text-sm">
             <p>© 2023 Botsmann. All rights reserved.</p>
@@ -107,8 +135,8 @@ const SwissGermanTeacher = () => {
               "Heidi" is an AI GPT powered by OpenAI's technology. 
               Not affiliated with the Swiss government or any official language institution.
             </p>
-                    </div>
-                  </div>
+          </div>
+        </div>
       </footer>
     </div>
   );

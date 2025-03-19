@@ -20,8 +20,9 @@ export const menuItems: MenuItem[] = [
       { label: "Government Spending Tracker", path: "/bots/government-spending-tracker" },
       { label: "Legal Expert", path: "/bots/legal-expert" },
       { label: "Medical Expert", path: "/bots/medical-expert" },
-      { label: "Research Assistant", path: "/bots/research-assistant" },
-      { label: "Swiss German Teacher", path: "/bots/swiss-german-teacher" }
+      { label: "Product Manager (Trident)", path: "/bots/product-manager" },
+      { label: "Research Assistant (Nerd)", path: "/bots/research-assistant" },
+      { label: "Swiss German Teacher (Heidi)", path: "/bots/swiss-german-teacher" }
     ]
   },
   {

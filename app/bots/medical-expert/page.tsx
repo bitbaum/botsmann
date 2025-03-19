@@ -21,11 +21,11 @@
 
 import React from 'react';
 import bots from '../../../data/bots';
+import BotNavigation from '../BotNavigation';
 // Import the styles
 import './styles.css';
 
 // Basic component imports
-import Navigation from './components/navigation/Navigation';
 import HeroSection from './components/hero/HeroSection';
 import DisclaimerSection from './components/disclaimer/DisclaimerSection';
 import PatientFeaturesSection from './components/patient/PatientFeaturesSection';
@@ -49,6 +49,15 @@ export default function MedicalExpert() {
     return 'https://chatgpt.com/g/g-oAUMruOWt-dr-imhotep';
   };
 
+  // Menu items for navigation
+  const menuItems = [
+    { id: 'patient-features', label: 'For Patients', icon: '👨‍👩‍👧‍👦', section: 'patient-features' },
+    { id: 'for-professionals', label: 'For Professionals', icon: '👨‍⚕️', section: 'for-professionals' },
+    { id: 'health-education', label: 'Health Education', icon: '📚', section: 'health-education' },
+    { id: 'coming-soon', label: 'Future Products', icon: '🔮', section: 'coming-soon' },
+    { id: 'vision-and-join', label: 'Vision & Join Us', icon: '🌟', section: 'vision-and-join' }
+  ];
+
   // If bot data is not found, show error
   if (!bot) {
     return <div className="p-8 text-center">Health Assistant bot configuration not found</div>;
@@ -56,10 +65,17 @@ export default function MedicalExpert() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation Menu */}
-      <Navigation className="imhotep-navigation" />
+      {/* Bot-specific Navigation */}
+      <BotNavigation
+        botTitle="Imhotep"
+        botEmoji="⚕️"
+        botDescription="AI Medical Expert"
+        accentColor="green"
+        menuItems={menuItems}
+        chatLink={getTryLink()}
+      />
       
-      <main className="mx-auto max-w-screen-xl px-6 py-16">
+      <main className="mx-auto max-w-screen-xl px-6 pt-24">
         {/* Hero Section */}
         <HeroSection 
           title="Imhotep"
@@ -71,7 +87,7 @@ export default function MedicalExpert() {
         <DisclaimerSection />
         
         {/* Patient Features Section */}
-        <section id="patient-features" className="scroll-mt-24">
+        <section id="patient-features" className="scroll-mt-24 my-16">
           <PatientFeaturesSection 
             features={bot.features}
             getTryLink={getTryLink}
@@ -79,22 +95,22 @@ export default function MedicalExpert() {
         </section>
         
         {/* Healthcare Professionals Section */}
-        <section id="for-professionals" className="scroll-mt-24">
+        <section id="for-professionals" className="scroll-mt-24 my-16">
           <HealthcareProfessionalsSection />
         </section>
         
         {/* Health Education Section */}
-        <section id="health-education" className="scroll-mt-24">
+        <section id="health-education" className="scroll-mt-24 my-16">
           <HealthEducationSection getTryLink={getTryLink} />
         </section>
         
         {/* Future Products Section */}
-        <section id="coming-soon" className="scroll-mt-24">
+        <section id="coming-soon" className="scroll-mt-24 my-16">
           <FutureProductsSection />
         </section>
         
         {/* Vision and Join Us Section */}
-        <section id="vision-and-join" className="scroll-mt-24">
+        <section id="vision-and-join" className="scroll-mt-24 my-16 mb-24">
           <VisionAndJoinSection />
         </section>
       </main>

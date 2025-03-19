@@ -20,11 +20,11 @@
 
 import React from 'react';
 import bots from '../../../data/bots';
+import BotNavigation from '../BotNavigation';
 // Import the styles
 import './styles.css';
 
 // Basic component imports
-import Navigation from './components/navigation/Navigation';
 import HeroSection from './components/hero/HeroSection';
 import FeaturesSection from './components/features/FeaturesSection';
 import ResearchSystemSection from './components/features/ResearchSystemSection';
@@ -50,6 +50,17 @@ export default function ResearchAssistant() {
     return 'https://nerd.ai/waitlist';
   };
 
+  // Menu items organized by section
+  const menuItems = [
+    { id: 'core-features', label: 'Features', icon: '⭐', section: 'core-features' },
+    { id: 'research-system', label: 'Organization', icon: '📚', section: 'research-system' },
+    { id: 'web-scraping', label: 'Real-time Updates', icon: '🔄', section: 'web-scraping' },
+    { id: 'draft-generation', label: 'Content Creation', icon: '✍️', section: 'draft-generation' },
+    { id: 'daily-questions', label: 'Engagement', icon: '🔍', section: 'daily-questions' },
+    { id: 'integration', label: 'Collaboration', icon: '👥', section: 'integration' },
+    { id: 'roadmap', label: 'Roadmap', icon: '🚀', section: 'roadmap' }
+  ];
+
   // If bot data is not found, show error
   if (!bot) {
     return <div className="p-8 text-center">Nerd configuration not found</div>;
@@ -57,10 +68,17 @@ export default function ResearchAssistant() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation Menu */}
-      <Navigation className="research-navigation" />
+      {/* Bot-specific Navigation */}
+      <BotNavigation
+        botTitle="Nerd"
+        botEmoji="🧠"
+        botDescription="AI Research Assistant"
+        accentColor="indigo"
+        menuItems={menuItems}
+        chatLink={bot.tryLink}
+      />
       
-      <main className="mx-auto max-w-screen-xl px-6 py-16">
+      <main className="mx-auto max-w-screen-xl px-6 pt-24">
         {/* Hero Section */}
         <HeroSection 
           title="Nerd"
@@ -69,44 +87,44 @@ export default function ResearchAssistant() {
         />
         
         {/* Core Features Overview */}
-        <section id="core-features" className="scroll-mt-24">
+        <section id="core-features" className="scroll-mt-24 mt-16">
           <FeaturesSection 
             features={bot.features || []}
           />
         </section>
         
         {/* 1. Research Organization Section */}
-        <section id="research-system" className="scroll-mt-24">
+        <section id="research-system" className="scroll-mt-24 my-16">
           <ResearchSystemSection />
         </section>
         
         {/* 2. Real-time Updates Section */}
-        <section id="web-scraping" className="scroll-mt-24">
+        <section id="web-scraping" className="scroll-mt-24 my-16">
           <WebScrapingSection />
         </section>
         
         {/* 3. Content Creation Section */}
-        <section id="draft-generation" className="scroll-mt-24">
+        <section id="draft-generation" className="scroll-mt-24 my-16">
           <DraftGenerationSection />
         </section>
         
         {/* 4. Research Engagement Section */}
-        <section id="daily-questions" className="scroll-mt-24">
+        <section id="daily-questions" className="scroll-mt-24 my-16">
           <QuestionsSection getTryLink={getTryLink} />
         </section>
         
         {/* 4. Discovery Mode Section (part of Engagement) */}
-        <section id="discovery-mode" className="scroll-mt-24">
+        <section id="discovery-mode" className="scroll-mt-24 my-16">
           <DiscoverySection />
         </section>
         
         {/* 5. Collaboration & 6. Independent Research Section */}
-        <section id="integration" className="scroll-mt-24">
+        <section id="integration" className="scroll-mt-24 my-16">
           <IntegrationSection />
         </section>
         
         {/* Development Roadmap Section */}
-        <section id="roadmap" className="scroll-mt-24">
+        <section id="roadmap" className="scroll-mt-24 my-16 mb-24">
           <DevelopmentRoadmap />
         </section>
       </main>

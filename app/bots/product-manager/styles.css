@@ -1,0 +1,425 @@
+/* TriadExtractor Bot - Styles */
+
+/* Main container styling */
+.triad-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Navigation styles */
+.trident-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.trident-nav-scrolled {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.trident-nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trident-nav-logo {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #111827;
+  display: flex;
+  align-items: center;
+}
+
+.trident-nav-items {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.trident-nav-link {
+  font-size: 0.875rem;
+  color: #4b5563;
+  font-weight: 500;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.trident-nav-link:hover, .trident-nav-link-active {
+  color: #2563eb;
+}
+
+.trident-mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  z-index: 100;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.trident-mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 1rem;
+}
+
+.trident-mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.trident-mobile-menu-link {
+  font-size: 1rem;
+  color: #4b5563;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.trident-mobile-menu-link:hover, .trident-mobile-menu-link-active {
+  color: #2563eb;
+}
+
+/* Hiding scrollbars but keeping functionality */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Hero section customizations */
+.triad-hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.triad-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.triad-hero p {
+  font-size: 1.25rem;
+  color: #4b5563;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+}
+
+/* Card styling */
+.triad-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  background-color: white;
+  margin-bottom: 1.5rem;
+}
+
+.triad-card h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.triad-card h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: #111827;
+}
+
+/* Form elements */
+.triad-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  min-height: 120px;
+  color: #111827;
+  resize: vertical;
+}
+
+.triad-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  ring: 2px;
+  ring-color: #bfdbfe;
+}
+
+.triad-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.625rem 1.25rem;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.triad-button:hover {
+  background-color: #1d4ed8;
+}
+
+.triad-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* AI icons */
+.ai-icons {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ai-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.ai-icon.chatgpt {
+  background-color: #10a37f;
+}
+
+.ai-icon.claude {
+  background-color: #7c3aed;
+}
+
+.ai-icon.grok {
+  background-color: #2563eb;
+}
+
+.ai-icons-stacked {
+  display: flex;
+  margin-right: 0.75rem;
+}
+
+.ai-icons-stacked .ai-icon:not(:first-child) {
+  margin-left: -0.5rem;
+}
+
+/* Example queries */
+.example-query {
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.example-query:hover {
+  background-color: #f3f4f6;
+}
+
+.example-query h4 {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: #111827;
+}
+
+.example-query p {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Documentation format section */
+.doc-format-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.doc-format-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: #3b82f6;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Steps indicator */
+.step-indicator {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.step-number {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.step-content h4 {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: #111827;
+}
+
+.step-content p {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .triad-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .triad-hero p {
+    font-size: 1rem;
+  }
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Custom scrollbar for code sections */
+.code-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.code-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.code-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+
+.code-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Service icons with gradient backgrounds */
+.service-icon-1 {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+}
+
+.service-icon-2 {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+}
+
+.service-icon-3 {
+  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+}
+
+/* Fixes for mobile responsiveness */
+@media (max-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .mobile-stack {
+    flex-direction: column;
+  }
+  
+  .mobile-full-width {
+    width: 100%;
+  }
+}
+
+/* Pulse animation for loading states */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Transition effects */
+.transition-shadow {
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+} 

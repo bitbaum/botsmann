@@ -82,6 +82,21 @@ const bots: Bot[] = [
       'Art history insights'
     ],
     details: 'The Artistic Advisor AI helps artists explore new techniques, refine their style, and gain insights from art history while maintaining their unique creative vision.'
+  },
+  {
+    slug: 'product-manager',
+    title: 'Trident - AI Product Manager',
+    description: 'AI-powered product manager for Cursor development and project management',
+    overview: 'A specialized tool that combines project management capabilities with technical guidance to streamline development workflow in Cursor.',
+    features: [
+      'Project Management: Organize tasks and deliverables for efficient development',
+      'Technical Direction: Implementation-ready specifications for developers',
+      'Workflow Optimization: Streamline development processes and eliminate roadblocks',
+      'Implementation Planning: Detailed roadmaps for feature development',
+      'Quality Assurance: Comprehensive testing and validation strategies',
+      'Cursor-Optimized: Specifically designed for Cursor development workflow'
+    ],
+    details: 'Trident transforms the development process by providing comprehensive project management and technical guidance. It helps organize tasks, create detailed implementation plans, and optimize workflows specifically for Cursor development. By leveraging AI capabilities, it produces clear specifications, architecture diagrams, and risk assessments that developers can immediately use for implementation.'
   }
 ];
 
