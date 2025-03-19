@@ -192,7 +192,10 @@ export default function ArtisticAdvisor() {
               Unlock your creative potential with our AI-powered artistic advisor.
             </p>
             <div className="flex justify-center gap-4">
-              <Link href="/chat?bot=artistic-advisor" className="rounded-md bg-amber-500 px-6 py-3 text-lg font-medium text-white hover:bg-opacity-90 transition-opacity">
+              <Link 
+                href="/bots/artistic-advisor" 
+                className="rounded-md bg-amber-500 px-6 py-3 text-lg font-medium text-white hover:bg-opacity-90 transition-opacity"
+              >
                 Try Artr Now
               </Link>
               <button className="rounded-md border-2 border-amber-500 px-6 py-3 text-lg font-medium text-amber-500 hover:bg-gray-50 transition-colors">
