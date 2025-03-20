@@ -1,0 +1,229 @@
+[33md684f1e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mrefactor-code-organization[m[33m)[m Fix: Update all bot pages to use tryLink instead of hardcoded URLs
+[33m2b501fc[m Fix: Update chatLink to use tryLink in bot pages
+[33m927f8a5[m Fix: Use tryLink instead of chatLink in legal-expert page
+[33ma4deed5[m Fix: Update route path in artistic-advisor bot page
+[33m03485a7[m Update bot pages and add product manager bot
+[33ma54694a[m Complete merge and fix issues
+[33m0b38b69[m Fix: Remove improperly placed page.tsx from components directory causing build error
+[33m2ae9098[m Enhanced governance project with transparency features, agency profiles, employee directories, and citizen tax advisory functionality
+[33m16babcb[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #38 from g-but/refactor-code-organization
+[33mc3d1392[m Fix: Update build script to ensure dependencies are installed
+[33m10f247c[m Fix: Add className prop to Swiss German Teacher Navigation component
+[33m0926349[m Update Nerd AI Research Assistant components and documentation
+[33m1eb01f4[m[33m ([m[1;32mmain[m[33m)[m Merge pull request #37 from g-but/swiss-german-interactive-components
+[33m1c541c3[m[33m ([m[1;31morigin/swiss-german-interactive-components[m[33m, [m[1;32mswiss-german-interactive-components[m[33m)[m Add interactive language learning components to Swiss German Teacher page
+[33md2ab8aa[m Merge pull request #36 from g-but/swiss-german-teacher-updates
+[33ma11b860[m[33m ([m[1;31morigin/swiss-german-teacher-updates[m[33m, [m[1;32mswiss-german-teacher-updates[m[33m)[m Update Swiss German Teacher page with new features
+[33m9a00596[m Merge pull request #35 from g-but/feature/swiss-german-teacher
+[33mbbe8f54[m[33m ([m[1;31morigin/feature/swiss-german-teacher[m[33m)[m Update bot pages with Coming Soon badges and improve homepage
+[33m80f4af4[m Add Techno-Capital project page, rename Shopping to Recurring Fulfillment, remove Coming Soon badge from Individuals category
+[33mc97f6b3[m Merge pull request #34 from g-but/feature/swiss-german-teacher
+[33mc217f69[m Add comment to demonstrate GitHub deployment workflow
+[33m0af5cb4[m Enhance Swiss German Teacher page with improved UX and content
+[33mebf195a[m Fix button colors and example container widths for consistent UI
+[33m2a548c7[m[33m ([m[1;32mheidi-redesign-new[m[33m)[m Merge pull request #33 from g-but/heidi-ui-fix
+[33m163fa39[m Fix table width in Heidi in Action and add future vision/contributor section
+[33m1824885[m Merge pull request #32 from g-but/heidi-redesign
+[33mb18ede2[m Fix syntax error in data/bots.ts by using double quotes for string with apostrophe
+[33md51a38e[m Implement Heidi Swiss German Teacher with ChatGPT redirection and waitlist form
+[33mc9beb56[m Merge pull request #31 from g-but/feature/github-mdx-blog
+[33mba1d79a[m Force current date for published posts and improve image slug handling
+[33mc125e30[m Implement blog enhancements: dynamic post dates and better image slug handling
+[33m5f74b89[m Fix MDX rendering with proper client component structure
+[33m9748d47[m Fix MDX blog image loading and Callout components
+[33md3b8686[m Fix server-side error and inline image loading in blog post
+[33m4f82f41[m Fix server-side error and inline image loading issues
+[33m808d077[m Fix image loading issues and server-side errors in MDX blog system
+[33m2b310bf[m Fix server-side rendering issues with blog post images
+[33m022618b[m Fix TypeScript error with Image component width/height props
+[33m9a1244d[m Fix server-side rendering error and image path resolution
+[33m9420060[m Fix TypeScript error in MDXComponents img component
+[33m6b7b013[m Fix inline image src resolution in MDXComponents
+[33m381f060[m Enable browser and CDN caching in next.config.js
+[33m7e13470[m Add GitHub image domain to next.config.js
+[33mb093913[m Merge pull request #30 from g-but/feature/github-mdx-blog
+[33me1fe9e7[m Fix TypeScript errors in MDXComponents img component
+[33m6e58473[m Remove conflicting route.ts file in blog/[slug] directory
+[33m030f328[m Implement GitHub-based MDX blog system with scheduled publishing
+[33me43c820[m Fix type errors to enable successful build
+[33mc47a4c6[m Remove green Contact Us button from mobile menu
+[33mf7cc73e[m Fix type error in Navigation component
+[33mc540d5c[m Your commit message
+[33m4a5ddcb[m Update files and remove unnecessary components
+[33mcfe35bf[m Merge pull request #28 from g-but/update-shopping-page
+[33m831a34a[m Update shopping page with new version
+[33m1b5bfcd[m Merge pull request #25 from g-but/devin/1739756192-fix-form-api-key
+[33mf24595f[m fix: add API key configuration for form submission
+[33mdfba096[m Merge pull request #24 from g-but/devin/1739620743-fix-mobile-menu
+[33me8b928f[m feat: add cache control headers to prevent caching
+[33m628ca11[m feat: add build-time deployment timestamp
+[33ma79a8c5[m feat: add deployment timestamp under logo
+[33m9d31cf3[m fix: update click outside handler to target correct mobile menu ID
+[33macd4d77[m Merge pull request #23 from g-but/devin/1739620743-fix-mobile-menu
+[33m24b3a45[m fix: remove outputDirectory from vercel.json to use Next.js defaults
+[33md9a5e56[m fix: add vercel.json with correct build settings
+[33m9d3c266[m fix: update blog page Link hrefs for Next.js 14 app router
+[33mf292736[m fix: update Link href types for Next.js 14 app router
+[33m3b809ad[m fix: add proper type imports for Link hrefs
+[33m378909c[m fix: simplify Link hrefs in mobile menu for Next.js 14 app router
+[33mc2ce24a[m fix: update dynamic route handling in blog and bots pages
+[33m0266a00[m fix: simplify Next.js config and use standalone output
+[33m39bd659[m fix: revert to export output for static site generation
+[33ma912e6b[m fix: update Next.js config with proper route handling settings
+[33mb19c4c9[m fix: update Next.js config and remove redundant server actions flag
+[33m1a5e50d[m fix: update Next.js output config for serverless deployment
+[33m2efe151[m fix: simplify Next.js config for Vercel deployment
+[33mf13e12c[m fix: update Next.js config for proper API route handling
+[33mac21843[m fix: add API route rewrites to Next.js config
+[33mbc2f6fa[m fix: expose MongoDB URI to runtime and enable server actions
+[33mf0650b7[m fix: update Next.js config to generate proper routes manifest
+[33m2484f14[m fix: update MongoDB connection options with correct types
+[33m09e5ba3[m fix: optimize MongoDB connection for serverless and add health check
+[33me1704c9[m chore: trigger vercel rebuild
+[33m1a8f5c2[m fix: improve MongoDB connection handling for serverless environment
+[33ma615a0b[m fix: update Link href types across all components
+[33m6dae7df[m fix: revert Link href to use template literal
+[33me79434f[m fix: update Link href type in blog page
+[33mda28669[m fix: simplify Next.js config for standalone output
+[33m45e61a7[m fix: configure Next.js for standalone output with API support
+[33mf102326[m fix: remove static export to support API routes
+[33mf9b8244[m fix: add export output configuration for static deployment
+[33mba3cfdb[m chore: update package-lock.json
+[33m66391e9[m fix: update MDX configuration with proper loader setup
+[33m078608e[m fix: simplify MDX setup and ensure proper client component boundaries
+[33mbc0370f[m fix: simplify MDX configuration and remove experimental flag
+[33m71db922[m fix: restore withMDX configuration for proper MDX file handling
+[33mb638fe8[m fix: update MDX configuration for proper context creation
+[33mc63b11a[m fix: simplify MDX provider setup by moving it to layout
+[33m6f04986[m fix: add proper type assertion for dynamic MDX content
+[33m44e6e13[m fix: update MDX provider to use default export with MDXContent
+[33m1dc2ad1[m fix: add proper types to dynamic MDX content import
+[33mf3f9e08[m fix: update blog layout to use server component with dynamic MDX content
+[33m7b03e77[m fix: update next.config.js with proper MDX configuration
+[33m9c3bee6[m fix: remove redundant [slug] route handler
+[33mc89c076[m fix: update MDX configuration and imports
+[33md910efe[m fix: resolve MDX provider export conflicts
+[33me964087[m fix: update MDX provider to use named exports
+[33m39b14a7[m fix: update MDX provider and layout component boundaries
+[33m93cba4d[m fix: add proper MDX component types
+[33m54ea9ac[m fix: update MDX provider exports to use default export
+[33m170003e[m fix: update MDX provider exports and component boundaries
+[33m78bd550[m fix: update MDX provider exports and component configuration
+[33m564890b[m fix: remove duplicate use client directive in MDX provider
+[33m281551e[m fix: enable experimental MDX support in Next.js config
+[33m4034b8f[m fix: update MDX configuration with provider import source
+[33m0141fe9[m fix: add MDX plugin options to Next.js config
+[33mbae371e[m fix: configure Next.js for MDX support
+[33m27de902[m fix: add navigation file and update MDX provider setup
+[33m1267af8[m fix: improve loading states and SSR configuration
+[33ma4686e9[m fix: improve component loading states
+[33m0848ed4[m fix: improve dynamic import loading state
+[33mbc81681[m fix: resolve circular dependencies in component imports
+[33mb1d76d2[m fix: improve state management in menu components
+[33me029801[m fix: handle menu visibility in client component
+[33m4d6869e[m fix: improve type handling in menu components
+[33m4b2b1c3[m fix: make MobileMenu a server component
+[33m2f7baa4[m fix: resolve TypeScript errors in MobileMenu component
+[33m68724f7[m fix: split menu button into separate client component
+[33m9ef302a[m fix: simplify component imports to resolve infinite loop
+[33md18b9a2[m fix: remove duplicate mobile menu code
+[33mb29f8d5[m fix: resolve React fragment TypeScript errors
+[33mfb125e0[m fix: use absolute import path for MobileMenu
+[33mecb338d[m fix: split mobile menu into separate client component
+[33m201790d[m fix: use dynamic imports for layout components
+[33mb96e25f[m fix: resolve circular dependency in MDX setup
+[33mde4452a[m fix: improve client/server boundary handling in MDX setup
+[33m5691643[m fix: improve build-time API validation handling
+[33ma8b6540[m fix: remove static export to support API routes
+[33ma98e482[m fix: use dynamic import for client component
+[33m3e3f929[m fix: remove client directive from page component
+[33m93595d5[m fix: use absolute import path for ConsultationForm
+[33mb925ecf[m chore: remove remaining Netlify references
+[33mc38d280[m fix: simplify React type imports
+[33mf33560f[m chore: update package-lock.json
+[33m3bce16c[m fix: update TypeScript configuration and React types
+[33m0f79194[m fix: use proper React event types
+[33m51dcdf6[m fix: use correct MouseEvent type for click outside handler
+[33m1dbdfaf[m chore: remove Netlify configuration and migrate to Next.js API routes
+[33m2bb9747[m fix: use correct React.MouseEvent type
+[33m0ff4d7a[m fix: add proper type imports for MouseEvent
+[33md1c39b4[m fix: mobile menu slide animation and close button
+[33m39f82b2[m Merge pull request #20 from g-but/devin/1739369831-add-tina-cms
+[33m59bd2dc[m feat: add DecapCMS configuration
+[33m4c6e71e[m chore: remove TinaCMS dependencies
+[33m19abdd3[m chore: remove remaining TinaCMS files
+[33m1cfa6eb[m fix: remove TinaCMS provider from layout
+[33m11ce9ee[m fix: remove TinaCMS dependencies from blog post component
+[33me5db3b8[m chore: restore original configuration files
+[33m9b9d395[m chore: remove TinaCMS integration
+[33m09664cb[m fix: update TinaCMS configuration and remove hardcoded values
+[33m41823c6[m fix: update TinaCMS configuration to use feature branch
+[33m97265af[m fix: update TinaCMS configuration and generated files
+[33m851189e[m fix: update TinaCMS configuration with Git backend
+[33mb4eda9a[m fix: update TinaCMS configuration for local development
+[33m696c181[m chore: add TinaCMS generated files and sync schema
+[33m5fedafd[m feat: add minimal TinaCMS configuration
+[33m1eac92d[m chore: clean up TinaCMS files for fresh start
+[33m679fdea[m chore: add TinaCMS generated files and update dependencies
+[33m58dee41[m fix: update TinaCMS configuration with hardcoded values
+[33m9f671e0[m fix: enable local mode for TinaCMS development
+[33m6ecf4b6[m fix: hardcode TinaCMS credentials for build process
+[33maf5b8fc[m fix: update Netlify and Next.js configuration for proper deployment
+[33m98c5078[m fix: install TinaCMS with specific version and legacy peer deps
+[33m09077b7[m fix: update TinaCMS configuration for local development
+[33mb58860d[m fix: restore TinaCMS cloud configuration
+[33m7b366a1[m fix: update TinaCMS local development configuration
+[33m59f7d4f[m fix: configure TinaCMS for local development
+[33m46c0c5d[m fix: simplify TinaCMS configuration
+[33m39d9652[m fix: update TinaCMS configuration for Next.js
+[33m09f98c6[m fix: configure TinaCMS for local development
+[33m35ed911[m feat: add minimal TinaCMS configuration
+[33me7c7ce6[m chore: clean up TinaCMS directory
+[33m3b54506[m chore: add TinaCMS starter template files
+[33m631f8ae[m chore: clean up TinaCMS files for fresh initialization
+[33m104583a[m fix: update TinaCMS configuration and generated files
+[33m991e7a0[m chore: add TinaCMS generated files
+[33m14b2203[m feat: add minimal TinaCMS configuration
+[33m331d068[m chore: clean up TinaCMS directory
+[33mbf6df2e[m chore: add TinaCMS starter template
+[33m9e16b61[m chore: remove TinaCMS for fresh start
+[33m0ac85c6[m chore: update TinaCMS generated files and schema
+[33ma4f223d[m fix: update TinaCMS configuration for local development
+[33m0079a57[m fix: enable local mode for TinaCMS development
+[33md200ad4[m fix: update TinaCMS schema with post collection
+[33mb8f87df[m chore: add TinaCMS generated files and schema
+[33m41d51be[m chore: add minimal TinaCMS configuration
+[33mabddd7d[m chore: remove TinaCMS files for fresh installation
+[33m83e84c7[m chore: add TinaCMS generated files
+[33m3ceb4af[m fix: update TinaCMS branch configuration
+[33m50308d2[m chore: clean up TinaCMS files for fresh initialization
+[33m76e825f[m fix: update TinaCMS configuration and blog page types
+[33m8b73eb5[m fix: clean up TinaCMS configuration and remove duplicates
+[33m16fd427[m fix: simplify TinaCMS for local development
+[33mc4cec59[m fix: simplify TinaCMS configuration and blog content handling
+[33m61dd3ec[m fix: update blog post content structure to match TinaMarkdown requirements
+[33mf8f54f6[m fix: update blog post content structure to match TinaMarkdown types
+[33md0852e9[m fix: clean up TinaCMS configuration
+[33mb3ff9ca[m fix: simplify TinaCMS configuration and build process
+[33m4902a2c[m fix: update TinaCMS configuration for local development with git backend
+[33md85f8ac[m fix: simplify TinaCMS configuration for local development
+[33m45a80c7[m chore: add TinaCMS generated files
+[33mc4748f2[m fix: update TinaCMS configuration to use current branch
+[33mb0a90d8[m fix: add explicit TinaCMS credentials
+[33mb1dba48[m fix: update TinaCMS schema with navigation and blog collections
+[33m03475bb[m fix: update TinaCMS schema configuration
+[33m8027945[m fix: clean up TinaCMS configuration
+[33m1d0f71c[m fix: update blog post content structure and TinaCMS config
+[33mb29f6dc[m fix: update TinaCMS configuration with proper search indexing
+[33m2d055fd[m fix: simplify blog component for development
+[33mad83108[m fix: update TinaCMS and blog configuration for local development
+[33m7486647[m fix: update blog post component to use server-side rendering
+[33m1c31aa7[m fix: add generateStaticParams for static blog pages
+[33m99f7ddc[m fix: add tina-lock.json and update branch configuration
+[33m915edd9[m fix: update TinaCMS configuration to use local branch
+[33m761b221[m fix: update TinaCMS configuration with correct local content path
+[33m19118c8[m fix: update TinaCMS configuration for local development
+[33me0d5224[m fix: reorder TinaCMS configuration properties
+[33m9b01e00[m fix: update TinaCMS and MDX types
+[33mc5e1d80[m fix: update TinaCMS configuration to use local branch for preview
+[33mc934168[m fix: add proper MDX type structure for blog post body
