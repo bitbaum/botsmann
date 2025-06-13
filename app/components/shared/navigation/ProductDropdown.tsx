@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import type { Route } from 'next';
 import type { ProductDropdownProps } from './types';
 
 export function ProductDropdown({ isOpen, onToggle, item }: ProductDropdownProps) {
@@ -28,21 +29,21 @@ export function ProductDropdown({ isOpen, onToggle, item }: ProductDropdownProps
       id: 'voting',
       label: 'Open Vote',
       description: 'Participate in decentralized decision-making',
-      path: '/projects/governance/products/voting',
+      path: '/projects/governance/open-vote',
       icon: '🗳️'
     },
     {
       id: 'proposals',
       label: 'Open Law',
       description: 'Create and manage governance proposals',
-      path: '/projects/governance/products/proposals',
+      path: '/projects/governance/open-law',
       icon: '📜'
     },
     {
       id: 'analytics',
       label: 'Open Analytics',
       description: 'Track governance metrics and insights',
-      path: '/projects/governance/products/analytics',
+      path: '/projects/governance/open-pay',
       icon: '📊'
     }
   ];
@@ -74,7 +75,7 @@ export function ProductDropdown({ isOpen, onToggle, item }: ProductDropdownProps
             {productLinks.map((product) => (
               <Link
                 key={product.id}
-                href={product.path}
+                href={product.path as Route}
                 className="flex items-start px-4 py-3 hover:bg-gray-50 transition-colors"
               >
                 <span className="text-xl mr-3">{product.icon}</span>

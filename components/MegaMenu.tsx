@@ -35,7 +35,7 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
             <Popover.Panel className="absolute left-1/2 z-20 mt-3 w-screen max-w-md -translate-x-1/2 px-4 sm:px-0">
               <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                 <div className="relative grid gap-6 bg-white p-6 lg:grid-cols-2">
-                  {item.children.map((child) => (
+                  {item.children?.map((child) => (
                     <Link
                       key={child.label}
                       href={child.path}

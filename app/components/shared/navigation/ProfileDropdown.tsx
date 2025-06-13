@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import type { Route } from 'next';
 import type { ProfileDropdownProps } from './types';
 
 export function ProfileDropdown({ isOpen, onToggle }: ProfileDropdownProps) {
@@ -25,19 +26,9 @@ export function ProfileDropdown({ isOpen, onToggle }: ProfileDropdownProps) {
 
   const profileLinks = [
     {
-      id: 'profile',
-      label: 'Profile',
-      path: '/projects/governance/profile'
-    },
-    {
-      id: 'settings',
-      label: 'Settings',
-      path: '/projects/governance/settings'
-    },
-    {
-      id: 'logout',
-      label: 'Logout',
-      path: '/projects/governance/logout'
+      id: 'portal',
+      label: 'Portal',
+      path: '/projects/governance/portal'
     }
   ];
 
@@ -68,7 +59,7 @@ export function ProfileDropdown({ isOpen, onToggle }: ProfileDropdownProps) {
             {profileLinks.map((link) => (
               <Link
                 key={link.id}
-                href={link.path}
+                href={link.path as Route}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
               >
                 {link.label}

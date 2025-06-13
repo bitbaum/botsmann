@@ -76,7 +76,7 @@ export function MobileMenu({ isOpen, onClose, menuItems, activeSection }: Mobile
           {/* Footer */}
           <div className="px-4 py-4 border-t border-gray-100">
             <Link
-              href="/projects/governance/profile"
+              href="/projects/governance/portal"
               className="flex items-center space-x-3 text-sm text-gray-700 hover:text-gray-900"
             >
               <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
