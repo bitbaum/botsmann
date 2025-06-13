@@ -42,7 +42,11 @@ export function MobileMenu({ isOpen, onClose, menuItems, activeSection }: Mobile
                     {item.dropdown.items.map((subItem) => (
                       <Link
                         key={subItem.id}
-                        href={subItem.path.pathname}
+                        href={
+                          typeof subItem.path === 'string'
+                            ? subItem.path
+                            : subItem.path.pathname
+                        }
                         className={`block px-3 py-2 text-sm rounded-md transition-colors ${
                           activeSection === subItem.section
                             ? 'bg-green-50 text-green-700'
@@ -55,7 +59,7 @@ export function MobileMenu({ isOpen, onClose, menuItems, activeSection }: Mobile
                   </div>
                 ) : (
                   <Link
-                    href={item.path.pathname}
+                    href={typeof item.path === 'string' ? item.path : item.path.pathname}
                     className={`block px-3 py-2 text-sm rounded-md transition-colors ${
                       activeSection === item.section
                         ? 'bg-green-50 text-green-700'
