@@ -12,29 +12,8 @@ export const menuItems: MenuItem[] = [
     ]
   },
   {
-    label: "Bots",
-    path: "/bots",
-    children: [
-      { label: "Artistic Advisor", path: "/bots/artistic-advisor" },
-      { label: "Auto Shopper", path: "/bots/auto-shopper" },
-      { label: "Government Spending Tracker", path: "/bots/government-spending-tracker" },
-      { label: "Legal Expert", path: "/bots/legal-expert" },
-      { label: "Medical Expert", path: "/bots/medical-expert" },
-      { label: "Product Manager (Trident)", path: "/bots/product-manager" },
-      { label: "Research Assistant (Nerd)", path: "/bots/research-assistant" },
-      { label: "Swiss German Teacher (Heidi)", path: "/bots/swiss-german-teacher" }
-    ]
-  },
-  {
-    label: "Projects",
-    path: "/projects",
-    children: [
-      { label: "Credit", path: "/projects/credit" },
-      { label: "Finance", path: "/projects/finance" },
-      { label: "Governance", path: "/projects/governance" },
-      { label: "Recurring Fulfillment", path: "/projects/shopping" },
-      { label: "Techno-Capital", path: "/projects/techno-capital" }
-    ]
+    label: "Products",
+    path: "/products"
   },
   {
     label: "Blog",
@@ -48,5 +27,5 @@ export const menuItems: MenuItem[] = [
     label: "Contact Us",
     path: "/contact",
     isButton: true
-  }
+  },
 ];

@@ -11,11 +11,35 @@ const nextConfig = {
       },
     ],
   },
-  experimental: { 
-    typedRoutes: true 
+  experimental: {
+    typedRoutes: true
   },
   env: {
     NEXT_PUBLIC_DEPLOY_TIME: new Date().toUTCString()
+  },
+  async redirects() {
+    return [
+      {
+        source: '/bots',
+        destination: '/products',
+        permanent: true,
+      },
+      {
+        source: '/bots/:slug',
+        destination: '/products/:slug',
+        permanent: true,
+      },
+      {
+        source: '/projects',
+        destination: '/products',
+        permanent: true,
+      },
+      {
+        source: '/projects/:slug',
+        destination: '/products/:slug',
+        permanent: true,
+      },
+    ];
   },
   headers: async () => [{
     source: '/:path*',
