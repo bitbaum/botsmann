@@ -23,6 +23,10 @@ Botsmann helps you deploy custom AI assistants that run privately and securely. 
 2. **Self-Hosted Nodes** – Each bot runs as an independent node that can be deployed on Vercel or your preferred cloud provider.
 3. **Extensible Architecture** – Use our APIs and component library to build additional features or integrate with third‑party platforms.
 
+## Home Screen & Navigation
+
+The landing page is modular, composed of a hero, featured bots, and a collaboration form. Navigation uses a hover-enabled mega menu on desktop and a slide-in panel on mobile.
+
 
 ## Architecture
 
