@@ -4,6 +4,7 @@
 
 Botsmann is a platform for creating, showcasing, and managing AI bots built with the OpenAI API. Each bot provides specialized functionality through a custom web interface that connects to a ChatGPT-powered backend.
 
+### Our Mission
 
 We build AI extensions of human minds maximizing computational power, privacy, sovereignty, and efficiency. We default to fully private AI nodes with fine-tuned open-source models that automate tasks and give humans the most valuable resource: time.
 
@@ -25,7 +26,7 @@ Botsmann helps you deploy custom AI assistants that run privately and securely. 
 
 ## Home Screen & Navigation
 
-The landing page is modular, composed of a hero, featured bots, and a collaboration form. Navigation uses a hover-enabled mega menu on desktop and a slide-in panel on mobile.
+The landing page is modular, composed of a hero, featured bots, and a collaboration form. Navigation now mirrors the elegant dropdown experience of [Medusa](https://medusajs.com/). A full-width mega menu opens on hover with concise descriptions, while mobile users get a smooth slide-in panel.
 
 
 ## Architecture

@@ -17,7 +17,7 @@ export default function Header() {
   
   return (
     <header className="sticky top-0 z-40 w-full border-b border-gray-200 bg-white/80 backdrop-blur-xl transition-all duration-300">
-      <div className="mx-auto flex max-w-screen-xl items-center justify-between px-6 py-4">
+      <div className="relative mx-auto flex max-w-screen-xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center space-x-2">
           <span className="text-xl font-bold text-gray-900">Botsmann</span>
         </Link>
