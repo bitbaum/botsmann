@@ -12,7 +12,7 @@ module.exports = {
         'openai-gray': '#202123',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['system-ui', 'sans-serif'],
       },
       screens: {
         'sm': '640px',

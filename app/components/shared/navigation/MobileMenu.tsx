@@ -42,7 +42,11 @@ export function MobileMenu({ isOpen, onClose, menuItems, activeSection }: Mobile
                     {item.dropdown.items.map((subItem) => (
                       <Link
                         key={subItem.id}
-                        href={subItem.path.pathname}
+                        href={
+                          typeof subItem.path === 'string'
+                            ? subItem.path
+                            : subItem.path.pathname
+                        }
                         className={`block px-3 py-2 text-sm rounded-md transition-colors ${
                           activeSection === subItem.section
                             ? 'bg-green-50 text-green-700'
@@ -55,7 +59,7 @@ export function MobileMenu({ isOpen, onClose, menuItems, activeSection }: Mobile
                   </div>
                 ) : (
                   <Link
-                    href={item.path.pathname}
+                    href={typeof item.path === 'string' ? item.path : item.path.pathname}
                     className={`block px-3 py-2 text-sm rounded-md transition-colors ${
                       activeSection === item.section
                         ? 'bg-green-50 text-green-700'
@@ -72,7 +76,7 @@ export function MobileMenu({ isOpen, onClose, menuItems, activeSection }: Mobile
           {/* Footer */}
           <div className="px-4 py-4 border-t border-gray-100">
             <Link
-              href="/projects/governance/profile"
+              href="/projects/governance/portal"
               className="flex items-center space-x-3 text-sm text-gray-700 hover:text-gray-900"
             >
               <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
