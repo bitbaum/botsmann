@@ -28,6 +28,9 @@ Botsmann helps you deploy custom AI assistants that run privately and securely. 
 
 The landing page is modular, composed of a hero, featured bots, and a collaboration form. Navigation now mirrors the elegant dropdown experience of [Medusa](https://medusajs.com/). A full-width mega menu opens on hover with concise descriptions, while mobile users get a smooth slide-in panel.
 
+## Documentation
+
+Detailed business and technical guides live under `/docs`. The docs explain our mission, how to deploy private AI nodes, and the philosophy behind human-centric automation.
 
 ## Architecture
 
@@ -68,26 +71,32 @@ botsmann/
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/botsmann.git
    cd botsmann
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Copy `.env.example` to `.env` and add your OpenAI API key:
+
    ```bash
    cp .env.example .env
    ```
+
    Then edit `.env` to include your OpenAI API key:
+
    ```
    OPENAI_API_KEY=your_api_key_here
    ```
 
 4. Start the development server:
+
    ```bash
    npm run dev
    ```
@@ -100,6 +109,7 @@ botsmann/
 
 1. Create a new directory in `app/bots/` with your bot's name (e.g., `app/bots/your-bot-name/`)
 2. Create the following files:
+
    - `page.tsx`: Main entry point for your bot's UI
    - `README.md`: Documentation specific to your bot
    - `styles.module.css`: Bot-specific styles (if needed)
@@ -128,16 +138,19 @@ Write tests for components in a `__tests__` directory alongside the component.
 ## Contributing
 
 1. Create a new branch for your feature:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 2. Make your changes and commit them:
+
    ```bash
    git commit -m "Add new feature/fix"
    ```
 
 3. Push to your branch:
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -151,13 +164,14 @@ Write tests for components in a `__tests__` directory alongside the component.
 The Botsmann platform uses GitHub for version control and as a deployment source:
 
 1. **Push to GitHub:**
+
    ```bash
    # Add all changes
    git add .
-   
+
    # Commit changes with a descriptive message
    git commit -m "Your commit message"
-   
+
    # Push to the GitHub repository
    git push origin <branch-name>
    ```
@@ -172,6 +186,7 @@ The Botsmann platform uses GitHub for version control and as a deployment source
 The platform is configured for deployment on Vercel. Deployments are automatically triggered when changes are pushed to the main branch.
 
 1. **Initial Vercel Setup:**
+
    - Create an account on [Vercel](https://vercel.com)
    - Connect your GitHub account to Vercel
    - Import the Botsmann repository
@@ -179,15 +194,18 @@ The platform is configured for deployment on Vercel. Deployments are automatical
 
 2. **Environment Variables:**
    Set the following environment variables in the Vercel project settings:
+
    - `OPENAI_API_KEY`: Your OpenAI API key
    - `NEXT_PUBLIC_BASE_URL`: The base URL of your deployment (e.g., https://botsmann.vercel.app)
 
 3. **Deployment Options:**
+
    - **Production Deployment:** Automatically triggered when pushing to the main branch
    - **Preview Deployments:** Automatically created for pull requests
    - **Manual Deployment:** Can be triggered from the Vercel dashboard
 
 4. **Monitoring Deployments:**
+
    - Monitor build logs in the Vercel dashboard
    - Check deployment status in the GitHub repository
    - View detailed analytics and performance metrics in Vercel
@@ -213,4 +231,4 @@ For details on specific bots, see their individual README files:
 
 ## License
 
-[MIT License](LICENSE) 
+[MIT License](LICENSE)
