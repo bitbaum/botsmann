@@ -4,6 +4,26 @@
 
 Botsmann is a platform for creating, showcasing, and managing AI bots built with the OpenAI API. Each bot provides specialized functionality through a custom web interface that connects to a ChatGPT-powered backend.
 
+
+We build AI extensions of human minds maximizing computational power, privacy, sovereignty, and efficiency. We default to fully private AI nodes with fine-tuned open-source models that automate tasks and give humans the most valuable resource: time.
+
+## How It Works
+
+Botsmann helps you deploy custom AI assistants that run privately and securely. Here's an overview of the process:
+
+### Business Perspective
+
+1. **Choose a Solution** – Pick from our catalog of ready-made bots or request a tailor‑made AI that fits your workflow.
+2. **Deploy Privately** – We help you host the model on your own infrastructure so data never leaves your control.
+3. **Save Time** – Automate repetitive tasks and integrate the AI into your existing tools, freeing you to focus on higher‑level strategy.
+
+### Technical Perspective
+
+1. **Open‑Source Models** – We fine‑tune open-source models for your needs, ensuring transparency and avoiding vendor lock‑in.
+2. **Self-Hosted Nodes** – Each bot runs as an independent node that can be deployed on Vercel or your preferred cloud provider.
+3. **Extensible Architecture** – Use our APIs and component library to build additional features or integrate with third‑party platforms.
+
+
 ## Architecture
 
 The platform follows a Next.js-based architecture with the following structure:
