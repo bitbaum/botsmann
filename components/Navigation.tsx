@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Disclosure } from '@headlessui/react';
 import { menuItems } from '@/data/menuItems';
-import MegaMenu from './MegaMenu';
+import MegaMenu from '@/apps/web/components/nav/MegaMenu';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -16,16 +16,15 @@ export default function Navigation() {
         <div className="flex-1 flex items-center space-x-8">
           {menuItems.map((item) => {
             if (item.isButton) return null;
-            const isActive = pathname === item.path;
             if (item.children) {
-              return <MegaMenu key={item.label} item={item} isActive={isActive} />;
+              return <MegaMenu key={item.label} item={item} />;
             }
             return (
               <Link
                 key={item.label}
                 href={item.path}
                 className={`text-sm font-medium transition-colors ${
-                  isActive ? 'text-openai-green' : 'text-gray-600'
+                  pathname === item.path ? 'text-openai-green' : 'text-gray-600'
                 } hover:text-openai-green`}
               >
                 {item.label}
