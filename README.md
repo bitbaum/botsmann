@@ -32,6 +32,10 @@ botsmann/
 - **Styling**: TailwindCSS with custom utility classes
 - **Testing**: Jest, React Testing Library
 - **Deployment**: Vercel
+## API Endpoint
+
+Consultation form submissions are handled via a Next.js API route in `app/api/consultations/route.ts`. Submit requests using `POST /api/consultations`.
+
 
 ## Getting Started
 
