@@ -65,25 +65,46 @@ export default function Navigation() {
             </Disclosure.Button>
             <Disclosure.Panel className="space-y-2 pt-2 pb-3">
               {menuItems.map((item) => (
-                <div key={item.label} className="px-4">
-                  <Link href={item.path} className="block py-2 text-gray-700" onClick={() => close()}>
-                    {item.label}
-                  </Link>
-                  {item.children && (
-                    <div className="pl-4">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.label}
-                          href={child.path}
-                          className="block py-1 text-gray-600 text-sm"
-                          onClick={() => close()}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                item.children ? (
+                  <Disclosure key={item.label} as="div" className="px-4">
+                    {({ open: subOpen }) => (
+                      <>
+                        <Disclosure.Button className="flex w-full items-center justify-between py-2 text-gray-700">
+                          <span>{item.label}</span>
+                          <svg
+                            className={`h-4 w-4 transform transition-transform ${subOpen ? 'rotate-180' : ''}`}
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </Disclosure.Button>
+                        <Disclosure.Panel className="space-y-1 pl-4">
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.label}
+                              href={child.path}
+                              className="block py-1 text-gray-600 text-sm"
+                              onClick={() => close()}
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                ) : (
+                  <div key={item.label} className="px-4">
+                    <Link href={item.path} className="block py-2 text-gray-700" onClick={() => close()}>
+                      {item.label}
+                    </Link>
+                  </div>
+                )
               ))}
             </Disclosure.Panel>
           </>

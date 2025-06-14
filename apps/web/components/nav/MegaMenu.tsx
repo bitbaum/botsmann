@@ -46,17 +46,20 @@ export default function MegaMenu({ item }: MegaMenuProps) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
-            className="absolute left-1/2 z-20 mt-3 w-72 -translate-x-1/2"
+            className="absolute left-1/2 z-20 mt-3 min-w-[18rem] md:min-w-[32rem] -translate-x-1/2"
           >
             <Card className="shadow-lg">
-              <CardContent className="grid gap-2">
+              <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {item.children?.map((child) => (
                   <Link
                     key={child.label}
                     href={child.path}
-                    className="block rounded-md px-2 py-1 text-sm text-gray-700 hover:bg-gray-50"
+                    className="block rounded-md p-2 hover:bg-gray-50"
                   >
-                    {child.label}
+                    <div className="text-sm font-medium text-gray-900">{child.label}</div>
+                    {child.description && (
+                      <p className="mt-1 text-sm text-gray-500">{child.description}</p>
+                    )}
                   </Link>
                 ))}
               </CardContent>
