@@ -34,6 +34,7 @@ export default function MegaMenu({ item }: MegaMenuProps) {
       className="relative"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
+      tabIndex={-1}
     >
       <Link href={item.path} className="text-sm font-medium text-gray-600 hover:text-openai-green">
         {item.label}
