@@ -1,4 +1,5 @@
 import matter from 'gray-matter';
+import logger from '@/src/lib/logger';
 
 // Interface for blog post metadata and content
 export interface BlogPost {
@@ -56,8 +57,7 @@ function determinePostDate(data: any): string {
     // If we're forcing current date for all published posts OR if no date is provided
     if (CONFIG.FORCE_CURRENT_DATE_FOR_PUBLISHED || !data.date) {
       if (CONFIG.VERBOSE_LOGGING) {
-        console.log(`Using current date (${currentDate}) for published post.`, 
-                    data.date ? `Original date was: ${data.date}` : 'No original date was provided.');
+        logger.debug({ currentDate, originalDate: data.date }, 'Using current date for published post');
       }
       return currentDate;
     }
@@ -70,7 +70,7 @@ function determinePostDate(data: any): string {
 // Function to fetch all blog posts
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
   try {
-    console.log('Fetching all blog posts');
+    logger.info('Fetching all blog posts');
     
     // Fetch all directories in the posts folder
     const res = await fetch(
@@ -91,7 +91,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
         if (dir.type !== 'dir') return null;
         
         const slug = dir.name;
-        console.log('Processing post directory:', slug);
+        logger.debug({ slug }, 'Processing post directory');
         
         // Fetch the index.mdx file for this post
         const mdxRes = await fetch(
@@ -111,7 +111,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
         
         // Skip posts that aren't published
         if (data.published !== true) {
-          console.log(`Skipping unpublished post: ${slug}`);
+          logger.debug({ slug }, 'Skipping unpublished post');
           return null;
         }
         
@@ -140,7 +140,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
                 const altPath = `posts/${slug}/${fileNameWithoutExt}.${ext}`;
                 if (await fileExistsOnGitHub(altPath)) {
                   featuredImage = `${GITHUB_RAW_BASE}/${altPath}`;
-                  console.log(`Found alternative featured image for ${slug}: ${featuredImage}`);
+                  logger.debug({ slug, featuredImage }, 'Found alternative featured image');
                   break;
                 }
               }
@@ -177,7 +177,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
 // Function to fetch a single blog post by slug
 export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
-    console.log('Fetching blog post for slug:', slug);
+    logger.info({ slug }, 'Fetching blog post');
     
     if (!slug) {
       console.error('Attempted to fetch blog post with empty slug');
@@ -202,7 +202,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
     
     // Skip posts that aren't published
     if (data.published !== true) {
-      console.log(`Skipping unpublished post: ${slug}`);
+      logger.debug({ slug }, 'Skipping unpublished post');
       return null;
     }
     
@@ -210,8 +210,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
     const postDate = determinePostDate(data);
     
     if (CONFIG.VERBOSE_LOGGING) {
-      console.log(`Post date for ${slug}:`, postDate, 
-                  data.date ? `Original date: ${data.date}` : 'No original date found');
+      logger.debug({ slug, postDate, originalDate: data.date }, 'Post date resolved');
     }
     
     // Process featured image
@@ -224,7 +223,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
       
       // Log the resolved featured image URL
       if (CONFIG.VERBOSE_LOGGING) {
-        console.log(`Resolved featured image for ${slug}:`, featuredImage);
+        logger.debug({ slug, featuredImage }, 'Resolved featured image');
       }
       
       // Verify the image exists
@@ -239,7 +238,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
           const altPath = `posts/${slug}/${fileNameWithoutExt}.${ext}`;
           if (await fileExistsOnGitHub(altPath)) {
             featuredImage = `${GITHUB_RAW_BASE}/${altPath}`;
-            console.log(`Found alternative featured image: ${featuredImage}`);
+            logger.debug({ slug, featuredImage }, 'Found alternative featured image');
             break;
           }
         }

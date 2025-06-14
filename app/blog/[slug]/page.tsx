@@ -5,6 +5,7 @@ import Comments from '@/components/blog/Comments';
 import ClientMDXContent from '@/components/blog/ClientMDXContent';
 import { Metadata } from 'next';
 import { format } from 'date-fns';
+import logger from '@/src/lib/logger';
 
 // Generate static paths for all blog posts
 export async function generateStaticParams() {
@@ -64,7 +65,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
-  console.log('Rendering blog post for slug:', params.slug);
+  logger.info({ slug: params.slug }, 'Rendering blog post');
   
   try {
     if (!params.slug) {
