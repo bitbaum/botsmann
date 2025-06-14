@@ -22,13 +22,31 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, overview, getTryLink }
             {overview}
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link href={getTryLink()} className="btn-primary flex items-center" target="_blank" rel="noopener noreferrer">
+            <a
+              href={getTryLink()}
+              className="btn-primary flex items-center"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span>Chat with Lex</span>
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 12h15" />
+              <svg
+                className="w-5 h-5 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 5l7 7-7 7M5 12h15"
+                />
               </svg>
-            </Link>
-            <a href="#features" className="btn-secondary">Explore Features</a>
+            </a>
+            <a href="#features" className="btn-secondary">
+              Explore Features
+            </a>
           </div>
         </div>
         <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 shadow-sm">
