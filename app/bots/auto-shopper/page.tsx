@@ -15,15 +15,15 @@ interface ProductResult {
 }
 
 export default function AutoShopper() {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState<ProductResult[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+
   const bot = bots.find(b => b.slug === 'auto-shopper');
 
   if (!bot) {
     return <div>Bot not found</div>;
   }
-
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState<ProductResult[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
 
   // Menu items for navigation
   const menuItems = [
