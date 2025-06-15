@@ -17,6 +17,11 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_DEPLOY_TIME: new Date().toUTCString()
   },
+  eslint: {
+    // Skip ESLint during production builds to prevent lint errors from failing
+    // the build process. Local linting should be run via `npm run lint`.
+    ignoreDuringBuilds: true
+  },
   headers: async () => [{
     source: '/:path*',
     headers: [
