@@ -105,18 +105,17 @@ const MDXComponents = {
   },
   
   // Media elements
-  img: (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { slug?: string }) => {
+  img: function Img(props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { slug?: string }) {
     const { src, alt, slug } = props;
     const [imageSrc, setImageSrc] = useState<string>('');
     const [isError, setIsError] = useState(false);
-    
-    if (!src) {
-      console.error('Image source missing');
-      return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
-    }
-    
+
     // Extract slug from URL if not provided directly
     useEffect(() => {
+      if (!src) {
+        setIsError(true);
+        return;
+      }
       // Log the image source and slug for debugging
       console.log('MDX img processing:', { src, slug });
       
@@ -172,10 +171,11 @@ const MDXComponents = {
       }
     }, [src, slug]);
     
-    if (isError) {
-      return <div className="my-8 p-4 bg-red-50 text-red-500">Failed to load image</div>;
+    if (isError || !src) {
+      const message = src ? 'Failed to load image' : 'Image source missing';
+      return <div className="my-8 p-4 bg-red-50 text-red-500">{message}</div>;
     }
-    
+
     if (!imageSrc) {
       return <div className="my-8 p-4 bg-gray-50 text-gray-500">Loading image...</div>;
     }
@@ -253,4 +253,4 @@ const MDXComponents = {
   }
 };
 
-export default MDXComponents; 
+export default MDXComponents;

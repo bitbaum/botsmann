@@ -8,7 +8,7 @@
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.744.0",
