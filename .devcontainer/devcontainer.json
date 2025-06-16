@@ -1,0 +1,7 @@
+{
+  "name": "Botsmann DevContainer",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "postCreateCommand": "pnpm install && vercel login --token $VERCEL_TOKEN"
+}

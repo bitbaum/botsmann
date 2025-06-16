@@ -1,0 +1,23 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  ts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm lint && pnpm type
+      - run: pnpm test -- --coverage
+      - run: node scripts/coverage-check.js
+      - run: pnpm test:e2e
+      - run: pnpm docs
+      - run: pnpm chromatic --exit-once-uploaded
+      - run: vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN }} --yes --json > url.txt
+      - run: echo "::notice title=Preview::https://$(cat url.txt)"

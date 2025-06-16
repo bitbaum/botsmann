@@ -1,0 +1,6 @@
+tasks:
+  dev: pnpm dev
+  test: pnpm test
+  deploy: vercel deploy --prebuilt --token $VERCEL_TOKEN
+  lint: pnpm lint
+  e2e: pnpm test:e2e

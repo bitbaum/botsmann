@@ -1,0 +1,21 @@
+name: Release
+on:
+  push:
+    branches: [main]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - run: pnpm install
+      - run: npx sentry-cli sourcemaps upload --url-prefix ~/dist ./dist
+      - run: npx semantic-release
+      - run: vercel deploy --prod --token ${{ secrets.VERCEL_TOKEN }} --yes --json > url.txt
+      - run: curl -X POST -H 'Content-Type: application/json' -d '{"text":"New release deployed: https://$(cat url.txt)"}' ${{ secrets.SLACK_WEBHOOK }}
