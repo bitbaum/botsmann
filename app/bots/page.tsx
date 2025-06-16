@@ -36,7 +36,7 @@ export default function BotsList() {
               className="group flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md relative"
             >
               {!readyBots.includes(bot.slug) && (
-                <span className="absolute right-4 top-4 inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+                <span className="absolute right-4 top-4 inline-block bg-brand-500 text-white text-xs font-medium px-2 py-1 rounded">
                   Coming Soon
                 </span>
               )}
@@ -56,7 +56,7 @@ export default function BotsList() {
                   </span>
                 ))}
               </div>
-              <span className="text-sm font-medium text-openai-green group-hover:underline mt-auto inline-flex items-center">
+              <span className="text-sm font-medium text-brand-500 group-hover:underline mt-auto inline-flex items-center">
                 Learn more
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>

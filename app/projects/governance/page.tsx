@@ -15,7 +15,7 @@ import CTASection from './components/CTASection';
  * Solon - Decentralized Direct Democracy Governance Platform Page
  * 
  * This is the main page component for the Solon governance platform.
- * It follows the bot page structure for consistency with other Botsmann offerings.
+ * It follows the bot page structure for consistency with other Kigott offerings.
  * 
  * @module SolonGovernancePage
  */

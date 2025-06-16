@@ -16,7 +16,7 @@ export default function SolutionsPage() {
       <div className="mb-12 text-center">
         <h1 className="mb-4 text-4xl font-semibold tracking-tight">AI Solutions for Everyone</h1>
         <p className="mx-auto max-w-3xl text-lg text-gray-600">
-          At Botsmann, we develop cutting-edge AI solutions tailored to the unique needs of individuals, 
+          At Kigott, we develop cutting-edge AI solutions tailored to the unique needs of individuals, 
           businesses, and governments. Our innovative technologies help automate tasks, enhance 
           productivity, and unlock new possibilities.
         </p>
@@ -39,7 +39,7 @@ export default function SolutionsPage() {
             </p>
             <Link
               href="/solutions/individuals"
-              className="mt-auto inline-flex items-center font-medium text-openai-green hover:underline"
+              className="mt-auto inline-flex items-center font-medium text-brand-500 hover:underline"
             >
               Learn more
               <svg className="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@ export default function SolutionsPage() {
 
         {/* Businesses */}
         <div className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md relative">
-          <span className="absolute right-4 top-4 z-10 inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+          <span className="absolute right-4 top-4 z-10 inline-block bg-brand-500 text-white text-xs font-medium px-2 py-1 rounded">
             Coming Soon
           </span>
           <div className="relative h-48 w-full overflow-hidden bg-gray-200">
@@ -67,7 +67,7 @@ export default function SolutionsPage() {
             </p>
             <Link
               href="/solutions/businesses"
-              className="mt-auto inline-flex items-center font-medium text-openai-green hover:underline"
+              className="mt-auto inline-flex items-center font-medium text-brand-500 hover:underline"
             >
               Learn more
               <svg className="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +79,7 @@ export default function SolutionsPage() {
 
         {/* Governments */}
         <div className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md relative">
-          <span className="absolute right-4 top-4 z-10 inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+          <span className="absolute right-4 top-4 z-10 inline-block bg-brand-500 text-white text-xs font-medium px-2 py-1 rounded">
             Coming Soon
           </span>
           <div className="relative h-48 w-full overflow-hidden bg-gray-200">
@@ -95,7 +95,7 @@ export default function SolutionsPage() {
             </p>
             <Link
               href="/solutions/governments"
-              className="mt-auto inline-flex items-center font-medium text-openai-green hover:underline"
+              className="mt-auto inline-flex items-center font-medium text-brand-500 hover:underline"
             >
               Learn more
               <svg className="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +117,7 @@ export default function SolutionsPage() {
               className="group flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md relative"
             >
               {solution.slug !== 'swiss-german-teacher' && (
-                <span className="absolute right-4 top-4 inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+                <span className="absolute right-4 top-4 inline-block bg-brand-500 text-white text-xs font-medium px-2 py-1 rounded">
                   Coming Soon
                 </span>
               )}
@@ -125,7 +125,7 @@ export default function SolutionsPage() {
                 <h2 className="mb-2 text-xl font-semibold text-gray-900">{solution.title}</h2>
                 <p className="mb-4 text-gray-600 min-h-[3rem]">{solution.overview}</p>
               </div>
-              <span className="text-sm font-medium text-openai-green group-hover:underline mt-auto">
+              <span className="text-sm font-medium text-brand-500 group-hover:underline mt-auto">
                 Learn more →
               </span>
             </Link>
@@ -141,7 +141,7 @@ export default function SolutionsPage() {
         </p>
         <Link
           href="/contact"
-          className="rounded-md bg-openai-green px-6 py-3 text-base font-medium text-white hover:bg-opacity-90 transition-opacity"
+          className="rounded-md bg-brand-500 px-6 py-3 text-base font-medium text-white hover:bg-opacity-90 transition-opacity"
         >
           Get in Touch
         </Link>

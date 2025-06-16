@@ -18,8 +18,8 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
         <>
           <Popover.Button
             className={`text-sm font-medium transition-colors ${
-              open || isActive ? 'text-openai-green' : 'text-gray-600'
-            } hover:text-openai-green`}
+              open || isActive ? 'text-brand-500' : 'text-gray-600'
+            } hover:text-brand-500`}
           >
             {item.label}
           </Popover.Button>

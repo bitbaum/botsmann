@@ -26,7 +26,7 @@ export default function SwissGermanTeacher() {
               {bot.features.map((feature, index) => (
                 <li key={index} className="flex items-start">
                   <svg
-                    className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                    className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -49,7 +49,7 @@ export default function SwissGermanTeacher() {
             <p className="mb-6 text-gray-600">{bot.details}</p>
             <Link
               href="/about"
-              className="inline-flex items-center justify-center rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
+              className="inline-flex items-center justify-center rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
             >
               Start Learning
             </Link>
@@ -65,7 +65,7 @@ export default function SwissGermanTeacher() {
             </p>
             <Link
               href="/about"
-              className="inline-flex items-center justify-center rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
+              className="inline-flex items-center justify-center rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
             >
               Contact Us
             </Link>

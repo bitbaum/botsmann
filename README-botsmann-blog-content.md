@@ -1,6 +1,6 @@
-# Botsmann Blog Content
+# Kigott Blog Content
 
-This repository contains content for the Botsmann blog. Each post is stored as an MDX file in its own directory under `posts/`.
+This repository contains content for the Kigott blog. Each post is stored as an MDX file in its own directory under `posts/`.
 
 ## Post Structure
 

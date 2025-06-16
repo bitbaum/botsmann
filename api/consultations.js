@@ -70,12 +70,12 @@ module.exports = async (req, res) => {
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: email,
-            subject: 'Thanks for contacting Botsmann',
+            subject: 'Thanks for contacting Kigott',
             html: `
                 <h1>Thank you for reaching out!</h1>
                 <p>Hello ${name},</p>
                 <p>We've received your message and will get back to you shortly.</p>
-                <p>Best regards,<br>Botsmann Team</p>
+                <p>Best regards,<br>Kigott Team</p>
             `
         });
         console.log('Customer email sent');
@@ -90,7 +90,7 @@ module.exports = async (req, res) => {
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: process.env.EMAIL_TO,
-            subject: 'New Botsmann Consultation Request',
+            subject: 'New Kigott Consultation Request',
             html: `
                 <h2>New consultation request received:</h2>
                 <p><strong>Name:</strong> ${name}</p>

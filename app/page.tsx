@@ -24,13 +24,13 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link 
               href="/bots"
-              className="rounded-md bg-openai-green px-6 py-3 text-lg font-medium text-white hover:bg-opacity-90 transition-opacity"
+              className="rounded-md bg-brand-500 px-6 py-3 text-lg font-medium text-white hover:bg-opacity-90 transition-opacity"
             >
               Explore Our Bots
             </Link>
             <Link 
               href="/about"
-              className="rounded-md border-2 border-openai-green px-6 py-3 text-lg font-medium text-openai-green hover:bg-gray-50 transition-colors"
+              className="rounded-md border-2 border-brand-500 px-6 py-3 text-lg font-medium text-brand-500 hover:bg-gray-50 transition-colors"
             >
               Learn More
             </Link>
@@ -45,31 +45,31 @@ export default function HomePage() {
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">Swiss German Teacher</h3>
                 <p className="text-gray-600 mb-4">Master Swiss German with our AI-powered teacher that provides contextual learning and cultural insights for Switzerland.</p>
-                <Link href="/bots/swiss-german-teacher" className="text-openai-green hover:text-opacity-80 font-medium">
+                <Link href="/bots/swiss-german-teacher" className="text-brand-500 hover:text-opacity-80 font-medium">
                   Learn more →
                 </Link>
               </div>
             </div>
             <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow relative">
-              <span className="absolute right-4 top-4 inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+              <span className="absolute right-4 top-4 inline-block bg-brand-500 text-white text-xs font-medium px-2 py-1 rounded">
                 Coming Soon
               </span>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">Research Assistant</h3>
                 <p className="text-gray-600 mb-4">Enhance your research workflow with AI automation that organizes materials, provides updates, and sparks innovation.</p>
-                <Link href="/bots/research-assistant" className="text-openai-green hover:text-opacity-80 font-medium">
+                <Link href="/bots/research-assistant" className="text-brand-500 hover:text-opacity-80 font-medium">
                   Learn more →
                 </Link>
               </div>
             </div>
             <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow relative">
-              <span className="absolute right-4 top-4 inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+              <span className="absolute right-4 top-4 inline-block bg-brand-500 text-white text-xs font-medium px-2 py-1 rounded">
                 Coming Soon
               </span>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">Legal Expert</h3>
                 <p className="text-gray-600 mb-4">Get instant legal insights and document analysis powered by advanced AI technology.</p>
-                <Link href="/bots/legal-expert" className="text-openai-green hover:text-opacity-80 font-medium">
+                <Link href="/bots/legal-expert" className="text-brand-500 hover:text-opacity-80 font-medium">
                   Learn more →
                 </Link>
               </div>

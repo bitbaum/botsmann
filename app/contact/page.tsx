@@ -62,8 +62,8 @@ export default function ContactPage() {
             <div>
               <h3 className="mb-2 text-lg font-medium text-gray-900">Email</h3>
               <p className="text-gray-600">
-                <a href="mailto:info@botsmann.com" className="text-openai-green hover:underline">
-                  info@botsmann.com
+                <a href="mailto:info@kigott.com" className="text-brand-500 hover:underline">
+                  info@kigott.com
                 </a>
               </p>
             </div>
@@ -85,8 +85,8 @@ export default function ContactPage() {
               Schedule a personalized demo with one of our product specialists to see our AI solutions in action.
             </p>
             <button 
-              className="rounded-md bg-white px-4 py-2 text-sm font-medium text-openai-green border border-openai-green hover:bg-openai-green hover:text-white transition-colors"
-              onClick={() => window.open('https://calendly.com/botsmann/demo', '_blank')}
+              className="rounded-md bg-white px-4 py-2 text-sm font-medium text-brand-500 border border-brand-500 hover:bg-brand-500 hover:text-white transition-colors"
+              onClick={() => window.open('https://calendly.com/kigott/demo', '_blank')}
             >
               Schedule a Demo
             </button>
@@ -99,7 +99,7 @@ export default function ContactPage() {
             {isSubmitted ? (
               <div className="text-center py-8">
                 <svg 
-                  className="mx-auto h-12 w-12 text-openai-green" 
+                  className="mx-auto h-12 w-12 text-brand-500" 
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -116,7 +116,7 @@ export default function ContactPage() {
                   We've received your message and will get back to you soon.
                 </p>
                 <button
-                  className="mt-5 rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity"
+                  className="mt-5 rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity"
                   onClick={() => setIsSubmitted(false)}
                 >
                   Send another message
@@ -141,7 +141,7 @@ export default function ContactPage() {
                     required
                     value={formState.name}
                     onChange={handleChange}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-openai-green focus:outline-none focus:ring-1 focus:ring-openai-green"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
                   />
                 </div>
                 
@@ -156,7 +156,7 @@ export default function ContactPage() {
                     required
                     value={formState.email}
                     onChange={handleChange}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-openai-green focus:outline-none focus:ring-1 focus:ring-openai-green"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
                   />
                 </div>
                 
@@ -170,7 +170,7 @@ export default function ContactPage() {
                     name="company"
                     value={formState.company}
                     onChange={handleChange}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-openai-green focus:outline-none focus:ring-1 focus:ring-openai-green"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
                   />
                 </div>
                 
@@ -185,14 +185,14 @@ export default function ContactPage() {
                     required
                     value={formState.message}
                     onChange={handleChange}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-openai-green focus:outline-none focus:ring-1 focus:ring-openai-green"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
                   />
                 </div>
                 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity disabled:bg-opacity-70"
+                  className="w-full rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity disabled:bg-opacity-70"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>

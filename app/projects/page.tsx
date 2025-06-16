@@ -66,7 +66,7 @@ export default function Projects() {
               <div className="p-8">
                 <h2 className="mb-3 text-2xl font-semibold text-gray-900">{project.title}</h2>
                 <p className="text-gray-600">{project.description}</p>
-                <div className="mt-4 flex items-center text-sm font-medium text-openai-green">
+                <div className="mt-4 flex items-center text-sm font-medium text-brand-500">
                   Learn more
                   <svg
                     className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"

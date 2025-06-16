@@ -44,7 +44,7 @@ export default function Credit() {
         <div className="space-y-8">
           <div className="flex gap-8">
             <div className="flex-shrink-0">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-openai-green text-xl font-semibold text-white">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-500 text-xl font-semibold text-white">
                 1
               </div>
             </div>
@@ -57,7 +57,7 @@ export default function Credit() {
           </div>
           <div className="flex gap-8">
             <div className="flex-shrink-0">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-openai-green text-xl font-semibold text-white">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-500 text-xl font-semibold text-white">
                 2
               </div>
             </div>
@@ -70,7 +70,7 @@ export default function Credit() {
           </div>
           <div className="flex gap-8">
             <div className="flex-shrink-0">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-openai-green text-xl font-semibold text-white">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-500 text-xl font-semibold text-white">
                 3
               </div>
             </div>
@@ -91,7 +91,7 @@ export default function Credit() {
         </p>
         <a
           href="/contact"
-          className="inline-flex items-center justify-center rounded-md bg-openai-green px-6 py-3 text-base font-medium text-white hover:bg-opacity-90 transition-opacity"
+          className="inline-flex items-center justify-center rounded-md bg-brand-500 px-6 py-3 text-base font-medium text-white hover:bg-opacity-90 transition-opacity"
         >
           Contact Us
         </a>

@@ -23,7 +23,7 @@ export default function GovSpendingTracker() {
               </div>
               <div className="mt-2">
                 <p className="font-medium">
-                  <span className="text-openai-green">Department of Transportation</span>
+                  <span className="text-brand-500">Department of Transportation</span>
                   {' → '}
                   <span>Acme Construction Co.</span>
                 </p>
@@ -36,21 +36,21 @@ export default function GovSpendingTracker() {
               
               {/* Social interactions */}
               <div className="mt-4 flex items-center space-x-6 border-t border-gray-100 pt-4">
-                <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-openai-green">
+                <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-brand-500">
                   <span>👍</span>
                   <span>Like</span>
                   <span className="text-gray-400">(24)</span>
                 </button>
-                <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-openai-green">
+                <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-brand-500">
                   <span>💬</span>
                   <span>Comment</span>
                   <span className="text-gray-400">(8)</span>
                 </button>
-                <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-openai-green">
+                <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-brand-500">
                   <span>↗️</span>
                   <span>Share</span>
                 </button>
-                <button className="ml-auto flex items-center space-x-2 rounded-md bg-openai-green px-4 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+                <button className="ml-auto flex items-center space-x-2 rounded-md bg-brand-500 px-4 py-1 text-sm font-medium text-white hover:bg-opacity-90">
                   <span>💝</span>
                   <span>Donate</span>
                 </button>

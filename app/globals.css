@@ -130,13 +130,13 @@ header {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
 }
 
-#botsmann-header {
+#kigott-header {
   z-index: 900 !important; 
   position: relative !important;
 }
 
 .bot-navigation {
-  z-index: 800 !important; /* Lower than Botsmann header but higher than content */
+  z-index: 800 !important; /* Lower than Kigott header but higher than content */
 }
 
 /* Ensure all dropdown content is clickable */

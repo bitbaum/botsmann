@@ -54,14 +54,14 @@ export default function AutoShopper() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full rounded-xl border-gray-200 bg-white px-4 py-3 pr-12 text-lg shadow-sm focus:border-openai-green focus:ring-openai-green"
+            className="w-full rounded-xl border-gray-200 bg-white px-4 py-3 pr-12 text-lg shadow-sm focus:border-brand-500 focus:ring-brand-500"
             placeholder="Enter one word..."
             maxLength={50}
           />
           <button
             type="submit"
             disabled={isSearching}
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg bg-openai-green p-2 text-white hover:bg-opacity-90 disabled:opacity-50"
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg bg-brand-500 p-2 text-white hover:bg-opacity-90 disabled:opacity-50"
           >
             {isSearching ? '...' : '→'}
           </button>
@@ -84,11 +84,11 @@ export default function AutoShopper() {
                 href={product.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-medium text-openai-green hover:underline"
+                className="text-sm font-medium text-brand-500 hover:underline"
               >
                 View on {product.platform} →
               </a>
-              <button className="rounded-md bg-openai-green px-4 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+              <button className="rounded-md bg-brand-500 px-4 py-1 text-sm font-medium text-white hover:bg-opacity-90">
                 Support Project
               </button>
             </div>

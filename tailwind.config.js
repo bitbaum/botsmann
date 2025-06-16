@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'openai-green': '#10a37f',
-        'openai-gray': '#202123',
+        'brand-500': '#10a37f',
+        'brand-900': '#202123',
       },
       fontFamily: {
         sans: ['system-ui', 'sans-serif'],

@@ -3,7 +3,7 @@ import Footer from '@/components/Footer';
 import './globals.css';
 
 export const metadata = {
-  title: 'Botsmann - AI Bot Suite',
+  title: 'Kigott – Sovereign AI Kernel',
   description: 'A suite of AI-powered bots for various tasks',
 };
 

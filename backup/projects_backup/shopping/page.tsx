@@ -87,13 +87,13 @@ export default function Shopping() {
               <input
                 type="text"
                 id="query"
-                className="block w-full rounded-md border-gray-200 px-4 py-2 text-gray-900 shadow-sm focus:border-openai-green focus:ring-openai-green sm:text-sm"
+                className="block w-full rounded-md border-gray-200 px-4 py-2 text-gray-900 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm"
                 placeholder="Type your product or service name"
               />
             </div>
             <button
               type="button"
-              className="inline-flex items-center justify-center rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
+              className="inline-flex items-center justify-center rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
             >
               Configure My Dashboard
             </button>
@@ -178,14 +178,14 @@ export default function Shopping() {
               </ul>
               <button
                 type="button"
-                className="w-full inline-flex items-center justify-center rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
+                className="w-full inline-flex items-center justify-center rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
               >
                 Get Started
               </button>
             </div>
             
-            <div className="rounded-2xl border-2 border-openai-green bg-white p-8 shadow-md relative">
-              <div className="absolute top-0 right-0 bg-openai-green text-white px-3 py-1 text-xs font-semibold rounded-bl-lg rounded-tr-lg">
+            <div className="rounded-2xl border-2 border-brand-500 bg-white p-8 shadow-md relative">
+              <div className="absolute top-0 right-0 bg-brand-500 text-white px-3 py-1 text-xs font-semibold rounded-bl-lg rounded-tr-lg">
                 POPULAR
               </div>
               <h3 className="mb-2 text-xl font-semibold text-gray-900">Business</h3>
@@ -200,7 +200,7 @@ export default function Shopping() {
               </ul>
               <button
                 type="button"
-                className="w-full inline-flex items-center justify-center rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
+                className="w-full inline-flex items-center justify-center rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
               >
                 Get Started
               </button>
@@ -220,7 +220,7 @@ export default function Shopping() {
               </ul>
               <button
                 type="button"
-                className="w-full inline-flex items-center justify-center rounded-md border border-openai-green bg-white px-4 py-2 text-sm font-medium text-openai-green hover:bg-gray-50"
+                className="w-full inline-flex items-center justify-center rounded-md border border-brand-500 bg-white px-4 py-2 text-sm font-medium text-brand-500 hover:bg-gray-50"
               >
                 Contact Sales
               </button>
@@ -257,7 +257,7 @@ export default function Shopping() {
             </p>
             <Link
               href="/about"
-              className="inline-flex items-center justify-center rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
+              className="inline-flex items-center justify-center rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90"
             >
               Contact Us
             </Link>

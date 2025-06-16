@@ -1,5 +1,5 @@
 /**
- * Natural Language Processing utilities for Botsmann
+ * Natural Language Processing utilities for Kigott
  * This file implements the language processing logic for various bots
  */
 

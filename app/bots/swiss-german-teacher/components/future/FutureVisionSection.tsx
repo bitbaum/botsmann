@@ -45,7 +45,7 @@ const FutureVisionSection = () => {
               <h4 className="font-medium text-gray-900 mb-2">Get Involved:</h4>
               <p className="text-gray-600 mb-3">Interested in contributing to Heidi's development? Let us know your expertise.</p>
               <a 
-                href="mailto:join@botsmann.com" 
+                href="mailto:join@kigott.com" 
                 className="inline-flex items-center text-green-600 font-medium hover:underline"
                 aria-label="Contact our team about joining"
               >

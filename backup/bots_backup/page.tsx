@@ -19,7 +19,7 @@ export default function BotsList() {
               <h2 className="mb-2 text-xl font-semibold text-gray-900">{bot.title}</h2>
               <p className="mb-4 text-gray-600 min-h-[3rem]">{bot.description}</p>
             </div>
-            <span className="text-sm font-medium text-openai-green group-hover:underline mt-auto">
+            <span className="text-sm font-medium text-brand-500 group-hover:underline mt-auto">
               Learn more →
             </span>
           </Link>

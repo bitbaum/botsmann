@@ -31,13 +31,13 @@ export default function TechnoCapital() {
         {/* Title and Overview */}
         <div className="mb-16">
           <div className="flex items-center gap-2 mb-4">
-            <span className="inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+            <span className="inline-block bg-brand-500 text-white text-xs font-medium px-2 py-1 rounded">
               Coming Soon
             </span>
             <span className="text-sm text-gray-500">Investment fund launching 2025</span>
           </div>
           <h1 className="mb-4 text-4xl font-semibold tracking-tight text-gray-900">
-            Botsmann Techno-Capital (BTC)
+            Kigott Techno-Capital (BTC)
           </h1>
           <p className="mb-8 text-lg text-gray-600">
             Accelerating humanity toward technological singularity through strategic investments in commodities, research, and subterranean development.
@@ -51,7 +51,7 @@ export default function TechnoCapital() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <svg
-                  className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                  className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -67,7 +67,7 @@ export default function TechnoCapital() {
               </li>
               <li className="flex items-start">
                 <svg
-                  className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                  className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -83,7 +83,7 @@ export default function TechnoCapital() {
               </li>
               <li className="flex items-start">
                 <svg
-                  className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                  className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -99,7 +99,7 @@ export default function TechnoCapital() {
               </li>
               <li className="flex items-start">
                 <svg
-                  className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                  className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -119,7 +119,7 @@ export default function TechnoCapital() {
           <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
             <h2 className="mb-4 text-2xl font-semibold text-gray-900">Our Vision</h2>
             <p className="mb-6 text-gray-600">
-              Botsmann Techno-Capital is dedicated to accelerating humanity's progress toward technological singularity—when artificial intelligence surpasses human capabilities and leads to unprecedented growth and advancement.
+              Kigott Techno-Capital is dedicated to accelerating humanity's progress toward technological singularity—when artificial intelligence surpasses human capabilities and leads to unprecedented growth and advancement.
             </p>
             <p className="mb-6 text-gray-600">
               Unlike traditional investment funds that focus on quarterly returns or existing companies, BTC strategically invests in the foundational resources, physical infrastructure, and breakthrough research needed to support this technological transformation.
@@ -135,7 +135,7 @@ export default function TechnoCapital() {
           <h2 className="mb-8 text-3xl font-semibold text-gray-900">SubSpace Capital</h2>
           <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
             <div className="flex items-center mb-6">
-              <div className="h-12 w-12 bg-openai-green rounded-full flex items-center justify-center text-white mr-4">
+              <div className="h-12 w-12 bg-brand-500 rounded-full flex items-center justify-center text-white mr-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
@@ -151,19 +151,19 @@ export default function TechnoCapital() {
                 <h4 className="font-medium text-gray-900 mb-3">Earth-Based Underground Properties</h4>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-start">
-                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span>Climate-resilient bunkers and habitation facilities</span>
                   </li>
                   <li className="flex items-start">
-                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span>Subterranean data centers with natural cooling</span>
                   </li>
                   <li className="flex items-start">
-                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span>Underground transportation and logistics networks</span>
@@ -175,19 +175,19 @@ export default function TechnoCapital() {
                 <h4 className="font-medium text-gray-900 mb-3">Space-Based Development</h4>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-start">
-                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span>Lunar and Martian subsurface habitat technologies</span>
                   </li>
                   <li className="flex items-start">
-                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span>Asteroid mining rights and extraction infrastructure</span>
                   </li>
                   <li className="flex items-start">
-                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span>Early claims on extraterrestrial real estate resources</span>
@@ -210,7 +210,7 @@ export default function TechnoCapital() {
           <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
             <ol className="space-y-4">
               <li className="flex items-start">
-                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-openai-green text-white">
+                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-brand-500 text-white">
                   1
                 </div>
                 <div>
@@ -219,7 +219,7 @@ export default function TechnoCapital() {
                 </div>
               </li>
               <li className="flex items-start">
-                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-openai-green text-white">
+                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-brand-500 text-white">
                   2
                 </div>
                 <div>
@@ -228,7 +228,7 @@ export default function TechnoCapital() {
                 </div>
               </li>
               <li className="flex items-start">
-                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-openai-green text-white">
+                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-brand-500 text-white">
                   3
                 </div>
                 <div>
@@ -243,13 +243,13 @@ export default function TechnoCapital() {
               <p className="text-gray-600 mb-3">For commodity investments, we maintain a balanced portfolio approach:</p>
               <ul className="space-y-2 text-gray-600">
                 <li className="flex items-start">
-                  <svg className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Long positions (20–40%) for building strategic reserves</span>
                 </li>
                 <li className="flex items-start">
-                  <svg className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="mr-3 h-5 w-5 flex-shrink-0 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Short positions (5–50%) to capitalize on market inefficiencies</span>
@@ -264,17 +264,17 @@ export default function TechnoCapital() {
           <div className="rounded-xl bg-gray-50 p-8 text-center">
             <h2 className="mb-4 text-3xl font-bold text-gray-900">Join Our Investor Waitlist</h2>
             <p className="mb-8 text-lg text-gray-600 max-w-2xl mx-auto">
-              Botsmann Techno-Capital is preparing to launch. Join our waitlist to be among the first to invest in humanity's technological future.
+              Kigott Techno-Capital is preparing to launch. Join our waitlist to be among the first to invest in humanity's technological future.
             </p>
             
             {formSubmitted ? (
               <div className="max-w-md mx-auto bg-green-50 border border-green-200 rounded-md p-4 text-center">
-                <svg className="w-16 h-16 text-openai-green mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-16 h-16 text-brand-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <h3 className="text-xl font-medium text-gray-900 mb-2">Thank You!</h3>
                 <p className="text-gray-600">
-                  You've been added to our waitlist. We'll notify you when Botsmann Techno-Capital launches.
+                  You've been added to our waitlist. We'll notify you when Kigott Techno-Capital launches.
                 </p>
               </div>
             ) : (
@@ -324,7 +324,7 @@ export default function TechnoCapital() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className={`w-full inline-flex items-center justify-center rounded-md bg-openai-green px-6 py-3 text-base font-medium text-white ${submitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-opacity-90'} transition-opacity`}
+                  className={`w-full inline-flex items-center justify-center rounded-md bg-brand-500 px-6 py-3 text-base font-medium text-white ${submitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-opacity-90'} transition-opacity`}
                 >
                   {submitting ? 'Submitting...' : 'Join Waitlist'}
                 </button>

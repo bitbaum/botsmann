@@ -48,7 +48,7 @@ const DemoModeOverlay = ({
             <div className="mb-4">
               <input
                 type="text"
-                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-openai-green"
+                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500"
                 placeholder="E.g., hello, thank you, goodbye"
                 value={prompt}
                 onChange={(e) => onInputChange(e.target.value)}

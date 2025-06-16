@@ -1,6 +1,7 @@
 {
-  "name": "botsmann",
+  "name": "@kigott/web",
   "version": "1.0.0",
+  "homepage": "https://kigott.com",
   "private": true,
   "scripts": {
     "dev": "next dev",

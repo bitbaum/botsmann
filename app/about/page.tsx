@@ -5,7 +5,7 @@ import { NextSection } from '@/src/components/navigation/NextSection';
 export default function About() {
   return (
     <div className="mx-auto max-w-prose px-6 py-12">
-      <h1 className="mb-8 text-4xl font-semibold tracking-tight">About Botsmann</h1>
+      <h1 className="mb-8 text-4xl font-semibold tracking-tight">About Kigott</h1>
       
       <section className="mb-12">
         <h2 className="mb-4 text-2xl font-medium">Our Philosophy</h2>
@@ -25,7 +25,7 @@ export default function About() {
       <section className="mb-12">
         <h2 className="mb-4 text-2xl font-medium">Our Mission</h2>
         <p className="mb-6 text-lg text-gray-600">
-          At Botsmann, we are committed to methodically automating redundant, intransparent, and 
+          At Kigott, we are committed to methodically automating redundant, intransparent, and 
           labor-intensive processes. Our mission is to free people from unpleasant tasks, giving 
           them back their most precious resource: time and freedom to focus on what truly matters.
         </p>

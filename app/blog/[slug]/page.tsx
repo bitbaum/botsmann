@@ -26,12 +26,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     
     if (!post) {
       return {
-        title: 'Post Not Found | Botsmann',
+        title: 'Post Not Found | Kigott',
       };
     }
     
     return {
-      title: `${post.title} | Botsmann Blog`,
+      title: `${post.title} | Kigott Blog`,
       description: post.excerpt,
       openGraph: {
         title: post.title,
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   } catch (error) {
     console.error("Error generating metadata:", error);
     return {
-      title: 'Error | Botsmann',
+      title: 'Error | Kigott',
     };
   }
 }

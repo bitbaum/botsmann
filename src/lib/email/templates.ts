@@ -16,7 +16,7 @@ export const welcomeEmailTemplate = `
 </head>
 <body>
   <div class="container">
-    <h1 class="heading">Welcome to Botsmann, {{name}}!</h1>
+    <h1 class="heading">Welcome to Kigott, {{name}}!</h1>
     <p class="text">Thank you for reaching out. We're excited to help you explore innovative <span class="highlight">AI and robotic solutions</span> that can transform your business.</p>
     <p class="text">Our team will carefully review your message and get back to you shortly with personalized recommendations tailored to your specific needs.</p>
     {{#if preferences.newsletter}}
@@ -27,8 +27,8 @@ export const welcomeEmailTemplate = `
     {{/if}}
     <a href="{{dashboardUrl}}" class="button">Visit Your Dashboard</a>
     <div class="footer">
-      <p>Best regards,<br>The Botsmann Team</p>
-      <p>Questions? Reply to this email or contact us at support@botsmann.com</p>
+      <p>Best regards,<br>The Kigott Team</p>
+      <p>Questions? Reply to this email or contact us at support@kigott.com</p>
     </div>
   </div>
 </body>

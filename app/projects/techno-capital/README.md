@@ -1,4 +1,4 @@
-# Botsmann Techno-Capital Assets
+# Kigott Techno-Capital Assets
 
 This document outlines the image assets needed for the Techno-Capital project section.
 
@@ -18,7 +18,7 @@ This document outlines the image assets needed for the Techno-Capital project se
 
 ## Image Guidelines
 
-- Images should follow the Botsmann design aesthetic with dark backgrounds and OpenAI green (#10A37F) accents
+- Images should follow the Kigott design aesthetic with dark backgrounds and OpenAI green (#10A37F) accents
 - Images should convey the technological singularity and underground/subterranean themes
 - For placeholder purposes, solid color blocks with text can be used until final images are created
 - Consider using AI image generation tools (like DALL-E or Midjourney) with prompts like:

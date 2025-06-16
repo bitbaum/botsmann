@@ -53,7 +53,7 @@ export default function GovernmentSpendingTracker() {
                   </div>
                   <div className="mt-2">
                     <p className="font-medium">
-                      <span className="text-openai-green">Department of Transportation</span>
+                      <span className="text-brand-500">Department of Transportation</span>
                       {' → '}
                       <span>Acme Construction Co.</span>
                     </p>
@@ -66,17 +66,17 @@ export default function GovernmentSpendingTracker() {
                   
                   {/* Social interactions */}
                   <div className="mt-4 flex items-center space-x-6 border-t border-gray-100 pt-4">
-                    <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-openai-green">
+                    <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-brand-500">
                       <span>👍</span>
                       <span>Like</span>
                       <span className="text-gray-400">(24)</span>
                     </button>
-                    <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-openai-green">
+                    <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-brand-500">
                       <span>💬</span>
                       <span>Comment</span>
                       <span className="text-gray-400">(8)</span>
                     </button>
-                    <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-openai-green">
+                    <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-brand-500">
                       <span>↗️</span>
                       <span>Share</span>
                     </button>

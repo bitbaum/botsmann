@@ -18,7 +18,7 @@ const transformImageSrc = (src: string, slug: string) => {
   // If it's a relative path, convert to GitHub raw URL
   if (src.startsWith('./') || src.startsWith('../')) {
     const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
-    return `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${slug}/${imagePath}`;
+    return `https://raw.githubusercontent.com/g-but/kigott-blog-content/main/posts/${slug}/${imagePath}`;
   }
   
   // Return the original src if it doesn't match any criteria
@@ -87,7 +87,7 @@ const MDXComponents = {
       return (
         <a 
           href={href}
-          className="text-openai-green hover:text-opacity-80"
+          className="text-brand-500 hover:text-opacity-80"
           target="_blank"
           rel="noopener noreferrer"
           {...props}
@@ -98,7 +98,7 @@ const MDXComponents = {
     return (
       <Link 
         href={href} 
-        className="text-openai-green hover:text-opacity-80"
+        className="text-brand-500 hover:text-opacity-80"
         {...props}
       />
     );
@@ -156,7 +156,7 @@ const MDXComponents = {
           }
           
           const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
-          fullSrc = `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${contextSlug}/${imagePath}`;
+          fullSrc = `https://raw.githubusercontent.com/g-but/kigott-blog-content/main/posts/${contextSlug}/${imagePath}`;
           console.log('Using dynamic slug for image path:', { contextSlug, imagePath, fullSrc });
         } else {
           // For any other format, just use the src as is

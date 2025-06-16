@@ -1,6 +1,6 @@
 # Heidi – Your Swiss German Companion
 
-This document outlines the implementation of Heidi, an AI-powered Swiss German language assistant integrated into the Botsmann platform.
+This document outlines the implementation of Heidi, an AI-powered Swiss German language assistant integrated into the Kigott platform.
 
 ## Overview
 
@@ -37,9 +37,9 @@ Heidi helps expats and learners master High German (Hochdeutsch) and Swiss Germa
 Heidi's functionality is currently delivered via a ChatGPT custom GPT:
 
 1. **Main Interaction Flow**:
-   - Users enter input on the Botsmann website
+   - Users enter input on the Kigott website
    - They are redirected to the ChatGPT version of Heidi with their input
-   - All NLP processing occurs within ChatGPT, not within Botsmann
+   - All NLP processing occurs within ChatGPT, not within Kigott
 
 2. **Waitlist Collection**:
    - Users can join a waitlist for future features

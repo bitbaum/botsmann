@@ -1,6 +1,6 @@
 /**
  * Navigation fixes to prevent dropdown menu interference between
- * Botsmann header and bot-specific navigation bars.
+ * Kigott header and bot-specific navigation bars.
  */
 
 // Function to initialize dropdown behavior fixes
@@ -8,7 +8,7 @@ export const initializeNavigationFixes = () => {
   // This function should be called in the useEffect of bot pages
   
   const addNavigationFixes = () => {
-    // Find all dropdown containers in the Botsmann header
+    // Find all dropdown containers in the Kigott header
     const dropdownContainers = document.querySelectorAll('.dropdown-container');
     const botNavigation = document.querySelector('.bot-navigation');
     

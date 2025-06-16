@@ -127,12 +127,12 @@ const SwissGermanTeacher = () => {
             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-8">
               <a href="#" className="text-gray-500 hover:text-gray-700">Terms of Service</a>
               <a href="#" className="text-gray-500 hover:text-gray-700">Privacy Policy</a>
-              <a href="mailto:hello@botsmann.com" className="text-gray-500 hover:text-gray-700">Contact Us</a>
+              <a href="mailto:hello@kigott.com" className="text-gray-500 hover:text-gray-700">Contact Us</a>
             </div>
           </div>
 
           <div className="mt-8 text-center text-gray-500 text-sm">
-            <p>© 2023 Botsmann. All rights reserved.</p>
+            <p>© 2023 Kigott. All rights reserved.</p>
             <p className="mt-1">
               "Heidi" is an AI GPT powered by OpenAI's technology. 
               Not affiliated with the Swiss government or any official language institution.

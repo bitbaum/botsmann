@@ -9,7 +9,7 @@ export default function Comments({ slug }: { slug: string }) {
     // Load Giscus
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
-    script.setAttribute('data-repo', 'g-but/botsmann-blog-content');
+    script.setAttribute('data-repo', 'g-but/kigott-blog-content');
     script.setAttribute('data-repo-id', 'R_kgDOODOnUA'); // Replace with actual repo ID from Giscus setup
     script.setAttribute('data-category', 'Blog Comments');
     script.setAttribute('data-category-id', 'DIC_kwDOODOnUM4CnkL1'); // Replace with actual category ID from Giscus setup

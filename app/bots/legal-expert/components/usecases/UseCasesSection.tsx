@@ -31,7 +31,7 @@ const UseCasesSection: React.FC = () => (
       {useCases.map((u, idx) => (
         <div key={idx} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
           <div className="mb-4 w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center">
-            <svg className="h-6 w-6 text-openai-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-6 w-6 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={iconPaths[u.icon]} />
             </svg>
           </div>

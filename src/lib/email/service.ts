@@ -14,7 +14,7 @@ export class EmailService {
         secretAccessKey: process.env.NEXT_AWS_SECRET_ACCESS_KEY || ''
       }
     });
-    this.fromEmail = process.env.FROM_EMAIL || 'noreply@botsmann.com';
+    this.fromEmail = process.env.FROM_EMAIL || 'noreply@kigott.com';
     this.adminEmail = process.env.ADMIN_EMAIL || 'REDACTED_EMAIL';
   }
 
@@ -26,11 +26,11 @@ export class EmailService {
       },
       Message: {
         Subject: {
-          Data: 'Welcome to Botsmann!'
+          Data: 'Welcome to Kigott!'
         },
         Body: {
           Text: {
-            Data: `Hello ${customer.name},\n\nThank you for your interest in Botsmann! We've received your message and will get back to you soon.\n\nBest regards,\nThe Botsmann Team`
+            Data: `Hello ${customer.name},\n\nThank you for your interest in Kigott! We've received your message and will get back to you soon.\n\nBest regards,\nThe Kigott Team`
           }
         }
       }

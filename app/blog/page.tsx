@@ -6,13 +6,13 @@ import type { Route } from 'next';
 import { format } from 'date-fns';
 
 export const metadata: Metadata = {
-  title: 'Blog | Botsmann',
-  description: 'Insights and updates from the Botsmann team on AI, technology, and innovation.',
+  title: 'Blog | Kigott',
+  description: 'Insights and updates from the Kigott team on AI, technology, and innovation.',
   openGraph: {
-    title: 'Blog | Botsmann',
-    description: 'Insights and updates from the Botsmann team on AI, technology, and innovation.',
-    url: 'https://botsmann.com/blog',
-    siteName: 'Botsmann',
+    title: 'Blog | Kigott',
+    description: 'Insights and updates from the Kigott team on AI, technology, and innovation.',
+    url: 'https://kigott.com/blog',
+    siteName: 'Kigott',
     type: 'website',
   }
 };
@@ -26,7 +26,7 @@ export default async function Blog() {
         <div className="mb-16 text-center">
           <h1 className="mb-4 text-4xl font-semibold tracking-tight text-gray-900">Blog</h1>
           <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Insights and updates from the Botsmann team on AI, technology, and innovation.
+            Insights and updates from the Kigott team on AI, technology, and innovation.
           </p>
         </div>
 
@@ -67,7 +67,7 @@ export default async function Blog() {
                     <h2 className="mt-4 text-2xl font-semibold tracking-tight text-gray-900">
                       <Link 
                         href={`/blog/${post.slug}` as Route}
-                        className="hover:text-openai-green"
+                        className="hover:text-brand-500"
                       >
                         {post.title}
                       </Link>
@@ -90,7 +90,7 @@ export default async function Blog() {
                     
                     <Link
                       href={`/blog/${post.slug}` as Route}
-                      className="mt-6 inline-flex items-center text-sm font-medium text-openai-green hover:text-opacity-80"
+                      className="mt-6 inline-flex items-center text-sm font-medium text-brand-500 hover:text-opacity-80"
                     >
                       Read more
                       <svg

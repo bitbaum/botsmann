@@ -14,7 +14,7 @@ export interface BlogPost {
 
 // GitHub repository configuration
 const GITHUB_USERNAME = 'g-but';
-const GITHUB_REPO = 'botsmann-blog-content';
+const GITHUB_REPO = 'kigott-blog-content';
 const GITHUB_BRANCH = 'main';
 
 // Base URL for raw GitHub content
@@ -155,7 +155,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
           slug,
           title: data.title,
           date: postDate,
-          author: data.author || 'Botsmann Team',
+          author: data.author || 'Kigott Team',
           excerpt: data.excerpt || '',
           content,
           tags: data.tags || [],
@@ -251,7 +251,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
       slug,
       title: data.title,
       date: postDate,
-      author: data.author || 'Botsmann Team',
+      author: data.author || 'Kigott Team',
       excerpt: data.excerpt || '',
       content,
       tags: data.tags || [],

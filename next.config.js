@@ -7,7 +7,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'raw.githubusercontent.com',
-        pathname: '/g-but/botsmann-blog-content/**',
+        pathname: '/g-but/kigott-blog-content/**',
       },
     ],
   },

@@ -80,7 +80,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
               }}
               className={`text-sm ${
                 activeId === item.id
-                  ? "font-semibold text-openai-green"
+                  ? "font-semibold text-brand-500"
                   : "text-gray-600 hover:text-gray-900"
               } ${level === 0 ? "font-medium" : ""}`}
               aria-label={`Navigate to ${item.label} section`}

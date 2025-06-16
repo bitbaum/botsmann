@@ -12,10 +12,10 @@ const CallToActionSection: React.FC<Props> = ({ getTryLink }) => (
         Deploy your own private AI legal assistant and keep your data secure.
       </p>
       <div className="flex justify-center gap-4">
-        <a href={getTryLink()} target="_blank" rel="noopener noreferrer" className="rounded-md bg-openai-green px-6 py-3 text-lg font-medium text-white hover:bg-opacity-90 transition-opacity">
+        <a href={getTryLink()} target="_blank" rel="noopener noreferrer" className="rounded-md bg-brand-500 px-6 py-3 text-lg font-medium text-white hover:bg-opacity-90 transition-opacity">
           Try Lex Now
         </a>
-        <a href="#" className="rounded-md border-2 border-openai-green px-6 py-3 text-lg font-medium text-openai-green hover:bg-gray-50 transition-colors">
+        <a href="#" className="rounded-md border-2 border-brand-500 px-6 py-3 text-lg font-medium text-brand-500 hover:bg-gray-50 transition-colors">
           Learn More
         </a>
       </div>

@@ -67,7 +67,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
               href={`#${item.id}`}
               className={`block py-1 border-l-2 pl-3 transition-colors ${
                 activeId === item.id
-                  ? 'border-openai-green text-openai-green font-medium'
+                  ? 'border-brand-500 text-brand-500 font-medium'
                   : 'border-transparent hover:text-gray-900 hover:border-gray-300'
               }`}
               onClick={(e) => {
@@ -87,7 +87,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
                       href={`#${subItem.id}`}
                       className={`block py-1 text-sm border-l-2 pl-3 transition-colors ${
                         activeId === subItem.id
-                          ? 'border-openai-green text-openai-green font-medium'
+                          ? 'border-brand-500 text-brand-500 font-medium'
                           : 'border-transparent hover:text-gray-900 hover:border-gray-300'
                       }`}
                       onClick={(e) => {

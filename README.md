@@ -1,15 +1,15 @@
-# Botsmann - AI Bot Platform
+# Kigott - AI Bot Platform
 
 ## Overview
 
-Botsmann is a platform for creating, showcasing, and managing AI bots built with the OpenAI API. Each bot provides specialized functionality through a custom web interface that connects to a ChatGPT-powered backend.
+Kigott is a platform for creating, showcasing, and managing AI bots built with the OpenAI API. Each bot provides specialized functionality through a custom web interface that connects to a ChatGPT-powered backend.
 
 ## Architecture
 
 The platform follows a Next.js-based architecture with the following structure:
 
 ```
-botsmann/
+kigott/
 ├── app/                  # Main Next.js application
 │   ├── api/              # API routes
 │   ├── bots/             # Individual bot applications
@@ -44,8 +44,8 @@ botsmann/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/botsmann.git
-   cd botsmann
+   git clone https://github.com/yourusername/kigott.git
+   cd kigott
    ```
 
 2. Install dependencies:
@@ -123,7 +123,7 @@ Write tests for components in a `__tests__` directory alongside the component.
 
 ### GitHub Setup
 
-The Botsmann platform uses GitHub for version control and as a deployment source:
+The Kigott platform uses GitHub for version control and as a deployment source:
 
 1. **Push to GitHub:**
    ```bash
@@ -149,13 +149,13 @@ The platform is configured for deployment on Vercel. Deployments are automatical
 1. **Initial Vercel Setup:**
    - Create an account on [Vercel](https://vercel.com)
    - Connect your GitHub account to Vercel
-   - Import the Botsmann repository
+   - Import the Kigott repository
    - Vercel will automatically detect the Next.js project
 
 2. **Environment Variables:**
    Set the following environment variables in the Vercel project settings:
    - `OPENAI_API_KEY`: Your OpenAI API key
-   - `NEXT_PUBLIC_BASE_URL`: The base URL of your deployment (e.g., https://botsmann.vercel.app)
+   - `NEXT_PUBLIC_BASE_URL`: The base URL of your deployment (e.g., https://kigott.vercel.app)
 
 3. **Deployment Options:**
    - **Production Deployment:** Automatically triggered when pushing to the main branch

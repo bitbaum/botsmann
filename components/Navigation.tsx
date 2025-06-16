@@ -25,8 +25,8 @@ export default function Navigation() {
                 key={item.label}
                 href={item.path}
                 className={`text-sm font-medium transition-colors ${
-                  isActive ? 'text-openai-green' : 'text-gray-600'
-                } hover:text-openai-green`}
+                  isActive ? 'text-brand-500' : 'text-gray-600'
+                } hover:text-brand-500`}
               >
                 {item.label}
               </Link>
@@ -40,7 +40,7 @@ export default function Navigation() {
                 <Link
                   key={item.label}
                   href={item.path}
-                  className="rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity"
+                  className="rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity"
                 >
                   {item.label}
                 </Link>
@@ -52,7 +52,7 @@ export default function Navigation() {
       <Disclosure as="div" className="lg:hidden">
         {({ open, close }) => (
           <>
-            <Disclosure.Button className="rounded-md p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-openai-green">
+            <Disclosure.Button className="rounded-md p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
               <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
               {open ? (
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
