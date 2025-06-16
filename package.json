@@ -67,7 +67,7 @@
     "semantic-release": "^23.0.0",
     "@storybook/react": "^7.6.0",
     "chromatic": "^7.0.0",
-    "typedoc": "^0.25.0"
+    "typedoc": "^0.28.5"
   },
   "lint-staged": {
     "*.[jt]s?(x)": "eslint --fix"
