@@ -13,7 +13,7 @@ interface MobileMenuProps {
 export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuProps) {
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col bg-white transform transition-transform lg:hidden ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}
+      className={`fixed inset-0 z-50 flex flex-col items-start bg-white overflow-y-auto transition-transform duration-300 lg:hidden ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}
     >
       <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
         <Link href="/" className="text-xl font-bold text-gray-900">
