@@ -16,7 +16,6 @@ export const menuItems: MenuItem[] = [
     path: "/bots",
     children: [
       { label: "Artistic Advisor", path: "/bots/artistic-advisor", description: "AI guidance for creative projects." },
-      { label: "Auto Shopper", path: "/bots/auto-shopper", description: "Automated purchasing assistant." },
       { label: "Government Spending Tracker", path: "/bots/government-spending-tracker", description: "Follow public expenditures in real time." },
       { label: "Legal Expert", path: "/bots/legal-expert", description: "Research and analyze legal documents." },
       { label: "Medical Expert", path: "/bots/medical-expert", description: "Clinical research and decision support." },

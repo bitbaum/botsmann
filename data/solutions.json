@@ -24,19 +24,6 @@
       "tryLink": "https://chatgpt.com/g/g-rni41WTSh-heidi-tell"
     },
     {
-      "slug": "auto-shopper",
-      "title": "Auto Shopper",
-      "overview": "Find the best products at the best prices with our AI shopping assistant.",
-      "features": [
-        "Automated price comparison",
-        "Product quality assessment",
-        "Personalized recommendations",
-        "Deal alerts and timing optimization",
-        "Budget management integration"
-      ],
-      "details": "The Auto Shopper AI analyzes thousands of products and reviews to help you make smarter purchasing decisions. Save time and money while finding exactly what you need across multiple retailers and marketplaces."
-    },
-    {
       "slug": "legal-expert",
       "title": "Legal Expert",
       "overview": "Get preliminary legal guidance and document analysis from our AI legal assistant.",
