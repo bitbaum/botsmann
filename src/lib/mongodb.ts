@@ -11,7 +11,7 @@ declare global {
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) {
+if (!MONGODB_URI && process.env.NODE_ENV !== 'test') {
   throw new Error('Please define the MONGODB_URI environment variable');
 }
 
@@ -23,7 +23,17 @@ if (!(global as any).mongoose) {
 
 export async function connectDB() {
   if (cached.conn) return cached.conn;
-  
+
+  if (process.env.NODE_ENV === 'test') {
+    const { MongoMemoryServer } = await import('mongodb-memory-server');
+    const memoryServer = await MongoMemoryServer.create();
+    const uri = memoryServer.getUri();
+    const opts: mongoose.ConnectOptions = { bufferCommands: false };
+    cached.promise = mongoose.connect(uri, opts);
+    cached.conn = await cached.promise;
+    return cached.conn;
+  }
+
   if (!MONGODB_URI) {
     throw new Error('MongoDB URI is required');
   }

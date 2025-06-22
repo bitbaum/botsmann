@@ -16,9 +16,10 @@ describe('Platform Integrations', () => {
     });
 
     it('handles API errors gracefully', async () => {
-      process.env.AMAZON_API_KEY = undefined;
+      delete process.env.AMAZON_API_KEY;
       const results = await searchAmazon('electronics', {});
       expect(results).toEqual([]);
+      process.env.AMAZON_API_KEY = 'test_amazon_key';
     });
   });
 
@@ -36,9 +37,10 @@ describe('Platform Integrations', () => {
     });
 
     it('handles API errors gracefully', async () => {
-      process.env.RICARDO_API_KEY = undefined;
+      delete process.env.RICARDO_API_KEY;
       const results = await searchRicardo('electronics', {});
       expect(results).toEqual([]);
+      process.env.RICARDO_API_KEY = 'test_ricardo_key';
     });
   });
 

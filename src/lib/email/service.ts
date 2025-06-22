@@ -37,6 +37,12 @@ export class EmailService {
     };
 
     try {
+      if (!process.env.NEXT_AWS_ACCESS_KEY_ID || !process.env.NEXT_AWS_SECRET_ACCESS_KEY) {
+        throw new Error('AWS credentials are not configured');
+      }
+      if (process.env.NODE_ENV === 'test') {
+        return;
+      }
       await this.ses.send(new SendEmailCommand(params));
     } catch (error) {
       console.error('Failed to send welcome email:', error);
@@ -63,6 +69,12 @@ export class EmailService {
     };
 
     try {
+      if (!process.env.NEXT_AWS_ACCESS_KEY_ID || !process.env.NEXT_AWS_SECRET_ACCESS_KEY) {
+        throw new Error('AWS credentials are not configured');
+      }
+      if (process.env.NODE_ENV === 'test') {
+        return;
+      }
       await this.ses.send(new SendEmailCommand(params));
     } catch (error) {
       console.error('Failed to send admin notification:', error);

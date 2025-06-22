@@ -6,21 +6,19 @@ describe('EmailService', () => {
   
   beforeEach(() => {
     emailService = new EmailService();
-    // Set test environment variables
-    process.env.SENDGRID_API_KEY = 'test_key';
-    process.env.EMAIL_FROM = 'test@example.com';
+    process.env.NEXT_AWS_ACCESS_KEY_ID = 'key';
+    process.env.NEXT_AWS_SECRET_ACCESS_KEY = 'secret';
+    process.env.NEXT_AWS_REGION = 'us-east-1';
+    process.env.FROM_EMAIL = 'test@example.com';
     process.env.ADMIN_EMAIL = 'admin@example.com';
-    process.env.SENDGRID_WELCOME_TEMPLATE_ID = 'template_id';
-    process.env.DASHBOARD_URL = 'https://test.example.com/dashboard';
   });
 
   afterEach(() => {
-    // Clean up environment variables
-    delete process.env.SENDGRID_API_KEY;
-    delete process.env.EMAIL_FROM;
+    delete process.env.NEXT_AWS_ACCESS_KEY_ID;
+    delete process.env.NEXT_AWS_SECRET_ACCESS_KEY;
+    delete process.env.NEXT_AWS_REGION;
+    delete process.env.FROM_EMAIL;
     delete process.env.ADMIN_EMAIL;
-    delete process.env.SENDGRID_WELCOME_TEMPLATE_ID;
-    delete process.env.DASHBOARD_URL;
   });
 
   it('sends welcome email', async () => {
@@ -52,7 +50,7 @@ describe('EmailService', () => {
   });
 
   it('handles missing environment variables', async () => {
-    delete process.env.SENDGRID_API_KEY;
+    delete process.env.NEXT_AWS_ACCESS_KEY_ID;
     
     const customer = CustomerSchema.parse({
       name: 'Test User',

@@ -1,17 +1,31 @@
-import mongoose from 'mongoose';
 import { createMocks } from 'node-mocks-http';
 import { POST } from '@/app/api/consultations/route';
-import { connectDB } from '@/src/lib/mongodb';
+
+jest.mock('@/src/lib/mongodb', () => ({
+  connectDB: jest.fn().mockResolvedValue(null)
+}));
+
+const mockCreate = jest.fn(async (data) => ({ _id: '1', ...data, status: 'new' }));
+const mockFindById = jest.fn(async (id) => ({
+  _id: id,
+  name: 'Test User',
+  email: 'test@example.com',
+  message: 'Test message',
+  status: 'new'
+}));
+const mockDeleteMany = jest.fn();
+
+jest.mock('@/src/lib/models/consultation', () => ({
+  Consultation: {
+    create: (...args: any[]) => mockCreate(...args),
+    findById: (...args: any[]) => mockFindById(...args),
+    deleteMany: (...args: any[]) => mockDeleteMany(...args)
+  }
+}));
+
 import { Consultation } from '@/src/lib/models/consultation';
 
 describe('Consultations API', () => {
-  beforeAll(async () => {
-    await connectDB();
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.close();
-  });
 
   beforeEach(async () => {
     await Consultation.deleteMany({});
@@ -20,12 +34,16 @@ describe('Consultations API', () => {
   it('creates a consultation', async () => {
     const { req } = createMocks({
       method: 'POST',
+      headers: { 'x-api-key': 'development-key' },
       body: {
         name: 'Test User',
         email: 'test@example.com',
         message: 'Test message',
       },
     });
+    // node-mocks-http doesn't provide req.json(), add it for Next.js handler
+    // @ts-ignore
+    req.json = async () => req.body;
 
     const response = await POST(req);
     const data = await response.json();
