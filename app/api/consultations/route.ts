@@ -33,7 +33,7 @@ async function handler(req: NextRequest) {
       throw Object.assign(new Error('Rate limit exceeded'), { code: 'RATE_LIMIT' });
     }
     
-    body = await req.json();
+    body = typeof (req as any).json === 'function' ? await (req as any).json() : (req as any).body;
     const validatedData = CustomerSchema.parse(body);
     
     // Connect to DB (skipped in test environment)

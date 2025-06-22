@@ -17,7 +17,7 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
       {({ open }) => (
         <>
           <Popover.Button
-            className={`text-sm font-medium transition-colors ${
+            className={`text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-openai-green ${
               open || isActive ? 'text-openai-green' : 'text-gray-600'
             } hover:text-openai-green`}
           >

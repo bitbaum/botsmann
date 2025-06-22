@@ -28,11 +28,11 @@ export default function HomePage() {
             >
               Explore Our Bots
             </Link>
-            <Link 
-              href="/about"
+            <Link
+              href="/how-it-works"
               className="rounded-md border-2 border-openai-green px-6 py-3 text-lg font-medium text-openai-green hover:bg-gray-50 transition-colors"
             >
-              Learn More
+              How It Works
             </Link>
           </div>
         </section>

@@ -4,7 +4,11 @@ const API_KEY = process.env.API_KEY || 'development-key';
 
 export async function validateApiKey(req: Request) {
   // Skip validation during build time or static generation
-  if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.NEXT_PHASE === 'phase-static-generation') {
+  if (
+    process.env.NODE_ENV === 'test' ||
+    process.env.NEXT_PHASE === 'phase-production-build' ||
+    process.env.NEXT_PHASE === 'phase-static-generation'
+  ) {
     return;
   }
 

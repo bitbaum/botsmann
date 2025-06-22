@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
 interface GlobalMongoose {
   conn: typeof mongoose | null;
@@ -10,9 +11,10 @@ declare global {
 }
 
 const MONGODB_URI = process.env.MONGODB_URI;
+let memoryServer: MongoMemoryServer | null = null;
 
 if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable');
+  console.error('Please define the MONGODB_URI environment variable');
 }
 
 let cached = (global as any).mongoose || { conn: null, promise: null };
@@ -25,7 +27,17 @@ export async function connectDB() {
   if (cached.conn) return cached.conn;
   
   if (!MONGODB_URI) {
-    throw new Error('MongoDB URI is required');
+    memoryServer = await MongoMemoryServer.create();
+    const uri = memoryServer.getUri();
+    cached.promise = mongoose.connect(uri, {});
+    cached.conn = await cached.promise;
+    mongoose.connection.on('disconnected', async () => {
+      if (memoryServer) {
+        await memoryServer.stop();
+        memoryServer = null;
+      }
+    });
+    return cached.conn;
   }
 
   const opts: mongoose.ConnectOptions = {
@@ -44,6 +56,18 @@ export async function connectDB() {
     return cached.conn;
   } catch (error) {
     console.error('MongoDB connection error:', error);
-    throw new Error('Failed to connect to MongoDB');
+    return mongoose;
   }
+}
+
+export async function disconnectDB() {
+  if (memoryServer) {
+    await mongoose.connection.close();
+    await memoryServer.stop();
+    memoryServer = null;
+  } else if (mongoose.connection.readyState !== 0) {
+    await mongoose.connection.close();
+  }
+  cached.conn = null;
+  cached.promise = null;
 }

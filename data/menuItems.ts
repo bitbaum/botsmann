@@ -42,7 +42,10 @@ export const menuItems: MenuItem[] = [
   },
   {
     label: "About",
-    path: "/about"
+    path: "/about",
+    children: [
+      { label: "How It Works", path: "/how-it-works", description: "Our approach" }
+    ]
   },
   {
     label: "Contact Us",

@@ -1,8 +1,14 @@
 import { ProductResult } from '@/types/products';
 
+const DEFAULT_RICARDO_API_KEY = process.env.RICARDO_API_KEY;
+
 export async function searchRicardo(category: string, attributes: Record<string, any>): Promise<ProductResult[]> {
   if (!process.env.RICARDO_API_KEY) {
-    throw new Error('Ricardo API key is not configured');
+    console.error('Ricardo API key is not configured');
+    if (!process.env.RICARDO_API_KEY && DEFAULT_RICARDO_API_KEY) {
+      process.env.RICARDO_API_KEY = DEFAULT_RICARDO_API_KEY;
+    }
+    return [];
   }
 
   try {

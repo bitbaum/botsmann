@@ -29,13 +29,13 @@ body {
 
 @layer components {
   .btn-primary {
-    @apply rounded-md bg-green-600 px-4 py-2 text-sm md:text-base font-medium text-white hover:bg-opacity-90 transition-all shadow-sm hover:shadow md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50;
+    @apply rounded-md bg-openai-green px-4 py-2 text-sm md:text-base font-medium text-white hover:bg-opacity-90 transition-all shadow-sm hover:shadow md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-openai-green focus:ring-opacity-50;
   }
   .btn-secondary {
-    @apply rounded-md border border-gray-200 px-4 py-2 text-sm md:text-base font-medium text-gray-600 hover:bg-gray-50 transition-all shadow-sm hover:shadow-md md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-opacity-50;
+    @apply rounded-md border border-gray-200 px-4 py-2 text-sm md:text-base font-medium text-openai-green hover:bg-gray-50 transition-all shadow-sm hover:shadow-md md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-openai-green focus:ring-opacity-50;
   }
   .input-primary {
-    @apply w-full rounded-xl border-2 border-gray-200 bg-transparent px-4 py-3 text-gray-900 outline-none transition-colors focus:border-green-600 focus:ring-2 focus:ring-green-100;
+    @apply w-full rounded-xl border-2 border-gray-200 bg-transparent px-4 py-3 text-gray-900 outline-none transition-colors focus:border-openai-green focus:ring-2 focus:ring-openai-green/20;
   }
 }
 

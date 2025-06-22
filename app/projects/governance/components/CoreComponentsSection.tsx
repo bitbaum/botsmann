@@ -170,11 +170,11 @@ const CoreComponentsSection: React.FC = () => {
                 ))}
               </ul>
               
-              <Link 
-                href={activeComponent.link}
+              <Link
+                href="/how-it-works"
                 className={`inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-${activeComponent.id === 'transparency' ? 'green' : activeComponent.id === 'law' ? 'blue' : activeComponent.id === 'marketplace' ? 'orange' : 'purple'}-600 hover:bg-${activeComponent.id === 'transparency' ? 'green' : activeComponent.id === 'law' ? 'blue' : activeComponent.id === 'marketplace' ? 'orange' : 'purple'}-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-${activeComponent.id === 'transparency' ? 'green' : activeComponent.id === 'law' ? 'blue' : activeComponent.id === 'marketplace' ? 'orange' : 'purple'}-500`}
               >
-                Learn More
+                How It Works
                 <svg className="ml-2 -mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>

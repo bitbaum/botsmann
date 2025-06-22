@@ -198,9 +198,12 @@ export default function ArtisticAdvisor() {
               >
                 Try Artr Now
               </Link>
-              <button className="rounded-md border-2 border-amber-500 px-6 py-3 text-lg font-medium text-amber-500 hover:bg-gray-50 transition-colors">
-                Learn More
-              </button>
+              <Link
+                href="/how-it-works"
+                className="rounded-md border-2 border-amber-500 px-6 py-3 text-lg font-medium text-amber-500 hover:bg-gray-50 transition-colors"
+              >
+                How It Works
+              </Link>
             </div>
           </div>
         </section>

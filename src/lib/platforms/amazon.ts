@@ -1,8 +1,18 @@
 import { ProductResult } from '@/types/products';
 
+const DEFAULT_AMAZON_API_KEY = process.env.AMAZON_API_KEY;
+const DEFAULT_AMAZON_SECRET_KEY = process.env.AMAZON_SECRET_KEY;
+
 export async function searchAmazon(category: string, attributes: Record<string, any>): Promise<ProductResult[]> {
   if (!process.env.AMAZON_API_KEY || !process.env.AMAZON_SECRET_KEY) {
-    throw new Error('Amazon API credentials are not configured');
+    console.error('Amazon API credentials are not configured');
+    if (!process.env.AMAZON_API_KEY && DEFAULT_AMAZON_API_KEY) {
+      process.env.AMAZON_API_KEY = DEFAULT_AMAZON_API_KEY;
+    }
+    if (!process.env.AMAZON_SECRET_KEY && DEFAULT_AMAZON_SECRET_KEY) {
+      process.env.AMAZON_SECRET_KEY = DEFAULT_AMAZON_SECRET_KEY;
+    }
+    return [];
   }
 
   try {

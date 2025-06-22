@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 interface Props {
   getTryLink: () => string;
@@ -15,9 +16,9 @@ const CallToActionSection: React.FC<Props> = ({ getTryLink }) => (
         <a href={getTryLink()} target="_blank" rel="noopener noreferrer" className="rounded-md bg-openai-green px-6 py-3 text-lg font-medium text-white hover:bg-opacity-90 transition-opacity">
           Try Lex Now
         </a>
-        <a href="#" className="rounded-md border-2 border-openai-green px-6 py-3 text-lg font-medium text-openai-green hover:bg-gray-50 transition-colors">
-          Learn More
-        </a>
+        <Link href="/how-it-works" className="rounded-md border-2 border-openai-green px-6 py-3 text-lg font-medium text-openai-green hover:bg-gray-50 transition-colors">
+          How It Works
+        </Link>
       </div>
     </div>
   </section>
