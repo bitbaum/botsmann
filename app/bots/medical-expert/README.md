@@ -16,4 +16,4 @@ Imhotep is a medical expert AI bot that provides evidence-based health informati
 - Personalized health regimens (upcoming)
 - Health professional marketplace (upcoming)
 
-## File Structure 
+## File Structure

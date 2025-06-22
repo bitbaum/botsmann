@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { NextSection } from '../navigation/NextSection';
-import type { BotPageProps, Feature, Step } from '@/types/bot';
+import React from "react";
+import { NextSection } from "../navigation/NextSection";
+import type { BotPageProps, Feature, Step } from "@/types/bot";
 
 function Overview({ content }: { content: string }) {
   return (
@@ -18,7 +18,10 @@ function Features({ items }: { items: Feature[] }) {
       <h2 className="mb-8 text-3xl font-semibold">Features</h2>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {items.map((feature, index) => (
-          <div key={index} className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+          <div
+            key={index}
+            className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
+          >
             {feature.icon && (
               <div className="mb-4 text-2xl">{feature.icon}</div>
             )}
@@ -47,8 +50,8 @@ function HowItWorks({ steps }: { steps: Step[] }) {
               <h3 className="mb-2 text-xl font-medium">{step.title}</h3>
               <p className="text-gray-600">{step.description}</p>
               {step.image && (
-                <img 
-                  src={step.image} 
+                <img
+                  src={step.image}
                   alt={step.title}
                   className="mt-4 rounded-lg border border-gray-200"
                 />
@@ -89,7 +92,13 @@ function CTASection() {
   );
 }
 
-export function BotPage({ title, overview, features, howItWorks, demo }: BotPageProps) {
+export function BotPage({
+  title,
+  overview,
+  features,
+  howItWorks,
+  demo,
+}: BotPageProps) {
   return (
     <div className="mx-auto max-w-screen-xl px-6 py-12">
       <h1 className="mb-8 text-4xl font-semibold tracking-tight">{title}</h1>

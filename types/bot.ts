@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface Feature {
   title: string;
@@ -18,4 +18,4 @@ export interface BotPageProps {
   features: Feature[];
   howItWorks: Step[];
   demo?: React.ReactNode;
-} 
+}

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Fragment } from 'react';
-import { Popover, Transition } from '@headlessui/react';
-import Link from 'next/link';
-import type { MenuItem } from '@/types/navigation';
+import { Fragment } from "react";
+import { Popover, Transition } from "@headlessui/react";
+import Link from "next/link";
+import type { MenuItem } from "@/types/navigation";
 
 interface MegaMenuProps {
   item: MenuItem;
@@ -18,7 +18,7 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
         <>
           <Popover.Button
             className={`text-sm font-medium transition-colors ${
-              open || isActive ? 'text-openai-green' : 'text-gray-600'
+              open || isActive ? "text-openai-green" : "text-gray-600"
             } hover:text-openai-green`}
           >
             {item.label}
@@ -42,9 +42,13 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
                       className="flex rounded-lg p-3 transition-colors hover:bg-gray-50"
                     >
                       <div className="ml-2 text-left">
-                        <p className="text-sm font-medium text-gray-900">{child.label}</p>
+                        <p className="text-sm font-medium text-gray-900">
+                          {child.label}
+                        </p>
                         {child.description && (
-                          <p className="mt-1 text-sm text-gray-500">{child.description}</p>
+                          <p className="mt-1 text-sm text-gray-500">
+                            {child.description}
+                          </p>
                         )}
                       </div>
                     </Link>

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
 interface PendingAction {
   id: string;
-  type: 'vote' | 'review' | 'delegate';
+  type: "vote" | "review" | "delegate";
   title: string;
   description: string;
   deadline: string;
@@ -25,31 +25,47 @@ const ActionCenter: React.FC<ActionCenterProps> = ({ pendingActions }) => {
     <div>
       <h3 className="text-lg font-medium text-gray-900 mb-4">Action Center</h3>
       <p className="text-gray-600 mb-6">
-        Review and act on pending votes, proposals, and delegations that impact your tax dollars.
+        Review and act on pending votes, proposals, and delegations that impact
+        your tax dollars.
       </p>
-      
+
       <div className="space-y-6">
         {pendingActions.map((action) => (
-          <div key={action.id} className="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
+          <div
+            key={action.id}
+            className="bg-white rounded-lg border border-gray-200 p-5 shadow-sm"
+          >
             <div className="flex justify-between items-start">
               <div className="flex items-start space-x-4">
-                <div className={`flex-shrink-0 rounded-full p-2 ${
-                  action.type === 'vote' ? 'bg-purple-100' :
-                  action.type === 'review' ? 'bg-amber-100' :
-                  'bg-blue-100'
-                }`}>
+                <div
+                  className={`flex-shrink-0 rounded-full p-2 ${
+                    action.type === "vote"
+                      ? "bg-purple-100"
+                      : action.type === "review"
+                        ? "bg-amber-100"
+                        : "bg-blue-100"
+                  }`}
+                >
                   <span className="text-xl">
-                    {action.type === 'vote' ? '🗳️' :
-                     action.type === 'review' ? '⚖️' :
-                     '👥'}
+                    {action.type === "vote"
+                      ? "🗳️"
+                      : action.type === "review"
+                        ? "⚖️"
+                        : "👥"}
                   </span>
                 </div>
                 <div>
-                  <h4 className="text-lg font-medium text-gray-900">{action.title}</h4>
+                  <h4 className="text-lg font-medium text-gray-900">
+                    {action.title}
+                  </h4>
                   <p className="text-gray-600 mt-1">{action.description}</p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                      <svg className="mr-1.5 h-2 w-2 text-red-800" fill="currentColor" viewBox="0 0 8 8">
+                      <svg
+                        className="mr-1.5 h-2 w-2 text-red-800"
+                        fill="currentColor"
+                        viewBox="0 0 8 8"
+                      >
                         <circle cx="4" cy="4" r="3" />
                       </svg>
                       Deadline: {action.deadline}
@@ -70,11 +86,12 @@ const ActionCenter: React.FC<ActionCenterProps> = ({ pendingActions }) => {
           </div>
         ))}
       </div>
-      
+
       <div className="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
         <h4 className="font-medium text-gray-900 mb-2">Suggestion Box</h4>
         <p className="text-sm text-gray-600 mb-3">
-          Have an idea for how taxes should be spent in your community? Submit a suggestion for consideration.
+          Have an idea for how taxes should be spent in your community? Submit a
+          suggestion for consideration.
         </p>
         <div className="flex">
           <input
@@ -91,4 +108,4 @@ const ActionCenter: React.FC<ActionCenterProps> = ({ pendingActions }) => {
   );
 };
 
-export default ActionCenter; 
+export default ActionCenter;

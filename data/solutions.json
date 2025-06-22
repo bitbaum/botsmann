@@ -14,8 +14,12 @@
       ],
       "details": "Type a word, and Heidi delivers a table comparing High German and Züridütsch with real-life examples. Send a sentence or email, and get a tailored response to communicate effortlessly. With cultural tips and local know-how, she's your shortcut to thriving in Switzerland. Curious? Try her yourself and see the magic.",
       "customSections": {
-        "caseStudies": ["How Heidi helped an expat master Swiss German in just 3 months"],
-        "testimonials": ["Improved my fluency in just 3 months! Heidi's tables make learning intuitive."],
+        "caseStudies": [
+          "How Heidi helped an expat master Swiss German in just 3 months"
+        ],
+        "testimonials": [
+          "Improved my fluency in just 3 months! Heidi's tables make learning intuitive."
+        ],
         "faq": [
           "How does Heidi adapt to different types of input?",
           "Can Heidi help with both High German and Swiss German?"

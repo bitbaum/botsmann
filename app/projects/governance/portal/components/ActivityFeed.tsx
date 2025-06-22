@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
 interface Activity {
   id: string;
-  type: 'transaction' | 'law' | 'service' | 'vote';
+  type: "transaction" | "law" | "service" | "vote";
   action: string;
   item: string;
   time: string;
@@ -23,7 +23,9 @@ interface ActivityFeedProps {
 const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
   return (
     <div>
-      <h3 className="text-lg font-medium text-gray-900 mb-4">Recent Activity</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">
+        Recent Activity
+      </h3>
       <div className="flow-root">
         <ul className="-mb-8">
           {activities.map((activity, activityIdx) => (
@@ -37,22 +39,27 @@ const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
                 ) : null}
                 <div className="relative flex items-start space-x-3">
                   <div className="relative">
-                    <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
-                      activity.type === 'transaction' ? 'bg-blue-100 text-blue-600' :
-                      activity.type === 'law' ? 'bg-amber-100 text-amber-600' :
-                      activity.type === 'service' ? 'bg-green-100 text-green-600' :
-                      'bg-purple-100 text-purple-600'
-                    }`}>
-                      {activity.type === 'transaction' && '💸'}
-                      {activity.type === 'law' && '⚖️'}
-                      {activity.type === 'service' && '🛠️'}
-                      {activity.type === 'vote' && '🗳️'}
+                    <div
+                      className={`h-10 w-10 rounded-full flex items-center justify-center ${
+                        activity.type === "transaction"
+                          ? "bg-blue-100 text-blue-600"
+                          : activity.type === "law"
+                            ? "bg-amber-100 text-amber-600"
+                            : activity.type === "service"
+                              ? "bg-green-100 text-green-600"
+                              : "bg-purple-100 text-purple-600"
+                      }`}
+                    >
+                      {activity.type === "transaction" && "💸"}
+                      {activity.type === "law" && "⚖️"}
+                      {activity.type === "service" && "🛠️"}
+                      {activity.type === "vote" && "🗳️"}
                     </div>
                   </div>
                   <div className="min-w-0 flex-1">
                     <div>
                       <div className="text-sm">
-                        <Link 
+                        <Link
                           href={{ pathname: activity.path }}
                           className="font-medium text-gray-900 hover:text-green-600"
                         >
@@ -61,8 +68,12 @@ const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
                       </div>
                       <div className="mt-0.5 flex flex-col sm:flex-row sm:items-center">
                         <p className="text-sm text-gray-500">{activity.time}</p>
-                        <span className="hidden sm:inline mx-1 text-gray-300">•</span>
-                        <p className="text-sm font-medium text-green-600">{activity.taxImpact}</p>
+                        <span className="hidden sm:inline mx-1 text-gray-300">
+                          •
+                        </span>
+                        <p className="text-sm font-medium text-green-600">
+                          {activity.taxImpact}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -73,13 +84,24 @@ const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
         </ul>
       </div>
       <div className="mt-6">
-        <Link 
+        <Link
           href={{ pathname: "#" }}
           className="flex justify-center items-center text-sm text-gray-600 hover:text-gray-900"
         >
           View all activity
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4 ml-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </Link>
       </div>
@@ -87,4 +109,4 @@ const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
   );
 };
 
-export default ActivityFeed; 
+export default ActivityFeed;

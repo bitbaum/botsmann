@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import bots from '../../../data/bots';
+import React from "react";
+import Link from "next/link";
+import bots from "../../../data/bots";
 
 export default function ArtisticAdvisor() {
-  const bot = bots.find(b => b.slug === 'artistic-advisor');
+  const bot = bots.find((b) => b.slug === "artistic-advisor");
 
   if (!bot) {
     return <div>Bot not found</div>;
@@ -15,13 +15,17 @@ export default function ArtisticAdvisor() {
     <div className="min-h-screen bg-white">
       <main className="mx-auto max-w-screen-xl px-6 py-16">
         <div className="mb-16">
-          <h1 className="mb-4 text-4xl font-semibold tracking-tight text-gray-900">{bot.title}</h1>
+          <h1 className="mb-4 text-4xl font-semibold tracking-tight text-gray-900">
+            {bot.title}
+          </h1>
           <p className="mb-8 text-lg text-gray-600">{bot.overview}</p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2">
           <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-            <h2 className="mb-4 text-2xl font-semibold text-gray-900">Features</h2>
+            <h2 className="mb-4 text-2xl font-semibold text-gray-900">
+              Features
+            </h2>
             <ul className="space-y-4">
               {bot.features.map((feature, index) => (
                 <li key={index} className="flex items-start">
@@ -45,7 +49,9 @@ export default function ArtisticAdvisor() {
           </div>
 
           <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-            <h2 className="mb-4 text-2xl font-semibold text-gray-900">How It Works</h2>
+            <h2 className="mb-4 text-2xl font-semibold text-gray-900">
+              How It Works
+            </h2>
             <p className="mb-6 text-gray-600">{bot.details}</p>
             <Link
               href="/about"
@@ -58,10 +64,13 @@ export default function ArtisticAdvisor() {
 
         <div className="mt-16">
           <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-            <h2 className="mb-4 text-2xl font-semibold text-gray-900">Ready to Enhance Your Artistic Journey?</h2>
+            <h2 className="mb-4 text-2xl font-semibold text-gray-900">
+              Ready to Enhance Your Artistic Journey?
+            </h2>
             <p className="mb-6 text-gray-600">
-              Let our AI-powered artistic advisor help you explore new techniques, refine your style,
-              and gain valuable insights from art history while maintaining your unique creative vision.
+              Let our AI-powered artistic advisor help you explore new
+              techniques, refine your style, and gain valuable insights from art
+              history while maintaining your unique creative vision.
             </p>
             <Link
               href="/about"

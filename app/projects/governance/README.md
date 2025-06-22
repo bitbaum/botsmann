@@ -13,6 +13,7 @@ This is a Next.js implementation of the Solon decentralized direct democracy pla
 ## Implementation Details
 
 ### Products
+
 - `page.tsx`: Main landing page component
 - `layout.tsx`: Layout component with metadata
 - Helper components:
@@ -20,6 +21,7 @@ This is a Next.js implementation of the Solon decentralized direct democracy pla
   - `RoadmapItem`: Shows implementation timeline phases
 
 ### Folder Structure
+
 - `/open-pay`: Open payment and transaction tracking system
 - `/open-law`: Open law creation and tracking framework
 - `/open-service`: Public service marketplace
@@ -38,19 +40,23 @@ This is a Next.js implementation of the Solon decentralized direct democracy pla
 - `/build`: Developer resources and contribution guidelines
 
 ### Technical Stack
+
 - Next.js 14.2
 - React
 - TypeScript
 - TailwindCSS
 
 ## Future Development
+
 This is a frontend prototype. Future development will include:
+
 - Backend API integration
 - Authentication system
 - Interactive transaction and voting systems
 - Mobile responsiveness enhancements
 
 ## TypeScript Interfaces
+
 ```typescript
 interface VisionCardProps {
   title: string;
@@ -65,4 +71,4 @@ interface RoadmapItemProps {
   timeline: string;
   current?: boolean;
 }
-``` 
+```

@@ -1,5 +1,5 @@
-'use client';
-import { useState, useEffect } from 'react';
+"use client";
+import { useState, useEffect } from "react";
 
 export interface TOCItem {
   id: string;
@@ -13,7 +13,7 @@ interface TableOfContentsProps {
 
 export default function TableOfContents({ items }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
-  
+
   // Update active section based on scroll position
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -24,7 +24,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
           }
         });
       },
-      { rootMargin: '-10% 0% -80% 0%', threshold: 0 }
+      { rootMargin: "-10% 0% -80% 0%", threshold: 0 },
     );
 
     // Observe all section elements that correspond to TOC items
@@ -62,7 +62,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
     const element = document.getElementById(id);
     if (element) {
       setActiveId(id);
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -87,7 +87,9 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
             >
               {item.label}
             </a>
-            {item.subItems && item.subItems.length > 0 && renderTOCItems(item.subItems, level + 1)}
+            {item.subItems &&
+              item.subItems.length > 0 &&
+              renderTOCItems(item.subItems, level + 1)}
           </li>
         ))}
       </ul>
@@ -95,9 +97,12 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
   };
 
   return (
-    <nav className="hidden lg:block sticky top-24 self-start w-64 p-6 bg-white rounded-lg border border-gray-200 shadow-sm" aria-label="Table of contents">
+    <nav
+      className="hidden lg:block sticky top-24 self-start w-64 p-6 bg-white rounded-lg border border-gray-200 shadow-sm"
+      aria-label="Table of contents"
+    >
       <h2 className="text-lg font-semibold text-gray-900 mb-4">Contents</h2>
       {renderTOCItems(items)}
     </nav>
   );
-} 
+}

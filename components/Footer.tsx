@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function Footer() {
   return (
@@ -9,13 +9,22 @@ export default function Footer() {
             © {new Date().getFullYear()} Botsmann. All rights reserved.
           </p>
           <nav className="flex gap-4">
-            <a href="/privacy" className="text-sm text-gray-500 hover:text-openai-green">
+            <a
+              href="/privacy"
+              className="text-sm text-gray-500 hover:text-openai-green"
+            >
               Privacy
             </a>
-            <a href="/terms" className="text-sm text-gray-500 hover:text-openai-green">
+            <a
+              href="/terms"
+              className="text-sm text-gray-500 hover:text-openai-green"
+            >
               Terms
             </a>
-            <a href="/contact" className="text-sm text-gray-500 hover:text-openai-green">
+            <a
+              href="/contact"
+              className="text-sm text-gray-500 hover:text-openai-green"
+            >
               Contact
             </a>
           </nav>

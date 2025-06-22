@@ -1,13 +1,13 @@
 /**
  * QuestionsSection.tsx
- * 
+ *
  * This component serves as a wrapper for the DailyQuestionsSection,
  * adding a call-to-action and additional context about the feature.
  */
 
-import React from 'react';
-import DailyQuestionsSection from './DailyQuestionsSection';
-import styles from '../../styles.module.css';
+import React from "react";
+import DailyQuestionsSection from "./DailyQuestionsSection";
+import styles from "../../styles.module.css";
 
 interface QuestionsSectionProps {
   getTryLink: () => string;
@@ -23,11 +23,12 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = ({ getTryLink }) => {
           Transform Your Research Process
         </h3>
         <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-          Nerd generates questions that challenge your assumptions,
-          connect disparate ideas, and help you explore unexplored aspects of your research area.
+          Nerd generates questions that challenge your assumptions, connect
+          disparate ideas, and help you explore unexplored aspects of your
+          research area.
         </p>
-        <a 
-          href={getTryLink()} 
+        <a
+          href={getTryLink()}
           className={styles.primaryButton}
           target="_blank"
           rel="noopener noreferrer"
@@ -39,4 +40,4 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = ({ getTryLink }) => {
   );
 };
 
-export default QuestionsSection; 
+export default QuestionsSection;

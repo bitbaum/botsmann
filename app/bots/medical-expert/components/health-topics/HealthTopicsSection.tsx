@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface HealthTopicsSectionProps {
   getTryLink: () => string;
@@ -8,23 +8,25 @@ interface HealthTopicsSectionProps {
  * Health topics component that displays a grid of common health categories
  * that users can explore with Dr. Imhotep.
  */
-const HealthTopicsSection: React.FC<HealthTopicsSectionProps> = ({ getTryLink }) => {
+const HealthTopicsSection: React.FC<HealthTopicsSectionProps> = ({
+  getTryLink,
+}) => {
   const topics = [
     { name: "Heart Health", icon: "❤️" },
     { name: "Mental Wellness", icon: "🧠" },
     { name: "Nutrition", icon: "🥗" },
     { name: "Exercise", icon: "🏃‍♂️" },
     { name: "Sleep", icon: "😴" },
-    { name: "Diabetes", icon: "📊" }
+    { name: "Diabetes", icon: "📊" },
   ];
 
   return (
     <div className="grid md:grid-cols-3 gap-6">
       {topics.map((topic, index) => (
-        <a 
+        <a
           key={index}
-          href={getTryLink()} 
-          target="_blank" 
+          href={getTryLink()}
+          target="_blank"
           rel="noopener noreferrer"
           className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
         >
@@ -38,4 +40,4 @@ const HealthTopicsSection: React.FC<HealthTopicsSectionProps> = ({ getTryLink })
   );
 };
 
-export default HealthTopicsSection; 
+export default HealthTopicsSection;

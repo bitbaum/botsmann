@@ -71,8 +71,14 @@
 
 /* Fade-in animation */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fadeIn {
@@ -96,12 +102,16 @@
 
 /* Timeline specific styles */
 .roadmap-milestone {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .roadmap-milestone:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .timeline-icon {
@@ -122,13 +132,13 @@
     padding-left: 2rem;
     border-left: 3px solid #dbeafe;
   }
-  
+
   .timeline-milestone {
     position: relative;
     margin-bottom: 2rem;
     padding-left: 1.5rem;
   }
-  
+
   .timeline-icon {
     position: absolute;
     left: -1.75rem;
@@ -141,7 +151,9 @@
 /* Collaboration section */
 .collaboration-panel {
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
   transform: translateY(10px);
 }
 
@@ -156,7 +168,7 @@
 }
 
 .collaboration-tab::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -177,7 +189,7 @@ ul.feature-list li {
 }
 
 ul.feature-list li::before {
-  content: '•';
+  content: "•";
   display: inline-block;
   margin-right: 0.5rem;
   color: #4f46e5;
@@ -185,12 +197,16 @@ ul.feature-list li::before {
 
 /* Vision cards interaction */
 .vision-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .vision-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Collaboration form enhanced styles */
@@ -228,4 +244,4 @@ ul.feature-list li::before {
 :focus {
   outline: 2px solid #4f46e5;
   outline-offset: 2px;
-} 
+}

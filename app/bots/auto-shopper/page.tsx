@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import bots from '../../../data/bots';
-import BotNavigation from '../BotNavigation';
+import React, { useState } from "react";
+import bots from "../../../data/bots";
+import BotNavigation from "../BotNavigation";
 
 interface ProductResult {
   id: string;
@@ -11,26 +11,31 @@ interface ProductResult {
   price: number;
   image: string;
   url: string;
-  platform: 'Amazon' | 'Ricardo';
+  platform: "Amazon" | "Ricardo";
 }
 
 export default function AutoShopper() {
-  const bot = bots.find(b => b.slug === 'auto-shopper');
+  const bot = bots.find((b) => b.slug === "auto-shopper");
 
   if (!bot) {
     return <div>Bot not found</div>;
   }
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState<ProductResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
   // Menu items for navigation
   const menuItems = [
-    { id: 'search', label: 'Search Products', icon: '🔍', section: 'search' },
-    { id: 'results', label: 'Results', icon: '🛍️', section: 'results' },
-    { id: 'how-it-works', label: 'How It Works', icon: '📖', section: 'how-it-works' },
-    { id: 'features', label: 'Features', icon: '✨', section: 'features' }
+    { id: "search", label: "Search Products", icon: "🔍", section: "search" },
+    { id: "results", label: "Results", icon: "🛍️", section: "results" },
+    {
+      id: "how-it-works",
+      label: "How It Works",
+      icon: "📖",
+      section: "how-it-works",
+    },
+    { id: "features", label: "Features", icon: "✨", section: "features" },
   ];
 
   const handleSearch = async (e: React.FormEvent) => {
@@ -39,20 +44,20 @@ export default function AutoShopper() {
 
     setIsSearching(true);
     try {
-      const response = await fetch('/api/products/search', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: query.trim() })
+      const response = await fetch("/api/products/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: query.trim() }),
       });
 
       if (!response.ok) {
-        throw new Error('Search failed');
+        throw new Error("Search failed");
       }
 
       const data = await response.json();
       setResults(data.results);
     } catch (error) {
-      console.error('Search error:', error);
+      console.error("Search error:", error);
       // TODO: Add error handling UI
     } finally {
       setIsSearching(false);
@@ -68,13 +73,15 @@ export default function AutoShopper() {
         botDescription="AI Car Shopping Assistant"
         accentColor="blue"
         menuItems={menuItems}
-        chatLink={bot.tryLink || 'https://chat.openai.com/'}
+        chatLink={bot.tryLink || "https://chat.openai.com/"}
       />
-      
+
       <main className="mx-auto max-w-screen-xl px-6 pt-24">
         <section id="search">
-          <h1 className="mb-8 text-4xl font-semibold tracking-tight">Professional Auto-Shopper</h1>
-          
+          <h1 className="mb-8 text-4xl font-semibold tracking-tight">
+            Professional Auto-Shopper
+          </h1>
+
           {/* One-word query input */}
           <div className="mx-auto max-w-2xl">
             <form onSubmit={handleSearch} className="relative">
@@ -91,7 +98,7 @@ export default function AutoShopper() {
                 disabled={isSearching}
                 className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg bg-openai-green p-2 text-white hover:bg-opacity-90 disabled:opacity-50"
               >
-                {isSearching ? '...' : '→'}
+                {isSearching ? "..." : "→"}
               </button>
             </form>
           </div>
@@ -99,13 +106,26 @@ export default function AutoShopper() {
           {/* Results grid */}
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {results.map((product) => (
-              <div key={product.id} className="flex flex-col rounded-xl border border-gray-200 bg-white p-6">
-                <img src={product.image} alt={product.title} className="mb-4 h-48 w-full rounded-lg object-cover" />
+              <div
+                key={product.id}
+                className="flex flex-col rounded-xl border border-gray-200 bg-white p-6"
+              >
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="mb-4 h-48 w-full rounded-lg object-cover"
+                />
                 <h3 className="mb-2 text-lg font-medium">{product.title}</h3>
-                <p className="mb-4 text-sm text-gray-600">{product.description}</p>
+                <p className="mb-4 text-sm text-gray-600">
+                  {product.description}
+                </p>
                 <div className="mt-auto flex items-center justify-between">
-                  <span className="text-lg font-semibold">${product.price}</span>
-                  <span className="text-sm text-gray-500">{product.platform}</span>
+                  <span className="text-lg font-semibold">
+                    ${product.price}
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    {product.platform}
+                  </span>
                 </div>
                 <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-4">
                   <a

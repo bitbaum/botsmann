@@ -19,31 +19,37 @@ Our platform embodies principles of Decentralized Science (DeSci), contributing 
 ## Core Features
 
 ### 1. Research Organization
+
 - **Automated Systematization**: Organize uploaded research materials (PDFs, texts, notes) with AI-powered categorization
 - **Smart Tagging**: Automatically extract and organize key concepts, authors, and methodologies
 - **Knowledge Graph**: Visualize connections between research elements
 
 ### 2. Real-time Updates
+
 - **Literature Monitoring**: Track new publications in your field from sources like arXiv and academic journals
 - **News & Trends**: Stay informed about relevant developments in your research area
 - **Custom Alerts**: Receive notifications for research that matches specific criteria
 
 ### 3. Content Creation
+
 - **Research Drafts**: Generate structured content like abstracts, literature reviews, and methodology sections
 - **Citation Management**: Automatic formatting of citations in various styles
 - **Social Media Content**: Create shareable summaries of your research for broader audiences
 
 ### 4. Research Engagement
+
 - **Research Rabbit Holes**: Explore thought-provoking questions related to your field
 - **Discovery Mode**: Identify research gaps and suggest novel connections between concepts
 - **Hypothesis Generation**: Propose testable hypotheses based on existing literature
 
 ### 5. Collaboration
+
 - **Tool Integration**: Seamless workflows with Zotero, Notion, Google Drive, and GitHub
 - **Peer Connections**: Find researchers working in similar areas
 - **Resource Sharing**: Access shared datasets, code, and methodologies
 
 ### 6. Independent Research
+
 - **Decentralized Funding**: Access alternative funding mechanisms for research projects
 - **Anonymous Contributions**: Contribute to research without institutional constraints
 - **Community Governance**: Participate in decision-making through decentralized structures
@@ -89,24 +95,30 @@ Nerd uses React's built-in state management with hooks for component-level state
 ### Component Documentation
 
 #### Navigation Component
+
 The `Navigation` component provides a responsive menu that highlights the six core functions of Nerd. It implements scroll-based appearance/disappearance and smooth scrolling to sections.
 
 #### Hero Section
+
 The `HeroSection` component introduces users to Nerd with a compelling value proposition and call-to-action. It animates key features and provides a visually engaging introduction.
 
 #### Feature Components
+
 - `ResearchSystemSection`: Demonstrates how Nerd organizes research with interactive visualization
 - `WebScrapingSection`: Shows real-time update capabilities with example feeds
 - `DraftGenerationSection`: Showcases content creation with interactive examples of different document types
 
 #### Research Engagement Components
+
 - `QuestionsSection`: Provides the container for research questions
 - `DailyQuestionsSection`: Implements the Research Rabbit Holes feature with customizable questions by research field
 
 #### Discovery Component
+
 The `DiscoverySection` demonstrates how Nerd identifies research gaps and suggests novel connections with interactive examples across different research domains.
 
 #### Integration Components
+
 - `IntegrationSection`: Shows tool integration capabilities and collaboration features
 - `DevelopmentRoadmap`: Displays development timeline, vision, and collaboration opportunities
 
@@ -147,4 +159,4 @@ Nerd is developed by a team of engineers, researchers, and domain experts. If yo
 
 ## License
 
-Nerd is proprietary software. All rights reserved. 
+Nerd is proprietary software. All rights reserved.

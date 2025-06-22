@@ -5,6 +5,7 @@ This repository contains content for the Botsmann blog. Each post is stored as a
 ## Post Structure
 
 Each post should follow this structure:
+
 - A directory under `posts/` with a URL-friendly name
 - An `index.mdx` file containing the post content and frontmatter
 - Any media files (images, etc.) stored in the same directory or a `media/` subdirectory
@@ -76,4 +77,4 @@ posts/
     ├── index.mdx
     └── media/
         └── example.png
-``` 
+```

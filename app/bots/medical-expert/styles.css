@@ -14,7 +14,7 @@ section {
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
   }
-  
+
   /* Make sure logo text doesn't overflow */
   .imhotep-navigation .logo-text {
     font-size: 1.1rem;
@@ -43,7 +43,11 @@ section {
 /* Section dividers */
 .section-divider {
   height: 6px;
-  background: linear-gradient(90deg, rgba(16,185,129,0.2) 0%, rgba(59,130,246,0.2) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.2) 0%,
+    rgba(59, 130, 246, 0.2) 100%
+  );
   margin: 3rem 0;
   border-radius: 3px;
 }
@@ -57,4 +61,4 @@ html {
   html {
     scroll-behavior: auto;
   }
-} 
+}
