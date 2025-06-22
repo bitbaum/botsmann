@@ -76,6 +76,23 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Private AI Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">How Our Private AI Service Works</h2>
+          <p className="text-lg text-gray-700 mb-4 max-w-3xl mx-auto">
+            Each deployment runs on a dedicated AI node within your own infrastructure. Documents and conversation
+            history stay local so you maintain full control of your data.
+          </p>
+          <p className="text-lg text-gray-700 mb-4 max-w-3xl mx-auto">
+            When you enable cloud models, only the minimal, encrypted prompts necessary for processing are sent.
+            You decide what leaves your network and can disable the connection at any time.
+          </p>
+          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+            This hybrid approach delivers the power of modern AI while preserving privacy and ownership of your
+            information.
+          </p>
+        </section>
         
         {/* Collaboration Section */}
         <section className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-8 md:p-12 text-center">
