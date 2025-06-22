@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { NextRequest, NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
 
 interface WaitlistEntry {
   email: string;
@@ -19,8 +19,11 @@ export async function POST(req: NextRequest) {
     const { email, preferences } = data;
 
     // Validate email
-    if (!email || typeof email !== 'string' || !isValidEmail(email)) {
-      return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
+    if (!email || typeof email !== "string" || !isValidEmail(email)) {
+      return NextResponse.json(
+        { error: "Invalid email address" },
+        { status: 400 },
+      );
     }
 
     // Create entry
@@ -41,27 +44,27 @@ export async function POST(req: NextRequest) {
     // 3. Implement email verification
 
     // For demo purposes, we'll save to a local JSON file
-    const waitlistFilePath = path.join(process.cwd(), 'data', 'waitlist.json');
+    const waitlistFilePath = path.join(process.cwd(), "data", "waitlist.json");
     let waitlist: WaitlistEntry[] = [];
 
     try {
       // Read existing file if it exists
       if (fs.existsSync(waitlistFilePath)) {
-        const fileContent = fs.readFileSync(waitlistFilePath, 'utf8');
+        const fileContent = fs.readFileSync(waitlistFilePath, "utf8");
         waitlist = JSON.parse(fileContent);
       }
     } catch (error) {
-      console.error('Error reading waitlist file:', error);
+      console.error("Error reading waitlist file:", error);
       // If file is corrupted, start with empty array
       waitlist = [];
     }
 
     // Check if email already exists
-    const emailExists = waitlist.some(entry => entry.email === email);
+    const emailExists = waitlist.some((entry) => entry.email === email);
     if (emailExists) {
       return NextResponse.json(
-        { message: 'Email already registered for waitlist' },
-        { status: 200 }
+        { message: "Email already registered for waitlist" },
+        { status: 200 },
       );
     }
 
@@ -69,17 +72,21 @@ export async function POST(req: NextRequest) {
     waitlist.push(waitlistEntry);
 
     // Write back to file
-    fs.writeFileSync(waitlistFilePath, JSON.stringify(waitlist, null, 2), 'utf8');
+    fs.writeFileSync(
+      waitlistFilePath,
+      JSON.stringify(waitlist, null, 2),
+      "utf8",
+    );
 
     return NextResponse.json(
-      { message: 'Successfully added to waitlist' },
-      { status: 200 }
+      { message: "Successfully added to waitlist" },
+      { status: 200 },
     );
   } catch (error) {
-    console.error('Error processing waitlist submission:', error);
+    console.error("Error processing waitlist submission:", error);
     return NextResponse.json(
-      { error: 'Failed to process waitlist submission' },
-      { status: 500 }
+      { error: "Failed to process waitlist submission" },
+      { status: 500 },
     );
   }
 }
@@ -88,4 +95,4 @@ export async function POST(req: NextRequest) {
 function isValidEmail(email: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
-} 
+}

@@ -1,17 +1,20 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { NextSection } from '../../../src/components/navigation/NextSection';
+import React from "react";
+import { NextSection } from "../../../src/components/navigation/NextSection";
 
 export default function Credit() {
   return (
     <div className="mx-auto max-w-screen-xl px-6 py-12">
-      <h1 className="mb-8 text-4xl font-semibold tracking-tight">Credit Workflow Automation</h1>
-      
+      <h1 className="mb-8 text-4xl font-semibold tracking-tight">
+        Credit Workflow Automation
+      </h1>
+
       <div className="mb-12">
         <p className="text-lg text-gray-600">
-          Streamline your credit operations with our AI-powered workflow automation solution. 
-          Monitor portfolio companies, analyze financial data, and make informed decisions faster.
+          Streamline your credit operations with our AI-powered workflow
+          automation solution. Monitor portfolio companies, analyze financial
+          data, and make informed decisions faster.
         </p>
       </div>
 
@@ -21,19 +24,22 @@ export default function Credit() {
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <h3 className="mb-2 text-xl font-medium">Automated Reporting</h3>
             <p className="text-gray-600">
-              Automatically ingest and process regular reports from portfolio companies, saving time and reducing errors.
+              Automatically ingest and process regular reports from portfolio
+              companies, saving time and reducing errors.
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <h3 className="mb-2 text-xl font-medium">Debt Monitoring</h3>
             <p className="text-gray-600">
-              Track and analyze debt metrics in real-time with automated alerts for key thresholds.
+              Track and analyze debt metrics in real-time with automated alerts
+              for key thresholds.
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <h3 className="mb-2 text-xl font-medium">Financial Analysis</h3>
             <p className="text-gray-600">
-              Comprehensive analysis of financials, KPIs, and qualitative factors including investor information.
+              Comprehensive analysis of financials, KPIs, and qualitative
+              factors including investor information.
             </p>
           </div>
         </div>
@@ -51,7 +57,8 @@ export default function Credit() {
             <div>
               <h3 className="mb-2 text-xl font-medium">Data Integration</h3>
               <p className="text-gray-600">
-                Connect your portfolio companies' reporting systems for automated data ingestion.
+                Connect your portfolio companies' reporting systems for
+                automated data ingestion.
               </p>
             </div>
           </div>
@@ -64,7 +71,8 @@ export default function Credit() {
             <div>
               <h3 className="mb-2 text-xl font-medium">AI Analysis</h3>
               <p className="text-gray-600">
-                Our AI processes financial data, identifies trends, and generates insights automatically.
+                Our AI processes financial data, identifies trends, and
+                generates insights automatically.
               </p>
             </div>
           </div>
@@ -77,7 +85,8 @@ export default function Credit() {
             <div>
               <h3 className="mb-2 text-xl font-medium">Monitoring Dashboard</h3>
               <p className="text-gray-600">
-                Access real-time insights and alerts through an intuitive dashboard interface.
+                Access real-time insights and alerts through an intuitive
+                dashboard interface.
               </p>
             </div>
           </div>
@@ -85,9 +94,12 @@ export default function Credit() {
       </section>
 
       <section className="rounded-lg bg-gray-50 p-8 text-center">
-        <h2 className="mb-4 text-2xl font-semibold">Ready to Transform Your Workflow?</h2>
+        <h2 className="mb-4 text-2xl font-semibold">
+          Ready to Transform Your Workflow?
+        </h2>
         <p className="mb-6 text-lg text-gray-600">
-          Let us help you automate your credit operations and make better decisions faster.
+          Let us help you automate your credit operations and make better
+          decisions faster.
         </p>
         <a
           href="/contact"

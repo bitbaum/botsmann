@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function BlogLayout({
   children,
@@ -8,9 +8,7 @@ export default function BlogLayout({
   return (
     <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-screen-xl px-6 py-16">
-        <div className="prose prose-gray mx-auto">
-          {children}
-        </div>
+        <div className="prose prose-gray mx-auto">{children}</div>
       </div>
     </div>
   );

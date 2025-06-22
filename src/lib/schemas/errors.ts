@@ -1,10 +1,10 @@
-export type ErrorCode = 
-  | 'UNAUTHORIZED'
-  | 'VALIDATION_ERROR'
-  | 'RATE_LIMIT'
-  | 'DATABASE_ERROR'
-  | 'INTERNAL_ERROR'
-  | 'NOT_FOUND';
+export type ErrorCode =
+  | "UNAUTHORIZED"
+  | "VALIDATION_ERROR"
+  | "RATE_LIMIT"
+  | "DATABASE_ERROR"
+  | "INTERNAL_ERROR"
+  | "NOT_FOUND";
 
 export interface ErrorDetail {
   field?: string;
@@ -20,7 +20,7 @@ export interface ErrorResponse {
 export function createErrorResponse(
   message: string,
   code: ErrorCode,
-  details?: ErrorDetail[]
+  details?: ErrorDetail[],
 ): ErrorResponse {
   return {
     error: message,

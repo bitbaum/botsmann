@@ -1,17 +1,17 @@
-import { EmailService } from '@/src/lib/email/service';
-import { CustomerSchema } from '@/src/lib/schemas/customer';
+import { EmailService } from "@/src/lib/email/service";
+import { CustomerSchema } from "@/src/lib/schemas/customer";
 
-describe('EmailService', () => {
+describe("EmailService", () => {
   let emailService: EmailService;
-  
+
   beforeEach(() => {
     emailService = new EmailService();
     // Set test environment variables
-    process.env.SENDGRID_API_KEY = 'test_key';
-    process.env.EMAIL_FROM = 'test@example.com';
-    process.env.ADMIN_EMAIL = 'admin@example.com';
-    process.env.SENDGRID_WELCOME_TEMPLATE_ID = 'template_id';
-    process.env.DASHBOARD_URL = 'https://test.example.com/dashboard';
+    process.env.SENDGRID_API_KEY = "test_key";
+    process.env.EMAIL_FROM = "test@example.com";
+    process.env.ADMIN_EMAIL = "admin@example.com";
+    process.env.SENDGRID_WELCOME_TEMPLATE_ID = "template_id";
+    process.env.DASHBOARD_URL = "https://test.example.com/dashboard";
   });
 
   afterEach(() => {
@@ -23,53 +23,57 @@ describe('EmailService', () => {
     delete process.env.DASHBOARD_URL;
   });
 
-  it('sends welcome email', async () => {
+  it("sends welcome email", async () => {
     const customer = CustomerSchema.parse({
-      name: 'Test User',
-      email: 'test@example.com',
-      message: 'Test message',
+      name: "Test User",
+      email: "test@example.com",
+      message: "Test message",
       preferences: {
         newsletter: true,
-        productUpdates: true
-      }
+        productUpdates: true,
+      },
     });
 
-    await expect(emailService.sendWelcomeEmail(customer)).resolves.not.toThrow();
+    await expect(
+      emailService.sendWelcomeEmail(customer),
+    ).resolves.not.toThrow();
   });
 
-  it('sends admin notification', async () => {
+  it("sends admin notification", async () => {
     const customer = CustomerSchema.parse({
-      name: 'Test User',
-      email: 'test@example.com',
-      message: 'Test message',
+      name: "Test User",
+      email: "test@example.com",
+      message: "Test message",
       preferences: {
         newsletter: true,
-        productUpdates: false
-      }
+        productUpdates: false,
+      },
     });
 
-    await expect(emailService.sendAdminNotification(customer)).resolves.not.toThrow();
+    await expect(
+      emailService.sendAdminNotification(customer),
+    ).resolves.not.toThrow();
   });
 
-  it('handles missing environment variables', async () => {
+  it("handles missing environment variables", async () => {
     delete process.env.SENDGRID_API_KEY;
-    
+
     const customer = CustomerSchema.parse({
-      name: 'Test User',
-      email: 'test@example.com',
-      message: 'Test message'
+      name: "Test User",
+      email: "test@example.com",
+      message: "Test message",
     });
 
     await expect(emailService.sendWelcomeEmail(customer)).rejects.toThrow();
   });
 
-  it('handles invalid customer data', async () => {
+  it("handles invalid customer data", async () => {
     await expect(
       CustomerSchema.parseAsync({
-        name: '',
-        email: 'invalid-email',
-        message: ''
-      })
+        name: "",
+        email: "invalid-email",
+        message: "",
+      }),
     ).rejects.toThrow();
   });
 });

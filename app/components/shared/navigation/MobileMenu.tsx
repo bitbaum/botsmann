@@ -1,14 +1,21 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import type { MobileMenuProps } from './types';
+import React from "react";
+import Link from "next/link";
+import type { MobileMenuProps } from "./types";
 
-export function MobileMenu({ isOpen, onClose, menuItems, activeSection }: MobileMenuProps) {
+export function MobileMenu({
+  isOpen,
+  onClose,
+  menuItems,
+  activeSection,
+}: MobileMenuProps) {
   return (
-    <div className={`fixed inset-0 z-50 lg:hidden ${isOpen ? 'block' : 'hidden'}`}>
+    <div
+      className={`fixed inset-0 z-50 lg:hidden ${isOpen ? "block" : "hidden"}`}
+    >
       {/* Backdrop */}
-      <div 
+      <div
         className="fixed inset-0 bg-black bg-opacity-20 transition-opacity"
         onClick={onClose}
       />
@@ -24,8 +31,18 @@ export function MobileMenu({ isOpen, onClose, menuItems, activeSection }: Mobile
               className="text-gray-500 hover:text-gray-700"
               aria-label="Close menu"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -43,14 +60,14 @@ export function MobileMenu({ isOpen, onClose, menuItems, activeSection }: Mobile
                       <Link
                         key={subItem.id}
                         href={
-                          typeof subItem.path === 'string'
+                          typeof subItem.path === "string"
                             ? subItem.path
                             : subItem.path.pathname
                         }
                         className={`block px-3 py-2 text-sm rounded-md transition-colors ${
                           activeSection === subItem.section
-                            ? 'bg-green-50 text-green-700'
-                            : 'text-gray-700 hover:bg-gray-50'
+                            ? "bg-green-50 text-green-700"
+                            : "text-gray-700 hover:bg-gray-50"
                         }`}
                       >
                         {subItem.label}
@@ -59,11 +76,15 @@ export function MobileMenu({ isOpen, onClose, menuItems, activeSection }: Mobile
                   </div>
                 ) : (
                   <Link
-                    href={typeof item.path === 'string' ? item.path : item.path.pathname}
+                    href={
+                      typeof item.path === "string"
+                        ? item.path
+                        : item.path.pathname
+                    }
                     className={`block px-3 py-2 text-sm rounded-md transition-colors ${
                       activeSection === item.section
-                        ? 'bg-green-50 text-green-700'
-                        : 'text-gray-700 hover:bg-gray-50'
+                        ? "bg-green-50 text-green-700"
+                        : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >
                     {item.label}
@@ -89,4 +110,4 @@ export function MobileMenu({ isOpen, onClose, menuItems, activeSection }: Mobile
       </div>
     </div>
   );
-} 
+}

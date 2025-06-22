@@ -1,17 +1,17 @@
 /**
  * HeroSection Component
- * 
+ *
  * This component renders the main hero section for the Nerd AI Research Assistant landing page.
  * It introduces the six core functions and value propositions with a call-to-action.
- * 
+ *
  * @component
  * @param {object} props - Component properties
  * @param {string} props.title - The main title for the hero section
  * @param {string} props.overview - A brief overview of the tool's capabilities
  * @param {Function} props.getTryLink - Function that returns the URL to join the waitlist
  */
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
 interface HeroSectionProps {
   title: string;
@@ -19,7 +19,11 @@ interface HeroSectionProps {
   getTryLink: () => string;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ title, overview, getTryLink }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({
+  title,
+  overview,
+  getTryLink,
+}) => {
   return (
     <section className="mb-16 pt-12">
       <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -31,28 +35,38 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, overview, getTryLink }
             Nerd: Your AI Research Assistant
           </h1>
           <p className="text-xl text-gray-700 mb-6">
-            Transform your research with an AI companion that organizes, updates, creates, engages, connects, and empowers your independent research journey.
+            Transform your research with an AI companion that organizes,
+            updates, creates, engages, connects, and empowers your independent
+            research journey.
           </p>
           <div className="flex flex-wrap gap-4">
-            <a 
-              href={getTryLink()} 
+            <a
+              href={getTryLink()}
               className="btn-primary flex items-center"
               target="_blank"
               rel="noopener noreferrer"
             >
               <span>Join Waitlist</span>
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 12h15" />
+              <svg
+                className="w-5 h-5 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 5l7 7-7 7M5 12h15"
+                />
               </svg>
             </a>
-            <a 
-              href="#core-features" 
-              className="btn-secondary"
-            >
+            <a href="#core-features" className="btn-secondary">
               Explore Features
             </a>
           </div>
-          
+
           <div className="mt-8 grid grid-cols-2 gap-3">
             <div className="flex items-start">
               <span className="text-indigo-600 mr-2">📚</span>
@@ -92,13 +106,23 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, overview, getTryLink }
           </div>
           <div className="space-y-3">
             <div className="bg-white p-3 rounded-lg shadow-sm ml-auto max-w-[80%]">
-              <p className="text-gray-800">How can I transform your research experience today?</p>
+              <p className="text-gray-800">
+                How can I transform your research experience today?
+              </p>
             </div>
             <div className="bg-indigo-50 p-3 rounded-lg shadow-sm max-w-[80%]">
-              <p className="text-gray-800">I need to organize my quantum computing research, stay updated on new papers, and create shareable content.</p>
+              <p className="text-gray-800">
+                I need to organize my quantum computing research, stay updated
+                on new papers, and create shareable content.
+              </p>
             </div>
             <div className="bg-white p-3 rounded-lg shadow-sm ml-auto max-w-[80%]">
-              <p className="text-gray-800">I'll organize your quantum research, set up real-time updates for new papers, and generate drafts for articles and social media. Would you like to connect with other quantum researchers too?</p>
+              <p className="text-gray-800">
+                I'll organize your quantum research, set up real-time updates
+                for new papers, and generate drafts for articles and social
+                media. Would you like to connect with other quantum researchers
+                too?
+              </p>
             </div>
           </div>
         </div>
@@ -107,4 +131,4 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, overview, getTryLink }
   );
 };
 
-export default HeroSection; 
+export default HeroSection;

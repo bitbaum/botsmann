@@ -34,28 +34,33 @@ Based on Cursor's preferences, the documentation:
 Each generated document follows a structured format:
 
 1. **System Overview & Architecture**
+
    - High-level architecture diagram
    - Core workflow visualization
    - Key system components and their relationships
    - Primary use cases with examples
 
 2. **Functional Requirements**
+
    - Prioritized as "must-have," "should-have," and "nice-to-have"
    - Clear acceptance criteria
    - Performance expectations
 
 3. **Technical Specifications**
+
    - API contracts and interfaces
    - Data structures and schemas
    - State management approach
    - Security considerations
 
 4. **Component Design**
+
    - Purpose and responsibilities for each component
    - Input/output specifications
    - Key processing logic
 
 5. **Implementation Considerations**
+
    - Suggested tech stack with rationale
    - Potential implementation challenges
    - Alternative approaches
@@ -73,11 +78,13 @@ The system follows a four-step process:
 1. **Query Analysis**: The user's documentation request is analyzed to understand the core requirements and domain
 
 2. **Multi-AI Processing**: The query is distributed to ChatGPT, Claude, and Grok, with each AI focusing on its strengths:
+
    - ChatGPT: Broad creative options, feature flows, and integration points
    - Claude: Edge cases, security considerations, and ethical implications
    - Grok: Core specifications, direct requirements, and performance targets
 
 3. **Insight Fusion**: A sophisticated fusion engine:
+
    - Extracts unique contributions from each AI
    - Resolves conflicts and contradictions
    - Weights insights based on relevance and confidence
@@ -110,7 +117,8 @@ As an AI coding assistant, Cursor receives several advantages from this speciali
 The Trident is currently in development. The frontend user interface is implemented, while the backend integration with multiple AI models and the fusion engine is under development.
 
 Future enhancements will include:
+
 - Interactive documentation adjustment
 - Real-time collaboration features
 - Documentation version control
-- Integration with code generation tools 
+- Integration with code generation tools

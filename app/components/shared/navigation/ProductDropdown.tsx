@@ -1,51 +1,58 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef } from 'react';
-import Link from 'next/link';
-import type { Route } from 'next';
-import type { ProductDropdownProps } from './types';
+import React, { useEffect, useRef } from "react";
+import Link from "next/link";
+import type { Route } from "next";
+import type { ProductDropdownProps } from "./types";
 
-export function ProductDropdown({ isOpen, onToggle, item }: ProductDropdownProps) {
+export function ProductDropdown({
+  isOpen,
+  onToggle,
+  item,
+}: ProductDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         onToggle();
       }
     }
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, onToggle]);
 
   const productLinks = [
     {
-      id: 'voting',
-      label: 'Open Vote',
-      description: 'Participate in decentralized decision-making',
-      path: '/projects/governance/open-vote',
-      icon: '🗳️'
+      id: "voting",
+      label: "Open Vote",
+      description: "Participate in decentralized decision-making",
+      path: "/projects/governance/open-vote",
+      icon: "🗳️",
     },
     {
-      id: 'proposals',
-      label: 'Open Law',
-      description: 'Create and manage governance proposals',
-      path: '/projects/governance/open-law',
-      icon: '📜'
+      id: "proposals",
+      label: "Open Law",
+      description: "Create and manage governance proposals",
+      path: "/projects/governance/open-law",
+      icon: "📜",
     },
     {
-      id: 'analytics',
-      label: 'Open Analytics',
-      description: 'Track governance metrics and insights',
-      path: '/projects/governance/open-pay',
-      icon: '📊'
-    }
+      id: "analytics",
+      label: "Open Analytics",
+      description: "Track governance metrics and insights",
+      path: "/projects/governance/open-pay",
+      icon: "📊",
+    },
   ];
 
   return (
@@ -57,12 +64,17 @@ export function ProductDropdown({ isOpen, onToggle, item }: ProductDropdownProps
       >
         <span>{item.label}</span>
         <svg
-          className={`w-4 h-4 transform transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 transform transition-transform ${isOpen ? "rotate-180" : ""}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </button>
 
@@ -80,8 +92,12 @@ export function ProductDropdown({ isOpen, onToggle, item }: ProductDropdownProps
               >
                 <span className="text-xl mr-3">{product.icon}</span>
                 <div>
-                  <div className="text-sm font-medium text-gray-900">{product.label}</div>
-                  <div className="text-xs text-gray-500 mt-0.5">{product.description}</div>
+                  <div className="text-sm font-medium text-gray-900">
+                    {product.label}
+                  </div>
+                  <div className="text-xs text-gray-500 mt-0.5">
+                    {product.description}
+                  </div>
                 </div>
               </Link>
             ))}
@@ -90,4 +106,4 @@ export function ProductDropdown({ isOpen, onToggle, item }: ProductDropdownProps
       )}
     </div>
   );
-} 
+}

@@ -1,5 +1,5 @@
-import React from 'react';
-import { btnPrimary } from '../../utils/constants';
+import React from "react";
+import { btnPrimary } from "../../utils/constants";
 
 interface ConversationPracticeProps {
   getTryLink: () => string;
@@ -11,20 +11,23 @@ const ConversationPractice = ({ getTryLink }: ConversationPracticeProps) => {
       situation: "Ordering coffee",
       standard: "Ich hätte gerne einen Kaffee, bitte.",
       swiss: "Ich hett gern en Kafi, bitte.",
-      translation: "I would like a coffee, please."
+      translation: "I would like a coffee, please.",
     },
     {
       situation: "Asking for the bill",
       standard: "Die Rechnung, bitte.",
       swiss: "D'Rächnig, bitte.",
-      translation: "The bill, please."
-    }
+      translation: "The bill, please.",
+    },
   ];
 
   return (
     <div className="space-y-6">
       {conversations.map((convo, index) => (
-        <div key={index} className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+        <div
+          key={index}
+          className="bg-white rounded-lg border border-gray-200 overflow-hidden"
+        >
           <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
             <p className="font-medium text-gray-700">{convo.situation}</p>
           </div>
@@ -44,17 +47,20 @@ const ConversationPractice = ({ getTryLink }: ConversationPracticeProps) => {
           </div>
         </div>
       ))}
-      
+
       <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-        <h4 className="font-medium text-gray-900 mb-2">Practice conversations</h4>
+        <h4 className="font-medium text-gray-900 mb-2">
+          Practice conversations
+        </h4>
         <p className="text-sm text-gray-600 mb-3">
-          Simulate real-life conversations in Swiss German. Heidi will play different roles and help you practice.
+          Simulate real-life conversations in Swiss German. Heidi will play
+          different roles and help you practice.
         </p>
         <div className="flex justify-center">
-          <a 
-            href={`${getTryLink()}?q=Let's%20practice%20a%20conversation%20in%20Swiss%20German%20for%20ordering%20at%20a%20restaurant`} 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <a
+            href={`${getTryLink()}?q=Let's%20practice%20a%20conversation%20in%20Swiss%20German%20for%20ordering%20at%20a%20restaurant`}
+            target="_blank"
+            rel="noopener noreferrer"
             className={btnPrimary}
           >
             Start Conversation Practice
@@ -65,4 +71,4 @@ const ConversationPractice = ({ getTryLink }: ConversationPracticeProps) => {
   );
 };
 
-export default ConversationPractice; 
+export default ConversationPractice;

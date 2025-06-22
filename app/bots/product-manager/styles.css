@@ -56,7 +56,8 @@
   white-space: nowrap;
 }
 
-.trident-nav-link:hover, .trident-nav-link-active {
+.trident-nav-link:hover,
+.trident-nav-link-active {
   color: #2563eb;
 }
 
@@ -96,18 +97,19 @@
   transition: color 0.2s;
 }
 
-.trident-mobile-menu-link:hover, .trident-mobile-menu-link-active {
+.trident-mobile-menu-link:hover,
+.trident-mobile-menu-link-active {
   color: #2563eb;
 }
 
 /* Hiding scrollbars but keeping functionality */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .no-scrollbar::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari and Opera */
+  display: none; /* Chrome, Safari and Opera */
 }
 
 /* Hero section customizations */
@@ -313,7 +315,7 @@
   .triad-hero h1 {
     font-size: 2rem;
   }
-  
+
   .triad-hero p {
     font-size: 1rem;
   }
@@ -387,11 +389,11 @@
   .responsive-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .mobile-stack {
     flex-direction: column;
   }
-  
+
   .mobile-full-width {
     width: 100%;
   }
@@ -399,7 +401,8 @@
 
 /* Pulse animation for loading states */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -422,4 +425,4 @@
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-} 
+}

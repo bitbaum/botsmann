@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { btnPrimary } from '../../utils/constants';
+import { useState } from "react";
+import { btnPrimary } from "../../utils/constants";
 
 interface TextGeneratorProps {
   getTryLink: () => string;
 }
 
 const TextGenerator = ({ getTryLink }: TextGeneratorProps) => {
-  const [prompt, setPrompt] = useState('');
+  const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!prompt.trim()) {
-      setError('Please enter a prompt');
+      setError("Please enter a prompt");
       return;
     }
 
@@ -24,7 +24,10 @@ const TextGenerator = ({ getTryLink }: TextGeneratorProps) => {
     setTimeout(() => {
       setIsLoading(false);
       // Redirect to ChatGPT with the prompt
-      window.open(`${getTryLink()}?q=${encodeURIComponent(`Write a Swiss German text message: ${prompt}`)}`, '_blank');
+      window.open(
+        `${getTryLink()}?q=${encodeURIComponent(`Write a Swiss German text message: ${prompt}`)}`,
+        "_blank",
+      );
     }, 500);
   };
 
@@ -32,13 +35,13 @@ const TextGenerator = ({ getTryLink }: TextGeneratorProps) => {
   const suggestions = [
     "I'll be 15 minutes late",
     "Want to meet for lunch?",
-    "Thanks for yesterday"
+    "Thanks for yesterday",
   ];
 
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
-        {suggestions.map(suggestion => (
+        {suggestions.map((suggestion) => (
           <button
             key={suggestion}
             type="button"
@@ -50,10 +53,13 @@ const TextGenerator = ({ getTryLink }: TextGeneratorProps) => {
           </button>
         ))}
       </div>
-      
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="text-prompt" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="text-prompt"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             What message do you need?
           </label>
           <textarea
@@ -65,16 +71,20 @@ const TextGenerator = ({ getTryLink }: TextGeneratorProps) => {
             onChange={(e) => setPrompt(e.target.value)}
             aria-describedby="text-prompt-error"
           ></textarea>
-          {error && <p id="text-prompt-error" className="mt-1 text-sm text-red-600">{error}</p>}
+          {error && (
+            <p id="text-prompt-error" className="mt-1 text-sm text-red-600">
+              {error}
+            </p>
+          )}
         </div>
         <div className="flex justify-center">
           <button
             type="submit"
             disabled={isLoading}
-            className={`${btnPrimary} ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`${btnPrimary} ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
             aria-label="Generate text message"
           >
-            {isLoading ? 'Processing...' : 'Generate Text Message'}
+            {isLoading ? "Processing..." : "Generate Text Message"}
           </button>
         </div>
       </form>
@@ -82,4 +92,4 @@ const TextGenerator = ({ getTryLink }: TextGeneratorProps) => {
   );
 };
 
-export default TextGenerator; 
+export default TextGenerator;

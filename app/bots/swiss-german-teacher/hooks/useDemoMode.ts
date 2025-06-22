@@ -1,36 +1,36 @@
-import { useState, useCallback } from 'react';
-import { DemoState, DemoResponse } from '../types';
+import { useState, useCallback } from "react";
+import { DemoState, DemoResponse } from "../types";
 
 export const useDemoMode = () => {
   const [demoState, setDemoState] = useState<DemoState>({
     isActive: false,
     step: 0,
-    prompt: '',
-    response: null
+    prompt: "",
+    response: null,
   });
 
   const startDemo = useCallback(() => {
-    setDemoState(prev => ({
+    setDemoState((prev) => ({
       ...prev,
       isActive: true,
       step: 1,
-      prompt: '',
-      response: null
+      prompt: "",
+      response: null,
     }));
   }, []);
 
   const stopDemo = useCallback(() => {
-    setDemoState(prev => ({
+    setDemoState((prev) => ({
       ...prev,
       isActive: false,
-      step: 0
+      step: 0,
     }));
   }, []);
 
   const setPrompt = useCallback((prompt: string) => {
-    setDemoState(prev => ({
+    setDemoState((prev) => ({
       ...prev,
-      prompt
+      prompt,
     }));
   }, []);
 
@@ -43,7 +43,7 @@ export const useDemoMode = () => {
         example: "Hoi, wie gaht's?",
         pronunciation: "hoy",
         notes: "Very common casual greeting in Zürich",
-        difficulty: "easy"
+        difficulty: "easy",
       },
       grüezi: {
         word: "grüezi",
@@ -51,38 +51,41 @@ export const useDemoMode = () => {
         example: "Grüezi, wie gaht's Ihne?",
         pronunciation: "GROO-eh-tsee",
         notes: "Formal greeting used with strangers or in business settings",
-        difficulty: "medium"
+        difficulty: "medium",
       },
       merci: {
         word: "merci vielmal",
         translation: "thank you very much",
         example: "Merci vielmal für d'Hilf!",
         pronunciation: "MER-see feel-mahl",
-        notes: "Notice the French influence - 'merci' is used instead of 'danke'",
-        difficulty: "easy"
-      }
+        notes:
+          "Notice the French influence - 'merci' is used instead of 'danke'",
+        difficulty: "easy",
+      },
     };
 
     // Check if we have a specific response for this prompt
     const prompt = demoState.prompt.toLowerCase().trim();
-    const response = 
-      (prompt.includes("grüezi") || prompt.includes("gruezi")) ? demoResponses.grüezi :
-      (prompt.includes("merci") || prompt.includes("thank")) ? demoResponses.merci :
-      demoResponses.default;
+    const response =
+      prompt.includes("grüezi") || prompt.includes("gruezi")
+        ? demoResponses.grüezi
+        : prompt.includes("merci") || prompt.includes("thank")
+          ? demoResponses.merci
+          : demoResponses.default;
 
-    setDemoState(prev => ({
+    setDemoState((prev) => ({
       ...prev,
       step: 2,
-      response
+      response,
     }));
   }, [demoState.prompt]);
 
   const continueDemo = useCallback(() => {
-    setDemoState(prev => ({
+    setDemoState((prev) => ({
       ...prev,
       step: 1,
-      prompt: '',
-      response: null
+      prompt: "",
+      response: null,
     }));
   }, []);
 
@@ -92,8 +95,8 @@ export const useDemoMode = () => {
     stopDemo,
     setPrompt,
     submitPrompt,
-    continueDemo
+    continueDemo,
   };
 };
 
-export default useDemoMode; 
+export default useDemoMode;

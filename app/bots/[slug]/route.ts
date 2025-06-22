@@ -1,5 +1,5 @@
-import { type NextRequest } from 'next/server';
-import bots from '@/data/bots';
+import { type NextRequest } from "next/server";
+import bots from "@/data/bots";
 
 export async function generateStaticParams() {
   return bots.map((bot) => ({
@@ -7,4 +7,4 @@ export async function generateStaticParams() {
   }));
 }
 
-export const dynamic = 'force-static';
+export const dynamic = "force-static";

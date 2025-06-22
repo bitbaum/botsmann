@@ -59,4 +59,4 @@ export interface DemoResponse {
   pronunciation: string;
   notes: string;
   difficulty: string;
-} 
+}

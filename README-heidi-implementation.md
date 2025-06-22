@@ -11,11 +11,13 @@ Heidi helps expats and learners master High German (Hochdeutsch) and Swiss Germa
 ### Files Updated/Created
 
 1. **Data Files**:
+
    - `data/bots.ts` - Updated with Heidi's information, including title, description, features, and tryLink
    - `data/solutions.json` - Updated the swiss-german-teacher entry with Heidi's information
    - `data/waitlist.json` - Created to store waitlist entries
 
 2. **UI Files**:
+
    - `app/bots/swiss-german-teacher/page.tsx` - Redesigned to match the TDD requirements with responsive sections, including:
      - In-page input field that redirects to the ChatGPT version of Heidi
      - Waitlist form for collecting emails and preferences for future features
@@ -37,6 +39,7 @@ Heidi helps expats and learners master High German (Hochdeutsch) and Swiss Germa
 Heidi's functionality is currently delivered via a ChatGPT custom GPT:
 
 1. **Main Interaction Flow**:
+
    - Users enter input on the Botsmann website
    - They are redirected to the ChatGPT version of Heidi with their input
    - All NLP processing occurs within ChatGPT, not within Botsmann
@@ -51,9 +54,11 @@ Heidi's functionality is currently delivered via a ChatGPT custom GPT:
 As noted in the TDD, potential future enhancements (requiring approval) include:
 
 ### Phase 2 (3-6 Months):
+
 - Activate `lib/nlp.ts` for in-page demo (e.g., single-word tables via OpenAI API)
 
 ### Phase 3 (12-18 Months):
+
 - Full in-house NLP for all inputs
 - Sign-up system for:
   - Zurich Events: Post events in chat/section
@@ -65,8 +70,9 @@ As noted in the TDD, potential future enhancements (requiring approval) include:
 ## Testing
 
 To test the implementation:
+
 1. Visit the bot page at `/bots/swiss-german-teacher`
 2. Verify all sections display correctly, including the input field
 3. Test the input field by entering text and confirming redirection to ChatGPT
 4. Test the waitlist form by submitting an email and preferences
-5. Check the solution page at `/solutions/individuals/swiss-german-teacher` 
+5. Check the solution page at `/solutions/individuals/swiss-german-teacher`

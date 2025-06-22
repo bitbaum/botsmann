@@ -1,4 +1,4 @@
-import { LRUCache } from 'lru-cache';
+import { LRUCache } from "lru-cache";
 
 export interface RateLimitConfig {
   interval: number;
@@ -14,7 +14,7 @@ export function rateLimit(config: RateLimitConfig) {
 
   return {
     check: (token: string | null) => {
-      const tokenKey = token || 'anonymous';
+      const tokenKey = token || "anonymous";
       const tokenCount = (tokenCache.get(tokenKey) as number[]) || [0];
       const [currentCount] = tokenCount;
       const newCount = currentCount + 1;

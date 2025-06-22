@@ -1,9 +1,11 @@
-import type { Route } from 'next';
+import type { Route } from "next";
 
-export type PathWithHash = Route | {
-  pathname: Route;
-  hash?: string;
-};
+export type PathWithHash =
+  | Route
+  | {
+      pathname: Route;
+      hash?: string;
+    };
 
 export type MenuItem = {
   id: string;
@@ -50,4 +52,4 @@ export type MobileMenuProps = {
   onClose: () => void;
   menuItems: MenuItem[];
   activeSection: string | null;
-}; 
+};

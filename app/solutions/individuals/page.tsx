@@ -1,11 +1,12 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import solutionsData from '@/data/solutions.json';
+import React from "react";
+import Link from "next/link";
+import solutionsData from "@/data/solutions.json";
 
 export default function IndividualsSolutions() {
-  const genericInfo = "We provide personalized AI solutions for individuals to manage daily life, learn new skills, and get tailored insights.";
+  const genericInfo =
+    "We provide personalized AI solutions for individuals to manage daily life, learn new skills, and get tailored insights.";
   const individuals = solutionsData.individuals;
 
   return (

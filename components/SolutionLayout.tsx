@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface SolutionData {
   title: string;
@@ -18,7 +18,10 @@ interface SolutionLayoutProps {
   renderCustomHeader?: () => React.ReactNode;
 }
 
-export default function SolutionLayout({ data, renderCustomHeader }: SolutionLayoutProps) {
+export default function SolutionLayout({
+  data,
+  renderCustomHeader,
+}: SolutionLayoutProps) {
   return (
     <div className="max-w-screen-xl mx-auto px-6 py-12">
       {/* Header Section */}
@@ -54,7 +57,9 @@ export default function SolutionLayout({ data, renderCustomHeader }: SolutionLay
         <div className="bg-gray-50 p-6 rounded-lg mb-8">
           <h2 className="text-2xl font-semibold mb-4">Case Studies</h2>
           {data.customSections.caseStudies.map((study, idx) => (
-            <p key={idx} className="text-gray-600">{study}</p>
+            <p key={idx} className="text-gray-600">
+              {study}
+            </p>
           ))}
         </div>
       )}
@@ -64,7 +69,9 @@ export default function SolutionLayout({ data, renderCustomHeader }: SolutionLay
         <div className="bg-gray-50 p-6 rounded-lg mb-8">
           <h2 className="text-2xl font-semibold mb-4">FAQ</h2>
           {data.customSections.faq.map((question, idx) => (
-            <p key={idx} className="text-gray-600">Q: {question}</p>
+            <p key={idx} className="text-gray-600">
+              Q: {question}
+            </p>
           ))}
         </div>
       )}
@@ -74,7 +81,9 @@ export default function SolutionLayout({ data, renderCustomHeader }: SolutionLay
         <div className="bg-gray-50 p-6 rounded-lg">
           <h2 className="text-2xl font-semibold mb-4">Testimonials</h2>
           {data.customSections.testimonials.map((testimonial, idx) => (
-            <p key={idx} className="italic text-gray-600">"{testimonial}"</p>
+            <p key={idx} className="italic text-gray-600">
+              "{testimonial}"
+            </p>
           ))}
         </div>
       )}

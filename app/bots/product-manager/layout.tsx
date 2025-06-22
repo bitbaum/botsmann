@@ -1,5 +1,5 @@
-import React from 'react';
-import Header from '@/components/Header';
+import React from "react";
+import Header from "@/components/Header";
 
 /**
  * Layout for the Product Manager Bot pages.
@@ -16,4 +16,4 @@ export default function ProductManagerLayout({
       {children}
     </>
   );
-} 
+}

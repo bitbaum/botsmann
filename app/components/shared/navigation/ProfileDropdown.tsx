@@ -1,35 +1,38 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef } from 'react';
-import Link from 'next/link';
-import type { Route } from 'next';
-import type { ProfileDropdownProps } from './types';
+import React, { useEffect, useRef } from "react";
+import Link from "next/link";
+import type { Route } from "next";
+import type { ProfileDropdownProps } from "./types";
 
 export function ProfileDropdown({ isOpen, onToggle }: ProfileDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         onToggle();
       }
     }
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, onToggle]);
 
   const profileLinks = [
     {
-      id: 'portal',
-      label: 'Portal',
-      path: '/projects/governance/portal'
-    }
+      id: "portal",
+      label: "Portal",
+      path: "/projects/governance/portal",
+    },
   ];
 
   return (
@@ -41,12 +44,17 @@ export function ProfileDropdown({ isOpen, onToggle }: ProfileDropdownProps) {
       >
         <span>Profile</span>
         <svg
-          className={`w-4 h-4 transform transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 transform transition-transform ${isOpen ? "rotate-180" : ""}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </button>
 
@@ -70,4 +78,4 @@ export function ProfileDropdown({ isOpen, onToggle }: ProfileDropdownProps) {
       )}
     </div>
   );
-} 
+}

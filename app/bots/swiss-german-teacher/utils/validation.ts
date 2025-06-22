@@ -27,11 +27,11 @@ export const isNotEmpty = (text: string): boolean => {
  * @returns Formatted error message string
  */
 export const formatErrorMessage = (error: any): string => {
-  if (typeof error === 'string') {
+  if (typeof error === "string") {
     return error;
   }
   if (error instanceof Error) {
     return error.message;
   }
-  return 'An unknown error occurred';
-}; 
+  return "An unknown error occurred";
+};

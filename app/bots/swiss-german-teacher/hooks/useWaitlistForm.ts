@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
-import { WaitlistFormState, WaitlistPreferences } from '../types';
-import { isValidEmail } from '../utils/validation';
+import { useState, useCallback } from "react";
+import { WaitlistFormState, WaitlistPreferences } from "../types";
+import { isValidEmail } from "../utils/validation";
 
 const initialPreferences: WaitlistPreferences = {
   learningTools: true,
@@ -8,7 +8,7 @@ const initialPreferences: WaitlistPreferences = {
   authenticContent: true,
   culturalInsights: false,
   earlyAccess: true,
-  emailUpdates: true
+  emailUpdates: true,
 };
 
 /**
@@ -16,77 +16,79 @@ const initialPreferences: WaitlistPreferences = {
  */
 export const useWaitlistForm = () => {
   const [formState, setFormState] = useState<WaitlistFormState>({
-    email: '',
+    email: "",
     preferences: initialPreferences,
     isSubmitting: false,
     isSubmitted: false,
-    error: null
+    error: null,
   });
 
   const updateEmail = useCallback((email: string) => {
-    setFormState(prev => ({
+    setFormState((prev) => ({
       ...prev,
       email,
-      error: null
+      error: null,
     }));
   }, []);
 
   const togglePreference = useCallback((key: keyof WaitlistPreferences) => {
-    setFormState(prev => ({
+    setFormState((prev) => ({
       ...prev,
       preferences: {
         ...prev.preferences,
-        [key]: !prev.preferences[key]
-      }
+        [key]: !prev.preferences[key],
+      },
     }));
   }, []);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validate email
-    if (!isValidEmail(formState.email)) {
-      setFormState(prev => ({
-        ...prev,
-        error: 'Please enter a valid email address'
-      }));
-      return;
-    }
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
 
-    // Start submission
-    setFormState(prev => ({
-      ...prev,
-      isSubmitting: true,
-      error: null
-    }));
+      // Validate email
+      if (!isValidEmail(formState.email)) {
+        setFormState((prev) => ({
+          ...prev,
+          error: "Please enter a valid email address",
+        }));
+        return;
+      }
 
-    try {
-      // Simulate API call with a timeout
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Success state
-      setFormState(prev => ({
+      // Start submission
+      setFormState((prev) => ({
         ...prev,
-        isSubmitting: false,
-        isSubmitted: true
+        isSubmitting: true,
+        error: null,
       }));
-      
-    } catch (error) {
-      // Error handling
-      setFormState(prev => ({
-        ...prev,
-        isSubmitting: false,
-        error: error instanceof Error ? error.message : 'Failed to submit'
-      }));
-    }
-  }, [formState.email]);
+
+      try {
+        // Simulate API call with a timeout
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+
+        // Success state
+        setFormState((prev) => ({
+          ...prev,
+          isSubmitting: false,
+          isSubmitted: true,
+        }));
+      } catch (error) {
+        // Error handling
+        setFormState((prev) => ({
+          ...prev,
+          isSubmitting: false,
+          error: error instanceof Error ? error.message : "Failed to submit",
+        }));
+      }
+    },
+    [formState.email],
+  );
 
   return {
     formState,
     updateEmail,
     togglePreference,
-    handleSubmit
+    handleSubmit,
   };
 };
 
-export default useWaitlistForm; 
+export default useWaitlistForm;

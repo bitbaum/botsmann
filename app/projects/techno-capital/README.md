@@ -5,6 +5,7 @@ This document outlines the image assets needed for the Techno-Capital project se
 ## Required Images
 
 1. **techno-capital-hero.jpg**
+
    - Location: `/public/images/techno-capital-hero.jpg`
    - Description: A hero image showing a futuristic tunnel or underground structure with technological elements, representing the visionary aspect of the Techno-Capital initiative
    - Suggested dimensions: 1920x1080px (16:9 aspect ratio)
@@ -28,6 +29,7 @@ This document outlines the image assets needed for the Techno-Capital project se
 ## Image Directory Setup
 
 The directory structure should be:
+
 ```
 /public
   /images
@@ -35,4 +37,4 @@ The directory structure should be:
     techno-capital.jpg
 ```
 
-You can create placeholder images using online tools or basic graphic design software until final assets are ready. 
+You can create placeholder images using online tools or basic graphic design software until final assets are ready.

@@ -95,7 +95,9 @@
   border-radius: 0.5rem;
   border: 1px solid #e5e7eb;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s, border-color 0.3s;
+  transition:
+    box-shadow 0.3s,
+    border-color 0.3s;
 }
 
 .featureCard:hover {
@@ -518,7 +520,8 @@
   justify-content: space-between;
 }
 
-.answerButton, .saveButton {
+.answerButton,
+.saveButton {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -531,7 +534,8 @@
   transition: all 0.2s;
 }
 
-.answerButton:hover, .saveButton:hover {
+.answerButton:hover,
+.saveButton:hover {
   background-color: #f3f4f6;
 }
 
@@ -752,19 +756,19 @@
   .collaborationFeatures {
     grid-template-columns: 1fr;
   }
-  
+
   .workflowSteps {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   .questionsHeader {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .scheduleOptions {
     flex-direction: column;
     gap: 1rem;
   }
-} 
+}

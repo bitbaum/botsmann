@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Navigation from './components/Navigation';
-import './styles.css';
+import React from "react";
+import Navigation from "./components/Navigation";
+import "./styles.css";
 
 export default function GovernanceLayout({
   children,
@@ -15,4 +15,4 @@ export default function GovernanceLayout({
       {children}
     </section>
   );
-} 
+}

@@ -5,7 +5,7 @@ export interface ProductResult {
   price: number;
   image: string;
   url: string;
-  platform: 'Amazon' | 'Ricardo';
+  platform: "Amazon" | "Ricardo";
 }
 
 export interface NLPResult {

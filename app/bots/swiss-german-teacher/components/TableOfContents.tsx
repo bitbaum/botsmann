@@ -1,5 +1,5 @@
-'use client';
-import { useState, useEffect } from 'react';
+"use client";
+import { useState, useEffect } from "react";
 
 interface TableOfContentsProps {
   items: {
@@ -13,7 +13,7 @@ interface TableOfContentsProps {
 }
 
 export default function TableOfContents({ items }: TableOfContentsProps) {
-  const [activeId, setActiveId] = useState<string>('');
+  const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -25,15 +25,15 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
         });
       },
       {
-        rootMargin: '-20% 0% -80% 0%',
+        rootMargin: "-20% 0% -80% 0%",
         threshold: 0,
-      }
+      },
     );
 
     items.forEach((item) => {
       const element = document.getElementById(item.id);
       if (element) observer.observe(element);
-      
+
       if (item.subItems) {
         item.subItems.forEach((subItem) => {
           const subElement = document.getElementById(subItem.id);
@@ -46,7 +46,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
       items.forEach((item) => {
         const element = document.getElementById(item.id);
         if (element) observer.unobserve(element);
-        
+
         if (item.subItems) {
           item.subItems.forEach((subItem) => {
             const subElement = document.getElementById(subItem.id);
@@ -67,13 +67,13 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
               href={`#${item.id}`}
               className={`block py-1 border-l-2 pl-3 transition-colors ${
                 activeId === item.id
-                  ? 'border-openai-green text-openai-green font-medium'
-                  : 'border-transparent hover:text-gray-900 hover:border-gray-300'
+                  ? "border-openai-green text-openai-green font-medium"
+                  : "border-transparent hover:text-gray-900 hover:border-gray-300"
               }`}
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById(item.id)?.scrollIntoView({
-                  behavior: 'smooth',
+                  behavior: "smooth",
                 });
               }}
             >
@@ -87,13 +87,13 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
                       href={`#${subItem.id}`}
                       className={`block py-1 text-sm border-l-2 pl-3 transition-colors ${
                         activeId === subItem.id
-                          ? 'border-openai-green text-openai-green font-medium'
-                          : 'border-transparent hover:text-gray-900 hover:border-gray-300'
+                          ? "border-openai-green text-openai-green font-medium"
+                          : "border-transparent hover:text-gray-900 hover:border-gray-300"
                       }`}
                       onClick={(e) => {
                         e.preventDefault();
                         document.getElementById(subItem.id)?.scrollIntoView({
-                          behavior: 'smooth',
+                          behavior: "smooth",
                         });
                       }}
                     >
@@ -108,4 +108,4 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
       </ul>
     </nav>
   );
-} 
+}
