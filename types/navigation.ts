@@ -1,5 +1,5 @@
 import { LinkProps } from 'next/link';
-import { ComponentType, SVGProps } from 'react';
+import { ComponentType } from 'react';
 
 export interface MenuItem {
   label: string;
@@ -11,7 +11,7 @@ export interface MenuItem {
   /**
    * Optional icon component for mega menu items
    */
-  icon?: ComponentType<SVGProps<SVGSVGElement>>;
+  icon?: ComponentType<any>;
   children?: MenuItem[];
   isButton?: boolean;
 }
