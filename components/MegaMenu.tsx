@@ -32,23 +32,32 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
             leaveFrom="transform opacity-100 translate-y-0"
             leaveTo="transform opacity-0 translate-y-1"
           >
-            <Popover.Panel className="absolute left-1/2 z-20 mt-3 w-screen max-w-md -translate-x-1/2 px-4 sm:px-0">
+            <Popover.Panel className="absolute left-1/2 z-20 mt-3 w-screen max-w-3xl -translate-x-1/2 px-4 sm:px-0">
               <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                <div className="relative grid gap-6 bg-white p-6 lg:grid-cols-2">
-                  {item.children?.map((child) => (
-                    <Link
-                      key={child.label}
-                      href={child.path}
-                      className="flex rounded-lg p-3 transition-colors hover:bg-gray-50"
-                    >
-                      <div className="ml-2 text-left">
-                        <p className="text-sm font-medium text-gray-900">{child.label}</p>
-                        {child.description && (
-                          <p className="mt-1 text-sm text-gray-500">{child.description}</p>
-                        )}
-                      </div>
-                    </Link>
-                  ))}
+                <div className="relative grid gap-6 bg-white p-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {item.children?.map((child) => {
+                    const Icon = child.icon;
+                    return (
+                      <Link
+                        key={child.label}
+                        href={child.path}
+                        className="flex items-start rounded-lg p-3 transition-colors hover:bg-gray-50"
+                      >
+                        {Icon && <Icon className="h-6 w-6 text-openai-green" aria-hidden="true" />}
+                        <div className="ml-3 text-left">
+                          <p className="text-sm font-medium text-gray-900">{child.label}</p>
+                          {child.description && (
+                            <p className="mt-1 text-sm text-gray-500">{child.description}</p>
+                          )}
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+                <div className="bg-gray-50 p-4 text-right">
+                  <Link href={item.path} className="text-sm font-medium text-openai-green hover:underline">
+                    View all {item.label}
+                  </Link>
                 </div>
               </div>
             </Popover.Panel>
