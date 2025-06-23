@@ -188,7 +188,7 @@ For details on specific bots, see their individual README files:
 
 ## Navigation
 
-The header now features a single **Solutions** mega menu. The dropdown opens on hover and displays links in a concise grid. The previous Bots and Projects menus were removed to streamline navigation.
+The header now features a single **Solutions** mega menu. The dropdown opens on hover and displays links in a concise grid. A small offset keeps the menu visible when moving the cursor from the label to the panel. The previous Bots and Projects menus were removed to streamline navigation.
 
 ## License
 

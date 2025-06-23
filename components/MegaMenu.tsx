@@ -20,7 +20,9 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
       >
         {item.label}
       </Link>
-      <div className="absolute left-1/2 z-20 hidden group-hover:block mt-3 w-screen max-w-3xl -translate-x-1/2 px-4 sm:px-0">
+      <div
+        className="absolute left-1/2 top-full z-20 hidden w-screen max-w-3xl -translate-x-1/2 pt-2 px-4 sm:px-0 group-hover:block"
+      >
         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
           <div className="relative grid gap-6 bg-white p-6 sm:grid-cols-2 lg:grid-cols-3">
             {item.children?.map((child) => {
