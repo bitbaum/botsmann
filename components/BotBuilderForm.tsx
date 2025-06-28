@@ -6,6 +6,7 @@ import { CheckIcon } from '@heroicons/react/24/solid';
 
 interface FormData {
   type: string;
+  deployment: string;
   name: string;
   slug: string;
   description: string;
@@ -13,20 +14,24 @@ interface FormData {
 }
 
 const featurePresets: Record<string, string> = {
-  'Customer Support': 'FAQ answering, Ticket creation, Live chat',
-  'Content Writer': 'Generate blog posts, Summarize articles, Outline ideas',
+  'Legal Assistant': 'Contract analysis, Legal research, Document drafting',
+  'Medical Assistant': 'Symptom checker, Appointment scheduling, Medication reminders',
+  'Financial Advisor': 'Portfolio tracking, Risk assessment, Investment suggestions',
   'Research Assistant': 'Search references, Track citations, Summarize papers'
 };
 
+const deploymentOptions = ['Cloud Solution', 'Local Model'];
+
 const initialData: FormData = {
   type: '',
+  deployment: '',
   name: '',
   slug: '',
   description: '',
   features: ''
 };
 
-const steps = ['Assistant Type', 'Bot Details', 'Setup'];
+const steps = ['Assistant Type', 'Requirements', 'Bot Details', 'Setup'];
 
 export default function BotBuilderForm() {
   const [formData, setFormData] = useState<FormData>(initialData);
@@ -47,6 +52,8 @@ export default function BotBuilderForm() {
         features: featurePresets[prev.type] || prev.features
       }));
       setStep(2);
+    } else if (step === 2) {
+      setStep(3);
     }
   };
 
@@ -63,7 +70,7 @@ export default function BotBuilderForm() {
       console.error('Failed to save bot', err);
     } finally {
       setSaving(false);
-      setStep(3);
+      setStep(4);
     }
   };
 
@@ -139,6 +146,54 @@ export default function BotBuilderForm() {
       )}
 
       {step === 2 && (
+        <div className="space-y-6">
+          <RadioGroup
+            value={formData.deployment}
+            onChange={(val) => setFormData((p) => ({ ...p, deployment: val }))}
+          >
+            <RadioGroup.Label className="block text-sm font-medium text-gray-700">
+              Deployment
+            </RadioGroup.Label>
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {deploymentOptions.map((opt) => (
+                <RadioGroup.Option
+                  key={opt}
+                  value={opt}
+                  className={({ checked }) =>
+                    `cursor-pointer rounded-lg border p-4 shadow-sm focus:outline-none ${checked ? 'bg-openai-green/10 border-openai-green text-openai-green' : 'bg-white border-gray-300'}`
+                  }
+                >
+                  {({ checked }) => (
+                    <div className="flex items-center justify-between">
+                      <span>{opt}</span>
+                      {checked && <CheckIcon className="h-5 w-5" />}
+                    </div>
+                  )}
+                </RadioGroup.Option>
+              ))}
+            </div>
+          </RadioGroup>
+          <div className="flex justify-between">
+            <button
+              type="button"
+              onClick={() => setStep(1)}
+              className="inline-flex items-center px-4 py-2 rounded-md border bg-white text-gray-700 shadow-sm hover:bg-gray-50"
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              className="inline-flex items-center px-4 py-2 rounded-md bg-openai-green text-white shadow disabled:opacity-50"
+              disabled={!formData.deployment}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+
+      {step === 3 && (
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
@@ -195,7 +250,7 @@ export default function BotBuilderForm() {
           <div className="flex justify-between">
             <button
               type="button"
-              onClick={() => setStep(1)}
+              onClick={() => setStep(2)}
               className="inline-flex items-center px-4 py-2 rounded-md border bg-white text-gray-700 shadow-sm hover:bg-gray-50"
             >
               Back
@@ -210,10 +265,13 @@ export default function BotBuilderForm() {
         </form>
       )}
 
-      {step === 3 && (
+      {step === 4 && (
         <div className="space-y-6">
           <h2 className="text-2xl font-semibold text-gray-900">Setup Instructions</h2>
-          <p>
+          <p className="font-medium">
+            Recommended deployment: {formData.deployment}
+          </p>
+          <p className="mt-2">
             Create a new directory <code>app/bots/{formData.slug}</code> and add a <code>page.tsx</code> file with your bot interface.
           </p>
           <pre className="bg-gray-50 p-4 rounded-md border text-sm overflow-auto">

@@ -84,7 +84,7 @@ botsmann/
 
 ### User Flow for Creating an AI Bot
 
-Use this step-by-step flow to scaffold, preview, and publish a new bot. You can also try the interactive [Bot Creation Tool](./create-bot) which features a modern multi‑step form with a progress bar. It stores your selections in Supabase and generates these instructions automatically:
+Use this step-by-step flow to scaffold, preview, and publish a new bot. You can also try the interactive [Bot Creation Tool](./create-bot) which features a modern multi‑step form with a progress bar. It stores your selections in Supabase and generates these instructions automatically. The wizard guides you through choosing a bot type (Legal, Medical, Financial, or Research), selecting a deployment option (cloud or local), and then entering the remaining details:
 
 1. **Clone & Install** – Clone the repository and run `npm install` if you haven’t already.
 2. **Create Bot Directory** – Inside `app/bots/`, create a folder named after your bot (for example, `app/bots/my-bot`).
@@ -94,7 +94,7 @@ Use this step-by-step flow to scaffold, preview, and publish a new bot. You can 
 6. **Test & Refine** – Add Jest tests in `__tests__/` and iterate on the page until it behaves as expected.
 7. **Commit & Push** – Commit your changes, push them to GitHub, and open a pull request for review.
 
-The creation wizard progressively reveals options based on the assistant type you choose, making it easy to fill in only the relevant details.
+The creation wizard progressively reveals options based on your selections, so you only see fields that matter. After picking an assistant type, you'll choose a deployment preference before filling out the final details.
 
 
 ### Code Conventions
