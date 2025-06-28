@@ -82,6 +82,16 @@ botsmann/
 
 3. Add your bot's metadata to `data/bots.ts` to have it appear in the main directory
 
+### User Flow for Creating an AI Bot
+
+Follow these steps to create and preview a new bot on the platform:
+
+1. **Set Up the Project** – Ensure the repository is cloned and dependencies are installed.
+2. **Generate Bot Files** – Inside `app/bots/`, create a folder named after your bot (e.g., `app/bots/my-bot`). Add at minimum a `page.tsx` file and any components your bot needs.
+3. **Register the Bot** – Edit `data/bots.ts` and add an entry containing the `slug`, `title`, `description`, and `features` for your new bot.
+4. **Start the Development Server** – Run `npm run dev` and navigate to `/bots/<your-bot>` to see your page.
+5. **Iterate** – Update the page and components until your bot looks correct. When ready, commit your changes and push to GitHub.
+
 ### Code Conventions
 
 - Use TypeScript for all new code
