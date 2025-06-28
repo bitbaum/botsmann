@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { RadioGroup, Transition } from '@headlessui/react';
+import { CheckIcon } from '@heroicons/react/24/solid';
 
 interface FormData {
   type: string;
@@ -23,6 +25,8 @@ const initialData: FormData = {
   description: '',
   features: ''
 };
+
+const steps = ['Assistant Type', 'Bot Details', 'Setup'];
 
 export default function BotBuilderForm() {
   const [formData, setFormData] = useState<FormData>(initialData);
@@ -74,62 +78,93 @@ export default function BotBuilderForm() {
     .filter(Boolean);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+      <ol className="flex items-center justify-between text-sm font-medium">
+        {steps.map((label, idx) => (
+          <li key={label} className="flex-1 flex items-center">
+            <span
+              className={`flex h-8 w-8 items-center justify-center rounded-full border-2 ${idx + 1 <= step ? 'bg-openai-green text-white border-openai-green' : 'text-gray-500 border-gray-300'}`}
+            >
+              {idx + 1}
+            </span>
+            <span className="ml-2 text-gray-700 hidden sm:inline">{label}</span>
+            {idx < steps.length - 1 && <span className="flex-1 h-px bg-gray-300 mx-2" />}
+          </li>
+        ))}
+      </ol>
+
       {step === 1 && (
-        <div className="space-y-4">
-          <label className="block text-sm font-medium text-gray-700">
-            Assistant Type
-          </label>
-          <select
-            name="type"
-            value={formData.type}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-200 bg-white px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 focus:ring-2 focus:ring-openai-green sm:text-sm"
-          >
-            <option value="">Select a type</option>
-            {Object.keys(featurePresets).map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-            <option value="Custom">Custom</option>
-          </select>
-          <button
-            type="button"
-            onClick={handleNext}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-openai-green hover:bg-opacity-90"
-            disabled={!formData.type}
-          >
-            Next
-          </button>
+        <div className="space-y-6">
+          <RadioGroup value={formData.type} onChange={(val) => setFormData((p) => ({ ...p, type: val }))}>
+            <RadioGroup.Label className="block text-sm font-medium text-gray-700">Assistant Type</RadioGroup.Label>
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {Object.keys(featurePresets).map((t) => (
+                <RadioGroup.Option
+                  key={t}
+                  value={t}
+                  className={({ checked }) => `cursor-pointer rounded-lg border p-4 shadow-sm focus:outline-none ${checked ? 'bg-openai-green/10 border-openai-green text-openai-green' : 'bg-white border-gray-300'}`}
+                >
+                  {({ checked }) => (
+                    <div className="flex items-center justify-between">
+                      <span>{t}</span>
+                      {checked && <CheckIcon className="h-5 w-5" />}
+                    </div>
+                  )}
+                </RadioGroup.Option>
+              ))}
+              <RadioGroup.Option
+                value="Custom"
+                className={({ checked }) => `cursor-pointer rounded-lg border p-4 shadow-sm focus:outline-none ${checked ? 'bg-openai-green/10 border-openai-green text-openai-green' : 'bg-white border-gray-300'}`}
+              >
+                {({ checked }) => (
+                  <div className="flex items-center justify-between">
+                    <span>Custom</span>
+                    {checked && <CheckIcon className="h-5 w-5" />}
+                  </div>
+                )}
+              </RadioGroup.Option>
+            </div>
+          </RadioGroup>
+          <div className="text-right">
+            <button
+              type="button"
+              onClick={handleNext}
+              className="inline-flex items-center px-4 py-2 rounded-md bg-openai-green text-white shadow disabled:opacity-50"
+              disabled={!formData.type}
+            >
+              Next
+            </button>
+          </div>
         </div>
       )}
 
       {step === 2 && (
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Bot Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-200 bg-white px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 focus:ring-2 focus:ring-openai-green sm:text-sm"
-            />
-          </div>
-          <div>
-            <label htmlFor="slug" className="block text-sm font-medium text-gray-700">
-              Slug
-            </label>
-            <input
-              id="slug"
-              name="slug"
-              value={formData.slug}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-200 bg-white px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 focus:ring-2 focus:ring-openai-green sm:text-sm"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Bot Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-200 bg-white px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 focus:ring-2 focus:ring-openai-green sm:text-sm"
+              />
+            </div>
+            <div>
+              <label htmlFor="slug" className="block text-sm font-medium text-gray-700">
+                Slug
+              </label>
+              <input
+                id="slug"
+                name="slug"
+                value={formData.slug}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-200 bg-white px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 focus:ring-2 focus:ring-openai-green sm:text-sm"
+              />
+            </div>
           </div>
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-700">
@@ -161,13 +196,13 @@ export default function BotBuilderForm() {
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50"
+              className="inline-flex items-center px-4 py-2 rounded-md border bg-white text-gray-700 shadow-sm hover:bg-gray-50"
             >
               Back
             </button>
             <button
               type="submit"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-openai-green hover:bg-opacity-90"
+              className="inline-flex items-center px-4 py-2 rounded-md bg-openai-green text-white shadow disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Generate Setup'}
             </button>
@@ -198,12 +233,14 @@ export default function BotBuilderForm() {
           <p>
             Run <code>npm run dev</code> and navigate to <code>/bots/{formData.slug}</code> to preview your bot.
           </p>
-          <button
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-openai-green hover:bg-opacity-90"
-            onClick={startOver}
-          >
-            Start Over
-          </button>
+          <div className="text-right">
+            <button
+              className="inline-flex items-center px-4 py-2 rounded-md bg-openai-green text-white shadow"
+              onClick={startOver}
+            >
+              Start Over
+            </button>
+          </div>
         </div>
       )}
     </div>

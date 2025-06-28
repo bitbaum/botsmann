@@ -84,7 +84,7 @@ botsmann/
 
 ### User Flow for Creating an AI Bot
 
-Use this step-by-step flow to scaffold, preview, and publish a new bot. You can also follow the multi‑step [Bot Creation Tool](./create-bot) which stores your selections in Supabase and generates these instructions automatically:
+Use this step-by-step flow to scaffold, preview, and publish a new bot. You can also try the interactive [Bot Creation Tool](./create-bot) which features a modern multi‑step form with a progress bar. It stores your selections in Supabase and generates these instructions automatically:
 
 1. **Clone & Install** – Clone the repository and run `npm install` if you haven’t already.
 2. **Create Bot Directory** – Inside `app/bots/`, create a folder named after your bot (for example, `app/bots/my-bot`).
