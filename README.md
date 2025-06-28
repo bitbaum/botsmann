@@ -82,6 +82,19 @@ botsmann/
 
 3. Add your bot's metadata to `data/bots.ts` to have it appear in the main directory
 
+### User Flow for Creating an AI Bot
+
+Use this step-by-step flow to scaffold, preview, and publish a new bot:
+
+1. **Clone & Install** – Clone the repository and run `npm install` if you haven’t already.
+2. **Create Bot Directory** – Inside `app/bots/`, create a folder named after your bot (for example, `app/bots/my-bot`).
+3. **Add a Page Component** – In this new folder, create `page.tsx` that renders your bot’s interface. Add any supporting components under a `components/` subfolder and styles in `styles.module.css` if needed.
+4. **Register Metadata** – Update `data/bots.ts` with your bot’s `slug`, `title`, `description`, and `features`. This enables it to appear in the directory page.
+5. **Preview Locally** – Run `npm run dev` and navigate to `/bots/<your-bot>` in the browser to verify the layout and functionality.
+6. **Test & Refine** – Add Jest tests in `__tests__/` and iterate on the page until it behaves as expected.
+7. **Commit & Push** – Commit your changes, push them to GitHub, and open a pull request for review.
+
+
 ### Code Conventions
 
 - Use TypeScript for all new code
