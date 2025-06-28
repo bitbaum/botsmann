@@ -7,6 +7,28 @@ import { Disclosure } from "@headlessui/react";
 import { menuItems } from "@/data/menuItems";
 import MegaMenu from "./MegaMenu";
 
+interface NavLinkProps {
+  item: (typeof menuItems)[number];
+  isActive?: boolean;
+  onClick?: () => void;
+  className?: string;
+}
+
+function NavLink({ item, isActive, onClick, className = "" }: NavLinkProps) {
+  return (
+    <Link
+      href={item.path}
+      role="menuitem"
+      onClick={onClick}
+      className={`${className} text-sm font-medium transition-colors ${
+        isActive ? "text-openai-green" : "text-gray-600 hover:text-openai-green"
+      }`}
+    >
+      {item.label}
+    </Link>
+  );
+}
+
 export default function Navigation() {
   const pathname = usePathname();
 
@@ -18,41 +40,30 @@ export default function Navigation() {
         className="hidden lg:flex items-center space-x-8"
       >
         <div className="flex-1 flex items-center space-x-8" role="menubar">
-          {menuItems.map((item) => {
-            if (item.isButton) return null;
-            const isActive = pathname === item.path;
-            if (item.children) {
+          {menuItems
+            .filter((item) => !item.isButton)
+            .map((item) => {
+              const isActive = pathname === item.path;
+              if (item.children) {
+                return (
+                  <MegaMenu key={item.label} item={item} isActive={isActive} />
+                );
+              }
               return (
-                <MegaMenu key={item.label} item={item} isActive={isActive} />
+                <NavLink key={item.label} item={item} isActive={isActive} />
               );
-            }
-            return (
-              <Link
-                key={item.label}
-                href={item.path}
-                role="menuitem"
-                className={`text-sm font-medium transition-colors ${
-                  isActive ? "text-openai-green" : "text-gray-600"
-                } hover:text-openai-green`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+            })}
         </div>
         <div className="flex-shrink-0">
-          {menuItems.map(
-            (item) =>
-              item.isButton && (
-                <Link
-                  key={item.label}
-                  href={item.path}
-                  className="rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity"
-                >
-                  {item.label}
-                </Link>
-              ),
-          )}
+          {menuItems
+            .filter((item) => item.isButton)
+            .map((item) => (
+              <NavLink
+                key={item.label}
+                item={item}
+                className="rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity"
+              />
+            ))}
         </div>
       </nav>
 
@@ -101,26 +112,21 @@ export default function Navigation() {
             >
               {menuItems.map((item) => (
                 <div key={item.label} className="px-4">
-                  <Link
-                    href={item.path}
-                    role="menuitem"
+                  <NavLink
+                    item={item}
+                    isActive={pathname === item.path}
+                    onClick={close}
                     className="block py-2 text-gray-700"
-                    onClick={() => close()}
-                  >
-                    {item.label}
-                  </Link>
+                  />
                   {item.children && (
                     <div className="pl-4">
                       {item.children.map((child) => (
-                        <Link
+                        <NavLink
                           key={child.label}
-                          href={child.path}
-                          role="menuitem"
+                          item={child}
+                          onClick={close}
                           className="block py-1 text-gray-600 text-sm"
-                          onClick={() => close()}
-                        >
-                          {child.label}
-                        </Link>
+                        />
                       ))}
                     </div>
                   )}
