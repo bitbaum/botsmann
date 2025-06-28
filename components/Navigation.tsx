@@ -56,7 +56,7 @@ export default function Navigation() {
         </div>
       </nav>
 
-      <Disclosure as="div" className="lg:hidden">
+      <Disclosure as="div" className="relative lg:hidden">
         {({ open, close }) => (
           <>
             <Disclosure.Button
@@ -97,7 +97,7 @@ export default function Navigation() {
             <Disclosure.Panel
               id="mobile-menu"
               role="menu"
-              className="space-y-2 pt-2 pb-3"
+              className="absolute left-0 right-0 z-40 mt-2 space-y-2 bg-white p-4 pb-3 shadow-lg border-b border-gray-200"
             >
               {menuItems.map((item) => (
                 <div key={item.label} className="px-4">
