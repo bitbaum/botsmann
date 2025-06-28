@@ -22,17 +22,17 @@ export default function HomePage() {
             Unlock the power of AI and robotics to streamline operations, boost efficiency, and drive innovation. Our intelligent solutions adapt to your unique business needs.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link 
-              href="/bots"
+            <Link
+              href="/create-bot"
               className="rounded-md bg-openai-green px-6 py-3 text-lg font-medium text-white hover:bg-opacity-90 transition-opacity"
             >
-              Explore Our Bots
+              Create a Bot
             </Link>
-            <Link 
-              href="/about"
+            <Link
+              href="/bots"
               className="rounded-md border-2 border-openai-green px-6 py-3 text-lg font-medium text-openai-green hover:bg-gray-50 transition-colors"
             >
-              Learn More
+              Explore Our Bots
             </Link>
           </div>
         </section>
