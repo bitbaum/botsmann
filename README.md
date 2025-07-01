@@ -189,3 +189,17 @@ For details on specific bots, see their individual README files:
 ## License
 
 [MIT License](LICENSE) 
+### Bot Builder
+
+Use the built-in bot builder to prototype new bots quickly. Open `/builder` while running the dev server to access a form for creating bots. Enter a bot name and description—the URL slug is generated automatically from the name.
+
+You can POST directly to the API:
+
+```bash
+curl -X POST http://localhost:3000/api/bots \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"My Bot","description":"Does things"}'
+```
+
+The response will include the generated `slug` field.
+
