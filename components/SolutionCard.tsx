@@ -10,7 +10,7 @@ export default function SolutionCard({ solution }: Props) {
   const href = solution.link ?? `/solutions/${solution.slug}`;
   return (
     <Link
-      href={href}
+      href={href as any}
       target={isExternal ? '_blank' : undefined}
       className="group flex flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
     >

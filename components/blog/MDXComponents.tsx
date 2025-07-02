@@ -96,8 +96,8 @@ const MDXComponents = {
     }
     
     return (
-      <Link 
-        href={href} 
+      <Link
+        href={href as any}
         className="text-openai-green hover:text-opacity-80"
         {...props}
       />
