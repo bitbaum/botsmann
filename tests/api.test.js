@@ -1,5 +1,5 @@
 const request = require('supertest');
-const baseURL = process.env.NETLIFY_URL || 'http://localhost:3000';
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
 describe('API Tests', () => {
     test('POST /api/consultations with valid data', async () => {
