@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import './styles.css';
 
 // Import all components
 import HeroSection from './components/HeroSection';
