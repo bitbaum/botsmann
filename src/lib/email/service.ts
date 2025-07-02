@@ -2,9 +2,10 @@ import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import type { Customer } from "@/src/lib/schemas/customer";
 
 export class EmailService {
-  private ses: SESClient;
-  private fromEmail: string;
-  private adminEmail: string;
+  private ses: SESClient | null = null;
+  private fromEmail = "";
+  private adminEmail = "";
+  private enabled = false;
 
   constructor() {
     const accessKeyId = process.env.NEXT_AWS_ACCESS_KEY_ID;
@@ -12,28 +13,28 @@ export class EmailService {
     this.fromEmail = process.env.FROM_EMAIL || "";
     this.adminEmail = process.env.ADMIN_EMAIL || "";
 
-    if (
-      !accessKeyId ||
-      !secretAccessKey ||
-      !this.fromEmail ||
-      !this.adminEmail
-    ) {
-      console.error(
-        "Email service environment variables are not properly configured",
-      );
-      throw new Error("Email service misconfiguration");
+    this.enabled =
+      !!accessKeyId && !!secretAccessKey && !!this.fromEmail && !!this.adminEmail;
+
+    if (!this.enabled) {
+      console.warn("Email service disabled due to missing configuration");
+      return;
     }
 
     this.ses = new SESClient({
       region: process.env.NEXT_AWS_REGION || "eu-central-1",
       credentials: {
-        accessKeyId,
-        secretAccessKey,
+        accessKeyId: accessKeyId as string,
+        secretAccessKey: secretAccessKey as string,
       },
     });
   }
 
   async sendWelcomeEmail(customer: Customer): Promise<void> {
+    if (!this.enabled || !this.ses) {
+      console.warn('Email service disabled. Skipping welcome email.');
+      return;
+    }
     const params = {
       Source: this.fromEmail,
       Destination: {
@@ -60,6 +61,10 @@ export class EmailService {
   }
 
   async sendAdminNotification(customer: Customer): Promise<void> {
+    if (!this.enabled || !this.ses) {
+      console.warn('Email service disabled. Skipping admin notification.');
+      return;
+    }
     const params = {
       Source: this.fromEmail,
       Destination: {

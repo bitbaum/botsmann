@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { fetchBlogPosts, fetchBlogPostBySlug } from '@/lib/blog';
+
+export const dynamic = 'force-dynamic';
 import Comments from '@/components/blog/Comments';
 import ClientMDXContent from '@/components/blog/ClientMDXContent';
 import { Metadata } from 'next';
@@ -8,6 +10,9 @@ import { format } from 'date-fns';
 
 // Generate static paths for all blog posts
 export async function generateStaticParams() {
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return [];
+  }
   try {
     const posts = await fetchBlogPosts();
     return posts.map((post) => ({

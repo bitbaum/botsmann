@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { fetchBlogPosts } from '@/lib/blog';
+
+export const dynamic = 'force-dynamic';
 import { Metadata } from 'next';
 import type { Route } from 'next';
 import { format } from 'date-fns';

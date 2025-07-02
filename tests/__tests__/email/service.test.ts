@@ -54,7 +54,14 @@ describe("EmailService", () => {
 
   it("handles missing environment variables", async () => {
     delete process.env.NEXT_AWS_ACCESS_KEY_ID;
-    expect(() => new EmailService()).toThrow();
+    const service = new EmailService();
+    const customer = CustomerSchema.parse({
+      name: "Missing Env",
+      email: "test@example.com",
+      message: "Hi",
+      preferences: { newsletter: false, productUpdates: false },
+    });
+    await expect(service.sendWelcomeEmail(customer)).resolves.not.toThrow();
   });
 
   it("handles invalid customer data", async () => {
