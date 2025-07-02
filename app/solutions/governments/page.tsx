@@ -2,11 +2,15 @@
 
 import React from 'react';
 import Link from 'next/link';
-import solutionsData from '@/data/solutions.json';
+import rawData from '@/data/solutions.json';
+import type { Solution } from '@/types/solution';
+
+const data = rawData as Record<string, Solution[]>;
 
 export default function GovernmentsSolutions() {
-  const genericInfo = "Our solutions for governments focus on transparency, efficiency, and public accountability through advanced AI tools.";
-  const governments = solutionsData.governments;
+  const genericInfo =
+    'Our solutions for governments focus on transparency, efficiency, and public accountability through advanced AI tools.';
+  const governments: Solution[] = data.governments;
 
   return (
     <div className="max-w-screen-xl mx-auto px-6 py-12">
@@ -15,7 +19,7 @@ export default function GovernmentsSolutions() {
         <p className="text-lg text-gray-700 mt-4">{genericInfo}</p>
       </header>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {governments.map((solution: any) => (
+        {governments.map((solution) => (
           <Link
             key={solution.slug}
             href={`/solutions/governments/${solution.slug}`}

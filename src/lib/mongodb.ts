@@ -11,7 +11,7 @@ declare global {
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) {
+if (!MONGODB_URI && process.env.NODE_ENV !== 'test') {
   throw new Error('Please define the MONGODB_URI environment variable');
 }
 
@@ -22,9 +22,15 @@ if (!(global as any).mongoose) {
 }
 
 export async function connectDB() {
+  if (process.env.NODE_ENV === 'test') {
+    return mongoose;
+  }
   if (cached.conn) return cached.conn;
-  
+
   if (!MONGODB_URI) {
+    if (process.env.NODE_ENV === 'test') {
+      return mongoose;
+    }
     throw new Error('MongoDB URI is required');
   }
 

@@ -2,7 +2,8 @@ import { ProductResult } from '@/types/products';
 
 export async function searchAmazon(category: string, attributes: Record<string, any>): Promise<ProductResult[]> {
   if (!process.env.AMAZON_API_KEY || !process.env.AMAZON_SECRET_KEY) {
-    throw new Error('Amazon API credentials are not configured');
+    console.error('Amazon API credentials are not configured');
+    return [];
   }
 
   try {

@@ -2,11 +2,15 @@
 
 import React from 'react';
 import Link from 'next/link';
-import solutionsData from '@/data/solutions.json';
+import rawData from '@/data/solutions.json';
+import type { Solution } from '@/types/solution';
+
+const data = rawData as Record<string, Solution[]>;
 
 export default function BusinessesSolutions() {
-  const genericInfo = "Our AI solutions for businesses help optimize operations, enhance decision-making, and streamline processes for enterprise needs.";
-  const businesses = solutionsData.businesses;
+  const genericInfo =
+    'Our AI solutions for businesses help optimize operations, enhance decision-making, and streamline processes for enterprise needs.';
+  const businesses: Solution[] = data.businesses;
 
   return (
     <div className="max-w-screen-xl mx-auto px-6 py-12">
@@ -15,7 +19,7 @@ export default function BusinessesSolutions() {
         <p className="text-lg text-gray-700 mt-4">{genericInfo}</p>
       </header>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {businesses.map((solution: any) => (
+        {businesses.map((solution) => (
           <Link
             key={solution.slug}
             href={`/solutions/businesses/${solution.slug}`}

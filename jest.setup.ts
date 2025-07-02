@@ -12,6 +12,23 @@ const mockFetch = jest.fn().mockImplementation(
 // @ts-ignore - fetch mock
 global.fetch = mockFetch;
 
+// Polyfill TextEncoder/TextDecoder for Node.js environment
+import { TextEncoder, TextDecoder } from 'util';
+// @ts-ignore
+global.TextEncoder = TextEncoder;
+// @ts-ignore
+global.TextDecoder = TextDecoder;
+
+// Mock AWS SES client
+jest.mock('@aws-sdk/client-ses', () => {
+  return {
+    SESClient: class {
+      send = jest.fn().mockResolvedValue({});
+    },
+    SendEmailCommand: class {}
+  };
+});
+
 // Mock environment variables
 process.env = {
   ...process.env,

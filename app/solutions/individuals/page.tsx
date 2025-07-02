@@ -2,11 +2,15 @@
 
 import React from 'react';
 import Link from 'next/link';
-import solutionsData from '@/data/solutions.json';
+import rawData from '@/data/solutions.json';
+import type { Solution } from '@/types/solution';
+
+const data = rawData as Record<string, Solution[]>;
 
 export default function IndividualsSolutions() {
-  const genericInfo = "We provide personalized AI solutions for individuals to manage daily life, learn new skills, and get tailored insights.";
-  const individuals = solutionsData.individuals;
+  const genericInfo =
+    'We provide personalized AI solutions for individuals to manage daily life, learn new skills, and get tailored insights.';
+  const individuals: Solution[] = data.individuals;
 
   return (
     <div className="max-w-screen-xl mx-auto px-6 py-12">
@@ -15,7 +19,7 @@ export default function IndividualsSolutions() {
         <p className="text-lg text-gray-700 mt-4">{genericInfo}</p>
       </header>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {individuals.map((solution: any) => (
+        {individuals.map((solution) => (
           <Link
             key={solution.slug}
             href={`/solutions/individuals/${solution.slug}`}
