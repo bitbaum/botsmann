@@ -6,6 +6,7 @@ export interface Offering {
   useCase: string;
   target: 'Personal' | 'Business' | 'Public Sector';
   status: 'Concept' | 'In Development' | 'Available Now';
+  icon: string;
 }
 
 const offerings: Offering[] = [
@@ -16,7 +17,8 @@ const offerings: Offering[] = [
     type: 'Bot',
     useCase: 'Education',
     target: 'Personal',
-    status: 'Available Now'
+    status: 'Available Now',
+    icon: '🇨🇭'
   },
   {
     slug: 'research-assistant',
@@ -25,7 +27,8 @@ const offerings: Offering[] = [
     type: 'Bot',
     useCase: 'Research',
     target: 'Business',
-    status: 'In Development'
+    status: 'In Development',
+    icon: '🔬'
   },
   {
     slug: 'legal-expert',
@@ -34,7 +37,8 @@ const offerings: Offering[] = [
     type: 'Bot',
     useCase: 'Legal',
     target: 'Business',
-    status: 'In Development'
+    status: 'In Development',
+    icon: '⚖️'
   },
   {
     slug: 'government-spending-tracker',
@@ -43,7 +47,8 @@ const offerings: Offering[] = [
     type: 'Platform',
     useCase: 'Transparency',
     target: 'Public Sector',
-    status: 'In Development'
+    status: 'In Development',
+    icon: '🏛️'
   },
   {
     slug: 'techno-capital',
@@ -52,7 +57,8 @@ const offerings: Offering[] = [
     type: 'Platform',
     useCase: 'Finance',
     target: 'Business',
-    status: 'Concept'
+    status: 'Concept',
+    icon: '💰'
   },
   {
     slug: 'recurring-fulfillment',
@@ -61,7 +67,8 @@ const offerings: Offering[] = [
     type: 'Platform',
     useCase: 'Automation',
     target: 'Business',
-    status: 'In Development'
+    status: 'In Development',
+    icon: '♻️'
   }
 ];
 
