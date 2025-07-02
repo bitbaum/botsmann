@@ -1,6 +1,12 @@
 import { notFound } from 'next/navigation';
 import offerings from '@/data/offerings';
 
+export const dynamic = 'force-static';
+
+export async function generateStaticParams() {
+  return offerings.map((o) => ({ slug: o.slug }));
+}
+
 interface Props {
   params: { slug: string };
 }
