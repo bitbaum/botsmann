@@ -12,14 +12,13 @@ Heidi helps expats and learners master High German (Hochdeutsch) and Swiss Germa
 
 1. **Data Files**:
    - `data/bots.ts` - Updated with Heidi's information, including title, description, features, and tryLink
-   - `data/solutions.json` - Updated the swiss-german-teacher entry with Heidi's information
    - `data/waitlist.json` - Created to store waitlist entries
 
 2. **UI Files**:
    - `app/bots/swiss-german-teacher/page.tsx` - Redesigned to match the TDD requirements with responsive sections, including:
      - In-page input field that redirects to the ChatGPT version of Heidi
      - Waitlist form for collecting emails and preferences for future features
-   - Solutions pages use the dynamic routing via `app/solutions/individuals/[slug]/page.tsx`
+   - The solution page uses dynamic routing via `app/solutions/[slug]/page.tsx`
 
 3. **Backend Logic**:
    - `lib/nlp.ts` - Created but kept inactive as NLP processing occurs in the ChatGPT custom GPT
@@ -69,4 +68,4 @@ To test the implementation:
 2. Verify all sections display correctly, including the input field
 3. Test the input field by entering text and confirming redirection to ChatGPT
 4. Test the waitlist form by submitting an email and preferences
-5. Check the solution page at `/solutions/individuals/swiss-german-teacher` 
+5. Check the solution page at `/solutions/swiss-german-teacher`
