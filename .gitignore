@@ -15,6 +15,7 @@ out/
 .idea/
 *.swp
 *.swo
+tsconfig.tsbuildinfo
 
 # OS
 .DS_Store
