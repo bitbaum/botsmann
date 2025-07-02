@@ -2,15 +2,18 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
-import solutionsData from '@/data/solutions.json';
+import rawData from '@/data/solutions.json';
 import SolutionLayout, { SolutionData } from '@/components/SolutionLayout';
+import type { Solution } from '@/types/solution';
+
+const data = rawData as Record<string, Solution[]>;
 
 export default function SolutionPage() {
   const { slug } = useParams();
-  const category = "governments";  // Hard-coded since this file is under governments
+  const category = 'governments'; // Hard-coded since this file is under governments
 
-  const solutionData: SolutionData | undefined = solutionsData[category]?.find(
-    (s: any) => s.slug === slug
+  const solutionData: SolutionData | undefined = data[category]?.find(
+    (s) => s.slug === slug
   );
 
   if (!solutionData) {
