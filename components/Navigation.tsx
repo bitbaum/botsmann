@@ -23,7 +23,7 @@ export default function Navigation() {
             return (
               <Link
                 key={item.label}
-                href={item.path}
+                href={item.path as any}
                 className={`text-sm font-medium transition-colors ${
                   isActive ? 'text-openai-green' : 'text-gray-600'
                 } hover:text-openai-green`}
@@ -39,7 +39,7 @@ export default function Navigation() {
               item.isButton && (
                 <Link
                   key={item.label}
-                  href={item.path}
+                  href={item.path as any}
                   className="rounded-md bg-openai-green px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity"
                 >
                   {item.label}
@@ -67,7 +67,7 @@ export default function Navigation() {
             <Disclosure.Panel className="space-y-2 pt-2 pb-3">
               {menuItems.map((item) => (
                 <div key={item.label} className="px-4">
-                  <Link href={item.path} className="block py-2 text-gray-700" onClick={() => close()}>
+                  <Link href={item.path as any} className="block py-2 text-gray-700" onClick={() => close()}>
                     {item.label}
                   </Link>
                   {item.children && (
@@ -75,7 +75,7 @@ export default function Navigation() {
                       {item.children.map((child) => (
                         <Link
                           key={child.label}
-                          href={child.path}
+                          href={child.path as any}
                           className="block py-1 text-gray-600 text-sm"
                           onClick={() => close()}
                         >

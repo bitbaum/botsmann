@@ -38,7 +38,7 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
                   {item.children?.map((child) => (
                     <Link
                       key={child.label}
-                      href={child.path}
+                      href={child.path as any}
                       className="flex rounded-lg p-3 transition-colors hover:bg-gray-50"
                     >
                       <div className="ml-2 text-left">
