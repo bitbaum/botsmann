@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm install react-icons framer-motion --save && next build",
+    "build": "next build",
+    "build:ci": "npm ci && npm run build",
     "start": "next start",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "next lint"
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.744.0",
@@ -22,7 +24,7 @@
     "autoprefixer": "^10.4.17",
     "date-fns": "^4.1.0",
     "form-data": "^4.0.1",
-    "framer-motion": "^12.18.1",
+    "framer-motion": "^12.23.22",
     "gray-matter": "^4.0.3",
     "lru-cache": "^11.0.2",
     "mailgun.js": "^11.1.0",

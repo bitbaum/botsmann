@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Dialog, Transition } from '@headlessui/react';
 
 interface MenuItem {
   id: string;
@@ -224,44 +225,122 @@ const BotNavigation: React.FC<BotNavigationProps> = ({
           )}
         </div>
         
-        {/* Mobile menu dropdown */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 py-2 bg-white border-t border-gray-100 space-y-1 max-h-[80vh] overflow-y-auto">
-            {menuItems.map(item => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.section)}
-                className={`w-full text-left px-4 py-2 flex items-center text-sm font-medium transition-colors ${
-                  activeSection === item.section
-                    ? colors.active
-                    : `text-gray-600 ${colors.hover}`
-                }`}
-              >
-                {item.icon && <span className="mr-3 text-lg">{item.icon}</span>}
-                <span>{item.label}</span>
-              </button>
-            ))}
-
-            <hr className="my-2 border-gray-200" />
-            
-            {chatLink && (
-              <Link 
-                href={chatLink as any}
-                className={`w-full block text-center px-4 py-2 ${colors.accent} text-white text-sm font-medium rounded-md transition-colors mt-2`}
-              >
-                Open Chat
-              </Link>
-            )}
-            
-            <Link 
-              href="/bots"
-              className="w-full block text-center px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-200 transition-colors mt-2"
-            >
-              Back to All Bots
-            </Link>
-          </div>
-        )}
       </div>
+
+      {/* Mobile menu slide-in overlay */}
+      <Transition.Root show={isMobileMenuOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-50 md:hidden" onClose={setIsMobileMenuOpen}>
+          {/* Backdrop */}
+          <Transition.Child
+            as={Fragment}
+            enter="ease-in-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in-out duration-300"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <Transition.Child
+                  as={Fragment}
+                  enter="transform transition ease-in-out duration-300"
+                  enterFrom="translate-x-full"
+                  enterTo="translate-x-0"
+                  leave="transform transition ease-in-out duration-300"
+                  leaveFrom="translate-x-0"
+                  leaveTo="translate-x-full"
+                >
+                  <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                    <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                      {/* Header */}
+                      <div className="flex items-center justify-between px-4 py-6 border-b border-gray-200">
+                        <Dialog.Title className="text-lg font-semibold text-gray-900">
+                          Navigation
+                        </Dialog.Title>
+                        <button
+                          type="button"
+                          className="rounded-md p-2 text-gray-400 hover:bg-gray-100"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <span className="sr-only">Close menu</span>
+                          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+
+                      {/* Menu Items */}
+                      <div className="flex-1 px-4 py-6">
+                        <nav className="space-y-1">
+                          {/* Home link */}
+                          <Link
+                            href="/"
+                            className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            Home
+                          </Link>
+
+                          {/* All Bots link */}
+                          <Link
+                            href="/bots"
+                            className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                            All Bots
+                          </Link>
+
+                          <hr className="my-4 border-gray-200" />
+
+                          {/* Section links */}
+                          {menuItems.map(item => (
+                            <button
+                              key={item.id}
+                              onClick={() => scrollToSection(item.section)}
+                              className={`w-full text-left flex items-center px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                                activeSection === item.section
+                                  ? colors.active
+                                  : `text-gray-700 hover:bg-gray-100`
+                              }`}
+                            >
+                              {item.icon && <span className="mr-3 text-lg">{item.icon}</span>}
+                              <span>{item.label}</span>
+                            </button>
+                          ))}
+
+                          {chatLink && (
+                            <>
+                              <hr className="my-4 border-gray-200" />
+                              <Link
+                                href={chatLink as any}
+                                className={`w-full flex items-center justify-center px-4 py-3 ${colors.accent} text-white text-base font-medium rounded-md transition-colors`}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                Open Chat
+                              </Link>
+                            </>
+                          )}
+                        </nav>
+                      </div>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </div>
+        </Dialog>
+      </Transition.Root>
     </nav>
   );
 };

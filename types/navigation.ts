@@ -7,6 +7,10 @@ export interface MenuItem {
    * Optional description for mega menu display
    */
   description?: string;
+  /**
+   * Optional icon (emoji or SVG) for menu item
+   */
+  icon?: string;
   children?: MenuItem[];
   isButton?: boolean;
 }

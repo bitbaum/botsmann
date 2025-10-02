@@ -9,26 +9,26 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ title, overview, getTryLink }) => {
   return (
-    <section className="mb-16 pt-12">
-      <div className="grid md:grid-cols-2 gap-8 items-center">
+    <section className="mb-12 sm:mb-16 pt-8 sm:pt-12">
+      <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
         <div>
-          <div className="mb-4 inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+          <div className="mb-3 sm:mb-4 inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm font-medium">
             <span className="mr-1">⚖️</span> Private AI Node
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
             {title}: Your AI Legal Assistant
           </h1>
-          <p className="text-xl text-gray-700 mb-6">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-4 sm:mb-6">
             {overview}
           </p>
-          <div className="flex flex-wrap gap-4">
-            <a href={getTryLink()} className="btn-primary flex items-center" target="_blank" rel="noopener noreferrer">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <a href={getTryLink()} className="btn-primary flex items-center justify-center" target="_blank" rel="noopener noreferrer">
               <span>Chat with Lex</span>
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 12h15" />
               </svg>
             </a>
-            <a href="#features" className="btn-secondary">Explore Features</a>
+            <a href="#demo" className="btn-secondary flex items-center justify-center">Try Demo</a>
           </div>
         </div>
         <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 shadow-sm">
