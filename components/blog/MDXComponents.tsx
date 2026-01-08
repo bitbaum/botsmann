@@ -54,6 +54,96 @@ const useAlternativeImageFormat = async (src: string): Promise<string | null> =>
   return null;
 };
 
+// MDX Image component (extracted for proper hook usage)
+const MDXImage = (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { slug?: string }) => {
+  const { src, alt, slug } = props;
+  const [imageSrc, setImageSrc] = useState<string>('');
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    if (!src) {
+      setIsError(true);
+      return;
+    }
+
+    // Get the slug from props or extract from URL
+    let contextSlug = typeof slug === 'string' ? slug : '';
+
+    // If slug is not provided directly, try to extract from URL pathname
+    if (!contextSlug && typeof window !== 'undefined') {
+      const urlPath = window.location.pathname;
+      const pathParts = urlPath.split('/');
+      if (pathParts.length >= 3 && pathParts[1] === 'blog') {
+        contextSlug = pathParts[2];
+      }
+    }
+
+    if (!contextSlug) {
+      contextSlug = 'welcome-post';
+    }
+
+    try {
+      let fullSrc = '';
+
+      if (src.startsWith('http')) {
+        fullSrc = src;
+      } else if (src.startsWith('./') || src.startsWith('../')) {
+        if (!contextSlug) {
+          setIsError(true);
+          return;
+        }
+        const imagePath = src.replace(/^\.\//, '');
+        fullSrc = `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${contextSlug}/${imagePath}`;
+      } else {
+        fullSrc = src;
+      }
+
+      setImageSrc(fullSrc);
+    } catch (error) {
+      console.error('Error processing image:', error);
+      setIsError(true);
+    }
+  }, [src, slug]);
+
+  if (!src) {
+    return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
+  }
+
+  if (isError) {
+    return <div className="my-8 p-4 bg-red-50 text-red-500">Failed to load image</div>;
+  }
+
+  if (!imageSrc) {
+    return <div className="my-8 p-4 bg-gray-50 text-gray-500">Loading image...</div>;
+  }
+
+  const handleImageError = () => {
+    if (imageSrc.endsWith('.jpg')) {
+      const jfifSrc = imageSrc.replace(/\.jpg$/, '.jfif');
+      setImageSrc(jfifSrc);
+    } else if (imageSrc.endsWith('.jfif')) {
+      const jpgSrc = imageSrc.replace(/\.jfif$/, '.jpg');
+      setImageSrc(jpgSrc);
+    } else {
+      setIsError(true);
+    }
+  };
+
+  return (
+    <div className="my-8">
+      <Image
+        src={imageSrc}
+        alt={alt || ''}
+        width={800}
+        height={450}
+        className="rounded-lg"
+        onError={handleImageError}
+      />
+      {alt && <p className="mt-2 text-sm text-gray-500 italic">{alt}</p>}
+    </div>
+  );
+};
+
 // Define custom MDX components with Tailwind styling
 const MDXComponents = {
   // Headings
@@ -105,113 +195,7 @@ const MDXComponents = {
   },
   
   // Media elements
-  img: (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { slug?: string }) => {
-    const { src, alt, slug } = props;
-    const [imageSrc, setImageSrc] = useState<string>('');
-    const [isError, setIsError] = useState(false);
-    
-    if (!src) {
-      console.error('Image source missing');
-      return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
-    }
-    
-    // Extract slug from URL if not provided directly
-    useEffect(() => {
-      // Log the image source and slug for debugging
-      console.log('MDX img processing:', { src, slug });
-      
-      // Get the slug from props or extract from URL
-      let contextSlug = typeof slug === 'string' ? slug : '';
-      
-      // If slug is not provided directly, try to extract from URL pathname
-      if (!contextSlug && typeof window !== 'undefined') {
-        const urlPath = window.location.pathname;
-        const pathParts = urlPath.split('/');
-        // Assuming URL structure is /blog/[slug]
-        if (pathParts.length >= 3 && pathParts[1] === 'blog') {
-          contextSlug = pathParts[2];
-          console.log('Extracted slug from URL:', contextSlug);
-        }
-      }
-      
-      // Use welcome-post as a last resort fallback, but we should never need this
-      // if the ClientMDXContent is passing the slug correctly
-      if (!contextSlug) {
-        contextSlug = 'welcome-post';
-        console.log('Using fallback slug as last resort:', contextSlug);
-      }
-      
-      try {
-        let fullSrc = '';
-        
-        if (src.startsWith('http')) {
-          // If it's already an absolute URL, use it as is
-          fullSrc = src;
-        } else if (src.startsWith('./') || src.startsWith('../')) {
-          // If it's a relative path and we have a slug, convert to GitHub raw URL
-          if (!contextSlug) {
-            console.error('Missing slug for relative image path:', src);
-            setIsError(true);
-            return;
-          }
-          
-          const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
-          fullSrc = `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${contextSlug}/${imagePath}`;
-          console.log('Using dynamic slug for image path:', { contextSlug, imagePath, fullSrc });
-        } else {
-          // For any other format, just use the src as is
-          fullSrc = src;
-        }
-        
-        // Log the processed image source for debugging
-        console.log('Processed image source:', fullSrc);
-        setImageSrc(fullSrc);
-      } catch (error) {
-        console.error('Error processing image:', error);
-        setIsError(true);
-      }
-    }, [src, slug]);
-    
-    if (isError) {
-      return <div className="my-8 p-4 bg-red-50 text-red-500">Failed to load image</div>;
-    }
-    
-    if (!imageSrc) {
-      return <div className="my-8 p-4 bg-gray-50 text-gray-500">Loading image...</div>;
-    }
-    
-    // Check for alternative formats when the image fails to load
-    const handleImageError = () => {
-      console.error('Image load error:', imageSrc);
-      
-      // Try alternative format
-      if (imageSrc.endsWith('.jpg')) {
-        const jfifSrc = imageSrc.replace(/\.jpg$/, '.jfif');
-        console.log('Trying alternative format:', jfifSrc);
-        setImageSrc(jfifSrc);
-      } else if (imageSrc.endsWith('.jfif')) {
-        const jpgSrc = imageSrc.replace(/\.jfif$/, '.jpg');
-        console.log('Trying alternative format:', jpgSrc);
-        setImageSrc(jpgSrc);
-      } else {
-        setIsError(true);
-      }
-    };
-    
-    return (
-      <div className="my-8">
-        <Image 
-          src={imageSrc}
-          alt={alt || ''}
-          width={800}
-          height={450}
-          className="rounded-lg"
-          onError={handleImageError}
-        />
-        {alt && <p className="mt-2 text-sm text-gray-500 italic">{alt}</p>}
-      </div>
-    );
-  },
+  img: MDXImage,
   
   // Custom components
   YouTube: ({ id }: { id: string }) => (
