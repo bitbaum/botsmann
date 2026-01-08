@@ -1,12 +1,10 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
-import Link from 'next/link';
 import bots from '../../../data/bots';
-import dynamic from 'next/dynamic';
+import BotPageHeader from '../../../components/BotPageHeader';
 
 // Components
-import BotNavigation from '../BotNavigation';
 import HeroSection from './components/hero/HeroSection';
 import LanguageLearningSection from './components/language-learning/LanguageLearningSection';
 import CommunicationSection from './components/communication/CommunicationSection';
@@ -65,17 +63,14 @@ const SwissGermanTeacher = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Bot-specific Navigation */}
-      <BotNavigation
+      <BotPageHeader
         botTitle="Heidi"
         botEmoji="🇨🇭"
-        botDescription="Swiss German Companion"
-        accentColor="green"
+        botSlug="swiss-german-teacher"
         menuItems={menuItems}
-        chatLink={getTryLink()}
+        accentColor="green"
       />
-      
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <HeroSection getTryLink={getTryLink} />
         
         <section id="language-learning" className="scroll-mt-24 my-16">

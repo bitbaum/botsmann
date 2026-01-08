@@ -6,7 +6,7 @@ interface EmailGeneratorProps {
   getTryLink: () => string;
 }
 
-const EmailGenerator = ({ getTryLink }: EmailGeneratorProps) => {
+const EmailGenerator = ({ getTryLink: _getTryLink }: EmailGeneratorProps) => {
   const [prompt, setPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

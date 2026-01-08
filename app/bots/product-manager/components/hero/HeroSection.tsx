@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 const HeroSection: React.FC = () => {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -23,13 +22,21 @@ const HeroSection: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left column - Text content */}
           <div className="md:pr-8">
+            <div className="mb-3 inline-flex items-center px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs sm:text-sm font-medium">
+              <span className="mr-1">🚧</span> Proof of Concept - AI Features in Development
+            </div>
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
               Meet <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">Trident</span>:
               <br />Your AI Product Manager for Cursor
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-600 mb-4">
               Trident streamlines your Cursor development with expert project management, technical guidance, and optimized workflows. Build better software, faster.
             </p>
+            <div className="mb-6 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-blue-800">
+                <strong>Current Status:</strong> Demo UI showcasing our vision. Full AI capabilities with multi-AI orchestration (GPT-4 + Claude + Grok), fusion engine, and 17K PM embeddings are documented in our <a href="https://github.com/g-but/botsmann/blob/main/app/bots/product-manager/README.md" className="underline hover:text-blue-900" target="_blank" rel="noopener noreferrer">technical roadmap</a>.
+              </p>
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <Link href="#try-it" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all duration-150 ease-in-out transform hover:-translate-y-0.5">

@@ -8,7 +8,6 @@
  */
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 
 /**
  * Combined section for development timeline, vision, and recruitment

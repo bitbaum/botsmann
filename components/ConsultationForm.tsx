@@ -17,18 +17,19 @@ export default function ConsultationForm() {
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (_data: FormData) => {
     try {
       setIsSubmitting(true);
       setSubmitError('');
-      
+
       // Simulate a successful submission for now
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       reset();
       setSubmitSuccess(true);
-    } catch (error: any) {
-      setSubmitError(error.message || 'Failed to submit form. Please try again.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to submit form. Please try again.';
+      setSubmitError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }

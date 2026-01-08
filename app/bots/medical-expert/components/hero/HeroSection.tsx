@@ -21,7 +21,6 @@
  * ```
  */
 import React from 'react';
-import Link from 'next/link';
 
 interface HeroSectionProps {
   title: string;
@@ -32,17 +31,25 @@ interface HeroSectionProps {
 /**
  * Hero section component with improved call-to-action and mobile responsiveness
  */
-const HeroSection: React.FC<HeroSectionProps> = ({ title, overview, getTryLink }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ title: _title, overview: _overview, getTryLink }) => {
   return (
     <section className="mb-12 md:mb-16 pt-8 md:pt-12 px-4 md:px-0">
       <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
         <div>
+          <div className="mb-3 md:mb-4 inline-flex items-center px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs sm:text-sm font-medium">
+            <span className="mr-1">🚧</span> Proof of Concept - AI Features in Development
+          </div>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
             Dr. Imhotep - AI Health Assistant
           </h1>
-          <p className="text-lg md:text-xl text-gray-700 mb-6">
+          <p className="text-lg md:text-xl text-gray-700 mb-4">
             Your personal AI health companion, offering evidence-based guidance for a healthier life.
           </p>
+          <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+            <p className="text-sm text-green-800">
+              <strong>Current Status:</strong> Demo UI showcasing our vision. Full AI capabilities with 14M medical embeddings, emergency detection, and HIPAA compliance are documented in our <a href="https://github.com/g-but/botsmann/blob/main/app/bots/medical-expert/README.md" className="underline hover:text-green-900" target="_blank" rel="noopener noreferrer">technical roadmap</a>.
+            </p>
+          </div>
           <div className="flex flex-wrap gap-3 md:gap-4">
             <a 
               href={getTryLink()} 

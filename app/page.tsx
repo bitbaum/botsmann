@@ -16,7 +16,7 @@ export default function HomePage() {
       description: 'Swiss legal assistant with AI + human lawyer collaboration, secure data room, and jurisdiction-specific expertise.',
       href: '/bots/legal-expert',
       status: 'live',
-      gradient: 'from-blue-500 via-blue-600 to-cyan-500'
+      gradient: 'from-openai-green via-green-600 to-emerald-500'
     },
     {
       id: 'swiss-german-teacher',
@@ -26,7 +26,7 @@ export default function HomePage() {
       description: 'Master Swiss German with AI-powered contextual learning and cultural insights for all 26 cantons.',
       href: '/bots/swiss-german-teacher',
       status: 'live',
-      gradient: 'from-red-500 via-pink-500 to-purple-500'
+      gradient: 'from-green-500 via-emerald-500 to-green-600'
     },
     {
       id: 'research-assistant',
@@ -36,55 +36,81 @@ export default function HomePage() {
       description: 'Enhance research workflow with AI automation that organizes materials, provides updates, and sparks innovation.',
       href: '/bots/research-assistant',
       status: 'soon',
-      gradient: 'from-purple-500 via-indigo-500 to-blue-500'
+      gradient: 'from-emerald-500 via-green-500 to-openai-green'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-green-50">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full opacity-10 blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-cyan-400 to-blue-600 rounded-full opacity-10 blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full opacity-10 blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-emerald-400 to-green-600 rounded-full opacity-10 blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <main className="relative max-w-screen-xl mx-auto px-6 py-20">
         {/* Hero Section */}
         <section className="text-center mb-32">
           <div className="relative inline-block mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 rounded-2xl blur-xl opacity-20 animate-pulse"></div>
-            <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 text-white px-8 py-4 rounded-2xl shadow-2xl">
+            <div className="absolute inset-0 bg-gradient-to-r from-openai-green via-green-600 to-emerald-600 rounded-2xl blur-xl opacity-20 animate-pulse"></div>
+            <div className="relative bg-gradient-to-r from-openai-green via-green-600 to-emerald-600 text-white px-8 py-4 rounded-2xl shadow-2xl">
               <span className="text-2xl">🚀</span>
               <span className="ml-3 font-semibold">Next-Generation AI Bots</span>
             </div>
           </div>
 
           <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent">
-              Intelligent
+            <span className="bg-gradient-to-r from-gray-900 via-green-900 to-openai-green bg-clip-text text-transparent">
+              Collaborative
             </span>
             <br />
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
-              AI Bots
+            <span className="bg-gradient-to-r from-openai-green via-green-600 to-emerald-600 bg-clip-text text-transparent">
+              AI Workspaces
             </span>
             <br />
             <span className="text-4xl md:text-5xl font-normal text-gray-600 mt-4 block">
-              for Every Domain
+              Where AI Does 80%, Experts Do 20%
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
-            Experience the future of specialized AI assistance. From legal expertise to language mastery,
-            our advanced bots adapt to your unique requirements with cutting-edge intelligence and seamless integration.
+          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-4xl mx-auto leading-relaxed">
+            Private workspaces where you, AI, and human experts collaborate to solve complex problems in legal, medical, financial, research, and creative domains. You own the data. AI handles routine work. Experts manage liability.
           </p>
+
+          <div className="mb-8 rounded-2xl bg-gradient-to-r from-blue-50 to-green-50 p-6 max-w-3xl mx-auto border border-blue-100">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">🚧</span>
+              <div>
+                <p className="font-semibold text-gray-900 mb-2">Development Status</p>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  Currently in <strong>proof-of-concept stage</strong> with interactive demos and UI prototypes.
+                  Full AI integration with vector search, embeddings, and real-time inference planned for <strong>Q2-Q3 2026</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-12 flex flex-wrap justify-center gap-3 text-sm text-gray-500">
+            <div className="flex items-center gap-1 rounded-full bg-white/60 px-4 py-2 backdrop-blur-sm">
+              <span className="text-green-600">✓</span> Next.js 14 + TypeScript
+            </div>
+            <div className="flex items-center gap-1 rounded-full bg-white/60 px-4 py-2 backdrop-blur-sm">
+              <span className="text-blue-500">○</span> AI Integration (Planned)
+            </div>
+            <div className="flex items-center gap-1 rounded-full bg-white/60 px-4 py-2 backdrop-blur-sm">
+              <span className="text-blue-500">○</span> Vector Search (Planned)
+            </div>
+            <div className="flex items-center gap-1 rounded-full bg-white/60 px-4 py-2 backdrop-blur-sm">
+              <span className="text-green-600">✓</span> Domain Workflows
+            </div>
+          </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-6 mb-16">
             <Link
               href="/bots"
-              className="group relative bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
+              className="group relative bg-openai-green text-white px-8 py-4 rounded-2xl text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 hover:bg-green-700"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <span className="relative flex items-center justify-center gap-2">
+              <span className="flex items-center justify-center gap-2">
               Explore All Bots
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -93,7 +119,7 @@ export default function HomePage() {
             </Link>
             <Link
               href="#featured-bots"
-              className="group relative border-2 border-gray-300 hover:border-blue-400 px-8 py-4 rounded-2xl text-lg font-semibold text-gray-700 hover:text-blue-600 transition-all duration-300"
+              className="group relative border-2 border-gray-300 hover:border-openai-green px-8 py-4 rounded-2xl text-lg font-semibold text-gray-700 hover:text-openai-green transition-all duration-300"
             >
               <span className="flex items-center justify-center gap-2">
                 View Featured Bots
@@ -107,19 +133,19 @@ export default function HomePage() {
           {/* Stats Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100">
-              <div className="text-3xl font-bold text-blue-600 mb-2">6+</div>
-              <div className="text-gray-600 font-medium">AI Bots</div>
-              <div className="text-sm text-gray-500">Specialized assistants</div>
+              <div className="text-3xl font-bold text-openai-green mb-2">7</div>
+              <div className="text-gray-600 font-medium">Expert Workspaces</div>
+              <div className="text-sm text-gray-500">Legal, Medical, Financial +4</div>
             </div>
             <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100">
-              <div className="text-3xl font-bold text-purple-600 mb-2">24/7</div>
-              <div className="text-gray-600 font-medium">Availability</div>
-              <div className="text-sm text-gray-500">Always ready to help</div>
+              <div className="text-3xl font-bold text-openai-green mb-2">80%</div>
+              <div className="text-gray-600 font-medium">Cost Reduction</div>
+              <div className="text-sm text-gray-500">AI does routine work</div>
             </div>
             <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100">
-              <div className="text-3xl font-bold text-cyan-600 mb-2">∞</div>
-              <div className="text-gray-600 font-medium">Possibilities</div>
-              <div className="text-sm text-gray-500">Limitless potential</div>
+              <div className="text-3xl font-bold text-openai-green mb-2">100%</div>
+              <div className="text-gray-600 font-medium">Data Ownership</div>
+              <div className="text-sm text-gray-500">You own everything</div>
             </div>
           </div>
         </section>
@@ -131,7 +157,7 @@ export default function HomePage() {
               <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
                 Featured
               </span>
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-openai-green to-green-600 bg-clip-text text-transparent">
                 {" "}AI Bots
               </span>
             </h2>
@@ -144,7 +170,7 @@ export default function HomePage() {
             {featuredBots.map((bot) => (
               <Link
                 key={bot.id}
-                href={bot.href}
+                href={{ pathname: bot.href }}
                 className="group relative bg-white/70 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100/50"
               >
                 {bot.status === 'soon' && (
@@ -182,10 +208,10 @@ export default function HomePage() {
                 {/* Enhanced Content */}
                 <div className="p-8">
                   <div className="mb-4">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-openai-green transition-colors">
                       {bot.title}
                     </h3>
-                    <p className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full inline-block">
+                    <p className="text-sm font-medium text-openai-green bg-green-50 px-3 py-1 rounded-full inline-block">
                       {bot.subtitle}
                     </p>
                   </div>
@@ -195,7 +221,7 @@ export default function HomePage() {
                   </p>
 
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center text-blue-600 font-semibold group-hover:gap-3 transition-all">
+                    <div className="flex items-center text-openai-green font-semibold group-hover:gap-3 transition-all">
                       <span>Explore Bot</span>
                     <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -203,12 +229,12 @@ export default function HomePage() {
                     </div>
 
                     {/* Hover effect indicator */}
-                    <div className="w-12 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full transform group-hover:w-16 transition-all duration-300"></div>
+                    <div className="w-12 h-1 bg-gradient-to-r from-openai-green to-green-400 rounded-full transform group-hover:w-16 transition-all duration-300"></div>
                   </div>
                 </div>
 
                 {/* Subtle hover glow */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-openai-green/5 to-green-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
               </Link>
             ))}
           </div>
@@ -216,13 +242,70 @@ export default function HomePage() {
           <div className="text-center">
             <Link
               href="/bots"
-              className="group inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm border border-gray-200 hover:border-blue-300 px-8 py-4 rounded-2xl text-lg font-semibold text-gray-700 hover:text-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="group inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm border border-gray-200 hover:border-openai-green px-8 py-4 rounded-2xl text-lg font-semibold text-gray-700 hover:text-openai-green transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               <span>View All Bots</span>
               <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
+          </div>
+        </section>
+
+        {/* Workspace Value Proposition Section */}
+        <section className="mb-32 relative">
+          <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-12 md:p-16 text-white shadow-2xl">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                The Workspace is the Product
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Individual owns data. AI does 80% of work. Human experts do 20% (liability management). Simple, secure collaboration for everyone.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+                <h3 className="text-2xl font-bold mb-4">Why Traditional Expert Services Fail</h3>
+                <ul className="space-y-3 text-gray-300">
+                  <li className="flex items-start">
+                    <span className="text-red-400 mr-2">✗</span>
+                    <span>Experts waste 60-80% of time on routine work AI can do</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-400 mr-2">✗</span>
+                    <span>Individuals can't afford ongoing expert help ($200-500/hr)</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-400 mr-2">✗</span>
+                    <span>Experts can't scale to serve everyone</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+                <h3 className="text-2xl font-bold mb-4">The Botsmann Workspace Solution</h3>
+                <ul className="space-y-3 text-gray-300">
+                  <li className="flex items-start">
+                    <span className="text-green-400 mr-2">✓</span>
+                    <span>AI handles routine work (analysis, research, documentation)</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-400 mr-2">✓</span>
+                    <span>Experts focus on judgment (liability, complex decisions)</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-400 mr-2">✓</span>
+                    <span>90% cost reduction for individuals, 3x more clients for experts</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-center">
+              <div className="text-3xl font-bold mb-2">79% Average Cost Savings</div>
+              <div className="text-lg text-green-100">AI speed + Human judgment = Better outcomes for everyone</div>
+            </div>
           </div>
         </section>
 
@@ -233,12 +316,12 @@ export default function HomePage() {
               <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
                 How It
               </span>
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-openai-green to-green-600 bg-clip-text text-transparent">
                 {" "}Works
               </span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Experience seamless AI integration in just three simple steps. Our intelligent bots are designed for immediate productivity and effortless collaboration.
+              Three phases of collaboration: Start with AI, add human experts when needed, continue working together in your private workspace.
             </p>
           </div>
 
@@ -246,61 +329,61 @@ export default function HomePage() {
             {/* Connection Line */}
             <div className="hidden md:block absolute top-24 left-1/2 transform -translate-x-1/2 w-full max-w-4xl">
               <div className="flex justify-between items-center">
-                <div className="w-8 h-0.5 bg-gradient-to-r from-blue-400 to-transparent"></div>
-                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent"></div>
-                <div className="w-8 h-0.5 bg-gradient-to-l from-cyan-400 to-transparent"></div>
+                <div className="w-8 h-0.5 bg-gradient-to-r from-openai-green to-transparent"></div>
+                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-green-400 to-transparent"></div>
+                <div className="w-8 h-0.5 bg-gradient-to-l from-emerald-400 to-transparent"></div>
               </div>
             </div>
 
             <div className="grid md:grid-cols-3 gap-12">
-              {/* Step 1 */}
+              {/* Phase 1 */}
               <div className="relative text-center group">
                 <div className="relative mb-8 mx-auto w-32 h-32">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl transform rotate-6 group-hover:rotate-12 transition-transform duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-openai-green to-green-600 rounded-3xl transform rotate-6 group-hover:rotate-12 transition-transform duration-300"></div>
                   <div className="absolute inset-2 bg-white rounded-2xl shadow-xl"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+                    <div className="w-16 h-16 bg-gradient-to-br from-openai-green to-green-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold shadow-lg">
                       1
                     </div>
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Choose Your Bot</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Individual + AI</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Browse our curated collection of specialized AI assistants. Each bot is expertly designed for specific domains and use cases.
+                  Create your private workspace. Upload documents and data. AI analyzes with domain expertise and provides expert-level guidance. Most cases stay here.
                 </p>
               </div>
 
-              {/* Step 2 */}
+              {/* Phase 2 */}
               <div className="relative text-center group">
                 <div className="relative mb-8 mx-auto w-32 h-32">
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-600 rounded-3xl transform -rotate-6 group-hover:rotate-6 transition-transform duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl transform -rotate-6 group-hover:rotate-6 transition-transform duration-300"></div>
                   <div className="absolute inset-2 bg-white rounded-2xl shadow-xl"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold shadow-lg">
                       2
                     </div>
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Start Interacting</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Add Expert (When Needed)</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Engage with your chosen bot through natural conversation. Provide context, ask questions, and watch as it adapts to your specific needs.
+                  AI identifies when human expert needed. Invite lawyer, doctor, advisor to workspace. Expert sees all context. Focuses on complex judgment.
                 </p>
             </div>
 
-              {/* Step 3 */}
+              {/* Phase 3 */}
               <div className="relative text-center group">
                 <div className="relative mb-8 mx-auto w-32 h-32">
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-3xl transform rotate-6 group-hover:-rotate-12 transition-transform duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-green-600 rounded-3xl transform rotate-6 group-hover:-rotate-12 transition-transform duration-300"></div>
                   <div className="absolute inset-2 bg-white rounded-2xl shadow-xl"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+                    <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold shadow-lg">
                       3
                     </div>
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Get Results</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Ongoing Collaboration</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Receive intelligent insights, actionable recommendations, and expert solutions. Your AI assistant works tirelessly to deliver excellence.
+                  Upload updates. AI re-analyzes. Expert reviews changes. All communication in one secure workspace. You own everything.
                 </p>
               </div>
             </div>
@@ -309,9 +392,9 @@ export default function HomePage() {
         
         {/* Enhanced Collaboration Section */}
         <section className="relative mb-32">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-cyan-50 rounded-4xl"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1)_0%,transparent_50%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(147,51,234,0.1)_0%,transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-emerald-50 to-green-50 rounded-4xl"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(16,163,127,0.1)_0%,transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(5,150,105,0.1)_0%,transparent_50%)]"></div>
 
           <div className="relative text-center py-20 px-8">
             <div className="max-w-4xl mx-auto">
@@ -320,7 +403,7 @@ export default function HomePage() {
                   Join Our
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-openai-green to-green-600 bg-clip-text text-transparent">
                   Collaborative Community
                 </span>
           </h2>
@@ -333,7 +416,7 @@ export default function HomePage() {
               <div className="grid md:grid-cols-2 gap-12 mb-16">
                 <div className="group bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-gray-100/50 hover:shadow-2xl transition-all duration-300">
                   <div className="text-5xl mb-6">👩‍💻</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-openai-green transition-colors">
                 For Engineers
               </h3>
                   <p className="text-gray-600 leading-relaxed">
@@ -344,7 +427,7 @@ export default function HomePage() {
 
                 <div className="group bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-gray-100/50 hover:shadow-2xl transition-all duration-300">
                   <div className="text-5xl mb-6">🧪</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-purple-600 transition-colors">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-openai-green transition-colors">
                 For Researchers
               </h3>
                   <p className="text-gray-600 leading-relaxed">

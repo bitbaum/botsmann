@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { AgencyData } from './AgencyProfile';
 
 export interface TaxPayment {
@@ -72,7 +71,7 @@ interface CitizenProfileProps {
   agencies: AgencyData[];
 }
 
-const CitizenProfile: React.FC<CitizenProfileProps> = ({ citizen, agencies }) => {
+const CitizenProfile: React.FC<CitizenProfileProps> = ({ citizen, agencies: _agencies }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'tax' | 'benefits' | 'advisory'>('overview');
   const [advisoryDistribution, setAdvisoryDistribution] = useState<AdvisoryDistribution[]>([]);
   const [sliderTotal, setSliderTotal] = useState(100);

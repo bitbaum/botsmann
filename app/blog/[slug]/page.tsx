@@ -64,7 +64,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
-  console.log('Rendering blog post for slug:', params.slug);
   
   try {
     if (!params.slug) {

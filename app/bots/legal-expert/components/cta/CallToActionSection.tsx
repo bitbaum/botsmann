@@ -6,7 +6,7 @@ interface Props {
   getTryLink: () => string;
 }
 
-const CallToActionSection: React.FC<Props> = ({ getTryLink }) => {
+const CallToActionSection: React.FC<Props> = ({ getTryLink: _getTryLink }) => {
   const [formData, setFormData] = useState({
     email: '',
     name: '',

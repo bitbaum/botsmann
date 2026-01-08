@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { CaseIntake, Jurisdiction } from '../workspace/types';
+import { CaseIntake } from '../workspace/types';
 import { LEGAL_AREAS, JURISDICTIONS } from '../workspace/constants';
 
 interface CaseIntakeFormProps {
@@ -10,7 +10,6 @@ interface CaseIntakeFormProps {
 }
 
 const CaseIntakeForm: React.FC<CaseIntakeFormProps> = ({ onSubmit, onCancel }) => {
-  const [showAdvanced, setShowAdvanced] = useState(false);
   const [intake, setIntake] = useState<CaseIntake>({
     caseType: 'personal',
     legalArea: 'immigration',
@@ -23,7 +22,7 @@ const CaseIntakeForm: React.FC<CaseIntakeFormProps> = ({ onSubmit, onCancel }) =
     budget: 'consultation'
   });
 
-  const canSubmit = intake.description.trim().length >= 50;
+  const canSubmit = intake.description.trim().length > 0;
 
   const handleSubmit = () => {
     if (canSubmit) {
@@ -95,9 +94,6 @@ const CaseIntakeForm: React.FC<CaseIntakeFormProps> = ({ onSubmit, onCancel }) =
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-3">
             Describe your situation
-            <span className="ml-2 text-xs font-normal text-gray-500">
-              (Minimum 50 characters)
-            </span>
           </label>
           <textarea
             value={intake.description}
@@ -106,204 +102,178 @@ const CaseIntakeForm: React.FC<CaseIntakeFormProps> = ({ onSubmit, onCancel }) =
             rows={6}
             className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors resize-none"
           />
-          <div className="flex items-center justify-between mt-2">
-            <span className="text-xs text-gray-500">
-              {intake.description.length} / 50 minimum characters
-            </span>
-            {canSubmit && (
+          {canSubmit && (
+            <div className="mt-2">
               <span className="text-xs text-green-600 flex items-center gap-1">
-                <span>✓</span> Ready to proceed
+                <span>✓</span> Ready to get AI analysis
               </span>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
-        {/* Progressive Disclosure Toggle */}
-        {!showAdvanced && (
-          <button
-            type="button"
-            onClick={() => setShowAdvanced(true)}
-            className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-2"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-            Show more options (jurisdiction, urgency, budget)
-          </button>
-        )}
+        {/* Jurisdiction, Urgency, Budget - Now immediately visible as next step */}
+        <div className="space-y-6 pt-4 border-t border-gray-200">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <p className="text-sm text-blue-900 font-medium">
+              📍 Next Step: Tell us about jurisdiction, timing, and budget
+            </p>
+            <p className="text-xs text-blue-700 mt-1">
+              We're starting with Zürich (federal + cantonal law) and California. More jurisdictions coming soon!
+            </p>
+          </div>
 
-        {/* Phase 2: Advanced Fields (Progressive) */}
-        {showAdvanced && (
-          <div className="space-y-6 pt-4 border-t border-gray-200">
-            {/* Jurisdiction - Simplified MVP */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Where is this case located?
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                {/* Zurich, Switzerland */}
-                <button
-                  type="button"
-                  onClick={() =>
-                    setIntake({
-                      ...intake,
-                      jurisdiction: { country: 'CH', region: 'ZH' }
-                    })
-                  }
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    intake.jurisdiction.country === 'CH'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-blue-300'
-                  }`}
-                >
-                  <div className="text-2xl mb-2">{JURISDICTIONS.CH.flag}</div>
-                  <div className="text-sm font-semibold text-gray-900 mb-1">
-                    Zürich, Switzerland
-                  </div>
-                  <div className="text-xs text-gray-600">{JURISDICTIONS.CH.lawScope}</div>
-                </button>
+          {/* Jurisdiction - Simplified MVP */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-3">
+              Where is this case located?
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              {/* Zurich, Switzerland */}
+              <button
+                type="button"
+                onClick={() =>
+                  setIntake({
+                    ...intake,
+                    jurisdiction: { country: 'CH', region: 'ZH' }
+                  })
+                }
+                className={`p-4 rounded-lg border-2 transition-all ${
+                  intake.jurisdiction.country === 'CH'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-300'
+                }`}
+              >
+                <div className="text-2xl mb-2">{JURISDICTIONS.CH.flag}</div>
+                <div className="text-sm font-semibold text-gray-900 mb-1">
+                  Zürich, Switzerland
+                </div>
+                <div className="text-xs text-gray-600">{JURISDICTIONS.CH.lawScope}</div>
+              </button>
 
-                {/* California, USA */}
-                <button
-                  type="button"
-                  onClick={() =>
-                    setIntake({
-                      ...intake,
-                      jurisdiction: { country: 'US', region: 'CA' }
-                    })
-                  }
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    intake.jurisdiction.country === 'US'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-blue-300'
-                  }`}
-                >
-                  <div className="text-2xl mb-2">{JURISDICTIONS.US.flag}</div>
-                  <div className="text-sm font-semibold text-gray-900 mb-1">
-                    California, USA
-                  </div>
-                  <div className="text-xs text-gray-600">{JURISDICTIONS.US.lawScope}</div>
-                </button>
-              </div>
+              {/* California, USA */}
+              <button
+                type="button"
+                onClick={() =>
+                  setIntake({
+                    ...intake,
+                    jurisdiction: { country: 'US', region: 'CA' }
+                  })
+                }
+                className={`p-4 rounded-lg border-2 transition-all ${
+                  intake.jurisdiction.country === 'US'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-300'
+                }`}
+              >
+                <div className="text-2xl mb-2">{JURISDICTIONS.US.flag}</div>
+                <div className="text-sm font-semibold text-gray-900 mb-1">
+                  California, USA
+                </div>
+                <div className="text-xs text-gray-600">{JURISDICTIONS.US.lawScope}</div>
+              </button>
+            </div>
 
-              {/* Request New Jurisdiction */}
-              <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
-                <div className="flex items-start gap-3">
-                  <div className="text-lg">🌍</div>
-                  <div className="flex-1">
-                    <p className="text-sm text-gray-600 mb-2">
-                      Need a different location? We're expanding soon!
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        // This would open a modal or redirect to request form
-                        alert('Thank you! We\'ll prioritize your jurisdiction. Please email us at: support@botsmann.com');
-                      }}
-                      className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-                    >
-                      Request New Jurisdiction →
-                    </button>
-                  </div>
+            {/* Request New Jurisdiction */}
+            <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+              <div className="flex items-start gap-3">
+                <div className="text-lg">🌍</div>
+                <div className="flex-1">
+                  <p className="text-sm text-gray-600 mb-2">
+                    Need a different location? We're expanding soon!
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      // This would open a modal or redirect to request form
+                      alert('Thank you! We\'ll prioritize your jurisdiction. Please email us at: support@botsmann.com');
+                    }}
+                    className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Request New Jurisdiction →
+                  </button>
                 </div>
               </div>
             </div>
-
-            {/* Urgency */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                How urgent is this matter?
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setIntake({ ...intake, urgency: 'standard' })}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    intake.urgency === 'standard'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-blue-300'
-                  }`}
-                >
-                  <div className="text-sm font-medium text-gray-900">Standard</div>
-                  <div className="text-xs text-gray-600 mt-1">1-2 weeks is fine</div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIntake({ ...intake, urgency: 'urgent' })}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    intake.urgency === 'urgent'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-blue-300'
-                  }`}
-                >
-                  <div className="text-sm font-medium text-gray-900">Urgent</div>
-                  <div className="text-xs text-gray-600 mt-1">Need help ASAP</div>
-                </button>
-              </div>
-            </div>
-
-            {/* Budget Preference */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Preferred billing arrangement?
-              </label>
-              <div className="grid grid-cols-3 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setIntake({ ...intake, budget: 'consultation' })}
-                  className={`p-3 rounded-lg border-2 transition-all ${
-                    intake.budget === 'consultation'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-blue-300'
-                  }`}
-                >
-                  <div className="text-xs font-medium text-gray-900">Consultation</div>
-                  <div className="text-xs text-gray-600 mt-1">Start with advice</div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIntake({ ...intake, budget: 'hourly' })}
-                  className={`p-3 rounded-lg border-2 transition-all ${
-                    intake.budget === 'hourly'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-blue-300'
-                  }`}
-                >
-                  <div className="text-xs font-medium text-gray-900">Hourly</div>
-                  <div className="text-xs text-gray-600 mt-1">Pay as you go</div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIntake({ ...intake, budget: 'fixed' })}
-                  className={`p-3 rounded-lg border-2 transition-all ${
-                    intake.budget === 'fixed'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-blue-300'
-                  }`}
-                >
-                  <div className="text-xs font-medium text-gray-900">Fixed Fee</div>
-                  <div className="text-xs text-gray-600 mt-1">One price</div>
-                </button>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setShowAdvanced(false)}
-              className="text-gray-600 hover:text-gray-700 font-medium text-sm flex items-center gap-2"
-            >
-              <svg
-                className="w-4 h-4 transform rotate-180"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-              Hide advanced options
-            </button>
           </div>
-        )}
+
+          {/* Urgency */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-3">
+              How urgent is this matter?
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setIntake({ ...intake, urgency: 'standard' })}
+                className={`p-4 rounded-lg border-2 transition-all ${
+                  intake.urgency === 'standard'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-300'
+                }`}
+              >
+                <div className="text-sm font-medium text-gray-900">Standard</div>
+                <div className="text-xs text-gray-600 mt-1">1-2 weeks is fine</div>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIntake({ ...intake, urgency: 'urgent' })}
+                className={`p-4 rounded-lg border-2 transition-all ${
+                  intake.urgency === 'urgent'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-300'
+                }`}
+              >
+                <div className="text-sm font-medium text-gray-900">Urgent</div>
+                <div className="text-xs text-gray-600 mt-1">Need help ASAP</div>
+              </button>
+            </div>
+          </div>
+
+          {/* Budget Preference */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-3">
+              Preferred billing arrangement?
+            </label>
+            <div className="grid grid-cols-3 gap-3">
+              <button
+                type="button"
+                onClick={() => setIntake({ ...intake, budget: 'consultation' })}
+                className={`p-3 rounded-lg border-2 transition-all ${
+                  intake.budget === 'consultation'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-300'
+                }`}
+              >
+                <div className="text-xs font-medium text-gray-900">Consultation</div>
+                <div className="text-xs text-gray-600 mt-1">Start with advice</div>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIntake({ ...intake, budget: 'hourly' })}
+                className={`p-3 rounded-lg border-2 transition-all ${
+                  intake.budget === 'hourly'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-300'
+                }`}
+              >
+                <div className="text-xs font-medium text-gray-900">Hourly</div>
+                <div className="text-xs text-gray-600 mt-1">Pay as you go</div>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIntake({ ...intake, budget: 'fixed' })}
+                className={`p-3 rounded-lg border-2 transition-all ${
+                  intake.budget === 'fixed'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-300'
+                }`}
+              >
+                <div className="text-xs font-medium text-gray-900">Fixed Fee</div>
+                <div className="text-xs text-gray-600 mt-1">One price</div>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Actions */}
@@ -323,7 +293,7 @@ const CaseIntakeForm: React.FC<CaseIntakeFormProps> = ({ onSubmit, onCancel }) =
           disabled={!canSubmit}
           className="flex-1 px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
         >
-          Find Lawyers →
+          Get AI Legal Analysis →
         </button>
       </div>
     </div>

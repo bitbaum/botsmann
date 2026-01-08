@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { NextSection } from '../../../src/components/navigation/NextSection';
 
 export default function TechnoCapital() {
@@ -18,7 +17,7 @@ export default function TechnoCapital() {
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       setFormSubmitted(true);
-    } catch (error) {
+    } catch {
       setFormError('There was an error submitting the form. Please try again.');
     } finally {
       setSubmitting(false);

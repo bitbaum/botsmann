@@ -5,7 +5,7 @@ import React, { useState } from 'react';
  * roadmap for the Dr. Imhotep health assistant.
  */
 const FutureVisionSection: React.FC = () => {
-  const [applicationType, setApplicationType] = useState('developer');
+  const [_applicationType, _setApplicationType] = useState('developer');
   
   const roadmapItems = [
     {

@@ -38,7 +38,7 @@ export default function ContactPage() {
         message: '',
       });
       setIsSubmitted(true);
-    } catch (err) {
+    } catch {
       setError('There was an error submitting your request. Please try again.');
     } finally {
       setIsSubmitting(false);

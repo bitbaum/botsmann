@@ -16,6 +16,15 @@ interface WorkspaceDashboardProps {
 
 type ViewMode = 'overview' | 'files' | 'chat' | 'timeline' | 'settings';
 
+interface ChatMessage {
+  id: string;
+  sender: 'user' | 'ai' | 'lawyer';
+  senderName: string;
+  avatar: string;
+  content: string;
+  timestamp: Date;
+}
+
 const WorkspaceDashboard: React.FC<WorkspaceDashboardProps> = ({
   files,
   lawyer,
@@ -23,13 +32,13 @@ const WorkspaceDashboard: React.FC<WorkspaceDashboardProps> = ({
   onClose,
   onFileUpload,
   onFileDelete,
-  onFileVisibilityChange
+  onFileVisibilityChange: _onFileVisibilityChange
 }) => {
   const [viewMode, setViewMode] = useState<ViewMode>('overview');
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
 
@@ -40,7 +49,7 @@ const WorkspaceDashboard: React.FC<WorkspaceDashboardProps> = ({
 
   // Initial welcome messages
   useEffect(() => {
-    const welcomeMessages = [
+    const welcomeMessages: ChatMessage[] = [
       {
         id: '1',
         sender: 'ai',
@@ -62,8 +71,10 @@ const WorkspaceDashboard: React.FC<WorkspaceDashboardProps> = ({
   }, [lawyer, files.length]);
 
   // File categories with counts
-  const categoriesWithFiles = FILE_CATEGORIES.map(cat => ({
-    ...cat,
+  const categoriesWithFiles: CategoryWithFiles[] = FILE_CATEGORIES.map(cat => ({
+    id: cat.id,
+    name: cat.title, // Map title to name to match interface
+    icon: cat.icon,
     files: files.filter(f => f.category === cat.id),
     count: files.filter(f => f.category === cat.id).length
   })).filter(cat => cat.count > 0);
@@ -97,7 +108,7 @@ const WorkspaceDashboard: React.FC<WorkspaceDashboardProps> = ({
   const handleSendMessage = () => {
     if (!inputMessage.trim()) return;
 
-    const userMessage = {
+    const userMessage: ChatMessage = {
       id: `msg-${Date.now()}`,
       sender: 'user',
       senderName: 'You',
@@ -113,7 +124,7 @@ const WorkspaceDashboard: React.FC<WorkspaceDashboardProps> = ({
     setIsTyping(true);
     setTimeout(() => {
       setIsTyping(false);
-      const aiResponse = {
+      const aiResponse: ChatMessage = {
         id: `msg-${Date.now()}-ai`,
         sender: 'ai',
         senderName: 'Lex AI',
@@ -293,7 +304,21 @@ const WorkspaceDashboard: React.FC<WorkspaceDashboardProps> = ({
 };
 
 // Overview View Component
-const OverviewView: React.FC<any> = ({ files, categoriesWithFiles, caseDescription, setViewMode }) => (
+interface CategoryWithFiles {
+  id: string;
+  name: string;
+  icon: string;
+  files: UploadedFile[];
+  count: number;
+}
+
+interface OverviewViewProps {
+  files: UploadedFile[];
+  categoriesWithFiles: CategoryWithFiles[];
+  caseDescription: string;
+  setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>;
+}
+const OverviewView: React.FC<OverviewViewProps> = ({ files, categoriesWithFiles, caseDescription, setViewMode }) => (
   <div className="space-y-6 animate-fadeIn">
     {/* Welcome banner */}
     <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-6 text-white">
@@ -317,7 +342,7 @@ const OverviewView: React.FC<any> = ({ files, categoriesWithFiles, caseDescripti
       ].map((action) => (
         <button
           key={action.title}
-          onClick={() => setViewMode(action.view)}
+          onClick={() => setViewMode(action.view as ViewMode)}
           className="bg-slate-800/50 backdrop-blur-xl rounded-xl p-6 border border-slate-700 hover:border-slate-600 transition-all hover:scale-105 group"
         >
           <div className={`text-4xl mb-3 bg-gradient-to-br ${action.color} bg-clip-text text-transparent`}>
@@ -339,7 +364,7 @@ const OverviewView: React.FC<any> = ({ files, categoriesWithFiles, caseDescripti
               <span className="text-2xl">{cat.icon}</span>
               <span className="text-xs bg-blue-600 text-white px-2 py-1 rounded-full">{cat.count}</span>
             </div>
-            <p className="text-sm text-white font-medium">{cat.title}</p>
+            <p className="text-sm text-white font-medium">{cat.name}</p>
           </div>
         ))}
       </div>
@@ -348,8 +373,16 @@ const OverviewView: React.FC<any> = ({ files, categoriesWithFiles, caseDescripti
 );
 
 // Files View Component
-const FilesView: React.FC<any> = ({
-  files,
+interface FilesViewProps {
+  files: UploadedFile[];
+  categoriesWithFiles: CategoryWithFiles[];
+  selectedFile: string | null;
+  setSelectedFile: (file: string | null) => void;
+  onFileDelete: (id: string) => void;
+  onFileVisibilityChange?: (id: string, visible: string) => void;
+}
+const FilesView: React.FC<FilesViewProps> = ({
+  files: _files,
   categoriesWithFiles,
   selectedFile,
   setSelectedFile,
@@ -370,7 +403,7 @@ const FilesView: React.FC<any> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="text-2xl">{category.icon}</span>
-              <h3 className="text-lg font-bold text-white">{category.title}</h3>
+              <h3 className="text-lg font-bold text-white">{category.name}</h3>
               <span className="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded-full">
                 {category.count} files
               </span>
@@ -379,7 +412,7 @@ const FilesView: React.FC<any> = ({
         </div>
 
         <div className="p-4 space-y-2">
-          {category.files.map((file) => (
+          {category.files.map((file: UploadedFile) => (
             <div
               key={file.id}
               className={`flex items-center gap-4 p-4 rounded-lg border transition-all ${
@@ -395,7 +428,7 @@ const FilesView: React.FC<any> = ({
                   <span className="text-xs text-slate-400">{formatFileSize(file.size)}</span>
                   <select
                     value={file.visibility || 'private'}
-                    onChange={(e) => onFileVisibilityChange(file.id, e.target.value)}
+                    onChange={(e) => onFileVisibilityChange?.(file.id, e.target.value)}
                     className="text-xs bg-slate-700 text-white px-2 py-1 rounded border border-slate-600"
                   >
                     <option value="private">🔒 Private</option>
@@ -436,7 +469,7 @@ const ChatView: React.FC<any> = ({ messages, inputMessage, setInputMessage, hand
     </div>
 
     <div className="flex-1 overflow-auto p-6 space-y-4">
-      {messages.map((msg) => (
+      {messages.map((msg: ChatMessage) => (
         <div key={msg.id} className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : ''}`}>
           {msg.sender !== 'user' && (
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white flex-shrink-0">

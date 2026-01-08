@@ -1,4 +1,3 @@
-import { type NextRequest } from 'next/server';
 import bots from '@/data/bots';
 
 export async function generateStaticParams() {

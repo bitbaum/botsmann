@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import bots from '../../../data/bots';
-import BotNavigation from '../BotNavigation';
+import BotPageHeader from '../../../components/BotPageHeader';
 
 export default function ArtisticAdvisor() {
   const bot = bots.find(b => b.slug === 'artistic-advisor');
@@ -23,21 +23,26 @@ export default function ArtisticAdvisor() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Bot-specific Navigation */}
-      <BotNavigation
+      <BotPageHeader
         botTitle="Artr"
         botEmoji="🎨"
-        botDescription="Creative Guidance AI"
-        accentColor="amber"
+        botSlug="artistic-advisor"
         menuItems={menuItems}
-        chatLink={bot.tryLink || 'https://chat.openai.com/'}
+        accentColor="amber"
       />
-      
-      <main className="mx-auto max-w-screen-xl px-6 pt-24">
+      <main className="mx-auto max-w-screen-xl px-6">
         {/* Title and Overview */}
-        <div className="mb-16">
+        <div className="mb-16 pt-8">
+          <div className="mb-3 inline-flex items-center px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs sm:text-sm font-medium">
+            <span className="mr-1">🚧</span> Proof of Concept - AI Features in Development
+          </div>
           <h1 className="mb-4 text-4xl font-semibold tracking-tight text-gray-900">Artr</h1>
-          <p className="mb-8 text-lg text-gray-600">{bot.overview}</p>
+          <p className="mb-4 text-lg text-gray-600">{bot.overview}</p>
+          <div className="mb-6 p-3 bg-amber-50 border border-amber-200 rounded-lg max-w-4xl">
+            <p className="text-sm text-amber-800">
+              <strong>Current Status:</strong> Demo UI showcasing our vision. Full AI capabilities with 1.5M artwork embeddings, GPT-4 Vision analysis, and style classification are documented in our <a href="https://github.com/g-but/botsmann/blob/main/app/bots/artistic-advisor/README.md" className="underline hover:text-amber-900" target="_blank" rel="noopener noreferrer">technical roadmap</a>.
+            </p>
+          </div>
         </div>
 
         {/* Features Section */}

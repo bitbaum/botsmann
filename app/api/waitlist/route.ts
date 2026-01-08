@@ -15,7 +15,13 @@ interface WaitlistEntry {
 
 export async function POST(req: NextRequest) {
   try {
-    const data = await req.json();
+    let data;
+    try {
+      data = await req.json();
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON in request body' }, { status: 400 });
+    }
+
     const { email, preferences } = data;
 
     // Validate email

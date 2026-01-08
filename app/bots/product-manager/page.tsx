@@ -12,8 +12,8 @@
  */
 
 import React from 'react';
-import Link from 'next/link';
 import bots from '../../../data/bots';
+import BotPageHeader from '../../../components/BotPageHeader';
 import HeroSection from './components/hero/HeroSection';
 import FeaturesSection from './components/features/FeaturesSection';
 import TryItSection from './components/workflow/TryItSection';
@@ -24,7 +24,6 @@ import IntegrationSection from './components/integration/IntegrationSection';
 import DevelopmentRoadmap from './components/roadmap/DevelopmentRoadmap';
 import VisionSection from './components/vision/VisionSection';
 import JoinSection from './components/join/JoinSection';
-import BotNavigation from '../BotNavigation';
 import './styles.css';
 
 export default function ProductManager() {
@@ -49,17 +48,14 @@ export default function ProductManager() {
   
   return (
     <div className="min-h-screen bg-white">
-      {/* Bot-specific Navigation */}
-      <BotNavigation
+      <BotPageHeader
         botTitle="Trident"
         botEmoji="🔱"
-        botDescription="AI Product Manager"
-        accentColor="blue"
+        botSlug="product-manager"
         menuItems={menuItems}
-        chatLink={bot.tryLink || 'https://chat.openai.com/'}
+        accentColor="indigo"
       />
-      
-      <main className="max-w-screen-xl mx-auto px-6 pt-24">  
+      <main className="max-w-screen-xl mx-auto px-6">
         {/* Hero Section */}
         <HeroSection />
         

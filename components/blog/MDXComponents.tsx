@@ -3,10 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { DetailedHTMLProps, ImgHTMLAttributes, useState, useEffect } from 'react';
-import { useContext } from 'react';
 
 // Helper function to transform image paths
-const transformImageSrc = (src: string, slug: string) => {
+const _transformImageSrc = (src: string, slug: string) => {
   if (!src) return '';
   
   // If it's already an absolute URL, return it as is
@@ -26,7 +25,7 @@ const transformImageSrc = (src: string, slug: string) => {
 };
 
 // Function to safely handle image errors by attempting to find alternative formats
-const useAlternativeImageFormat = async (src: string): Promise<string | null> => {
+const _useAlternativeImageFormat = async (src: string): Promise<string | null> => {
   if (!src) return null;
   
   // Try with a different extension if loading fails
@@ -105,20 +104,18 @@ const MDXComponents = {
   },
   
   // Media elements
-  img: (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { slug?: string }) => {
+  img: function MdxImage(props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { slug?: string }) {
     const { src, alt, slug } = props;
     const [imageSrc, setImageSrc] = useState<string>('');
     const [isError, setIsError] = useState(false);
-    
+
     if (!src) {
       console.error('Image source missing');
       return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
     }
-    
+
     // Extract slug from URL if not provided directly
     useEffect(() => {
-      // Log the image source and slug for debugging
-      console.log('MDX img processing:', { src, slug });
       
       // Get the slug from props or extract from URL
       let contextSlug = typeof slug === 'string' ? slug : '';
@@ -130,7 +127,7 @@ const MDXComponents = {
         // Assuming URL structure is /blog/[slug]
         if (pathParts.length >= 3 && pathParts[1] === 'blog') {
           contextSlug = pathParts[2];
-          console.log('Extracted slug from URL:', contextSlug);
+          console.info('Extracted slug from URL:', contextSlug);
         }
       }
       
@@ -138,7 +135,7 @@ const MDXComponents = {
       // if the ClientMDXContent is passing the slug correctly
       if (!contextSlug) {
         contextSlug = 'welcome-post';
-        console.log('Using fallback slug as last resort:', contextSlug);
+        console.info('Using fallback slug as last resort:', contextSlug);
       }
       
       try {
@@ -157,14 +154,14 @@ const MDXComponents = {
           
           const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
           fullSrc = `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${contextSlug}/${imagePath}`;
-          console.log('Using dynamic slug for image path:', { contextSlug, imagePath, fullSrc });
+          console.info('Using dynamic slug for image path:', { contextSlug, imagePath, fullSrc });
         } else {
           // For any other format, just use the src as is
           fullSrc = src;
         }
         
         // Log the processed image source for debugging
-        console.log('Processed image source:', fullSrc);
+        console.info('Processed image source:', fullSrc);
         setImageSrc(fullSrc);
       } catch (error) {
         console.error('Error processing image:', error);
@@ -187,11 +184,11 @@ const MDXComponents = {
       // Try alternative format
       if (imageSrc.endsWith('.jpg')) {
         const jfifSrc = imageSrc.replace(/\.jpg$/, '.jfif');
-        console.log('Trying alternative format:', jfifSrc);
+        console.info('Trying alternative format:', jfifSrc);
         setImageSrc(jfifSrc);
       } else if (imageSrc.endsWith('.jfif')) {
         const jpgSrc = imageSrc.replace(/\.jfif$/, '.jpg');
-        console.log('Trying alternative format:', jpgSrc);
+        console.info('Trying alternative format:', jpgSrc);
         setImageSrc(jpgSrc);
       } else {
         setIsError(true);

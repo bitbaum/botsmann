@@ -6,13 +6,13 @@ interface FeaturesSectionProps {
 
 /**
  * Features Section Component
- * 
+ *
  * Features section component that displays the key capabilities of Imhotep
  * and how it can benefit different user groups.
- * 
+ *
  * @module FeaturesSection
  */
-const FeaturesSection: React.FC<FeaturesSectionProps> = ({ features }) => {
+const FeaturesSection: React.FC<FeaturesSectionProps> = ({ features: _features }) => {
   const [expandedFeature, setExpandedFeature] = useState<number | null>(null);
 
   // Enhanced features with detailed explanations

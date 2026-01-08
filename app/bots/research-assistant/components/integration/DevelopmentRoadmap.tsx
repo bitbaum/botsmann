@@ -7,7 +7,6 @@
  */
 
 import React, { useState } from 'react';
-import styles from '../../styles.module.css';
 
 type CollaborationType = 'developer' | 'researcher' | 'domain-expert';
 

@@ -6,12 +6,12 @@ interface FeaturesSectionProps {
 
 /**
  * Features Section Component
- * 
+ *
  * This component displays the core features and capabilities of the Research Assistant bot.
- * 
+ *
  * @module FeaturesSection
  */
-const FeaturesSection: React.FC<FeaturesSectionProps> = ({ features }) => {
+const FeaturesSection: React.FC<FeaturesSectionProps> = ({ features: _features }) => {
   const [expandedFeature, setExpandedFeature] = useState<number | null>(null);
 
   // Core features with detailed explanations

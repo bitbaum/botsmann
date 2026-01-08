@@ -59,9 +59,6 @@ const DetailedComponentsNav: React.FC = () => {
     },
   ];
 
-  // Return to main governance page link
-  const backToMainLink = '/projects/governance';
-  
   return (
     <div className="bg-white border-b border-gray-200 py-4 mb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -35,22 +35,29 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
 
           <Transition
             as={Fragment}
-            enter="transition ease-out duration-200"
-            enterFrom="opacity-0 translate-y-1"
-            enterTo="opacity-100 translate-y-0"
-            leave="transition ease-in duration-150"
-            leaveFrom="opacity-100 translate-y-0"
-            leaveTo="opacity-0 translate-y-1"
+            enter="transition ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="transition ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
           >
-            <Popover.Panel className="absolute left-0 top-full z-50 mt-2 w-screen max-w-2xl transform px-4 sm:px-0">
-              <div className="overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 border border-gray-100">
+            <Popover.Panel className="absolute left-1/2 z-50 mt-3 w-screen max-w-2xl -translate-x-1/2 transform px-4 sm:px-0">
+              <div className="overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-gray-200 border border-gray-100">
                 {/* Header Section */}
                 {item.label === 'Bots' && (
-                  <div className="border-b border-gray-100 bg-gradient-to-r from-blue-50 to-cyan-50 px-6 py-4">
-                    <h3 className="text-sm font-semibold text-gray-900">Specialized AI Bots</h3>
-                    <p className="mt-1 text-xs text-gray-600">
-                      Ingest data → AI analysis → Actionable outputs
-                    </p>
+                  <div className="border-b border-gray-100 bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-openai-green to-green-600 rounded-lg flex items-center justify-center">
+                        <span className="text-white text-sm font-bold">🤖</span>
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-semibold text-gray-900">Specialized AI Bots</h3>
+                        <p className="mt-1 text-xs text-gray-600">
+                          Ingest data → AI analysis → Actionable outputs
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 )}
 
@@ -61,11 +68,11 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
                       key={child.label}
                       href={child.path}
                       onClick={() => close()}
-                      className="group flex items-start gap-3 rounded-lg p-3 transition-all hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50 focus:outline-none focus:ring-2 focus:ring-openai-green focus:ring-offset-2"
+                      className="group flex items-start gap-4 rounded-xl p-4 transition-all hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 focus:outline-none focus:ring-2 focus:ring-openai-green focus:ring-offset-2"
                     >
                       {/* Icon */}
                       {child.icon && (
-                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gray-100 text-xl transition-colors group-hover:bg-white">
+                        <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-white border-2 border-gray-200 shadow-sm text-2xl transition-all duration-200 group-hover:border-openai-green group-hover:bg-openai-green group-hover:text-white">
                           {child.icon}
                         </div>
                       )}
@@ -84,7 +91,7 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
 
                       {/* Arrow indicator */}
                       <svg
-                        className="h-5 w-5 flex-shrink-0 text-gray-400 opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100"
+                        className="h-5 w-5 flex-shrink-0 text-gray-400 opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100 group-hover:text-openai-green"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -97,7 +104,7 @@ export default function MegaMenu({ item, isActive }: MegaMenuProps) {
 
                 {/* Footer CTA */}
                 {item.label === 'Bots' && (
-                  <div className="border-t border-gray-100 bg-gray-50 px-6 py-4">
+                  <div className="border-t border-gray-100 bg-gradient-to-r from-gray-50 to-green-50 px-6 py-4">
                     <Link
                       href="/bots"
                       onClick={() => close()}

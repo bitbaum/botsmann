@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import DetailedComponentsNav from '../components/DetailedComponentsNav';
 
 /**
  * Law Transparency Framework Detailed Page
@@ -58,7 +57,7 @@ type Laws = {
 
 export default function LawFrameworkPage() {
   // State for the interactive law effectiveness tracker demo
-  const [selectedLaw, setSelectedLaw] = useState<string>('env-protection-act');
+  const [selectedLaw, _setSelectedLaw] = useState<string>('env-protection-act');
   
   // Mock data for laws
   const laws: Laws = {
@@ -142,10 +141,10 @@ export default function LawFrameworkPage() {
     }
   };
   
-  const selectedLawData = laws[selectedLaw];
-  
+  const _selectedLawData = laws[selectedLaw];
+
   // Function to determine goal status color
-  const getStatusColor = (status: string): string => {
+  const _getStatusColor = (status: string): string => {
     switch (status) {
       case 'achieved':
         return 'bg-green-50 text-green-800';

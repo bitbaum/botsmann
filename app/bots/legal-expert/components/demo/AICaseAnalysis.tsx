@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { CaseIntake } from '../workspace/types';
-import { LEGAL_AREAS, JURISDICTIONS } from '../workspace/constants';
+import { LEGAL_AREAS } from '../workspace/constants';
 
 interface AICaseAnalysisProps {
   intake: CaseIntake;
@@ -18,7 +18,7 @@ interface AnalysisResult {
   };
   legalAssessment: {
     relevantLaws: string[];
-    keyConsiderations: Array<{ text: string; type: 'success' | 'warning' | 'info' }>;
+    keyConsiderations: Array<{ text: string; type: 'success' | 'info' | 'warning' }>;
     successProbability: number;
   };
   expectations: {
@@ -30,7 +30,7 @@ interface AnalysisResult {
   recommendations: string[];
 }
 
-const AICaseAnalysis: React.FC<AICaseAnalysisProps> = ({ intake, onContinue, onBack }) => {
+const AICaseAnalysis: React.FC<AICaseAnalysisProps> = ({ intake: _intake, onContinue, onBack }) => {
   const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [progress, setProgress] = useState(0);
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
@@ -106,16 +106,16 @@ const AICaseAnalysis: React.FC<AICaseAnalysisProps> = ({ intake, onContinue, onB
   };
 
   const getConsiderations = (intake: CaseIntake) => {
-    const base = [
-      { text: 'Case eligibility confirmed based on provided details', type: 'success' as const }
+    const base: Array<{ text: string; type: 'success' | 'info' }> = [
+      { text: 'Case eligibility confirmed based on provided details', type: 'success' }
     ];
 
     if (intake.urgency === 'urgent') {
-      base.push({ text: 'Expedited process may be available', type: 'warning' as const });
+      base.push({ text: 'Expedited process may be available', type: 'info' });
     }
 
     if (!intake.files || intake.files.length === 0) {
-      base.push({ text: 'Additional documentation will be required', type: 'warning' as const });
+      base.push({ text: 'Additional documentation will be required', type: 'info' });
     }
 
     return base;
@@ -154,7 +154,7 @@ const AICaseAnalysis: React.FC<AICaseAnalysisProps> = ({ intake, onContinue, onB
     return ['Identification documents', 'Relevant contracts', 'Supporting evidence', 'Financial records'];
   };
 
-  const getNextSteps = (intake: CaseIntake): string[] => {
+  const getNextSteps = (_intake: CaseIntake): string[] => {
     return [
       'Review and gather all required documentation',
       'Schedule consultation with matched lawyer',

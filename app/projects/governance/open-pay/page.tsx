@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import DetailedComponentsNav from '../components/DetailedComponentsNav';
 import TransactionDemo from '../components/TransactionDemo';
 
 /**
@@ -11,7 +10,7 @@ import TransactionDemo from '../components/TransactionDemo';
  */
 
 // Enhanced transaction type with social components and law traceability
-type Transaction = {
+type _Transaction = {
   id: string;
   date: string;
   department: string;

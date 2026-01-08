@@ -21,7 +21,7 @@
 
 import React from 'react';
 import bots from '../../../data/bots';
-import BotNavigation from '../BotNavigation';
+import BotPageHeader from '../../../components/BotPageHeader';
 // Import the styles
 import './styles.css';
 
@@ -65,19 +65,16 @@ export default function MedicalExpert() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Bot-specific Navigation */}
-      <BotNavigation
+      <BotPageHeader
         botTitle="Imhotep"
         botEmoji="⚕️"
-        botDescription="AI Medical Expert"
-        accentColor="green"
+        botSlug="medical-expert"
         menuItems={menuItems}
-        chatLink={getTryLink()}
+        accentColor="green"
       />
-      
-      <main className="mx-auto max-w-screen-xl px-6 pt-24">
+      <main className="mx-auto max-w-screen-xl px-6">
         {/* Hero Section */}
-        <HeroSection 
+        <HeroSection
           title="Imhotep"
           overview="Your AI health companion for evidence-based wellness"
           getTryLink={getTryLink}

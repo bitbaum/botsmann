@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import CaseIntakeForm from './CaseIntakeForm';
 import AICaseAnalysis from './AICaseAnalysis';
 import { CaseIntake } from '../workspace/types';
@@ -10,28 +10,29 @@ type DemoStep = 'intake' | 'ai-analysis' | 'lawyer-match' | 'workspace';
 const DemoOrchestrator: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<DemoStep>('intake');
   const [caseIntake, setCaseIntake] = useState<CaseIntake | null>(null);
+  const demoRef = useRef<HTMLElement>(null);
 
   const handleIntakeComplete = (intake: CaseIntake) => {
     setCaseIntake(intake);
     setCurrentStep('ai-analysis');
-    // Scroll to top of demo
-    document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
+    // Scroll to top of demo using React ref
+    demoRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleAnalysisBack = () => {
     setCurrentStep('intake');
-    document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
+    demoRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleAnalysisContinue = () => {
     setCurrentStep('lawyer-match');
-    document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
+    demoRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleReset = () => {
     setCaseIntake(null);
     setCurrentStep('intake');
-    document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
+    demoRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const steps = [
@@ -44,7 +45,7 @@ const DemoOrchestrator: React.FC = () => {
   const currentStepIndex = steps.findIndex(s => s.id === currentStep);
 
   return (
-    <section className="mb-20" id="demo">
+    <section className="mb-20" id="demo" ref={demoRef}>
       {/* Header */}
       <div className="text-center mb-12">
         <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-700 rounded-full text-sm font-medium mb-6">
@@ -74,7 +75,6 @@ const DemoOrchestrator: React.FC = () => {
             {steps.map((step, idx) => {
               const isCompleted = idx < currentStepIndex;
               const isCurrent = idx === currentStepIndex;
-              const isUpcoming = idx > currentStepIndex;
 
               return (
                 <div key={step.id} className="flex flex-col items-center">

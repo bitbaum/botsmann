@@ -6,9 +6,9 @@
     "auditLog": "/home/g/botsmann/logs/.2f82b98dba91239366ded9aecd8e6740ff5e5f77-audit.json",
     "files": [
         {
-            "date": 1759415348201,
-            "name": "/home/g/botsmann/logs/mcp-puppeteer-2025-10-02.log",
-            "hash": "bf2798e10b03eecebafcc03889742146529157a786952d62943ca7022e8aabdc"
+            "date": 1767789698821,
+            "name": "/home/g/botsmann/logs/mcp-puppeteer-2026-01-07.log",
+            "hash": "e695b9c46d76f70de8796e83f028a0a346ebff3d2d21f001996f30a9bba03ab1"
         }
     ],
     "hashType": "sha256"

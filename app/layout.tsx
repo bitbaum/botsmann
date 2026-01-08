@@ -1,4 +1,5 @@
-import Header from '@/components/Header';
+import ConditionalHeader from '@/components/ConditionalHeader';
+import ConditionalMain from '@/components/ConditionalMain';
 import Footer from '@/components/Footer';
 import './globals.css';
 
@@ -15,8 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans">
-        <Header />
-        <main className="pt-16">{children}</main>
+        <ConditionalHeader />
+        <ConditionalMain>
+          {children}
+        </ConditionalMain>
         <Footer />
       </body>
     </html>

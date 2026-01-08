@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { cardStyle, comingSoonBadge, btnPrimary } from '../../utils/constants';
+import { cardStyle } from '../../utils/constants';
 
 // Dynamically import components for better performance
 const EmailGenerator = dynamic(() => import('./EmailGenerator'), {

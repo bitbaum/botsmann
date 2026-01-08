@@ -20,7 +20,7 @@
 
 import React from 'react';
 import bots from '../../../data/bots';
-import BotNavigation from '../BotNavigation';
+import BotPageHeader from '../../../components/BotPageHeader';
 // Import the styles
 import './styles.css';
 
@@ -68,19 +68,16 @@ export default function ResearchAssistant() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Bot-specific Navigation */}
-      <BotNavigation
+      <BotPageHeader
         botTitle="Nerd"
-        botEmoji="🧠"
-        botDescription="AI Research Assistant"
-        accentColor="indigo"
+        botEmoji="🤓"
+        botSlug="research-assistant"
         menuItems={menuItems}
-        chatLink={bot.tryLink}
+        accentColor="indigo"
       />
-      
-      <main className="mx-auto max-w-screen-xl px-6 pt-24">
+      <main className="mx-auto max-w-screen-xl px-6">
         {/* Hero Section */}
-        <HeroSection 
+        <HeroSection
           title="Nerd"
           overview="Your AI companion for organized research, real-time updates, and groundbreaking discoveries"
           getTryLink={getTryLink}

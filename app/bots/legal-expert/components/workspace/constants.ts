@@ -10,7 +10,7 @@ export const JURISDICTIONS = {
     regions: [
       { code: 'ZH', name: 'Zürich', available: true }
     ],
-    lawScope: 'Federal Swiss Law'
+    lawScope: 'Federal & Cantonal Law (Zürich)'
   },
   US: {
     code: 'US',

@@ -3,15 +3,6 @@ import { UrlObject } from 'url';
 
 export const menuItems: MenuItem[] = [
   {
-    label: "Solutions",
-    path: "/solutions",
-    children: [
-      { label: "Individuals", path: "/solutions/individuals", description: "Personal productivity and language tools." },
-      { label: "Businesses", path: "/solutions/businesses", description: "Workflow automation for teams and enterprises." },
-      { label: "Governments", path: "/solutions/governments", description: "Transparency and citizen engagement platforms." }
-    ]
-  },
-  {
     label: "Bots",
     path: "/bots",
     children: [
@@ -72,9 +63,4 @@ export const menuItems: MenuItem[] = [
     label: "About",
     path: "/about"
   },
-  {
-    label: "Contact Us",
-    path: "/contact",
-    isButton: true
-  }
 ];

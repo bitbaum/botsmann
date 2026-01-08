@@ -11,7 +11,6 @@
  * @param {Function} props.getTryLink - Function that returns the URL to join the waitlist
  */
 import React from 'react';
-import Link from 'next/link';
 
 interface HeroSectionProps {
   title: string;
@@ -19,20 +18,25 @@ interface HeroSectionProps {
   getTryLink: () => string;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ title, overview, getTryLink }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ title: _title, overview: _overview, getTryLink }) => {
   return (
     <section className="mb-16 pt-12">
       <div className="grid md:grid-cols-2 gap-8 items-center">
         <div>
-          <div className="mb-4 inline-flex items-center px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium">
-            <span className="mr-1">🧠</span> Launching in 2026
+          <div className="mb-4 inline-flex items-center px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm font-medium">
+            <span className="mr-1">🚧</span> Proof of Concept - AI Features in Development
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Nerd: Your AI Research Assistant
           </h1>
-          <p className="text-xl text-gray-700 mb-6">
+          <p className="text-xl text-gray-700 mb-4">
             Transform your research with an AI companion that organizes, updates, creates, engages, connects, and empowers your independent research journey.
           </p>
+          <div className="mb-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg">
+            <p className="text-sm text-indigo-800">
+              <strong>Current Status:</strong> Demo UI showcasing our vision. Full AI capabilities with 50M research paper embeddings, knowledge graphs, and literature monitoring are documented in our <a href="https://github.com/g-but/botsmann/blob/main/app/bots/research-assistant/README.md" className="underline hover:text-indigo-900" target="_blank" rel="noopener noreferrer">technical roadmap</a>.
+            </p>
+          </div>
           <div className="flex flex-wrap gap-4">
             <a 
               href={getTryLink()} 

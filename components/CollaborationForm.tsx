@@ -33,7 +33,6 @@ export default function CollaborationForm() {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Collaboration form submitted:', data);
       
       // In production, we would send this data to an API endpoint
       // await fetch('/api/collaboration', {

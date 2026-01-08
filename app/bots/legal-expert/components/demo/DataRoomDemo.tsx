@@ -25,7 +25,7 @@ const DataRoomDemo: React.FC<DataRoomDemoProps> = ({ files, lawyerUsername, lawy
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [selectedFile, setSelectedFile] = useState<UploadedFile | null>(null);
-  const [lawyerOnline, setLawyerOnline] = useState(true);
+  const [lawyerOnline, _setLawyerOnline] = useState(true);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 

@@ -1,0 +1,109 @@
+# Gitleaks configuration for Botsmann
+# Custom rules for detecting secrets and sensitive data
+
+title = "Botsmann Security Rules"
+
+[allowlist]
+  description = "Allowlisted files and paths"
+  files = [
+    '''\.env\.example$''',
+    '''README\.md$''',
+    '''\.gitleaks\.toml$''',
+    '''tests/.*\.test\.(js|ts)$''',
+  ]
+  paths = [
+    '''tests/''',
+    '''node_modules/''',
+    '''\.next/''',
+    '''build/''',
+    '''dist/''',
+  ]
+
+[rules]
+  description = "Custom rules for Botsmann project"
+
+  # Database connection strings
+  [[rules.patterns]]
+    description = "MongoDB connection string"
+    regex = '''mongodb(\+srv)?://[a-zA-Z0-9._-]+:[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(:\d+)?(/[a-zA-Z0-9._-]+)?(\?[a-zA-Z0-9._=&-]+)?'''
+    tags = ["database", "mongodb"]
+
+  # Email credentials
+  [[rules.patterns]]
+    description = "Email password"
+    regex = '''(?:password|pass|pwd)['"]?\s*[:=]\s*['"]?([a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,})['"]?'''
+    tags = ["email", "credentials"]
+
+  # API keys
+  [[rules.patterns]]
+    description = "Generic API key"
+    regex = '''(?:api[_-]?key|apikey)['"]?\s*[:=]\s*['"]?([a-zA-Z0-9]{32,})['"]?'''
+    tags = ["api", "key"]
+
+  # JWT tokens
+  [[rules.patterns]]
+    description = "JWT token"
+    regex = '''eyJ[a-zA-Z0-9_\-]*\.eyJ[a-zA-Z0-9_\-]*\.[a-zA-Z0-9_\-]*'''
+    tags = ["jwt", "token"]
+
+  # Private keys
+  [[rules.patterns]]
+    description = "Private key"
+    regex = '''-----BEGIN\s+(?:RSA\s+)?PRIVATE\s+KEY-----'''
+    tags = ["key", "private"]
+
+  # AWS access keys
+  [[rules.patterns]]
+    description = "AWS access key ID"
+    regex = '''AKIA[0-9A-Z]{16}'''
+    tags = ["aws", "key"]
+
+  # Generic secrets (passwords, tokens, etc.)
+  [[rules.patterns]]
+    description = "Generic secret"
+    regex = '''['"]?(?:secret|token|key)['"]?\s*[:=]\s*['"]?([a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{16,})['"]?'''
+    tags = ["generic", "secret"]
+
+  # Database passwords
+  [[rules.patterns]]
+    description = "Database password"
+    regex = '''['"]?(?:db[_-]?password|database[_-]?password)['"]?\s*[:=]\s*['"]?([a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,})['"]?'''
+    tags = ["database", "password"]
+
+  # OAuth tokens
+  [[rules.patterns]]
+    description = "OAuth token"
+    regex = '''(?:oauth|bearer)['"]?\s*[:=]\s*['"]?([a-zA-Z0-9_\-]{20,})['"]?'''
+    tags = ["oauth", "token"]
+
+  # Encryption keys
+  [[rules.patterns]]
+    description = "Encryption key"
+    regex = '''(?:encryption[_-]?key|encrypt[_-]?key)['"]?\s*[:=]\s*['"]?([a-zA-Z0-9+/=]{20,})['"]?'''
+    tags = ["encryption", "key"]
+
+  # Session tokens
+  [[rules.patterns]]
+    description = "Session token"
+    regex = '''(?:session[_-]?token|sessionid)['"]?\s*[:=]\s*['"]?([a-zA-Z0-9_\-]{20,})['"]?'''
+    tags = ["session", "token"]
+
+  # Webhook URLs with secrets
+  [[rules.patterns]]
+    description = "Webhook URL with secret"
+    regex = '''https?://[a-zA-Z0-9.-]+/webhooks?/[^/\s]*[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{20,}'''
+    tags = ["webhook", "url"]
+
+  # Supabase keys
+  [[rules.patterns]]
+    description = "Supabase anon key"
+    regex = '''eyJ[a-zA-Z0-9_\-]*\.eyJ[a-zA-Z0-9_\-]*\.[a-zA-Z0-9_\-]*'''
+    tags = ["supabase", "key"]
+
+  # Vercel tokens
+  [[rules.patterns]]
+    description = "Vercel token"
+    regex = '''[a-zA-Z0-9_\-]{20,}'''
+    tags = ["vercel", "token"]
+
+

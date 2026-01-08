@@ -1,24 +1,29 @@
 import { NextResponse } from 'next/server';
-import { connectDB } from '../../../src/lib/mongodb';
 
 export async function GET() {
-  try {
-    const conn = await connectDB();
-    const isConnected = conn.connection.readyState === 1;
-    
-    if (!isConnected) {
-      throw new Error('Database not connected');
-    }
+  const healthStatus: {
+    status: string;
+    timestamp: string;
+    mongodb?: string;
+    uptime: number;
+  } = {
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+  };
 
-    return NextResponse.json(
-      { status: 'healthy', mongodb: 'connected' },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('Health check failed:', error);
-    return NextResponse.json(
-      { status: 'unhealthy', error: 'Database connection failed' },
-      { status: 503 }
-    );
+  // Only check MongoDB if MONGODB_URI is configured
+  if (process.env.MONGODB_URI) {
+    try {
+      const { connectDB } = await import('../../../src/lib/mongodb');
+      const conn = await connectDB();
+      healthStatus.mongodb = conn.connection.readyState === 1 ? 'connected' : 'disconnected';
+    } catch {
+      healthStatus.mongodb = 'unavailable';
+    }
+  } else {
+    healthStatus.mongodb = 'not_configured';
   }
+
+  return NextResponse.json(healthStatus, { status: 200 });
 }

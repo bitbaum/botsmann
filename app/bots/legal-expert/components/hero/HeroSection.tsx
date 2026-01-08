@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 
 interface HeroSectionProps {
   title: string;
@@ -12,8 +11,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, overview, getTryLink }
     <section className="mb-12 sm:mb-16 pt-8 sm:pt-12">
       <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
         <div>
-          <div className="mb-3 sm:mb-4 inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm font-medium">
-            <span className="mr-1">⚖️</span> Private AI Node
+          <div className="mb-3 sm:mb-4 inline-flex items-center px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs sm:text-sm font-medium">
+            <span className="mr-1">🚧</span> Proof of Concept - AI Features in Development
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
             {title}: Your AI Legal Assistant
@@ -21,6 +20,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, overview, getTryLink }
           <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-4 sm:mb-6">
             {overview}
           </p>
+          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-sm text-blue-800">
+              <strong>Current Status:</strong> Demo UI showcasing our vision. Full AI capabilities with RAG, lawyer matching, and data room are documented in our <a href="https://github.com/g-but/botsmann/blob/main/app/bots/legal-expert/README.md" className="underline hover:text-blue-900" target="_blank" rel="noopener noreferrer">technical roadmap</a>.
+            </p>
+          </div>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <a href={getTryLink()} className="btn-primary flex items-center justify-center" target="_blank" rel="noopener noreferrer">
               <span>Chat with Lex</span>

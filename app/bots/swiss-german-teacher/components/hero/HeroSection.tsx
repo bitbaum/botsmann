@@ -6,7 +6,7 @@ interface HeroSectionProps {
   getTryLink: () => string;
 }
 
-const HeroSection = ({ getTryLink }: HeroSectionProps) => {
+const HeroSection = ({ getTryLink: _getTryLink }: HeroSectionProps) => {
   return (
     <section className="relative mb-16 overflow-hidden">
       {/* Hero Background Pattern */}
@@ -26,7 +26,11 @@ const HeroSection = ({ getTryLink }: HeroSectionProps) => {
         <div className="flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0 md:space-x-12 max-w-7xl mx-auto">
           {/* Left Column - Text Content */}
           <div className="md:w-1/2 flex-shrink-0">
-            <div className="flex items-center mb-2">
+            <div className="mb-3 inline-flex items-center px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs sm:text-sm font-medium">
+              <span className="mr-1">🚧</span> Proof of Concept - AI Features in Development
+            </div>
+
+            <div className="flex items-center mb-2 mt-3">
               <svg className="w-6 h-6 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                 <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742z" clipRule="evenodd" />
               </svg>
@@ -34,13 +38,18 @@ const HeroSection = ({ getTryLink }: HeroSectionProps) => {
                 Made in Zürich, Switzerland
               </span>
             </div>
-            
+
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Meet Heidi, Your Swiss German Teacher
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 mb-6">
+            <p className="text-xl md:text-2xl text-gray-600 mb-4">
               A personalized AI language tutor that helps you learn Swiss German naturally and authentically.
             </p>
+            <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-sm text-green-800">
+                <strong>Current Status:</strong> Demo UI showcasing our vision. Full AI capabilities with 7M Swiss German embeddings, spaced repetition (SM-2), and dialect corpus are documented in our <a href="https://github.com/g-but/botsmann/blob/main/app/bots/swiss-german-teacher/README.md" className="underline hover:text-green-900" target="_blank" rel="noopener noreferrer">technical roadmap</a>.
+              </p>
+            </div>
             
             <div className="space-y-4 mb-8">
               <div className="flex items-start">

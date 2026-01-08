@@ -2,11 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { sampleTeamMembers } from '../../data/sampleData';
 
 export default function EmployeeDetailPage({ params }: { params: { id: string } }) {
-  const router = useRouter();
   const employeeId = params.id;
   
   // Find the employee with the matching ID

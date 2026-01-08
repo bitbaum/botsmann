@@ -1,13 +1,11 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AgencyProfile from '../../components/AgencyProfile';
 import { sampleAgencies } from '../../data/sampleData';
 
 export default function AgencyDetailPage({ params }: { params: { id: string } }) {
-  const router = useRouter();
   const agencyId = params.id;
   
   const agency = sampleAgencies.find(a => a.id === agencyId);
