@@ -6,7 +6,7 @@
 interface HeidiOutput {
   iigabä: string;
   iigabetyp: string;
-  content: any; // Can be table data or text responses
+  content: unknown; // Can be table data or text responses
 }
 
 /**
@@ -211,11 +211,8 @@ function detectLanguage(text: string): string {
  * @param sourceLanguage Source language
  * @returns Table data
  */
-function generateWordTable(word: string, wordType: string, sourceLanguage: string) {
+function generateWordTable(word: string, _wordType: string, _sourceLanguage: string) {
   // In production, this would query a language database or API
-  
-  // Example table data
-  const tableData = [];
   
   // For demonstration, just add sample rows
   // In production, this would be filled with real translation data
@@ -291,7 +288,7 @@ function generateConjugationTable(verb: string) {
  * @param sentenceCount Number of sentences to generate
  * @returns Contextual text in Züridütsch
  */
-function generateContextText(topic: string, sentenceCount: number): string {
+function generateContextText(topic: string, _sentenceCount: number): string {
   // In production, this would use a language model to generate contextual examples
   // For demonstration, return a fixed set of sentences
   
@@ -329,7 +326,7 @@ function translateSentence(sentence: string) {
  * @param text The input text
  * @returns Translations in both languages
  */
-function translateText(text: string) {
+function translateText(_text: string) {
   // In production, this would use a translation API
   // For demo purposes, return simplified translations
   
@@ -366,7 +363,7 @@ function extractMainTopic(text: string): string {
  * @param request The email request
  * @returns Formatted email draft
  */
-function generateEmailDraft(request: string): string {
+function generateEmailDraft(_request: string): string {
   // In production, this would generate a context-aware email
   // For demo, return a sample email
   

@@ -30,7 +30,7 @@ interface AnalysisResult {
   recommendations: string[];
 }
 
-const AICaseAnalysis: React.FC<AICaseAnalysisProps> = ({ intake: _intake, onContinue, onBack }) => {
+const AICaseAnalysis: React.FC<AICaseAnalysisProps> = ({ intake, onContinue, onBack }) => {
   const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [progress, setProgress] = useState(0);
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
@@ -49,7 +49,8 @@ const AICaseAnalysis: React.FC<AICaseAnalysisProps> = ({ intake: _intake, onCont
     }, 200);
 
     return () => clearInterval(interval);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Intentionally run only on mount - performAnalysis uses intake which won't change during analysis
 
   const performAnalysis = () => {
     // Mock AI analysis based on intake data

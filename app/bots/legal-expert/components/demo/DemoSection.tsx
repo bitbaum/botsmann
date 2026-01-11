@@ -54,7 +54,7 @@ const DemoSection: React.FC = () => {
     setCaseContext(prev => ({
       ...prev,
       files: prev.files.map(f =>
-        f.id === fileId ? { ...f, visibility: visibility as any } : f
+        f.id === fileId ? { ...f, visibility: visibility as UploadedFile['visibility'] } : f
       )
     }));
   };
@@ -236,7 +236,7 @@ const DemoSection: React.FC = () => {
                   ].map((u) => (
                     <button
                       key={u.id}
-                      onClick={() => setCaseContext({ ...caseContext, urgency: u.id as any })}
+                      onClick={() => setCaseContext({ ...caseContext, urgency: u.id as CaseContext['urgency'] })}
                       className={`p-3 rounded-lg border-2 transition-all active:scale-95 ${
                         caseContext.urgency === u.id
                           ? 'border-blue-500 bg-blue-50 shadow-md'

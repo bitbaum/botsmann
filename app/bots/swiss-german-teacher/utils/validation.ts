@@ -26,7 +26,7 @@ export const isNotEmpty = (text: string): boolean => {
  * @param error Error message or object
  * @returns Formatted error message string
  */
-export const formatErrorMessage = (error: any): string => {
+export const formatErrorMessage = (error: unknown): string => {
   if (typeof error === 'string') {
     return error;
   }

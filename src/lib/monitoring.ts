@@ -12,7 +12,7 @@ Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
 
   // Error filtering
-  beforeSend(event, hint) {
+  beforeSend(event, _hint) {
     // Filter out non-actionable errors in development
     if (process.env.NODE_ENV === 'development') {
       // Don't send errors from localhost in development
@@ -41,8 +41,11 @@ Sentry.init({
 // Export Sentry for use in components
 export { Sentry };
 
+// Type for Sentry-compatible tag values
+type TagValue = string | number | boolean | null | undefined;
+
 // Helper functions for manual error tracking
-export const captureException = (error: Error, context?: Record<string, any>) => {
+export const captureException = (error: Error, context?: Record<string, TagValue>) => {
   Sentry.withScope((scope) => {
     if (context) {
       Object.keys(context).forEach((key) => {
@@ -53,7 +56,7 @@ export const captureException = (error: Error, context?: Record<string, any>) =>
   });
 };
 
-export const captureMessage = (message: string, level: Sentry.SeverityLevel = 'info', context?: Record<string, any>) => {
+export const captureMessage = (message: string, level: Sentry.SeverityLevel = 'info', context?: Record<string, TagValue>) => {
   Sentry.withScope((scope) => {
     scope.setLevel(level);
     if (context) {

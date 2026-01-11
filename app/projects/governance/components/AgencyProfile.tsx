@@ -375,6 +375,7 @@ const AgencyProfile: React.FC<AgencyProfileProps> = ({ agency }) => {
                   <div className="flex-1 flex flex-col p-8">
                     <div className="w-24 h-24 flex-shrink-0 mx-auto rounded-full bg-gray-200 overflow-hidden">
                       {member.imageUrl ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
                         <img className="w-24 h-24 object-cover" src={member.imageUrl} alt={member.name} />
                       ) : (
                         <div className="h-full w-full flex items-center justify-center bg-gray-300 text-gray-500 text-2xl">

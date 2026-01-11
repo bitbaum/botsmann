@@ -32,7 +32,7 @@ export default function FinancialAdvisor() {
         botEmoji="💰"
         botSlug="financial-advisor"
         menuItems={menuItems}
-        accentColor="emerald"
+        accentColor="green"
       />
       <main className="mx-auto max-w-screen-xl px-6">
         <HeroSection title="RichCat" overview={bot.overview} getTryLink={getTryLink} />

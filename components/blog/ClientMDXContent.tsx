@@ -5,16 +5,19 @@ import MDXComponents from './MDXComponents';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import remarkGfm from 'remark-gfm';
+import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
+
+type ImgProps = DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { slug?: string };
 
 export default function ClientMDXContent({ content, slug }: { content: string; slug: string }) {
   // Create a complete components map including the slug context for images
   const componentsWithContext = {
     ...MDXComponents,
-    img: (imgProps: any) => {
-      console.log('Rendering client img with props:', { src: imgProps.src, slug });
-      return MDXComponents.img({ 
-        ...imgProps, 
-        slug 
+    img: (imgProps: ImgProps) => {
+      console.info('Rendering client img with props:', { src: imgProps.src, slug });
+      return MDXComponents.img({
+        ...imgProps,
+        slug
       });
     },
     // Ensure Callout is explicitly passed as a prop to avoid the "Expected component `Callout` to be defined" error

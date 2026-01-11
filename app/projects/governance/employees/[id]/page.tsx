@@ -90,6 +90,7 @@ export default function EmployeeDetailPage({ params }: { params: { id: string } 
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
               <div className="flex items-center">
                 {employee.imageUrl ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
                   <img
                     className="h-16 w-16 rounded-full border-4 border-white"
                     src={employee.imageUrl}

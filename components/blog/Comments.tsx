@@ -6,6 +6,9 @@ export default function Comments({ slug }: { slug: string }) {
   const commentsRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
+    // Save ref to local variable for cleanup
+    const container = commentsRef.current;
+
     // Load Giscus
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
@@ -23,16 +26,16 @@ export default function Comments({ slug }: { slug: string }) {
     script.setAttribute('data-loading', 'lazy');
     script.crossOrigin = 'anonymous';
     script.async = true;
-    
-    if (commentsRef.current) {
-      commentsRef.current.appendChild(script);
+
+    if (container) {
+      container.appendChild(script);
     }
-    
+
     return () => {
-      if (commentsRef.current) {
-        const giscusFrame = commentsRef.current.querySelector('iframe.giscus-frame');
+      if (container) {
+        const giscusFrame = container.querySelector('iframe.giscus-frame');
         if (giscusFrame) {
-          commentsRef.current.removeChild(giscusFrame);
+          container.removeChild(giscusFrame);
         }
       }
     };

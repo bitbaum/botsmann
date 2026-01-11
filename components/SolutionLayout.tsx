@@ -9,7 +9,7 @@ export interface SolutionData {
     caseStudies?: string[];
     faq?: string[];
     testimonials?: string[];
-    [key: string]: any;
+    [key: string]: string[] | undefined;
   };
 }
 

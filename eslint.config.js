@@ -30,6 +30,23 @@ export default [
   },
   // Base JS recommended rules
   js.configs.recommended,
+  // Jest test files configuration
+  {
+    files: ["**/*.test.js", "**/*.test.ts", "**/*.test.tsx", "tests/**/*.js", "tests/**/*.ts"],
+    languageOptions: {
+      globals: {
+        describe: "readonly",
+        test: "readonly",
+        it: "readonly",
+        expect: "readonly",
+        beforeEach: "readonly",
+        afterEach: "readonly",
+        beforeAll: "readonly",
+        afterAll: "readonly",
+        jest: "readonly",
+      },
+    },
+  },
   // Next.js config (using compat for legacy config format)
   ...compat.extends("next/core-web-vitals"),
   // TypeScript files configuration

@@ -85,8 +85,9 @@ const RoadmapSection: React.FC = () => {
         <div className="mt-12 bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/3">
-              <img 
-                src="/images/placeholder-chart.svg" 
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/placeholder-chart.svg"
                 alt="Implementation Progress Chart"
                 className="w-full h-48 bg-gray-100 rounded-xl"
               />

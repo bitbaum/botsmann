@@ -1,8 +1,8 @@
-import { LinkProps } from 'next/link';
+import type { Route } from 'next';
 
 export interface MenuItem {
   label: string;
-  path: LinkProps<string>['href'];
+  path: Route | string;
   /**
    * Optional description for mega menu display
    */

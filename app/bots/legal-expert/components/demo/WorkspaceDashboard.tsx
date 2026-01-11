@@ -25,6 +25,24 @@ interface ChatMessage {
   timestamp: Date;
 }
 
+interface ChatViewProps {
+  messages: ChatMessage[];
+  inputMessage: string;
+  setInputMessage: (msg: string) => void;
+  handleSendMessage: () => void;
+  isTyping: boolean;
+  lawyer: LawyerProfile;
+}
+
+interface TimelineViewProps {
+  files: UploadedFile[];
+  messages: ChatMessage[];
+}
+
+interface SettingsViewProps {
+  lawyer: LawyerProfile;
+}
+
 const WorkspaceDashboard: React.FC<WorkspaceDashboardProps> = ({
   files,
   lawyer,
@@ -264,7 +282,7 @@ const WorkspaceDashboard: React.FC<WorkspaceDashboardProps> = ({
               selectedFile={selectedFile}
               setSelectedFile={setSelectedFile}
               onFileDelete={onFileDelete}
-              onFileVisibilityChange={onFileVisibilityChange}
+              onFileVisibilityChange={_onFileVisibilityChange}
             />
           )}
 
@@ -461,7 +479,7 @@ const FilesView: React.FC<FilesViewProps> = ({
 );
 
 // Chat View Component
-const ChatView: React.FC<any> = ({ messages, inputMessage, setInputMessage, handleSendMessage, isTyping, lawyer }) => (
+const ChatView: React.FC<ChatViewProps> = ({ messages, inputMessage, setInputMessage, handleSendMessage, isTyping, lawyer }) => (
   <div className="h-full flex flex-col bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-slate-700">
     <div className="px-6 py-4 border-b border-slate-700">
       <h2 className="text-xl font-bold text-white">💬 Live Chat</h2>
@@ -521,7 +539,7 @@ const ChatView: React.FC<any> = ({ messages, inputMessage, setInputMessage, hand
 );
 
 // Timeline View Component
-const TimelineView: React.FC<any> = ({ files, messages }) => (
+const TimelineView: React.FC<TimelineViewProps> = ({ files, messages }) => (
   <div className="space-y-4 animate-fadeIn">
     <h2 className="text-2xl font-bold text-white">📅 Activity Timeline</h2>
     <div className="space-y-3">
@@ -545,7 +563,7 @@ const TimelineView: React.FC<any> = ({ files, messages }) => (
 );
 
 // Settings View Component
-const SettingsView: React.FC<any> = ({ lawyer }) => (
+const SettingsView: React.FC<SettingsViewProps> = ({ lawyer }) => (
   <div className="space-y-6 animate-fadeIn">
     <h2 className="text-2xl font-bold text-white">⚙️ Workspace Settings</h2>
 

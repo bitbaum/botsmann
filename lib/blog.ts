@@ -12,6 +12,17 @@ export interface BlogPost {
   featuredImage?: string;
 }
 
+// Interface for frontmatter data from gray-matter
+interface PostFrontmatter {
+  title?: string;
+  date?: string;
+  author?: string;
+  excerpt?: string;
+  tags?: string[];
+  featuredImage?: string;
+  published?: boolean;
+}
+
 // GitHub repository configuration
 const GITHUB_USERNAME = 'g-but';
 const GITHUB_REPO = 'botsmann-blog-content';
@@ -48,7 +59,7 @@ function getCurrentDate(): string {
 }
 
 // Function to determine the post date based on our configuration and the post data
-function determinePostDate(data: any): string {
+function determinePostDate(data: PostFrontmatter): string {
   const currentDate = getCurrentDate();
   
   // If post is published
@@ -56,7 +67,7 @@ function determinePostDate(data: any): string {
     // If we're forcing current date for all published posts OR if no date is provided
     if (CONFIG.FORCE_CURRENT_DATE_FOR_PUBLISHED || !data.date) {
       if (CONFIG.VERBOSE_LOGGING) {
-        console.log(`Using current date (${currentDate}) for published post.`, 
+        console.info(`Using current date (${currentDate}) for published post.`, 
                     data.date ? `Original date was: ${data.date}` : 'No original date was provided.');
       }
       return currentDate;
@@ -70,7 +81,7 @@ function determinePostDate(data: any): string {
 // Function to fetch all blog posts
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
   try {
-    console.log('Fetching all blog posts');
+    console.info('Fetching all blog posts');
     
     // Fetch all directories in the posts folder
     const res = await fetch(
@@ -87,11 +98,11 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
     
     // Process each directory as a potential blog post
     const posts = await Promise.all(
-      directories.map(async (dir: any) => {
+      directories.map(async (dir: { type: string; name: string }) => {
         if (dir.type !== 'dir') return null;
         
         const slug = dir.name;
-        console.log('Processing post directory:', slug);
+        console.info('Processing post directory:', slug);
         
         // Fetch the index.mdx file for this post
         const mdxRes = await fetch(
@@ -111,7 +122,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
         
         // Skip posts that aren't published
         if (data.published !== true) {
-          console.log(`Skipping unpublished post: ${slug}`);
+          console.info(`Skipping unpublished post: ${slug}`);
           return null;
         }
         
@@ -140,7 +151,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
                 const altPath = `posts/${slug}/${fileNameWithoutExt}.${ext}`;
                 if (await fileExistsOnGitHub(altPath)) {
                   featuredImage = `${GITHUB_RAW_BASE}/${altPath}`;
-                  console.log(`Found alternative featured image for ${slug}: ${featuredImage}`);
+                  console.info(`Found alternative featured image for ${slug}: ${featuredImage}`);
                   break;
                 }
               }
@@ -177,7 +188,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
 // Function to fetch a single blog post by slug
 export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
-    console.log('Fetching blog post for slug:', slug);
+    console.info('Fetching blog post for slug:', slug);
     
     if (!slug) {
       console.error('Attempted to fetch blog post with empty slug');
@@ -202,7 +213,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
     
     // Skip posts that aren't published
     if (data.published !== true) {
-      console.log(`Skipping unpublished post: ${slug}`);
+      console.info(`Skipping unpublished post: ${slug}`);
       return null;
     }
     
@@ -210,7 +221,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
     const postDate = determinePostDate(data);
     
     if (CONFIG.VERBOSE_LOGGING) {
-      console.log(`Post date for ${slug}:`, postDate, 
+      console.info(`Post date for ${slug}:`, postDate, 
                   data.date ? `Original date: ${data.date}` : 'No original date found');
     }
     
@@ -224,7 +235,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
       
       // Log the resolved featured image URL
       if (CONFIG.VERBOSE_LOGGING) {
-        console.log(`Resolved featured image for ${slug}:`, featuredImage);
+        console.info(`Resolved featured image for ${slug}:`, featuredImage);
       }
       
       // Verify the image exists
@@ -239,7 +250,7 @@ export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null
           const altPath = `posts/${slug}/${fileNameWithoutExt}.${ext}`;
           if (await fileExistsOnGitHub(altPath)) {
             featuredImage = `${GITHUB_RAW_BASE}/${altPath}`;
-            console.log(`Found alternative featured image: ${featuredImage}`);
+            console.info(`Found alternative featured image: ${featuredImage}`);
             break;
           }
         }

@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import type { Route } from 'next';
 
 /**
  * Navigation component for detailed core components pages
@@ -81,7 +82,7 @@ const DetailedComponentsNav: React.FC = () => {
             return (
               <Link 
                 key={component.id}
-                href={component.path as any}
+                href={component.path as Route}
                 className={`
                   flex items-center p-4 rounded-lg border transition-colors
                   ${isActive 

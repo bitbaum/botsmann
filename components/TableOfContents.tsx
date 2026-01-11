@@ -16,6 +16,17 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
   
   // Update active section based on scroll position
   useEffect(() => {
+    // Get all IDs from items and their subitems (defined inside effect to avoid dependency warning)
+    const getAllIds = (tocItems: TOCItem[]): string[] => {
+      return tocItems.reduce<string[]>((acc, item) => {
+        acc.push(item.id);
+        if (item.subItems && item.subItems.length > 0) {
+          acc = [...acc, ...getAllIds(item.subItems)];
+        }
+        return acc;
+      }, []);
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -45,17 +56,6 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
       });
     };
   }, [items]);
-
-  // Get all IDs from items and their subitems
-  const getAllIds = (items: TOCItem[]): string[] => {
-    return items.reduce<string[]>((acc, item) => {
-      acc.push(item.id);
-      if (item.subItems && item.subItems.length > 0) {
-        acc = [...acc, ...getAllIds(item.subItems)];
-      }
-      return acc;
-    }, []);
-  };
 
   // Handle smooth scrolling when clicking a TOC item
   const scrollToSection = (id: string) => {

@@ -407,11 +407,13 @@ export default function LawFrameworkPage() {
             
             <div className="bg-white text-gray-900 rounded-lg p-8 shadow-lg">
               <div className="flex justify-center mb-6">
+                {/* eslint-disable @next/next/no-img-element */}
                 <div className="flex -space-x-2">
                   <img className="inline-block h-12 w-12 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491349174775-aaafddd81942?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80" alt="" />
                   <img className="inline-block h-12 w-12 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80" alt="" />
                   <img className="inline-block h-12 w-12 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80" alt="" />
                 </div>
+                {/* eslint-enable @next/next/no-img-element */}
               </div>
               <blockquote className="text-xl italic font-medium text-gray-900 mb-4">
                 "Cities that have implemented the Open Law framework have seen a 43% increase in successful policy outcomes. Laws that don't work get fixed or removed. Accountability is no longer optional."

@@ -193,7 +193,7 @@ export interface CaseTimeline {
   actor: string; // User ID
   actorRole: Role;
   action: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
 }
 
 // Portal-specific types

@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 
 export default function Footer() {
@@ -9,19 +10,19 @@ export default function Footer() {
           <h2 className="mb-4 font-semibold text-gray-800">Company</h2>
           <ul className="space-y-2">
             <li>
-              <a href="/about" className="hover:text-openai-green">
+              <Link href="/about" className="hover:text-openai-green">
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/blog" className="hover:text-openai-green">
+              <Link href="/blog" className="hover:text-openai-green">
                 Blog
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/contact" className="hover:text-openai-green">
+              <Link href="/contact" className="hover:text-openai-green">
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -29,14 +30,14 @@ export default function Footer() {
           <h2 className="mb-4 font-semibold text-gray-800">Legal</h2>
           <ul className="space-y-2">
             <li>
-              <a href="/privacy" className="hover:text-openai-green">
+              <Link href="/privacy" className="hover:text-openai-green">
                 Privacy Policy
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/terms" className="hover:text-openai-green">
+              <Link href="/terms" className="hover:text-openai-green">
                 Terms of Service
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

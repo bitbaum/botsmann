@@ -216,7 +216,7 @@ export default function BotBuilder() {
                           name="complexity"
                           value={option.value}
                           checked={requirements.complexity === option.value}
-                          onChange={(e) => updateRequirements({ complexity: e.target.value as any })}
+                          onChange={(e) => updateRequirements({ complexity: e.target.value as BotRequirement['complexity'] })}
                           className="sr-only"
                         />
                         <div className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
@@ -256,7 +256,7 @@ export default function BotBuilder() {
                           name="timeline"
                           value={option.value}
                           checked={requirements.timeline === option.value}
-                          onChange={(e) => updateRequirements({ timeline: e.target.value as any })}
+                          onChange={(e) => updateRequirements({ timeline: e.target.value as BotRequirement['timeline'] })}
                           className="sr-only"
                         />
                         <div className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
@@ -289,7 +289,7 @@ export default function BotBuilder() {
                           name="budget"
                           value={option.value}
                           checked={requirements.budget === option.value}
-                          onChange={(e) => updateRequirements({ budget: e.target.value as any })}
+                          onChange={(e) => updateRequirements({ budget: e.target.value as BotRequirement['budget'] })}
                           className="sr-only"
                         />
                         <div className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${

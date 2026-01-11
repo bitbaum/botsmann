@@ -75,10 +75,10 @@ async function handler(req: NextRequest) {
         headers: { 'Content-Type': 'application/json' }
       }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Consultation submission error:', error);
 
-    if (error.code === 'RATE_LIMIT') {
+    if (error instanceof Error && 'code' in error && error.code === 'RATE_LIMIT') {
       return new Response(
         JSON.stringify(createErrorResponse(
           'Rate limit exceeded. Please try again later.',

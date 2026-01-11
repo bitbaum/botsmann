@@ -47,8 +47,9 @@ function HowItWorks({ steps }: { steps: Step[] }) {
               <h3 className="mb-2 text-xl font-medium">{step.title}</h3>
               <p className="text-gray-600">{step.description}</p>
               {step.image && (
-                <img 
-                  src={step.image} 
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={step.image}
                   alt={step.title}
                   className="mt-4 rounded-lg border border-gray-200"
                 />

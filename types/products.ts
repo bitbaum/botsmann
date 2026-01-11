@@ -10,5 +10,5 @@ export interface ProductResult {
 
 export interface NLPResult {
   category: string;
-  attributes: Record<string, any>;
+  attributes: Record<string, unknown>;
 }

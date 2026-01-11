@@ -937,8 +937,10 @@ export const sampleCitizen: CitizenData = {
   participationScore: 78
 };
 
-export default {
+const sampleData = {
   agencies: sampleAgencies,
   transactions: sampleTransactions,
   citizen: sampleCitizen
-}; 
+};
+
+export default sampleData; 

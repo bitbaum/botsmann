@@ -138,14 +138,14 @@ const DataRoomDemo: React.FC<DataRoomDemoProps> = ({ files, lawyerUsername, lawy
       {/* Tab Navigation */}
       <div className="border-b border-gray-200 bg-gray-50">
         <div className="flex">
-          {[
+          {([
             { id: 'chat', label: 'Chat', icon: '💬' },
             { id: 'files', label: 'Files', icon: '📁', count: files.length },
             { id: 'timeline', label: 'Timeline', icon: '📅' }
-          ].map((tab) => (
+          ] as const).map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
+              onClick={() => setActiveTab(tab.id)}
               className={`
                 flex-1 px-3 sm:px-4 py-3 text-xs sm:text-sm font-medium transition-colors relative
                 ${activeTab === tab.id
@@ -156,7 +156,7 @@ const DataRoomDemo: React.FC<DataRoomDemoProps> = ({ files, lawyerUsername, lawy
             >
               <span className="mr-1 sm:mr-2">{tab.icon}</span>
               {tab.label}
-              {tab.count !== undefined && (
+              {'count' in tab && tab.count !== undefined && (
                 <span className="ml-1 sm:ml-2 px-1.5 py-0.5 bg-blue-100 text-blue-600 rounded-full text-xs">
                   {tab.count}
                 </span>

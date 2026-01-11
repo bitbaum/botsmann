@@ -1,5 +1,4 @@
 import { MenuItem } from '@/types/navigation';
-import { UrlObject } from 'url';
 
 export const menuItems: MenuItem[] = [
   {

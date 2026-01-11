@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { DetailedHTMLProps, ImgHTMLAttributes, useState, useEffect } from 'react';
+import React, { DetailedHTMLProps, ImgHTMLAttributes, useState, useEffect } from 'react';
 
 // Helper function to transform image paths
 const _transformImageSrc = (src: string, slug: string) => {
@@ -56,30 +56,30 @@ const _useAlternativeImageFormat = async (src: string): Promise<string | null> =
 // Define custom MDX components with Tailwind styling
 const MDXComponents = {
   // Headings
-  h1: (props: any) => (
+  h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1 className="mb-8 text-4xl font-semibold tracking-tight text-gray-900" {...props} />
   ),
-  h2: (props: any) => (
+  h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2 className="mb-4 mt-8 text-2xl font-semibold text-gray-900" {...props} />
   ),
-  h3: (props: any) => (
+  h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3 className="mb-4 mt-6 text-xl font-semibold text-gray-900" {...props} />
   ),
-  
+
   // Text elements
-  p: (props: any) => (
+  p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p className="mb-4 text-gray-600" {...props} />
   ),
-  ul: (props: any) => (
+  ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
     <ul className="mb-4 list-disc pl-6 text-gray-600" {...props} />
   ),
-  ol: (props: any) => (
+  ol: (props: React.HTMLAttributes<HTMLOListElement>) => (
     <ol className="mb-4 list-decimal pl-6 text-gray-600" {...props} />
   ),
-  li: (props: any) => (
+  li: (props: React.HTMLAttributes<HTMLLIElement>) => (
     <li className="mb-2" {...props} />
   ),
-  a: ({ href, ...props }: any) => {
+  a: ({ href, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
     const isExternal = href?.startsWith('http');
     
     if (isExternal) {
@@ -109,17 +109,17 @@ const MDXComponents = {
     const [imageSrc, setImageSrc] = useState<string>('');
     const [isError, setIsError] = useState(false);
 
-    if (!src) {
-      console.error('Image source missing');
-      return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
-    }
-
     // Extract slug from URL if not provided directly
     useEffect(() => {
-      
+      // Skip if no src provided
+      if (!src) {
+        setIsError(true);
+        return;
+      }
+
       // Get the slug from props or extract from URL
       let contextSlug = typeof slug === 'string' ? slug : '';
-      
+
       // If slug is not provided directly, try to extract from URL pathname
       if (!contextSlug && typeof window !== 'undefined') {
         const urlPath = window.location.pathname;
@@ -130,17 +130,17 @@ const MDXComponents = {
           console.info('Extracted slug from URL:', contextSlug);
         }
       }
-      
+
       // Use welcome-post as a last resort fallback, but we should never need this
       // if the ClientMDXContent is passing the slug correctly
       if (!contextSlug) {
         contextSlug = 'welcome-post';
         console.info('Using fallback slug as last resort:', contextSlug);
       }
-      
+
       try {
         let fullSrc = '';
-        
+
         if (src.startsWith('http')) {
           // If it's already an absolute URL, use it as is
           fullSrc = src;
@@ -151,7 +151,7 @@ const MDXComponents = {
             setIsError(true);
             return;
           }
-          
+
           const imagePath = src.replace(/^\.\//, ''); // Remove leading ./
           fullSrc = `https://raw.githubusercontent.com/g-but/botsmann-blog-content/main/posts/${contextSlug}/${imagePath}`;
           console.info('Using dynamic slug for image path:', { contextSlug, imagePath, fullSrc });
@@ -159,7 +159,7 @@ const MDXComponents = {
           // For any other format, just use the src as is
           fullSrc = src;
         }
-        
+
         // Log the processed image source for debugging
         console.info('Processed image source:', fullSrc);
         setImageSrc(fullSrc);
@@ -168,11 +168,17 @@ const MDXComponents = {
         setIsError(true);
       }
     }, [src, slug]);
-    
+
+    // Error and loading states - checked after hooks
+    if (!src) {
+      console.error('Image source missing');
+      return <div className="my-8 p-4 bg-red-50 text-red-500">Image source missing</div>;
+    }
+
     if (isError) {
       return <div className="my-8 p-4 bg-red-50 text-red-500">Failed to load image</div>;
     }
-    
+
     if (!imageSrc) {
       return <div className="my-8 p-4 bg-gray-50 text-gray-500">Loading image...</div>;
     }
