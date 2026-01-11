@@ -1,0 +1,141 @@
+/* Oscar the Orange Cat - Custom Styles */
+
+/* Animated gradient background for hero */
+.oscar-gradient {
+  background: linear-gradient(
+    135deg,
+    #fff7ed 0%,
+    #ffedd5 25%,
+    #fed7aa 50%,
+    #ffedd5 75%,
+    #fff7ed 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating animation for cat elements */
+.float-gentle {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Purring animation */
+.purr {
+  animation: purr 0.5s ease-in-out infinite;
+}
+
+@keyframes purr {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Tail swish animation */
+.tail-swish {
+  animation: swish 2s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+@keyframes swish {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+/* Blink animation */
+.blink {
+  animation: blink 4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 45%, 55%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Wisdom card hover effect */
+.wisdom-card {
+  transition: all 0.3s ease;
+}
+
+.wisdom-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(251, 146, 60, 0.3);
+}
+
+/* Sunbeam effect */
+.sunbeam {
+  position: relative;
+  overflow: hidden;
+}
+
+.sunbeam::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    rgba(255, 237, 213, 0.3) 50%,
+    transparent 60%
+  );
+  animation: sunbeam-move 4s ease-in-out infinite;
+}
+
+@keyframes sunbeam-move {
+  0% { transform: translateX(-100%) translateY(-100%); }
+  100% { transform: translateX(100%) translateY(100%); }
+}
+
+/* Cat paw cursor on interactive elements */
+.paw-cursor {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ctext y='20' font-size='20'%3E🐾%3C/text%3E%3C/svg%3E"), auto;
+}
+
+/* Typing indicator for wisdom */
+.typing-dots span {
+  animation: typing 1.4s infinite both;
+}
+
+.typing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+
+/* Orange glow effect */
+.orange-glow {
+  box-shadow: 0 0 30px rgba(251, 146, 60, 0.4);
+}
+
+/* Feature card animations */
+.feature-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}

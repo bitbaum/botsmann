@@ -50,6 +50,12 @@ export const menuItems: MenuItem[] = [
         path: "/bots/product-manager",
         description: "Ingest user data, get product roadmaps & analysis",
         icon: "🔱"
+      },
+      {
+        label: "Orange Cat (Oscar)",
+        path: "/bots/orange-cat",
+        description: "Ancient feline wisdom & philosophical life advice",
+        icon: "🐱"
       }
     ]
   },

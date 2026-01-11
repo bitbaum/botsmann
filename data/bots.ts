@@ -97,6 +97,22 @@ const bots: Bot[] = [
       'Cursor-Optimized: Specifically designed for Cursor development workflow'
     ],
     details: 'Trident transforms the development process by providing comprehensive project management and technical guidance. It helps organize tasks, create detailed implementation plans, and optimize workflows specifically for Cursor development. By leveraging AI capabilities, it produces clear specifications, architecture diagrams, and risk assessments that developers can immediately use for implementation.'
+  },
+  {
+    slug: 'orange-cat',
+    title: 'Oscar – The Orange Cat Philosopher',
+    description: 'Ancient feline wisdom meets modern AI. Get life advice from a cat who has seen it all (from the sunny spot on the couch).',
+    overview: 'Oscar dispenses timeless wisdom, judges your life choices with love, and reminds you that the answer to most problems is a nap.',
+    features: [
+      'Wisdom Dispensary: Ancient cat proverbs adapted for modern human problems.',
+      'Judgmental Stare Analysis: Upload your situation, receive a calibrated look of feline disapproval or approval.',
+      'Nap Optimization: Science-backed recommendations for optimal rest schedules.',
+      'Chaos Theory: Learn to embrace the art of knocking things off tables (metaphorically).',
+      'Sunbeam Therapy: Find your inner peace through strategic positioning.',
+      'The Art of Ignoring: Master the skill of selective attention for better focus.'
+    ],
+    details: 'Oscar is no ordinary cat. With nine lives worth of experience and an unparalleled talent for observing human behavior from atop the refrigerator, Oscar brings a unique perspective to life\'s challenges. Whether you\'re facing career decisions, relationship troubles, or simply need permission to take a nap, Oscar is here with a flick of the tail and a knowing purr. His philosophy is simple: life is better when you chase what brings you joy, rest when needed, and never apologize for being exactly who you are.',
+    tryLink: 'https://chatgpt.com/g/oscar-orange-cat'
   }
 ];
 
