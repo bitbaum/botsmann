@@ -1,9 +1,11 @@
 node_modules
 .env
+
 # Build artifacts
 .next/
 build/
 out/
+tsconfig.tsbuildinfo
 
 # Environment (never commit)
 .env
@@ -23,5 +25,21 @@ Thumbs.db
 # Logs
 logs/
 *.log
+
+# Vercel
 .vercel
-.env*.local
+
+# Runtime state / cache (bot runtime artifacts)
+.call_count
+.circuit_breaker_history
+.circuit_breaker_state
+.exit_signals
+.last_reset
+.ralph_session
+.ralph_session_history
+.response_analysis
+progress.json
+status.json
+
+# Lint cache
+.eslintcache
