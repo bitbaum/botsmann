@@ -25,6 +25,7 @@ import {
   wrapUserContext,
 } from '@/lib/prompt-sanitizer';
 import { getUserLLMSettings, joinContext } from '@/lib/chat';
+import { getRelevantContext, extractAndSaveContext } from '@/lib/context';
 
 // Extend function timeout for model loading (Vercel)
 export const maxDuration = 30;
@@ -54,6 +55,7 @@ export async function POST(request: NextRequest) {
       professionalSlug,
       additionalContext,
       conversationHistory,
+      conversationId,
       useDocuments = true, // Default to using documents if available
     } = body;
 
@@ -169,6 +171,33 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Retrieve accumulated user context (personalized facts from past interactions)
+    let userContextStr = '';
+    if (user && professionalSlug) {
+      try {
+        const accessibleDomains = PROFESSIONAL_DOCUMENT_ACCESS[professionalSlug] || ['general'];
+        const contextEntries = await getRelevantContext(
+          user.id,
+          accessibleDomains,
+          message,
+          5, // max 5 relevant facts
+          0.35,
+        );
+
+        if (contextEntries.length > 0) {
+          const facts = contextEntries.map((e) => `- ${e.content}`).join('\n');
+          userContextStr = `\n\nKnown information about this user from previous interactions:\n${facts}`;
+          console.log(
+            '[Professional Chat API] Injected',
+            contextEntries.length,
+            'user context facts',
+          );
+        }
+      } catch (err) {
+        console.error('[Professional Chat API] User context retrieval error:', err);
+      }
+    }
+
     // Build the full system prompt with sanitized content
     let fullSystemPrompt = sanitizedSystemPrompt.sanitized;
 
@@ -178,6 +207,10 @@ export async function POST(request: NextRequest) {
       if (wrappedContext) {
         fullSystemPrompt += `\n\n${wrappedContext}`;
       }
+    }
+
+    if (userContextStr) {
+      fullSystemPrompt += userContextStr;
     }
 
     if (documentContext) {
@@ -221,6 +254,17 @@ export async function POST(request: NextRequest) {
 
       console.log('[Professional Chat API] LLM response in', Date.now() - llmStartTime, 'ms');
       console.log('[Professional Chat API] Total time:', Date.now() - startTime, 'ms');
+
+      // Async: extract and save user context from this conversation turn (fire-and-forget)
+      if (user) {
+        extractAndSaveContext(
+          user.id,
+          conversationId || `${professionalSlug}-${Date.now()}`,
+          message,
+          llmResponse.content,
+          professionalSlug,
+        ).catch((err) => console.error('[Professional Chat API] Context extraction error:', err));
+      }
 
       return jsonSuccess({
         response: llmResponse.content,
