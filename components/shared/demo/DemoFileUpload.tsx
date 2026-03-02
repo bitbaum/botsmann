@@ -3,6 +3,7 @@
 import { useState, useRef, type FC, type DragEvent, type ChangeEvent } from 'react';
 import type { FileCategory, UploadedFile } from '@/lib/demo/types';
 import type { BotAccentColor } from '@/types/bot';
+import { ACCENT_DROPZONE_CLASSES } from '@/lib/config/colors';
 import { formatBytes } from '@/lib/format';
 
 interface DemoFileUploadProps {
@@ -13,14 +14,6 @@ interface DemoFileUploadProps {
   isUploading: boolean;
   accentColor: BotAccentColor;
 }
-
-const accentColorClasses: Record<BotAccentColor, { border: string; bg: string; text: string }> = {
-  blue: { border: 'border-blue-300', bg: 'bg-blue-50', text: 'text-blue-600' },
-  green: { border: 'border-green-300', bg: 'bg-green-50', text: 'text-green-600' },
-  indigo: { border: 'border-indigo-300', bg: 'bg-indigo-50', text: 'text-indigo-600' },
-  red: { border: 'border-red-300', bg: 'bg-red-50', text: 'text-red-600' },
-  amber: { border: 'border-amber-300', bg: 'bg-amber-50', text: 'text-amber-600' },
-};
 
 function getStatusIcon(status: UploadedFile['status']) {
   switch (status) {
@@ -106,7 +99,7 @@ export const DemoFileUpload: FC<DemoFileUploadProps> = ({
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const colors = accentColorClasses[accentColor];
+  const colors = ACCENT_DROPZONE_CLASSES[accentColor];
 
   // Get all accepted file types from categories
   const acceptedTypes = Array.from(new Set(categories.flatMap((c) => c.acceptedTypes))).join(',');

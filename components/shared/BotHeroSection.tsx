@@ -2,6 +2,7 @@
 
 import { type FC, type ReactNode } from 'react';
 import type { BotAccentColor } from '@/types/bot';
+import { ACCENT_HERO_CLASSES } from '@/lib/config/colors';
 
 /**
  * Chat message for the hero preview
@@ -73,60 +74,6 @@ interface BotHeroSectionProps {
   rightPanel?: ReactNode;
 }
 
-// Color scheme mappings
-const colorSchemes: Record<
-  BotAccentColor,
-  {
-    badge: string;
-    chatBg: string;
-    chatBorder: string;
-    userBubble: string;
-    iconBg: string;
-    benefitIcon: string;
-  }
-> = {
-  blue: {
-    badge: 'bg-blue-100 text-blue-800',
-    chatBg: 'bg-blue-50',
-    chatBorder: 'border-blue-100',
-    userBubble: 'bg-blue-50',
-    iconBg: 'bg-blue-100',
-    benefitIcon: 'text-blue-600',
-  },
-  green: {
-    badge: 'bg-green-100 text-green-800',
-    chatBg: 'bg-blue-50',
-    chatBorder: 'border-blue-100',
-    userBubble: 'bg-green-50',
-    iconBg: 'bg-green-100',
-    benefitIcon: 'text-green-600',
-  },
-  indigo: {
-    badge: 'bg-indigo-100 text-indigo-800',
-    chatBg: 'bg-research-gradient',
-    chatBorder: 'border-indigo-100',
-    userBubble: 'bg-indigo-50',
-    iconBg: 'bg-indigo-100',
-    benefitIcon: 'text-indigo-600',
-  },
-  red: {
-    badge: 'bg-red-100 text-red-800',
-    chatBg: 'bg-red-50',
-    chatBorder: 'border-red-100',
-    userBubble: 'bg-red-50',
-    iconBg: 'bg-red-100',
-    benefitIcon: 'text-red-600',
-  },
-  amber: {
-    badge: 'bg-amber-100 text-amber-800',
-    chatBg: 'bg-amber-50',
-    chatBorder: 'border-amber-100',
-    userBubble: 'bg-amber-50',
-    iconBg: 'bg-amber-100',
-    benefitIcon: 'text-amber-600',
-  },
-};
-
 /**
  * Shared Hero Section component for bot pages
  *
@@ -151,7 +98,7 @@ const colorSchemes: Record<
  * ```
  */
 export const BotHeroSection: FC<BotHeroSectionProps> = ({ config, accentColor, rightPanel }) => {
-  const colors = colorSchemes[accentColor];
+  const colors = ACCENT_HERO_CLASSES[accentColor];
   const {
     badge,
     title,

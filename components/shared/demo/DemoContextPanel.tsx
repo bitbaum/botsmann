@@ -3,6 +3,7 @@
 import { useState, type FC } from 'react';
 import type { IntakeQuestion, IntakeResponses, UploadedFile } from '@/lib/demo/types';
 import type { BotAccentColor } from '@/types/bot';
+import { ACCENT_CONTEXT_PANEL_CLASSES } from '@/lib/config/colors';
 
 interface DemoContextPanelProps {
   intakeQuestions: IntakeQuestion[];
@@ -12,14 +13,6 @@ interface DemoContextPanelProps {
   accentColor: BotAccentColor;
 }
 
-const accentColorClasses: Record<BotAccentColor, { bg: string; text: string; border: string }> = {
-  blue: { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
-  green: { bg: 'bg-green-50', text: 'text-green-700', border: 'border-green-200' },
-  indigo: { bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-200' },
-  red: { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200' },
-  amber: { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200' },
-};
-
 export const DemoContextPanel: FC<DemoContextPanelProps> = ({
   intakeQuestions,
   intakeResponses,
@@ -28,7 +21,7 @@ export const DemoContextPanel: FC<DemoContextPanelProps> = ({
   accentColor,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const colors = accentColorClasses[accentColor];
+  const colors = ACCENT_CONTEXT_PANEL_CLASSES[accentColor];
 
   // Filter to only show answered questions
   const answeredQuestions = intakeQuestions.filter((q) => {

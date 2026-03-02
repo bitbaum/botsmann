@@ -3,6 +3,11 @@
 import { useState, useRef, useEffect, type FC, type FormEvent, type KeyboardEvent } from 'react';
 import type { ChatMessage, DemoOutputConfig } from '@/lib/demo/types';
 import type { BotAccentColor } from '@/types/bot';
+import {
+  ACCENT_BUTTON_CLASSES,
+  ACCENT_FOCUS_RING_CLASSES,
+  ACCENT_STARTER_CLASSES,
+} from '@/lib/config/colors';
 import { DemoMessage, DemoDisclaimer } from './DemoMessage';
 
 interface DemoChatProps {
@@ -14,37 +19,6 @@ interface DemoChatProps {
   accentColor: BotAccentColor;
   outputConfig: DemoOutputConfig;
 }
-
-const accentColorClasses: Record<
-  BotAccentColor,
-  { button: string; border: string; starter: string }
-> = {
-  blue: {
-    button: 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',
-    border: 'focus:border-blue-500 focus:ring-blue-500',
-    starter: 'border-blue-200 hover:border-blue-400 hover:bg-blue-50 text-blue-700',
-  },
-  green: {
-    button: 'bg-green-600 hover:bg-green-700 focus:ring-green-500',
-    border: 'focus:border-green-500 focus:ring-green-500',
-    starter: 'border-green-200 hover:border-green-400 hover:bg-green-50 text-green-700',
-  },
-  indigo: {
-    button: 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500',
-    border: 'focus:border-indigo-500 focus:ring-indigo-500',
-    starter: 'border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50 text-indigo-700',
-  },
-  red: {
-    button: 'bg-red-600 hover:bg-red-700 focus:ring-red-500',
-    border: 'focus:border-red-500 focus:ring-red-500',
-    starter: 'border-red-200 hover:border-red-400 hover:bg-red-50 text-red-700',
-  },
-  amber: {
-    button: 'bg-amber-600 hover:bg-amber-700 focus:ring-amber-500',
-    border: 'focus:border-amber-500 focus:ring-amber-500',
-    starter: 'border-amber-200 hover:border-amber-400 hover:bg-amber-50 text-amber-700',
-  },
-};
 
 // Typing indicator with animated dots
 const TypingIndicator: FC<{ botIcon: string }> = ({ botIcon }) => (
@@ -74,7 +48,9 @@ export const DemoChat: FC<DemoChatProps> = ({
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const colors = accentColorClasses[accentColor];
+  const buttonClass = ACCENT_BUTTON_CLASSES[accentColor];
+  const focusClass = ACCENT_FOCUS_RING_CLASSES[accentColor];
+  const starterClass = ACCENT_STARTER_CLASSES[accentColor];
 
   // Show starter questions only when there's just the welcome message
   const showStarters = messages.length === 1 && messages[0].role === 'assistant';
@@ -148,7 +124,7 @@ export const DemoChat: FC<DemoChatProps> = ({
                   key={idx}
                   onClick={() => handleStarterClick(question)}
                   disabled={isLoading}
-                  className={`px-3 py-1.5 text-xs rounded-full border transition-colors ${colors.starter} disabled:opacity-50`}
+                  className={`px-3 py-1.5 text-xs rounded-full border transition-colors ${starterClass} disabled:opacity-50`}
                 >
                   {question}
                 </button>
@@ -181,12 +157,12 @@ export const DemoChat: FC<DemoChatProps> = ({
             placeholder="Type your message..."
             disabled={isLoading}
             rows={1}
-            className={`flex-1 resize-none rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 ${colors.border} focus:outline-none focus:ring-1 disabled:opacity-50`}
+            className={`flex-1 resize-none rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 ${focusClass} focus:outline-none focus:ring-1 disabled:opacity-50`}
           />
           <button
             type="submit"
             disabled={!input.trim() || isLoading}
-            className={`px-4 py-2.5 rounded-lg text-white font-medium transition-colors ${colors.button} disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2`}
+            className={`px-4 py-2.5 rounded-lg text-white font-medium transition-colors ${buttonClass} disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2`}
           >
             {isLoading ? (
               <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">

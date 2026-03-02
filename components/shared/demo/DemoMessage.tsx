@@ -3,6 +3,7 @@
 import type { FC } from 'react';
 import type { ChatMessage, DemoOutputConfig } from '@/lib/demo/types';
 import type { BotAccentColor } from '@/types/bot';
+import { ACCENT_MESSAGE_CLASSES } from '@/lib/config/colors';
 
 interface DemoMessageProps {
   message: ChatMessage;
@@ -11,14 +12,6 @@ interface DemoMessageProps {
   outputConfig: DemoOutputConfig;
 }
 
-const accentColorClasses: Record<BotAccentColor, { bg: string; border: string }> = {
-  blue: { bg: 'bg-blue-50', border: 'border-blue-200' },
-  green: { bg: 'bg-green-50', border: 'border-green-200' },
-  indigo: { bg: 'bg-indigo-50', border: 'border-indigo-200' },
-  red: { bg: 'bg-red-50', border: 'border-red-200' },
-  amber: { bg: 'bg-amber-50', border: 'border-amber-200' },
-};
-
 export const DemoMessage: FC<DemoMessageProps> = ({
   message,
   botIcon,
@@ -26,7 +19,7 @@ export const DemoMessage: FC<DemoMessageProps> = ({
   outputConfig,
 }) => {
   const isUser = message.role === 'user';
-  const colors = accentColorClasses[accentColor];
+  const colors = ACCENT_MESSAGE_CLASSES[accentColor];
 
   return (
     <div className={`flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}>
@@ -113,7 +106,7 @@ interface DemoDisclaimerProps {
 export const DemoDisclaimer: FC<DemoDisclaimerProps> = ({ config, accentColor }) => {
   if (!config.showDisclaimer || !config.disclaimerText) return null;
 
-  const colors = accentColorClasses[accentColor];
+  const colors = ACCENT_MESSAGE_CLASSES[accentColor];
 
   return (
     <div className={`${colors.bg} ${colors.border} border rounded-lg p-3 text-xs text-gray-600`}>

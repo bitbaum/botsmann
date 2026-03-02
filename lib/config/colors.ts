@@ -201,6 +201,202 @@ export const ACCENT_FOCUS_BORDER_CLASSES: Record<string, string> = {
 };
 
 /**
+ * Button classes for themed submit buttons (restricted set)
+ */
+export const ACCENT_BUTTON_CLASSES: Record<CustomBotAccentColor, string> = {
+  blue: 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',
+  green: 'bg-green-600 hover:bg-green-700 focus:ring-green-500',
+  indigo: 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500',
+  red: 'bg-red-600 hover:bg-red-700 focus:ring-red-500',
+  amber: 'bg-amber-600 hover:bg-amber-700 focus:ring-amber-500',
+};
+
+/**
+ * Focus ring + border classes for form inputs (restricted set)
+ */
+export const ACCENT_FOCUS_RING_CLASSES: Record<CustomBotAccentColor, string> = {
+  blue: 'focus:border-blue-500 focus:ring-blue-500',
+  green: 'focus:border-green-500 focus:ring-green-500',
+  indigo: 'focus:border-indigo-500 focus:ring-indigo-500',
+  red: 'focus:border-red-500 focus:ring-red-500',
+  amber: 'focus:border-amber-500 focus:ring-amber-500',
+};
+
+/**
+ * Checkbox accent classes (restricted set)
+ */
+export const ACCENT_CHECKBOX_CLASSES: Record<CustomBotAccentColor, string> = {
+  blue: 'text-blue-600 focus:ring-blue-500',
+  green: 'text-green-600 focus:ring-green-500',
+  indigo: 'text-indigo-600 focus:ring-indigo-500',
+  red: 'text-red-600 focus:ring-red-500',
+  amber: 'text-amber-600 focus:ring-amber-500',
+};
+
+/**
+ * Starter question classes for chat demos (restricted set)
+ */
+export const ACCENT_STARTER_CLASSES: Record<CustomBotAccentColor, string> = {
+  blue: 'border-blue-200 hover:border-blue-400 hover:bg-blue-50 text-blue-700',
+  green: 'border-green-200 hover:border-green-400 hover:bg-green-50 text-green-700',
+  indigo: 'border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50 text-indigo-700',
+  red: 'border-red-200 hover:border-red-400 hover:bg-red-50 text-red-700',
+  amber: 'border-amber-200 hover:border-amber-400 hover:bg-amber-50 text-amber-700',
+};
+
+/**
+ * Message bubble classes for bot messages (restricted set)
+ */
+export const ACCENT_MESSAGE_CLASSES: Record<CustomBotAccentColor, { bg: string; border: string }> =
+  {
+    blue: { bg: 'bg-blue-50', border: 'border-blue-200' },
+    green: { bg: 'bg-green-50', border: 'border-green-200' },
+    indigo: { bg: 'bg-indigo-50', border: 'border-indigo-200' },
+    red: { bg: 'bg-red-50', border: 'border-red-200' },
+    amber: { bg: 'bg-amber-50', border: 'border-amber-200' },
+  };
+
+/**
+ * Dropzone classes for file upload areas (restricted set)
+ */
+export const ACCENT_DROPZONE_CLASSES: Record<
+  CustomBotAccentColor,
+  { border: string; bg: string; text: string }
+> = {
+  blue: { border: 'border-blue-300', bg: 'bg-blue-50', text: 'text-blue-600' },
+  green: { border: 'border-green-300', bg: 'bg-green-50', text: 'text-green-600' },
+  indigo: { border: 'border-indigo-300', bg: 'bg-indigo-50', text: 'text-indigo-600' },
+  red: { border: 'border-red-300', bg: 'bg-red-50', text: 'text-red-600' },
+  amber: { border: 'border-amber-300', bg: 'bg-amber-50', text: 'text-amber-600' },
+};
+
+/**
+ * Progress step indicator classes (restricted set)
+ */
+export const ACCENT_PROGRESS_CLASSES: Record<
+  CustomBotAccentColor,
+  { active: string; completed: string; text: string }
+> = {
+  blue: {
+    active: 'border-blue-500 bg-blue-50',
+    completed: 'bg-blue-500 border-blue-500',
+    text: 'text-blue-600',
+  },
+  green: {
+    active: 'border-green-500 bg-green-50',
+    completed: 'bg-green-500 border-green-500',
+    text: 'text-green-600',
+  },
+  indigo: {
+    active: 'border-indigo-500 bg-indigo-50',
+    completed: 'bg-indigo-500 border-indigo-500',
+    text: 'text-indigo-600',
+  },
+  red: {
+    active: 'border-red-500 bg-red-50',
+    completed: 'bg-red-500 border-red-500',
+    text: 'text-red-600',
+  },
+  amber: {
+    active: 'border-amber-500 bg-amber-50',
+    completed: 'bg-amber-500 border-amber-500',
+    text: 'text-amber-600',
+  },
+};
+
+/**
+ * Context panel classes (restricted set)
+ */
+export const ACCENT_CONTEXT_PANEL_CLASSES: Record<
+  CustomBotAccentColor,
+  { bg: string; text: string; border: string }
+> = {
+  blue: { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
+  green: { bg: 'bg-green-50', text: 'text-green-700', border: 'border-green-200' },
+  indigo: { bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-200' },
+  red: { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200' },
+  amber: { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200' },
+};
+
+/**
+ * Hero section color scheme (restricted set)
+ */
+export const ACCENT_HERO_CLASSES: Record<
+  CustomBotAccentColor,
+  {
+    badge: string;
+    chatBg: string;
+    chatBorder: string;
+    userBubble: string;
+    iconBg: string;
+    benefitIcon: string;
+  }
+> = {
+  blue: {
+    badge: 'bg-blue-100 text-blue-800',
+    chatBg: 'bg-blue-50',
+    chatBorder: 'border-blue-100',
+    userBubble: 'bg-blue-50',
+    iconBg: 'bg-blue-100',
+    benefitIcon: 'text-blue-600',
+  },
+  green: {
+    badge: 'bg-green-100 text-green-800',
+    chatBg: 'bg-blue-50',
+    chatBorder: 'border-blue-100',
+    userBubble: 'bg-green-50',
+    iconBg: 'bg-green-100',
+    benefitIcon: 'text-green-600',
+  },
+  indigo: {
+    badge: 'bg-indigo-100 text-indigo-800',
+    chatBg: 'bg-research-gradient',
+    chatBorder: 'border-indigo-100',
+    userBubble: 'bg-indigo-50',
+    iconBg: 'bg-indigo-100',
+    benefitIcon: 'text-indigo-600',
+  },
+  red: {
+    badge: 'bg-red-100 text-red-800',
+    chatBg: 'bg-red-50',
+    chatBorder: 'border-red-100',
+    userBubble: 'bg-red-50',
+    iconBg: 'bg-red-100',
+    benefitIcon: 'text-red-600',
+  },
+  amber: {
+    badge: 'bg-amber-100 text-amber-800',
+    chatBg: 'bg-amber-50',
+    chatBorder: 'border-amber-100',
+    userBubble: 'bg-amber-50',
+    iconBg: 'bg-amber-100',
+    benefitIcon: 'text-amber-600',
+  },
+};
+
+/**
+ * Template picker hover classes (full accent color set)
+ */
+export const ACCENT_TEMPLATE_HOVER_CLASSES: Record<AccentColor, string> = {
+  blue: 'hover:border-blue-400 hover:bg-blue-50',
+  green: 'hover:border-green-400 hover:bg-green-50',
+  indigo: 'hover:border-indigo-400 hover:bg-indigo-50',
+  red: 'hover:border-red-400 hover:bg-red-50',
+  amber: 'hover:border-amber-400 hover:bg-amber-50',
+  pink: 'hover:border-pink-400 hover:bg-pink-50',
+  rose: 'hover:border-rose-400 hover:bg-rose-50',
+  purple: 'hover:border-purple-400 hover:bg-purple-50',
+  orange: 'hover:border-orange-400 hover:bg-orange-50',
+  slate: 'hover:border-slate-400 hover:bg-slate-50',
+  yellow: 'hover:border-yellow-400 hover:bg-yellow-50',
+  sky: 'hover:border-sky-400 hover:bg-sky-50',
+  stone: 'hover:border-stone-400 hover:bg-stone-50',
+  violet: 'hover:border-violet-400 hover:bg-violet-50',
+  cyan: 'hover:border-cyan-400 hover:bg-cyan-50',
+  teal: 'hover:border-teal-400 hover:bg-teal-50',
+};
+
+/**
  * Default accent color
  */
 export const DEFAULT_ACCENT_COLOR: CustomBotAccentColor = 'blue';

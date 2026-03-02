@@ -3,6 +3,11 @@
 import { useState, type FC, type FormEvent } from 'react';
 import type { IntakeQuestion, IntakeResponses } from '@/lib/demo/types';
 import type { BotAccentColor } from '@/types/bot';
+import {
+  ACCENT_BUTTON_CLASSES,
+  ACCENT_FOCUS_RING_CLASSES,
+  ACCENT_CHECKBOX_CLASSES,
+} from '@/lib/config/colors';
 
 interface DemoIntakeProps {
   questions: IntakeQuestion[];
@@ -14,37 +19,6 @@ interface DemoIntakeProps {
   botName: string;
 }
 
-const accentColorClasses: Record<
-  BotAccentColor,
-  { button: string; focus: string; checkbox: string }
-> = {
-  blue: {
-    button: 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',
-    focus: 'focus:border-blue-500 focus:ring-blue-500',
-    checkbox: 'text-blue-600 focus:ring-blue-500',
-  },
-  green: {
-    button: 'bg-green-600 hover:bg-green-700 focus:ring-green-500',
-    focus: 'focus:border-green-500 focus:ring-green-500',
-    checkbox: 'text-green-600 focus:ring-green-500',
-  },
-  indigo: {
-    button: 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500',
-    focus: 'focus:border-indigo-500 focus:ring-indigo-500',
-    checkbox: 'text-indigo-600 focus:ring-indigo-500',
-  },
-  red: {
-    button: 'bg-red-600 hover:bg-red-700 focus:ring-red-500',
-    focus: 'focus:border-red-500 focus:ring-red-500',
-    checkbox: 'text-red-600 focus:ring-red-500',
-  },
-  amber: {
-    button: 'bg-amber-600 hover:bg-amber-700 focus:ring-amber-500',
-    focus: 'focus:border-amber-500 focus:ring-amber-500',
-    checkbox: 'text-amber-600 focus:ring-amber-500',
-  },
-};
-
 export const DemoIntake: FC<DemoIntakeProps> = ({
   questions,
   responses,
@@ -55,7 +29,9 @@ export const DemoIntake: FC<DemoIntakeProps> = ({
   botName,
 }) => {
   const [showAdvanced, setShowAdvanced] = useState(false);
-  const colors = accentColorClasses[accentColor];
+  const buttonClass = ACCENT_BUTTON_CLASSES[accentColor];
+  const focusClass = ACCENT_FOCUS_RING_CLASSES[accentColor];
+  const checkboxClass = ACCENT_CHECKBOX_CLASSES[accentColor];
 
   const essentialQuestions = questions.filter((q) => q.phase === 'essential');
   const advancedQuestions = questions.filter((q) => q.phase === 'advanced');
@@ -87,7 +63,7 @@ export const DemoIntake: FC<DemoIntakeProps> = ({
             value={typeof value === 'string' ? value : ''}
             onChange={(e) => onUpdate(question.id, e.target.value)}
             placeholder={question.placeholder}
-            className={`w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 ${colors.focus} focus:outline-none focus:ring-1`}
+            className={`w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 ${focusClass} focus:outline-none focus:ring-1`}
           />
         );
 
@@ -99,7 +75,7 @@ export const DemoIntake: FC<DemoIntakeProps> = ({
             onChange={(e) => onUpdate(question.id, e.target.value)}
             placeholder={question.placeholder}
             rows={3}
-            className={`w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 ${colors.focus} focus:outline-none focus:ring-1 resize-none`}
+            className={`w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 ${focusClass} focus:outline-none focus:ring-1 resize-none`}
           />
         );
 
@@ -109,7 +85,7 @@ export const DemoIntake: FC<DemoIntakeProps> = ({
             id={question.id}
             value={typeof value === 'string' ? value : ''}
             onChange={(e) => onUpdate(question.id, e.target.value)}
-            className={`w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 ${colors.focus} focus:outline-none focus:ring-1 bg-white`}
+            className={`w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 ${focusClass} focus:outline-none focus:ring-1 bg-white`}
           >
             <option value="">Select an option...</option>
             {question.options?.map((option) => (
@@ -142,7 +118,7 @@ export const DemoIntake: FC<DemoIntakeProps> = ({
                         );
                       }
                     }}
-                    className={`h-4 w-4 rounded border-gray-300 ${colors.checkbox}`}
+                    className={`h-4 w-4 rounded border-gray-300 ${checkboxClass}`}
                   />
                   <span className="text-gray-700">{option}</span>
                 </label>
@@ -230,7 +206,7 @@ export const DemoIntake: FC<DemoIntakeProps> = ({
         <button
           type="submit"
           disabled={!allRequiredAnswered}
-          className={`w-full rounded-lg px-6 py-3 text-white font-medium transition-colors ${colors.button} disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2`}
+          className={`w-full rounded-lg px-6 py-3 text-white font-medium transition-colors ${buttonClass} disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2`}
         >
           Start Conversation
         </button>

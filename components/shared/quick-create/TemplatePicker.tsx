@@ -25,24 +25,7 @@ const categoryOrder: TemplateCategoryOrder[] = [
   { category: 'helpers', order: 5 },
 ];
 
-const accentColorClasses: Record<string, string> = {
-  blue: 'hover:border-blue-400 hover:bg-blue-50',
-  pink: 'hover:border-pink-400 hover:bg-pink-50',
-  rose: 'hover:border-rose-400 hover:bg-rose-50',
-  slate: 'hover:border-slate-400 hover:bg-slate-50',
-  amber: 'hover:border-amber-400 hover:bg-amber-50',
-  green: 'hover:border-green-400 hover:bg-green-50',
-  indigo: 'hover:border-indigo-400 hover:bg-indigo-50',
-  purple: 'hover:border-purple-400 hover:bg-purple-50',
-  red: 'hover:border-red-400 hover:bg-red-50',
-  orange: 'hover:border-orange-400 hover:bg-orange-50',
-  yellow: 'hover:border-yellow-400 hover:bg-yellow-50',
-  sky: 'hover:border-sky-400 hover:bg-sky-50',
-  stone: 'hover:border-stone-400 hover:bg-stone-50',
-  teal: 'hover:border-teal-400 hover:bg-teal-50',
-  cyan: 'hover:border-cyan-400 hover:bg-cyan-50',
-  violet: 'hover:border-violet-400 hover:bg-violet-50',
-};
+import { ACCENT_TEMPLATE_HOVER_CLASSES } from '@/lib/config/colors';
 
 interface TemplateCardProps {
   template: BotTemplate;
@@ -50,7 +33,8 @@ interface TemplateCardProps {
 }
 
 const TemplateCard: FC<TemplateCardProps> = ({ template, onClick }) => {
-  const hoverClass = accentColorClasses[template.accentColor] || accentColorClasses.blue;
+  const hoverClass =
+    ACCENT_TEMPLATE_HOVER_CLASSES[template.accentColor] || ACCENT_TEMPLATE_HOVER_CLASSES.blue;
 
   return (
     <button
