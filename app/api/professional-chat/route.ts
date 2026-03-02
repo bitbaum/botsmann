@@ -4,7 +4,7 @@
  * POST /api/professional-chat - Chat with a professional, optionally using user's documents
  *
  * If authenticated, searches user's documents for relevant context.
- * Documents are filtered by category matching the professional's domain.
+ * Documents are filtered by domains matching the professional's domain.
  */
 
 /* eslint-disable no-console */
@@ -40,7 +40,11 @@ export async function POST(request: NextRequest) {
     const ip = getClientIp(request);
     const { isRateLimited } = limiter.check(`professional-chat:${ip}`);
     if (isRateLimited) {
-      return jsonError('Too many requests. Please slow down.', 'RATE_LIMIT', HTTP_STATUS.RATE_LIMIT);
+      return jsonError(
+        'Too many requests. Please slow down.',
+        'RATE_LIMIT',
+        HTTP_STATUS.RATE_LIMIT,
+      );
     }
 
     const body = await request.json();
@@ -66,7 +70,10 @@ export async function POST(request: NextRequest) {
     const sanitizedMessage = sanitizeUserMessage(message);
 
     if (sanitizedSystemPrompt.warnings.length > 0) {
-      console.log('[Professional Chat API] System prompt sanitized:', sanitizedSystemPrompt.warnings);
+      console.log(
+        '[Professional Chat API] System prompt sanitized:',
+        sanitizedSystemPrompt.warnings,
+      );
     }
 
     // Check if user is authenticated
@@ -82,20 +89,26 @@ export async function POST(request: NextRequest) {
       const supabase = getServiceClient();
 
       // Get categories this professional can access
-      const accessibleCategories: DocumentCategory[] =
-        PROFESSIONAL_DOCUMENT_ACCESS[professionalSlug] || ['general'];
+      const accessibleCategories: DocumentCategory[] = PROFESSIONAL_DOCUMENT_ACCESS[
+        professionalSlug
+      ] || ['general'];
 
-      // Check if user has any processed documents in relevant categories
+      // Check if user has any processed documents in relevant domains
       const { data: documents } = await supabase
         .from('documents')
-        .select('id, name, category')
+        .select('id, name, domains')
         .eq('user_id', user.id)
         .eq('status', 'ready')
-        .in('category', accessibleCategories);
+        .overlaps('domains', accessibleCategories);
 
       if (documents && documents.length > 0) {
         hasDocuments = true;
-        console.log('[Professional Chat API] Found', documents.length, 'documents in categories:', accessibleCategories);
+        console.log(
+          '[Professional Chat API] Found',
+          documents.length,
+          'documents in categories:',
+          accessibleCategories,
+        );
 
         try {
           // Generate embedding for the query
@@ -135,13 +148,18 @@ export async function POST(request: NextRequest) {
 
               sources.push({
                 document_name: docName,
-                preview: chunk.content.substring(0, 150) + (chunk.content.length > 150 ? '...' : ''),
+                preview:
+                  chunk.content.substring(0, 150) + (chunk.content.length > 150 ? '...' : ''),
               });
             }
 
             if (contextParts.length > 0) {
               documentContext = `\n\nRelevant information from the user's documents:\n\n${contextParts.join('\n\n---\n\n')}`;
-              console.log('[Professional Chat API] Added', contextParts.length, 'chunks to context');
+              console.log(
+                '[Professional Chat API] Added',
+                contextParts.length,
+                'chunks to context',
+              );
             }
           }
         } catch (err) {

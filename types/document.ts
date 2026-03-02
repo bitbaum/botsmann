@@ -28,7 +28,12 @@ export const DOCUMENT_CATEGORIES: {
   { value: 'research', label: 'Research', emoji: '🔬', description: 'Papers, studies, data' },
   { value: 'business', label: 'Business', emoji: '🔱', description: 'Plans, financials, strategy' },
   { value: 'creative', label: 'Creative', emoji: '🎨', description: 'Art, design, portfolios' },
-  { value: 'language', label: 'Language', emoji: '🇨🇭', description: 'Learning materials, translations' },
+  {
+    value: 'language',
+    label: 'Language',
+    emoji: '🇨🇭',
+    description: 'Learning materials, translations',
+  },
 ];
 
 /**
@@ -51,7 +56,9 @@ export interface Document {
   size_bytes: number;
   storage_path: string;
   status: DocumentStatusType;
-  category: DocumentCategory;
+  domains: DocumentCategory[];
+  /** @deprecated Use `domains` instead. Kept for backward compatibility with existing code. */
+  category?: DocumentCategory;
   error_message?: string;
   chunk_count?: number;
   created_at: string;
