@@ -8,6 +8,7 @@
  */
 
 import { API_CONFIG } from '@/lib/constants';
+import { getServerEnv, getClientEnv } from '@/lib/config/env';
 
 export type ModelProvider = 'groq' | 'openrouter' | 'ollama';
 
@@ -32,7 +33,7 @@ interface LLMResponse {
 }
 
 // Ollama configuration
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'llama3.2:latest';
+const OLLAMA_MODEL = getServerEnv().OLLAMA_MODEL;
 
 /**
  * Generate a response using the specified LLM provider
@@ -66,7 +67,7 @@ async function generateWithGroq(
 ): Promise<LLMResponse> {
   // Use provided key or fallback to server-side key
   // Clean the key: trim whitespace and remove any literal \n or escaped newlines
-  const rawKey = apiKey || process.env.GROQ_API_KEY;
+  const rawKey = apiKey || getServerEnv().GROQ_API_KEY;
   const key = rawKey?.trim().replace(/\\n/g, '').replace(/\n/g, '');
 
   if (!key) {
@@ -123,7 +124,7 @@ async function generateWithOpenRouter(
     headers: {
       Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': process.env.NEXT_PUBLIC_APP_URL || 'https://botsmann.com',
+      'HTTP-Referer': getClientEnv().NEXT_PUBLIC_APP_URL,
       'X-Title': 'Botsmann',
     },
     body: JSON.stringify({
@@ -220,7 +221,7 @@ export async function chat(
  * Check if Ollama is available and running
  */
 export async function isOllamaAvailable(ollamaUrl?: string): Promise<boolean> {
-  const baseUrl = ollamaUrl || process.env.OLLAMA_URL || 'http://localhost:11434';
+  const baseUrl = ollamaUrl || getServerEnv().OLLAMA_URL;
   try {
     const response = await fetch(`${baseUrl}/api/tags`, {
       method: 'GET',
@@ -252,7 +253,8 @@ export async function getBestProvider(): Promise<{
   }
 
   // Check Groq (free cloud)
-  if (process.env.GROQ_API_KEY) {
+  const env = getServerEnv();
+  if (env.GROQ_API_KEY) {
     return {
       provider: 'groq',
       available: true,
@@ -261,7 +263,7 @@ export async function getBestProvider(): Promise<{
   }
 
   // Check OpenRouter (paid cloud)
-  if (process.env.OPENROUTER_API_KEY) {
+  if (env.OPENROUTER_API_KEY) {
     return {
       provider: 'openrouter',
       available: true,
@@ -292,8 +294,8 @@ export async function generateWithBestProvider(
 
   const fullOptions: LLMOptions = {
     provider,
-    apiKey: provider === 'groq' ? process.env.GROQ_API_KEY : process.env.OPENROUTER_API_KEY,
-    ollamaUrl: process.env.OLLAMA_URL,
+    apiKey: provider === 'groq' ? getServerEnv().GROQ_API_KEY : getServerEnv().OPENROUTER_API_KEY,
+    ollamaUrl: getServerEnv().OLLAMA_URL,
     ...options,
   };
 

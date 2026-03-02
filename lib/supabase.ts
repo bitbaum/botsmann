@@ -12,6 +12,7 @@
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { createBrowserClient } from '@supabase/ssr';
+import { getClientEnv, getServerEnv } from '@/lib/config/env';
 
 // Database row types
 export interface ConsultationRow {
@@ -72,15 +73,8 @@ export function getSupabaseClient(): SupabaseClient {
     return _supabaseClient;
   }
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error(
-      'Supabase environment variables not configured. ' +
-        'Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.',
-    );
-  }
+  const { NEXT_PUBLIC_SUPABASE_URL: supabaseUrl, NEXT_PUBLIC_SUPABASE_ANON_KEY: supabaseAnonKey } =
+    getClientEnv();
 
   _supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
   return _supabaseClient;
@@ -112,12 +106,8 @@ export const supabase = {
 
 // Server-side client with service role (for admin operations)
 export function getServiceClient(): SupabaseClient {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!supabaseUrl || !serviceRoleKey) {
-    throw new Error('Server-side Supabase requires SUPABASE_SERVICE_ROLE_KEY');
-  }
+  const { NEXT_PUBLIC_SUPABASE_URL: supabaseUrl } = getClientEnv();
+  const { SUPABASE_SERVICE_ROLE_KEY: serviceRoleKey } = getServerEnv();
 
   return createClient(supabaseUrl, serviceRoleKey, {
     auth: {
@@ -145,7 +135,7 @@ export function createClientComponentClient() {
     if (typeof window !== 'undefined') {
       throw new Error(
         'Supabase environment variables not configured. ' +
-        'Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.'
+          'Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.',
       );
     }
     // Return mock during SSG - will be replaced on hydration
@@ -159,9 +149,18 @@ export function createClientComponentClient() {
         getUser: () => Promise.resolve({ data: { user: null }, error: null }),
         onAuthStateChange: (_event: string, _callback: (event: string, session: null) => void) => {
           // Return immediately with no-op subscription
-          return { data: { subscription: { unsubscribe: () => { /* no-op */ } } } };
+          return {
+            data: {
+              subscription: {
+                unsubscribe: () => {
+                  /* no-op */
+                },
+              },
+            },
+          };
         },
-        signInWithPassword: () => Promise.resolve({ data: { user: null, session: null }, error: null }),
+        signInWithPassword: () =>
+          Promise.resolve({ data: { user: null, session: null }, error: null }),
         signUp: () => Promise.resolve({ data: { user: null, session: null }, error: null }),
         signOut: () => Promise.resolve({ error: null }),
         updateUser: () => Promise.resolve({ data: { user: null }, error: null }),
@@ -171,7 +170,9 @@ export function createClientComponentClient() {
       },
       from: () => ({
         select: () => ({ single: () => Promise.resolve({ data: null, error: null }) }),
-        insert: () => ({ select: () => ({ single: () => Promise.resolve({ data: null, error: null }) }) }),
+        insert: () => ({
+          select: () => ({ single: () => Promise.resolve({ data: null, error: null }) }),
+        }),
         update: () => ({ eq: () => Promise.resolve({ data: null, error: null }) }),
         delete: () => ({ eq: () => Promise.resolve({ data: null, error: null }) }),
       }),
