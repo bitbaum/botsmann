@@ -282,8 +282,6 @@ export function hasValidationError<T>(
  * Handle caught errors and return appropriate response
  */
 export function handleError(error: unknown, fallbackMessage: string): NextResponse<ApiResponse> {
-  console.error('API Error:', error);
-
   if (error instanceof ZodError) {
     return jsonValidationError('Validation failed', formatZodErrors(error));
   }

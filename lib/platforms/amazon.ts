@@ -5,7 +5,6 @@ export async function searchAmazon(
   _attributes: Record<string, unknown>,
 ): Promise<ProductResult[]> {
   if (!process.env.AMAZON_API_KEY || !process.env.AMAZON_SECRET_KEY) {
-    console.info('Amazon API credentials are not configured');
     return [];
   }
 

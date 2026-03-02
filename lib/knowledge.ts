@@ -83,7 +83,6 @@ export async function fetchAllGuides(): Promise<GuideMetadata[]> {
     );
 
     if (!res.ok) {
-      console.info('Failed to fetch guides directory', res.status);
       return [];
     }
 
@@ -144,8 +143,7 @@ export async function fetchAllGuides(): Promise<GuideMetadata[]> {
     return allGuides.sort(
       (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
     );
-  } catch (error) {
-    console.info('Failed to fetch guides:', error);
+  } catch {
     return [];
   }
 }
@@ -196,8 +194,7 @@ export async function fetchGuideBySlug(slug: string): Promise<Guide | null> {
     }
 
     return null;
-  } catch (error) {
-    console.info(`Failed to fetch guide ${slug}:`, error);
+  } catch {
     return null;
   }
 }
@@ -262,7 +259,6 @@ export async function fetchInfrastructureGuides(): Promise<ComparisonGuide[]> {
     );
 
     if (!res.ok) {
-      console.info('Failed to fetch infrastructure directory', res.status);
       return [];
     }
 
@@ -302,8 +298,7 @@ export async function fetchInfrastructureGuides(): Promise<ComparisonGuide[]> {
     }
 
     return guides;
-  } catch (error) {
-    console.info('Failed to fetch infrastructure guides:', error);
+  } catch {
     return [];
   }
 }
@@ -347,8 +342,7 @@ export async function fetchInfrastructureGuideBySlug(
       content: sanitizedContent,
       tableOfContents: extractTableOfContents(sanitizedContent),
     };
-  } catch (error) {
-    console.info(`Failed to fetch infrastructure guide ${slug}:`, error);
+  } catch {
     return null;
   }
 }

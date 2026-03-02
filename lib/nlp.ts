@@ -56,15 +56,14 @@ export async function processQuery(query: string): Promise<NLPResult> {
         category: parsed.category || 'general',
         attributes: parsed.attributes || {},
       };
-    } catch (parseError) {
-      console.error('Failed to parse OpenAI response:', parseError);
+    } catch {
+      // Non-critical: error handled via fallback
       return {
         category: 'general',
         attributes: { query },
       };
     }
-  } catch (error) {
-    console.error('NLP processing error:', error);
+  } catch {
     // Fallback to basic search
     return {
       category: 'general',
