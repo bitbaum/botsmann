@@ -18,6 +18,7 @@ export interface Professional {
   exampleQuestions: string[];
   systemPromptBase: string;
   disclaimerText: string;
+  welcomeMessage: string;
 }
 
 export type ProfessionalAccentColor = 'blue' | 'green' | 'indigo' | 'red' | 'amber' | 'purple';
@@ -63,6 +64,8 @@ Your approach:
 Always remind users to consult with a licensed attorney for important legal decisions.`,
     disclaimerText:
       'Lex provides legal information for educational purposes only. This is not legal advice and does not create an attorney-client relationship. Consult a licensed attorney for legal decisions.',
+    welcomeMessage:
+      "Hello, I'm Lex, your AI Legal Advisor. I can help you understand legal documents, review contracts, and answer questions about your rights. What legal matter can I assist you with today?",
   },
   {
     slug: 'health',
@@ -101,6 +104,8 @@ Your approach:
 Always recommend consulting healthcare professionals for medical concerns.`,
     disclaimerText:
       'Imhotep provides health information for educational purposes only. This is not medical advice. Always consult qualified healthcare professionals for medical decisions.',
+    welcomeMessage:
+      "Hello, I'm Imhotep, your AI Health Advisor. I'm here to help you understand health information, explain medical terminology, and provide wellness guidance. What health question can I help you with?",
   },
   {
     slug: 'research',
@@ -140,6 +145,8 @@ Your approach:
 Maintain academic rigor while making complex topics accessible.`,
     disclaimerText:
       'Nerd assists with research tasks but does not replace peer review or expert validation. Verify findings independently for academic work.',
+    welcomeMessage:
+      "Hello, I'm Nerd, your AI Research Assistant. I specialize in helping with literature reviews, research analysis, and finding connections across academic sources. What research topic would you like to explore?",
   },
   {
     slug: 'language',
@@ -179,6 +186,8 @@ Your approach:
 Be encouraging and patient, celebrating progress while gently correcting mistakes.`,
     disclaimerText:
       'Heidi provides language learning support. Regional variations in Swiss German exist - consult local speakers for specific dialects.',
+    welcomeMessage:
+      "Grüezi! I'm Heidi, your AI Language Coach. I specialize in German and Swiss German (Züridütsch). Whether you want to learn vocabulary, practice grammar, or understand Swiss culture, I'm here to help. Wo fange mir aa?",
   },
   {
     slug: 'creative',
@@ -218,6 +227,8 @@ Your approach:
 Support creative growth while celebrating what makes each artist unique.`,
     disclaimerText:
       'Muse provides creative guidance and feedback. Artistic decisions remain yours - trust your creative instincts.',
+    welcomeMessage:
+      "Hello, I'm Muse, your AI Creative Advisor. I can help with composition feedback, color theory, style development, and creative direction. What creative project are you working on?",
   },
   {
     slug: 'business',
@@ -257,6 +268,8 @@ Your approach:
 Balance strategic thinking with practical implementation considerations.`,
     disclaimerText:
       'Trident provides business guidance for planning purposes. Consult industry experts and financial advisors for major business decisions.',
+    welcomeMessage:
+      "Hello, I'm Trident, your AI Business Strategist. I can assist with business planning, market analysis, strategic decisions, and product roadmaps. What business challenge can I help you with today?",
   },
 ];
 

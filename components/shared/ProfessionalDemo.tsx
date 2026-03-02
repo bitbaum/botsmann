@@ -41,24 +41,7 @@ export const ProfessionalDemo: FC<ProfessionalDemoProps> = ({ professional }) =>
   const isAuthenticated = !authLoading && !!user;
 
   const getWelcomeMessage = useCallback(() => {
-    const { name, role } = professional;
-
-    switch (role) {
-      case 'Legal':
-        return `Hello, I'm ${name}, your AI Legal Advisor. I can help you understand legal documents, review contracts, and answer questions about your rights. What legal matter can I assist you with today?`;
-      case 'Health':
-        return `Hello, I'm ${name}, your AI Health Advisor. I'm here to help you understand health information, explain medical terminology, and provide wellness guidance. What health question can I help you with?`;
-      case 'Research':
-        return `Hello, I'm ${name}, your AI Research Assistant. I specialize in helping with literature reviews, research analysis, and finding connections across academic sources. What research topic would you like to explore?`;
-      case 'Language':
-        return `Grüezi! I'm ${name}, your AI Language Coach. I specialize in German and Swiss German (Züridütsch). Whether you want to learn vocabulary, practice grammar, or understand Swiss culture, I'm here to help. Wo fange mir aa?`;
-      case 'Creative':
-        return `Hello, I'm ${name}, your AI Creative Advisor. I can help with composition feedback, color theory, style development, and creative direction. What creative project are you working on?`;
-      case 'Business':
-        return `Hello, I'm ${name}, your AI Business Strategist. I can assist with business planning, market analysis, strategic decisions, and product roadmaps. What business challenge can I help you with today?`;
-      default:
-        return `Hello, I'm ${name}. How can I help you today?`;
-    }
+    return professional.welcomeMessage;
   }, [professional]);
 
   // Welcome message on mount
