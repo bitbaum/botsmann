@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { Route } from 'next';
 import { OnboardingStep } from './OnboardingStep';
 import { showSuccess } from '@/lib/toast';
+import { useLocalStorageFlag } from '@/lib/hooks/useLocalStorage';
 
 interface OnboardingChecklistProps {
   documentsCount: number;
@@ -61,7 +62,7 @@ export const OnboardingChecklist = ({
   botsCount,
   onDismiss,
 }: OnboardingChecklistProps) => {
-  const [isDismissed, setIsDismissed] = useState(false);
+  const [isDismissed, setIsDismissed] = useLocalStorageFlag('onboarding_dismissed', false);
   const [isMinimized, setIsMinimized] = useState(false);
 
   // Calculate completion
@@ -82,16 +83,7 @@ export const OnboardingChecklist = ({
   const allRequiredComplete = requiredCompleted === requiredSteps.length;
   const progress = Math.round((completedCount / steps.length) * 100);
 
-  // Check localStorage for dismissed state
-  useEffect(() => {
-    const dismissed = localStorage.getItem('onboarding_dismissed');
-    if (dismissed === 'true') {
-      setIsDismissed(true);
-    }
-  }, []);
-
   const handleDismiss = () => {
-    localStorage.setItem('onboarding_dismissed', 'true');
     setIsDismissed(true);
     showSuccess('Onboarding dismissed', 'You can always find help in Settings.');
     onDismiss?.();

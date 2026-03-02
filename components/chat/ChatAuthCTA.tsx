@@ -1,8 +1,9 @@
 'use client';
 
-import { type FC, useState, useEffect } from 'react';
+import { type FC } from 'react';
 import Link from 'next/link';
 import { AUTH_CTA_CONFIG, AUTH_CTA_DISMISSED_KEY } from '@/lib/config/auth-cta';
+import { useLocalStorageFlag } from '@/lib/hooks/useLocalStorage';
 
 interface ChatAuthCTAProps {
   /** If true, the CTA is dismissible */
@@ -16,19 +17,12 @@ interface ChatAuthCTAProps {
  * Shows benefits of having an account. Dismissible with localStorage persistence.
  */
 export const ChatAuthCTA: FC<ChatAuthCTAProps> = ({ dismissible = true, className = '' }) => {
-  const [isDismissed, setIsDismissed] = useState(true); // Start hidden to prevent flash
+  const [isDismissed, setIsDismissed] = useLocalStorageFlag(AUTH_CTA_DISMISSED_KEY, true);
 
   const config = AUTH_CTA_CONFIG.guest;
 
-  useEffect(() => {
-    // Check localStorage on mount
-    const dismissed = localStorage.getItem(AUTH_CTA_DISMISSED_KEY);
-    setIsDismissed(dismissed === 'true');
-  }, []);
-
   const handleDismiss = () => {
     setIsDismissed(true);
-    localStorage.setItem(AUTH_CTA_DISMISSED_KEY, 'true');
   };
 
   if (isDismissed) {
