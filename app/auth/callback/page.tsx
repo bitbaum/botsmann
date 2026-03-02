@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClientComponentClient } from '@/lib/supabase';
 import { ROUTES } from '@/lib/routes';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
 

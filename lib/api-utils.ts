@@ -9,7 +9,7 @@ import { NextRequest } from 'next/server';
 import { getServiceClient } from './supabase';
 import type { User } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { createRouteHandlerClient } from './supabase-server';
 
 /**
  * Verify user from JWT token in Authorization header
