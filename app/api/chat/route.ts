@@ -12,14 +12,20 @@
 /* eslint-disable no-console */
 
 import { type NextRequest } from 'next/server';
-import { generateEmbedding } from '@/lib/embeddings';
-import { generateLLMResponse, type ModelProvider } from '@/lib/llm-client';
+import { generateLLMResponse } from '@/lib/llm-client';
 import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import { jsonSuccess, jsonError, jsonUnauthorized, HTTP_STATUS } from '@/lib/api';
-import { SYSTEM_PROMPTS, API_CONFIG, DOMAIN_ERRORS } from '@/lib/constants';
+import { SYSTEM_PROMPTS } from '@/lib/constants';
 import { rateLimit } from '@/lib/rate-limit';
 import { getClientIp } from '@/lib/request';
+import {
+  generateEmbeddingWithTimeout,
+  getUserLLMSettings,
+  truncateChunks,
+  joinContext,
+  handleLLMError,
+} from '@/lib/chat';
 
 // Extend function timeout for model loading (Vercel)
 // Note: Free tier max is 10s, Pro tier allows up to 60s
@@ -56,10 +62,6 @@ export async function POST(request: NextRequest) {
     const { message, documentId, contextSize = 3 } = body;
     console.log('[Chat API] Request body parsed, message length:', message?.length);
 
-    // Groq free tier limit is ~6000 tokens (~4 chars per token)
-    // Limit context to ~2000 tokens leaving room for system prompt + response
-    const MAX_CONTEXT_CHARS = API_CONFIG.MAX_CONTEXT_CHARS;
-
     if (!message || typeof message !== 'string') {
       return jsonError('Message required', 'VALIDATION_ERROR', HTTP_STATUS.BAD_REQUEST);
     }
@@ -67,20 +69,7 @@ export async function POST(request: NextRequest) {
     const supabase = getServiceClient();
 
     // Get user settings for LLM provider
-    const { data: settings } = await supabase
-      .from('user_settings')
-      .select('*')
-      .eq('id', user.id)
-      .single();
-
-    const provider: ModelProvider = settings?.preferred_model || 'groq';
-    const apiKey =
-      provider === 'groq'
-        ? settings?.groq_api_key
-        : provider === 'openrouter'
-          ? settings?.openrouter_api_key
-          : null;
-    const ollamaUrl = settings?.ollama_url;
+    const { provider, apiKey, ollamaUrl } = await getUserLLMSettings(user.id);
 
     // Check if user has any processed documents
     const { count: docCount } = await supabase
@@ -102,40 +91,11 @@ export async function POST(request: NextRequest) {
 
     // Generate embedding for the query with timeout
     console.log('[Chat API] Generating query embedding...');
-    const embeddingStartTime = Date.now();
-    let queryEmbedding: number[];
-    try {
-      // Timeout for embedding (leave room for LLM call)
-      const EMBEDDING_TIMEOUT = API_CONFIG.EMBEDDING_TIMEOUT;
-      const embeddingPromise = generateEmbedding(message);
-      const timeoutPromise = new Promise<never>((_, reject) => {
-        setTimeout(() => reject(new Error('Embedding timeout')), EMBEDDING_TIMEOUT);
-      });
-
-      queryEmbedding = await Promise.race([embeddingPromise, timeoutPromise]);
-      console.log('[Chat API] Embedding generated in', Date.now() - embeddingStartTime, 'ms');
-    } catch (embeddingError) {
-      const elapsed = Date.now() - embeddingStartTime;
-      console.error('[Chat API] Embedding generation failed after', elapsed, 'ms:', embeddingError);
-
-      // Check if it's a timeout (likely cold start model loading)
-      if (
-        embeddingError instanceof Error &&
-        embeddingError.message === DOMAIN_ERRORS.EMBEDDING_TIMEOUT
-      ) {
-        return jsonError(
-          DOMAIN_ERRORS.SERVICE_WARMING_UP,
-          'SERVICE_UNAVAILABLE',
-          HTTP_STATUS.SERVICE_UNAVAILABLE,
-        );
-      }
-
-      return jsonError(
-        DOMAIN_ERRORS.FAILED_PROCESS_QUERY,
-        'SERVICE_UNAVAILABLE',
-        HTTP_STATUS.SERVICE_UNAVAILABLE,
-      );
+    const embeddingResult = await generateEmbeddingWithTimeout(message);
+    if ('error' in embeddingResult) {
+      return embeddingResult.error;
     }
+    const queryEmbedding = embeddingResult.embedding;
 
     // Search for relevant chunks
     console.log('[Chat API] Searching for relevant chunks...');
@@ -177,36 +137,16 @@ export async function POST(request: NextRequest) {
     );
 
     // Build context from relevant chunks, respecting token limits
-    let totalChars = 0;
-    const truncatedChunks: Array<{ document_id: string; content: string; similarity: number }> = [];
+    const fitChunks = truncateChunks(
+      relevantChunks as Array<{ document_id: string; content: string; similarity: number }>,
+    );
 
-    for (const chunk of relevantChunks as Array<{
-      document_id: string;
-      content: string;
-      similarity: number;
-    }>) {
-      const chunkLength = chunk.content.length;
-      if (totalChars + chunkLength > MAX_CONTEXT_CHARS) {
-        // Truncate this chunk to fit
-        const remainingSpace = MAX_CONTEXT_CHARS - totalChars;
-        if (remainingSpace > 200) {
-          truncatedChunks.push({
-            ...chunk,
-            content: chunk.content.substring(0, remainingSpace) + '... [truncated]',
-          });
-        }
-        break;
-      }
-      truncatedChunks.push(chunk);
-      totalChars += chunkLength;
-    }
-
-    const contextParts = truncatedChunks.map((chunk, index: number) => {
+    const contextParts = fitChunks.map((chunk, index: number) => {
       const docName = documentMap.get(chunk.document_id) || 'Unknown Document';
       return `[Source ${index + 1}: ${docName}]\n${chunk.content}`;
     });
 
-    const context = contextParts.join('\n\n---\n\n');
+    const context = joinContext(contextParts);
 
     // Format sources for response (prepare before LLM call)
     const sources = relevantChunks.map(
@@ -219,7 +159,7 @@ export async function POST(request: NextRequest) {
     );
 
     // Try to generate response using LLM
-    console.log('[Chat API] Calling LLM, provider:', provider, 'context chars:', totalChars);
+    console.log('[Chat API] Calling LLM, provider:', provider);
     const llmStartTime = Date.now();
     try {
       const llmResponse = await generateLLMResponse(
@@ -250,55 +190,22 @@ export async function POST(request: NextRequest) {
       });
     } catch (llmError) {
       console.error('[Chat API] LLM call failed after', Date.now() - llmStartTime, 'ms');
-      // Handle LLM-specific errors with helpful fallbacks
-      if (llmError instanceof Error) {
-        // For API key errors, return context-only response
-        if (llmError.message.includes('API key') && relevantChunks.length > 0) {
-          const fallbackParts = relevantChunks.map(
-            (
-              chunk: {
-                document_id: string;
-                content: string;
-              },
-              index: number,
-            ) => {
-              const docName = documentMap.get(chunk.document_id) || 'Unknown Document';
-              return `**[Source ${index + 1}: ${docName}]**\n${chunk.content}`;
-            },
-          );
 
-          return jsonSuccess({
-            response: `Here's what I found in your documents:\n\n${fallbackParts.join('\n\n---\n\n')}`,
-            sources,
-            provider: 'none',
-            model: 'context-only',
-          });
-        }
+      // Build fallback sources for API key errors
+      const fallbackSources = relevantChunks.map(
+        (chunk: { document_id: string; content: string }, index: number) => ({
+          label: `**[Source ${index + 1}: ${documentMap.get(chunk.document_id) || 'Unknown Document'}]**`,
+          content: chunk.content,
+        }),
+      );
 
-        if (llmError.message.includes('Cannot connect to Ollama')) {
-          return jsonError(
-            DOMAIN_ERRORS.OLLAMA_NOT_RUNNING,
-            'SERVICE_UNAVAILABLE',
-            HTTP_STATUS.SERVICE_UNAVAILABLE,
-          );
-        }
-
-        // User-friendly error message
-        console.error('[Chat API] LLM error:', llmError.message);
-        console.error('[Chat API] LLM error stack:', llmError.stack);
-        return jsonError(
-          DOMAIN_ERRORS.AI_UNAVAILABLE,
-          'SERVICE_UNAVAILABLE',
-          HTTP_STATUS.SERVICE_UNAVAILABLE,
-        );
-      }
+      const errorResponse = handleLLMError(llmError, fallbackSources);
+      if (errorResponse) return errorResponse;
 
       throw llmError;
     }
   } catch (error) {
     console.error('[Chat API] Unhandled error:', error);
-    console.error('[Chat API] Stack:', error instanceof Error ? error.stack : 'no stack');
-
     return jsonError('Internal server error', 'INTERNAL_ERROR', HTTP_STATUS.INTERNAL_ERROR);
   }
 }

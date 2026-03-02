@@ -32,8 +32,8 @@ interface LLMResponse {
   model: string;
 }
 
-// Ollama configuration
-const OLLAMA_MODEL = getServerEnv().OLLAMA_MODEL;
+// Ollama configuration (lazy to avoid calling getServerEnv at module scope during SSG)
+const getOllamaModel = () => getServerEnv().OLLAMA_MODEL;
 
 /**
  * Generate a response using the specified LLM provider
@@ -168,7 +168,7 @@ async function generateWithOllama(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: OLLAMA_MODEL,
+        model: getOllamaModel(),
         messages,
         stream: false,
         options: {
@@ -189,7 +189,7 @@ async function generateWithOllama(
     return {
       content: data.message?.content || '',
       provider: 'ollama',
-      model: OLLAMA_MODEL,
+      model: getOllamaModel(),
     };
   } catch (error) {
     if (error instanceof TypeError && error.message.includes('fetch')) {

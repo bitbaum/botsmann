@@ -11,7 +11,7 @@
 
 import { type NextRequest } from 'next/server';
 import { generateEmbedding } from '@/lib/embeddings';
-import { generateLLMResponse, type ModelProvider } from '@/lib/llm-client';
+import { generateLLMResponse } from '@/lib/llm-client';
 import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import { jsonSuccess, jsonError, HTTP_STATUS } from '@/lib/api';
@@ -24,6 +24,7 @@ import {
   sanitizeConversationHistory,
   wrapUserContext,
 } from '@/lib/prompt-sanitizer';
+import { getUserLLMSettings, joinContext } from '@/lib/chat';
 
 // Extend function timeout for model loading (Vercel)
 export const maxDuration = 30;
@@ -154,7 +155,7 @@ export async function POST(request: NextRequest) {
             }
 
             if (contextParts.length > 0) {
-              documentContext = `\n\nRelevant information from the user's documents:\n\n${contextParts.join('\n\n---\n\n')}`;
+              documentContext = `\n\nRelevant information from the user's documents:\n\n${joinContext(contextParts)}`;
               console.log(
                 '[Professional Chat API] Added',
                 contextParts.length,
@@ -207,27 +208,9 @@ export async function POST(request: NextRequest) {
     messages.push({ role: 'user', content: sanitizedMessage.sanitized });
 
     // Get user's preferred model if authenticated
-    let provider: ModelProvider = 'groq';
-    let apiKey: string | undefined;
-
-    if (user) {
-      const supabase = getServiceClient();
-      const { data: settings } = await supabase
-        .from('user_settings')
-        .select('*')
-        .eq('id', user.id)
-        .single();
-
-      if (settings?.preferred_model) {
-        provider = settings.preferred_model;
-        apiKey =
-          provider === 'groq'
-            ? settings.groq_api_key
-            : provider === 'openrouter'
-              ? settings.openrouter_api_key
-              : undefined;
-      }
-    }
+    const { provider, apiKey } = user
+      ? await getUserLLMSettings(user.id)
+      : { provider: 'groq' as const, apiKey: undefined };
 
     try {
       const llmResponse = await generateLLMResponse(messages, {

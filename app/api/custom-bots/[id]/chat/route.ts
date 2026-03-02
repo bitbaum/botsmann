@@ -14,8 +14,7 @@
 
 import { type NextRequest } from 'next/server';
 import { z } from 'zod';
-import { generateEmbedding } from '@/lib/embeddings';
-import { generateLLMResponse, type ModelProvider } from '@/lib/llm-client';
+import { generateLLMResponse } from '@/lib/llm-client';
 import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import {
@@ -27,45 +26,17 @@ import {
   formatZodErrors,
   HTTP_STATUS,
 } from '@/lib/api';
-import { API_CONFIG, DOMAIN_ERRORS } from '@/lib/constants';
+import {
+  generateEmbeddingWithTimeout,
+  getUserLLMSettings,
+  truncateChunks,
+  joinContext,
+  handleLLMError,
+  parseResponseWithSuggestions,
+} from '@/lib/chat';
 
 // Extend function timeout for model loading (Vercel)
 export const maxDuration = 30;
-
-/**
- * Parse LLM response to extract main content and context-aware suggestions
- */
-function parseResponseWithSuggestions(rawContent: string): {
-  content: string;
-  suggestions: string[];
-} {
-  const lines = rawContent.split('\n');
-  const suggestions: string[] = [];
-  const contentLines: string[] = [];
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (trimmed.startsWith('>>>')) {
-      // Extract the suggestion after >>>
-      const suggestion = trimmed.slice(3).trim();
-      if (suggestion && suggestion.length > 3) {
-        suggestions.push(suggestion);
-      }
-    } else {
-      contentLines.push(line);
-    }
-  }
-
-  // Clean up trailing empty lines from content
-  while (contentLines.length > 0 && contentLines[contentLines.length - 1].trim() === '') {
-    contentLines.pop();
-  }
-
-  return {
-    content: contentLines.join('\n').trim(),
-    suggestions: suggestions.slice(0, 3), // Limit to 3 suggestions
-  };
-}
 
 const ChatRequestSchema = z.object({
   message: z.string().min(1, 'Message required').max(5000, 'Message too long'),
@@ -124,20 +95,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
 
     // Get user settings for LLM provider (use owner's settings for public bots)
     const settingsUserId = user?.id ?? bot.user_id;
-    const { data: settings } = await supabase
-      .from('user_settings')
-      .select('*')
-      .eq('id', settingsUserId)
-      .single();
-
-    const provider: ModelProvider = settings?.preferred_model || 'groq';
-    const apiKey =
-      provider === 'groq'
-        ? settings?.groq_api_key
-        : provider === 'openrouter'
-          ? settings?.openrouter_api_key
-          : null;
-    const ollamaUrl = settings?.ollama_url;
+    const { provider, apiKey, ollamaUrl } = await getUserLLMSettings(settingsUserId);
 
     // Check if bot has any knowledge chunks
     const { count: knowledgeCount } = await supabase
@@ -158,40 +116,11 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     if (knowledgeCount && knowledgeCount > 0) {
       // Generate embedding for the query
       console.log('[Custom Bot Chat] Generating query embedding...');
-      const embeddingStartTime = Date.now();
-
-      let queryEmbedding: number[];
-      try {
-        const EMBEDDING_TIMEOUT = API_CONFIG.EMBEDDING_TIMEOUT;
-        const embeddingPromise = generateEmbedding(message);
-        const timeoutPromise = new Promise<never>((_, reject) => {
-          setTimeout(() => reject(new Error('Embedding timeout')), EMBEDDING_TIMEOUT);
-        });
-
-        queryEmbedding = await Promise.race([embeddingPromise, timeoutPromise]);
-        console.log(
-          '[Custom Bot Chat] Embedding generated in',
-          Date.now() - embeddingStartTime,
-          'ms',
-        );
-      } catch (embeddingError) {
-        console.error('[Custom Bot Chat] Embedding failed:', embeddingError);
-        if (
-          embeddingError instanceof Error &&
-          embeddingError.message === DOMAIN_ERRORS.EMBEDDING_TIMEOUT
-        ) {
-          return jsonError(
-            DOMAIN_ERRORS.SERVICE_WARMING_UP,
-            'SERVICE_UNAVAILABLE',
-            HTTP_STATUS.SERVICE_UNAVAILABLE,
-          );
-        }
-        return jsonError(
-          DOMAIN_ERRORS.FAILED_PROCESS_QUERY,
-          'SERVICE_UNAVAILABLE',
-          HTTP_STATUS.SERVICE_UNAVAILABLE,
-        );
+      const embeddingResult = await generateEmbeddingWithTimeout(message);
+      if ('error' in embeddingResult) {
+        return embeddingResult.error;
       }
+      const queryEmbedding = embeddingResult.embedding;
 
       // Search for relevant knowledge chunks
       console.log('[Custom Bot Chat] Searching knowledge base...');
@@ -213,29 +142,15 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
         // Continue without RAG context if search fails
       } else if (searchResults && searchResults.length > 0) {
         // Build context from knowledge chunks
-        const MAX_CONTEXT_CHARS = API_CONFIG.MAX_CONTEXT_CHARS;
-        let totalChars = 0;
-        const contextParts: string[] = [];
+        type KnowledgeChunk = { content: string; topic: string | null; similarity: number };
+        const fitChunks = truncateChunks(searchResults as KnowledgeChunk[]);
 
-        for (const chunk of searchResults) {
-          const chunkLength = chunk.content.length;
-          if (totalChars + chunkLength > MAX_CONTEXT_CHARS) {
-            const remainingSpace = MAX_CONTEXT_CHARS - totalChars;
-            if (remainingSpace > 200) {
-              const topicLabel = chunk.topic ? `[${chunk.topic}]` : '[Knowledge]';
-              contextParts.push(
-                `${topicLabel}\n${chunk.content.substring(0, remainingSpace)}... [truncated]`,
-              );
-            }
-            break;
-          }
-
+        const contextParts = fitChunks.map((chunk) => {
           const topicLabel = chunk.topic ? `[${chunk.topic}]` : '[Knowledge]';
-          contextParts.push(`${topicLabel}\n${chunk.content}`);
-          totalChars += chunkLength;
-        }
+          return `${topicLabel}\n${chunk.content}`;
+        });
 
-        context = contextParts.join('\n\n---\n\n');
+        context = joinContext(contextParts);
 
         // Format sources
         sources = searchResults.map(
@@ -246,7 +161,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
           }),
         );
 
-        console.log('[Custom Bot Chat] Context built, chars:', totalChars);
+        console.log('[Custom Bot Chat] Context built');
       }
     }
 
@@ -307,38 +222,14 @@ Make the questions natural, conversational, and directly related to the current 
     } catch (llmError) {
       console.error('[Custom Bot Chat] LLM failed after', Date.now() - llmStartTime, 'ms');
 
-      if (llmError instanceof Error) {
-        if (llmError.message.includes('API key') && sources.length > 0) {
-          // Return context-only response
-          const fallbackParts = sources.map((s, i) => {
-            const label = s.topic ? `**[${s.topic}]**` : `**[Source ${i + 1}]**`;
-            return `${label}\n${s.preview}`;
-          });
+      // Build fallback sources for API key errors
+      const fallbackSources = sources.map((s, i) => ({
+        label: s.topic ? `**[${s.topic}]**` : `**[Source ${i + 1}]**`,
+        content: s.preview,
+      }));
 
-          return jsonSuccess({
-            response: `Here's what I found:\n\n${fallbackParts.join('\n\n---\n\n')}`,
-            sources,
-            bot: { id: bot.id, title: bot.title, emoji: bot.emoji },
-            provider: 'none',
-            model: 'context-only',
-          });
-        }
-
-        if (llmError.message.includes('Cannot connect to Ollama')) {
-          return jsonError(
-            DOMAIN_ERRORS.OLLAMA_NOT_RUNNING,
-            'SERVICE_UNAVAILABLE',
-            HTTP_STATUS.SERVICE_UNAVAILABLE,
-          );
-        }
-
-        console.error('[Custom Bot Chat] LLM error:', llmError.message);
-        return jsonError(
-          DOMAIN_ERRORS.AI_UNAVAILABLE,
-          'SERVICE_UNAVAILABLE',
-          HTTP_STATUS.SERVICE_UNAVAILABLE,
-        );
-      }
+      const errorResponse = handleLLMError(llmError, fallbackSources);
+      if (errorResponse) return errorResponse;
 
       throw llmError;
     }
