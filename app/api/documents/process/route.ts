@@ -26,6 +26,7 @@ import {
 } from '@/lib/api';
 import { DOMAIN_ERRORS } from '@/lib/constants';
 import { detectDomains } from '@/lib/context/domain-detector';
+import { logger } from '@/lib/logger';
 
 // Extend function timeout for embedding generation (Vercel)
 export const maxDuration = 60; // Allow longer for document processing
@@ -196,7 +197,7 @@ export async function POST(request: NextRequest) {
         const { error: insertError } = await supabase.from('document_chunks').insert(batch);
 
         if (insertError) {
-          console.error('Chunk insert error:', insertError);
+          logger.error('Chunk insert error:', insertError);
           throw new Error('Failed to store document chunks');
         }
       }

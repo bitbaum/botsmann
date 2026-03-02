@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
-
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { jsonError, jsonValidationError, formatZodErrors, HTTP_STATUS } from '@/lib/api';
 import { generateWithBestProvider, type ModelProvider } from '@/lib/llm-client';
+import { logger } from '@/lib/logger';
 import {
   sanitizeSystemPrompt,
   sanitizeUserMessage,
@@ -80,7 +79,7 @@ async function generateResponse(
     const sanitized = sanitizeSystemPrompt(customSystemPrompt);
     systemPrompt = sanitized.sanitized;
     if (sanitized.warnings.length > 0) {
-      console.log('[Demo Chat] System prompt sanitized:', sanitized.warnings);
+      logger.log('[Demo Chat] System prompt sanitized:', sanitized.warnings);
     }
   }
 
@@ -110,7 +109,7 @@ async function generateResponse(
       model: result.model,
     };
   } catch (error) {
-    console.error('LLM generation failed:', error);
+    logger.error('LLM generation failed:', error);
     // Fallback to context-only response
     return {
       content: context,
@@ -486,7 +485,7 @@ export async function POST(request: NextRequest) {
     if (error instanceof z.ZodError) {
       return jsonValidationError('Validation failed', formatZodErrors(error));
     }
-    console.error('Chat API error:', error);
+    logger.error('Chat API error:', error);
     return jsonError('Internal server error', 'INTERNAL_ERROR', HTTP_STATUS.INTERNAL_ERROR);
   }
 }

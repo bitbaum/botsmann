@@ -9,10 +9,9 @@
  * 3. Generate response using user's preferred LLM
  */
 
-/* eslint-disable no-console */
-
 import { type NextRequest } from 'next/server';
 import { generateLLMResponse } from '@/lib/llm-client';
+import { logger } from '@/lib/logger';
 import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import { jsonSuccess, jsonError, jsonUnauthorized, HTTP_STATUS } from '@/lib/api';
@@ -36,7 +35,7 @@ export const maxDuration = 30;
  */
 export async function POST(request: NextRequest) {
   const startTime = Date.now();
-  console.log('[Chat API] Starting request');
+  logger.log('[Chat API] Starting request');
 
   try {
     // Rate limit per user/IP
@@ -49,17 +48,17 @@ export async function POST(request: NextRequest) {
         HTTP_STATUS.RATE_LIMIT,
       );
     }
-    console.log('[Chat API] Verifying user...');
+    logger.log('[Chat API] Verifying user...');
     const user = await verifyUser(request);
     if (!user) {
-      console.log('[Chat API] User verification failed');
+      logger.log('[Chat API] User verification failed');
       return jsonUnauthorized();
     }
-    console.log('[Chat API] User verified:', user.id, 'Time:', Date.now() - startTime, 'ms');
+    logger.log(`[Chat API] User verified: ${user.id} Time: ${Date.now() - startTime} ms`);
 
     const body = await request.json();
     const { message, documentId, contextSize = 3 } = body;
-    console.log('[Chat API] Request body parsed, message length:', message?.length);
+    logger.log(`[Chat API] Request body parsed, message length: ${message?.length}`);
 
     if (!message || typeof message !== 'string') {
       return jsonError('Message required', 'VALIDATION_ERROR', HTTP_STATUS.BAD_REQUEST);
@@ -78,7 +77,7 @@ export async function POST(request: NextRequest) {
       .eq('status', 'ready');
 
     if (!docCount || docCount === 0) {
-      console.log('[Chat API] No documents found for user');
+      logger.log('[Chat API] No documents found for user');
       return jsonSuccess({
         response:
           "You don't have any processed documents yet. Please upload and process some documents first, then I can answer questions about them.",
@@ -86,10 +85,10 @@ export async function POST(request: NextRequest) {
         provider,
       });
     }
-    console.log('[Chat API] Found', docCount, 'documents. Time:', Date.now() - startTime, 'ms');
+    logger.log(`[Chat API] Found ${docCount} documents. Time: ${Date.now() - startTime} ms`);
 
     // Generate embedding for the query with timeout
-    console.log('[Chat API] Generating query embedding...');
+    logger.log('[Chat API] Generating query embedding...');
     const embeddingResult = await generateEmbeddingWithTimeout(message);
     if ('error' in embeddingResult) {
       return embeddingResult.error;
@@ -97,7 +96,7 @@ export async function POST(request: NextRequest) {
     const queryEmbedding = embeddingResult.embedding;
 
     // Search for relevant chunks
-    console.log('[Chat API] Searching for relevant chunks...');
+    logger.log('[Chat API] Searching for relevant chunks...');
     const searchStartTime = Date.now();
     const { data: searchResults, error: searchError } = await supabase.rpc('match_documents', {
       query_embedding: `[${queryEmbedding.join(',')}]`,
@@ -105,13 +104,13 @@ export async function POST(request: NextRequest) {
       filter_user_id: user.id,
     });
 
-    console.log('[Chat API] Search completed in', Date.now() - searchStartTime, 'ms');
+    logger.log(`[Chat API] Search completed in ${Date.now() - searchStartTime} ms`);
 
     if (searchError) {
-      console.error('[Chat API] Search error:', searchError);
+      logger.error('[Chat API] Search error:', searchError);
       return jsonError('Failed to search documents', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
-    console.log('[Chat API] Found', searchResults?.length || 0, 'relevant chunks');
+    logger.log(`[Chat API] Found ${searchResults?.length || 0} relevant chunks`);
 
     // Filter by documentId if provided
     let relevantChunks = searchResults || [];
@@ -158,7 +157,7 @@ export async function POST(request: NextRequest) {
     );
 
     // Try to generate response using LLM
-    console.log('[Chat API] Calling LLM, provider:', provider);
+    logger.log(`[Chat API] Calling LLM, provider: ${provider}`);
     const llmStartTime = Date.now();
     try {
       const llmResponse = await generateLLMResponse(
@@ -178,8 +177,8 @@ export async function POST(request: NextRequest) {
         },
       );
 
-      console.log('[Chat API] LLM response received in', Date.now() - llmStartTime, 'ms');
-      console.log('[Chat API] Total request time:', Date.now() - startTime, 'ms');
+      logger.log(`[Chat API] LLM response received in ${Date.now() - llmStartTime} ms`);
+      logger.log(`[Chat API] Total request time: ${Date.now() - startTime} ms`);
 
       return jsonSuccess({
         response: llmResponse.content,
@@ -188,7 +187,7 @@ export async function POST(request: NextRequest) {
         model: llmResponse.model,
       });
     } catch (llmError) {
-      console.error('[Chat API] LLM call failed after', Date.now() - llmStartTime, 'ms');
+      logger.error(`[Chat API] LLM call failed after ${Date.now() - llmStartTime} ms`);
 
       // Build fallback sources for API key errors
       const fallbackSources = relevantChunks.map(
@@ -204,7 +203,7 @@ export async function POST(request: NextRequest) {
       throw llmError;
     }
   } catch (error) {
-    console.error('[Chat API] Unhandled error:', error);
+    logger.error('[Chat API] Unhandled error:', error);
     return jsonError('Internal server error', 'INTERNAL_ERROR', HTTP_STATUS.INTERNAL_ERROR);
   }
 }

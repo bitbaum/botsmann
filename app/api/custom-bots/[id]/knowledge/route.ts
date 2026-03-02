@@ -24,6 +24,7 @@ import {
   BulkCreateKnowledgeChunksSchema,
 } from '@/lib/validations/custom-bot';
 import { generateEmbedding } from '@/lib/embeddings';
+import { logger } from '@/lib/logger';
 
 const DOMAIN_ERROR = 'Failed to process knowledge chunk request';
 
@@ -123,7 +124,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
         .select('id, topic, question, content, keywords, source, created_at');
 
       if (insertError) {
-        console.error('Database insert error:', insertError);
+        logger.error('Database insert error:', insertError);
         return jsonError(
           'Failed to create knowledge chunks',
           'DATABASE_ERROR',
@@ -166,7 +167,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
         .single();
 
       if (insertError) {
-        console.error('Database insert error:', insertError);
+        logger.error('Database insert error:', insertError);
         return jsonError(
           'Failed to create knowledge chunk',
           'DATABASE_ERROR',
@@ -208,7 +209,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Database query error:', error);
+      logger.error('Database query error:', error);
       return jsonError(
         'Failed to fetch knowledge chunks',
         'DATABASE_ERROR',
@@ -270,7 +271,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       .eq('id', chunkId);
 
     if (deleteError) {
-      console.error('Database delete error:', deleteError);
+      logger.error('Database delete error:', deleteError);
       return jsonError(
         'Failed to delete knowledge chunk',
         'DATABASE_ERROR',

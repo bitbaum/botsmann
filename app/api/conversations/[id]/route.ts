@@ -20,6 +20,7 @@ import {
   HTTP_STATUS,
 } from '@/lib/api';
 import { UpdateConversationSchema } from '@/lib/validations/conversation';
+import { logger } from '@/lib/logger';
 
 const DOMAIN_ERROR = 'Failed to process conversation request';
 
@@ -60,7 +61,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       .order('created_at', { ascending: true });
 
     if (msgError) {
-      console.error('Database query error:', msgError);
+      logger.error('Database query error:', msgError);
       return jsonError('Failed to fetch messages', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 
@@ -109,7 +110,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       if (error?.code === 'PGRST116') {
         return jsonNotFound('Conversation not found');
       }
-      console.error('Database update error:', error);
+      logger.error('Database update error:', error);
       return jsonError(
         'Failed to update conversation',
         'DATABASE_ERROR',
@@ -144,7 +145,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       .eq('user_id', user.id);
 
     if (error) {
-      console.error('Database delete error:', error);
+      logger.error('Database delete error:', error);
       return jsonError(
         'Failed to delete conversation',
         'DATABASE_ERROR',

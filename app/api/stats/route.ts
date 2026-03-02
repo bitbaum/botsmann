@@ -10,6 +10,7 @@ export const dynamic = 'force-dynamic';
 import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import { jsonSuccess, jsonError, jsonUnauthorized, handleError, HTTP_STATUS } from '@/lib/api';
+import { logger } from '@/lib/logger';
 
 const DOMAIN_ERROR = 'Failed to fetch user statistics';
 
@@ -45,7 +46,7 @@ export async function GET(request: NextRequest) {
 
     // Check for errors
     if (conversationsResult.error || documentsResult.error || botsResult.error) {
-      console.error('Database query errors:', {
+      logger.error('Database query errors:', {
         conversations: conversationsResult.error,
         documents: documentsResult.error,
         bots: botsResult.error,

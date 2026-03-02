@@ -15,6 +15,7 @@ import {
 } from '@/lib/api';
 import { DOMAIN_ERRORS } from '@/lib/constants';
 import { ZodError } from 'zod';
+import { logger } from '@/lib/logger';
 
 const emailService = new EmailService();
 
@@ -39,7 +40,7 @@ async function handler(req: NextRequest) {
 
     // Check if Supabase is configured
     if (!isSupabaseConfigured()) {
-      console.error('Supabase not configured');
+      logger.error('Supabase not configured');
       return jsonServiceUnavailable('Database not configured');
     }
 
@@ -56,7 +57,7 @@ async function handler(req: NextRequest) {
       .single();
 
     if (dbError) {
-      console.error('Supabase insert error:', dbError);
+      logger.error('Supabase insert error:', dbError);
       return jsonServiceUnavailable('Database error');
     }
 
@@ -67,7 +68,7 @@ async function handler(req: NextRequest) {
         emailService.sendAdminNotification(validatedData),
       ]);
     } catch (emailError) {
-      console.error('Failed to send emails:', emailError);
+      logger.error('Failed to send emails:', emailError);
       // Don't return error response, continue with success
     }
 

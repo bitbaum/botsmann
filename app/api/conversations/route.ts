@@ -18,6 +18,7 @@ import {
   HTTP_STATUS,
 } from '@/lib/api';
 import { CreateConversationSchema } from '@/lib/validations/conversation';
+import { logger } from '@/lib/logger';
 
 const DOMAIN_ERROR = 'Failed to process conversation request';
 
@@ -56,7 +57,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (dbError) {
-      console.error('Database insert error:', dbError);
+      logger.error('Database insert error:', dbError);
       return jsonError(
         'Failed to create conversation',
         'DATABASE_ERROR',
@@ -110,7 +111,7 @@ export async function GET(request: NextRequest) {
     const { data: conversations, error } = await query;
 
     if (error) {
-      console.error('Database query error:', error);
+      logger.error('Database query error:', error);
       return jsonError(
         'Failed to fetch conversations',
         'DATABASE_ERROR',

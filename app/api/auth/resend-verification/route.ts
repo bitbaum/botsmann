@@ -9,6 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@/lib/supabase-server';
 import { rateLimit, RATE_LIMIT_CONFIGS } from '@/lib/middleware/rate-limit';
+import { logger } from '@/lib/logger';
 
 export async function POST(req: NextRequest) {
   // Rate limiting (strict for email resend)
@@ -71,7 +72,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (error) {
-      console.error('Resend verification error:', error);
+      logger.error('Resend verification error:', error);
       return NextResponse.json(
         {
           success: false,
@@ -87,7 +88,7 @@ export async function POST(req: NextRequest) {
       message: 'Verification email sent. Please check your inbox.',
     });
   } catch (error) {
-    console.error('Resend verification error:', error);
+    logger.error('Resend verification error:', error);
     return NextResponse.json(
       {
         success: false,

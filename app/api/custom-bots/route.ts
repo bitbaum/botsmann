@@ -18,6 +18,7 @@ import {
   HTTP_STATUS,
 } from '@/lib/api';
 import { CreateCustomBotSchema } from '@/lib/validations/custom-bot';
+import { logger } from '@/lib/logger';
 
 const DOMAIN_ERROR = 'Failed to process custom bot request';
 
@@ -76,7 +77,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (dbError) {
-      console.error('Database insert error:', dbError);
+      logger.error('Database insert error:', dbError);
       return jsonError('Failed to create custom bot', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 
@@ -111,7 +112,7 @@ export async function GET(request: NextRequest) {
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Database query error:', error);
+      logger.error('Database query error:', error);
       return jsonError('Failed to fetch custom bots', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 

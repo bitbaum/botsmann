@@ -18,6 +18,7 @@ import {
   HTTP_STATUS,
 } from '@/lib/api';
 import { z } from 'zod';
+import { logger } from '@/lib/logger';
 
 const DOMAIN_ERROR = 'Failed to import document to bot';
 
@@ -91,7 +92,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       .order('chunk_index', { ascending: true });
 
     if (chunksError) {
-      console.error('Error fetching document chunks:', chunksError);
+      logger.error('Error fetching document chunks:', chunksError);
       return jsonError(
         'Failed to fetch document chunks',
         'DATABASE_ERROR',
@@ -134,7 +135,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       .insert(knowledgeEntries);
 
     if (insertError) {
-      console.error('Error inserting knowledge:', insertError);
+      logger.error('Error inserting knowledge:', insertError);
       return jsonError(
         'Failed to import document to bot',
         'DATABASE_ERROR',

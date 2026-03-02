@@ -12,6 +12,7 @@ import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import { jsonSuccess, jsonError, jsonUnauthorized, handleError, HTTP_STATUS } from '@/lib/api';
 import { DOMAIN_ERRORS } from '@/lib/constants';
+import { logger } from '@/lib/logger';
 
 // Extend function timeout for embedding generation (Vercel)
 export const maxDuration = 30;
@@ -46,7 +47,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-      console.error('Search error:', error);
+      logger.error('Search error:', error);
       return jsonError('Search failed', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 

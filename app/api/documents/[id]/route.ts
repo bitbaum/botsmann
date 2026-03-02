@@ -19,6 +19,7 @@ import {
   HTTP_STATUS,
 } from '@/lib/api';
 import { DomainsArraySchema } from '@/lib/validations/domain';
+import { logger } from '@/lib/logger';
 
 /**
  * Schema for updating a document
@@ -59,7 +60,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
 
     return jsonSuccess({ document });
   } catch (error) {
-    console.error('Get document error:', error);
+    logger.error('Get document error:', error);
     return jsonError('Failed to fetch document', 'INTERNAL_ERROR', HTTP_STATUS.INTERNAL_ERROR);
   }
 }
@@ -116,13 +117,13 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       .single();
 
     if (updateError) {
-      console.error('Update document error:', updateError);
+      logger.error('Update document error:', updateError);
       return jsonError('Failed to update document', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 
     return jsonSuccess({ document }, 'Document updated');
   } catch (error) {
-    console.error('Update document error:', error);
+    logger.error('Update document error:', error);
     return jsonError('Failed to update document', 'INTERNAL_ERROR', HTTP_STATUS.INTERNAL_ERROR);
   }
 }

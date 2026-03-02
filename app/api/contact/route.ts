@@ -10,6 +10,7 @@ import {
 } from '@/lib/api';
 import { DOMAIN_ERRORS } from '@/lib/constants';
 import { isSupabaseConfigured, getServiceClient } from '@/lib/supabase';
+import { logger } from '@/lib/logger';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { getClientIp } from '@/lib/request';
 
@@ -49,7 +50,7 @@ export async function POST(req: NextRequest) {
           .select('id')
           .single();
         if (error) {
-          console.error('Supabase consultations insert error:', error);
+          logger.error('Supabase consultations insert error:', error);
           return jsonError(
             'Failed to save contact request',
             'DATABASE_ERROR',
@@ -58,7 +59,7 @@ export async function POST(req: NextRequest) {
         }
         return jsonSuccess({ id: data.id }, "Thank you! We'll be in touch soon.");
       } catch (dbErr) {
-        console.error('Supabase client error (contact):', dbErr);
+        logger.error('Supabase client error (contact):', dbErr);
         // Fall through to local message (no persistence)
       }
     }

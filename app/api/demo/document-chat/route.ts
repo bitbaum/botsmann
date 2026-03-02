@@ -7,14 +7,13 @@
  * Document content is sent with each request (stored client-side).
  */
 
-/* eslint-disable no-console */
-
 import { type NextRequest } from 'next/server';
 import { generateLLMResponse } from '@/lib/llm-client';
 import { jsonSuccess, jsonError, HTTP_STATUS } from '@/lib/api';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { getClientIp } from '@/lib/request';
 import { sanitizeUserMessage, sanitizePromptContent } from '@/lib/prompt-sanitizer';
+import { logger } from '@/lib/logger';
 
 // Extend function timeout for model loading (Vercel)
 export const maxDuration = 30;
@@ -25,7 +24,7 @@ const MAX_CONTEXT_CHARS = 8000; // Limit context sent to LLM
 
 export async function POST(request: NextRequest) {
   const startTime = Date.now();
-  console.log('[Demo Document Chat] Starting request');
+  logger.log('[Demo Document Chat] Starting request');
 
   try {
     // Rate limit per IP (stricter since no auth)
@@ -118,7 +117,7 @@ Guidelines:
 
 Documents have been provided below. Use them to answer the user's question.`;
 
-    console.log('[Demo Document Chat] Calling LLM, context chars:', totalChars);
+    logger.log(`[Demo Document Chat] Calling LLM, context chars: ${totalChars}`);
     const llmStartTime = Date.now();
 
     try {
@@ -137,8 +136,8 @@ Documents have been provided below. Use them to answer the user's question.`;
         },
       );
 
-      console.log('[Demo Document Chat] LLM response in', Date.now() - llmStartTime, 'ms');
-      console.log('[Demo Document Chat] Total time:', Date.now() - startTime, 'ms');
+      logger.log(`[Demo Document Chat] LLM response in ${Date.now() - llmStartTime} ms`);
+      logger.log(`[Demo Document Chat] Total time: ${Date.now() - startTime} ms`);
 
       return jsonSuccess({
         response: llmResponse.content,
@@ -150,7 +149,7 @@ Documents have been provided below. Use them to answer the user's question.`;
         model: llmResponse.model,
       });
     } catch (llmError) {
-      console.error('[Demo Document Chat] LLM error:', llmError);
+      logger.error('[Demo Document Chat] LLM error:', llmError);
 
       // Return document excerpts as fallback
       if (processedDocs.length > 0) {
@@ -179,7 +178,7 @@ Documents have been provided below. Use them to answer the user's question.`;
       );
     }
   } catch (error) {
-    console.error('[Demo Document Chat] Unhandled error:', error);
+    logger.error('[Demo Document Chat] Unhandled error:', error);
     return jsonError('Internal server error', 'INTERNAL_ERROR', HTTP_STATUS.INTERNAL_ERROR);
   }
 }

@@ -1,5 +1,6 @@
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { jsonSuccess, jsonServiceUnavailable } from '@/lib/api';
+import { logger } from '@/lib/logger';
 
 export async function GET() {
   try {
@@ -15,7 +16,7 @@ export async function GET() {
 
     return jsonSuccess({ status: 'healthy', database: 'connected' }, { cache: 'PUBLIC_SHORT' });
   } catch (error) {
-    console.error('Health check failed:', error);
+    logger.error('Health check failed:', error);
     return jsonServiceUnavailable('Database connection failed');
   }
 }

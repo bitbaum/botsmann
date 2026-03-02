@@ -6,24 +6,23 @@
  * Called periodically by Vercel cron to keep the function warm
  */
 
-/* eslint-disable no-console */
-
 import { NextResponse } from 'next/server';
 import { generateEmbedding } from '@/lib/embeddings';
+import { logger } from '@/lib/logger';
 
 // Extend function timeout for model loading
 export const maxDuration = 60;
 
 export async function GET() {
   const startTime = Date.now();
-  console.log('[Warmup] Starting warmup...');
+  logger.log('[Warmup] Starting warmup...');
 
   try {
     // Generate a simple embedding to load the model
     await generateEmbedding('warmup test');
 
     const elapsed = Date.now() - startTime;
-    console.log('[Warmup] Model loaded in', elapsed, 'ms');
+    logger.log(`[Warmup] Model loaded in ${elapsed} ms`);
 
     return NextResponse.json({
       success: true,
@@ -32,7 +31,7 @@ export async function GET() {
     });
   } catch (error) {
     const elapsed = Date.now() - startTime;
-    console.error('[Warmup] Failed after', elapsed, 'ms:', error);
+    logger.error(`[Warmup] Failed after ${elapsed} ms:`, error);
 
     return NextResponse.json(
       {

@@ -1,4 +1,5 @@
 import type { NextRequest } from 'next/server';
+import { logger } from '../logger';
 
 interface RequestMetrics {
   path: string;
@@ -54,7 +55,7 @@ export async function monitorRequest<T extends Request | NextRequest>(
     });
 
     // Log performance metrics
-    console.info(
+    logger.log(
       `API ${method} ${path} completed in ${duration.toFixed(2)}ms with status ${response.status}`,
     );
 
@@ -71,7 +72,7 @@ export async function monitorRequest<T extends Request | NextRequest>(
       status: 500,
     });
 
-    console.error(`API ${method} ${path} failed after ${duration.toFixed(2)}ms:`, error);
+    logger.error(`API ${method} ${path} failed after ${duration.toFixed(2)}ms:`, error);
     throw error;
   }
 }

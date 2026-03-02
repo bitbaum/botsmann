@@ -9,6 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@/lib/supabase-server';
 import { z } from 'zod';
 import { rateLimit, RATE_LIMIT_CONFIGS } from '@/lib/middleware/rate-limit';
+import { logger } from '@/lib/logger';
 
 const SignInSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -66,7 +67,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Sign in error:', error);
+    logger.error('Sign in error:', error);
     return NextResponse.json(
       {
         success: false,

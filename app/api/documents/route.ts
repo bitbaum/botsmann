@@ -20,6 +20,7 @@ import {
   HTTP_STATUS,
 } from '@/lib/api';
 import { DOMAIN_ERRORS } from '@/lib/constants';
+import { logger } from '@/lib/logger';
 
 /**
  * Upload a new document
@@ -73,7 +74,7 @@ export async function POST(request: NextRequest) {
       });
 
     if (uploadError) {
-      console.error('Storage upload error:', uploadError);
+      logger.error('Storage upload error:', uploadError);
       return jsonError('Failed to upload file', 'INTERNAL_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 
@@ -92,7 +93,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (dbError) {
-      console.error('Database insert error:', dbError);
+      logger.error('Database insert error:', dbError);
       // Clean up uploaded file
       await supabase.storage.from('documents').remove([storagePath]);
       return jsonError(
@@ -130,7 +131,7 @@ export async function GET(request: NextRequest) {
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Database query error:', error);
+      logger.error('Database query error:', error);
       return jsonError('Failed to fetch documents', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 
@@ -178,7 +179,7 @@ export async function DELETE(request: NextRequest) {
     const { error: deleteError } = await supabase.from('documents').delete().eq('id', documentId);
 
     if (deleteError) {
-      console.error('Database delete error:', deleteError);
+      logger.error('Database delete error:', deleteError);
       return jsonError('Failed to delete document', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 

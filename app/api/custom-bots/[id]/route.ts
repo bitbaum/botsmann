@@ -20,6 +20,7 @@ import {
   HTTP_STATUS,
 } from '@/lib/api';
 import { UpdateCustomBotSchema } from '@/lib/validations/custom-bot';
+import { logger } from '@/lib/logger';
 
 const DOMAIN_ERROR = 'Failed to process custom bot request';
 
@@ -109,7 +110,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       .single();
 
     if (updateError) {
-      console.error('Database update error:', updateError);
+      logger.error('Database update error:', updateError);
       return jsonError('Failed to update custom bot', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 
@@ -148,7 +149,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     const { error: deleteError } = await supabase.from('custom_bots').delete().eq('id', id);
 
     if (deleteError) {
-      console.error('Database delete error:', deleteError);
+      logger.error('Database delete error:', deleteError);
       return jsonError('Failed to delete custom bot', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 

@@ -1,5 +1,6 @@
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import type { Customer } from '@/lib/schemas/customer';
+import { logger } from '../logger';
 
 export class EmailService {
   private ses: SESClient;
@@ -39,7 +40,7 @@ export class EmailService {
     try {
       await this.ses.send(new SendEmailCommand(params));
     } catch (error) {
-      console.error('Failed to send welcome email:', error);
+      logger.error('Failed to send welcome email:', error);
       throw error;
     }
   }
@@ -65,7 +66,7 @@ export class EmailService {
     try {
       await this.ses.send(new SendEmailCommand(params));
     } catch (error) {
-      console.error('Failed to send admin notification:', error);
+      logger.error('Failed to send admin notification:', error);
       throw error;
     }
   }

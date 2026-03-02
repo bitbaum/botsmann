@@ -9,6 +9,7 @@
 
 import { API_CONFIG } from '@/lib/constants';
 import { getServerEnv, getClientEnv } from '@/lib/config/env';
+import { logger } from './logger';
 
 export type ModelProvider = 'groq' | 'openrouter' | 'ollama';
 
@@ -90,7 +91,7 @@ async function generateWithGroq(
 
   if (!response.ok) {
     const error = await response.text();
-    console.error('Groq API error:', response.status, error);
+    logger.error(`Groq API error: ${response.status}`, error);
     throw new Error(`Groq API error: ${response.status}`);
   }
 
@@ -137,7 +138,7 @@ async function generateWithOpenRouter(
 
   if (!response.ok) {
     const error = await response.text();
-    console.error('OpenRouter API error:', error);
+    logger.error('OpenRouter API error:', error);
     throw new Error('OpenRouter API request failed');
   }
 
@@ -181,7 +182,7 @@ async function generateWithOllama(
 
     if (!response.ok) {
       const error = await response.text();
-      console.error('Ollama API error:', error);
+      logger.error('Ollama API error:', error);
       throw new Error('Ollama API request failed');
     }
 

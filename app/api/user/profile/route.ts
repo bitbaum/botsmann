@@ -19,6 +19,7 @@ import {
   HTTP_STATUS,
 } from '@/lib/api/responses';
 import { UpdateUserProfileSchema } from '@/lib/validations/user-profile';
+import { logger } from '@/lib/logger';
 
 /**
  * GET - Get or create user profile
@@ -44,13 +45,13 @@ export async function GET() {
     });
 
     if (profileError) {
-      console.error('Error fetching user profile:', profileError);
+      logger.error('Error fetching user profile:', profileError);
       return jsonError('Failed to fetch profile', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 
     return jsonSuccess(profile);
   } catch (error) {
-    console.error('User profile GET error:', error);
+    logger.error('User profile GET error:', error);
     return jsonError('An error occurred', 'INTERNAL_ERROR', HTTP_STATUS.INTERNAL_ERROR);
   }
 }
@@ -114,7 +115,7 @@ export async function PATCH(request: NextRequest) {
         });
 
         if (insertError) {
-          console.error('Error creating user profile:', insertError);
+          logger.error('Error creating user profile:', insertError);
           return jsonError(
             'Failed to create profile',
             'DATABASE_ERROR',
@@ -130,20 +131,20 @@ export async function PATCH(request: NextRequest) {
           .single();
 
         if (fetchError) {
-          console.error('Error fetching created profile:', fetchError);
+          logger.error('Error fetching created profile:', fetchError);
           return jsonError('Failed to fetch profile', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
         }
 
         return jsonSuccess(newProfile, 'Profile created');
       }
 
-      console.error('Error updating user profile:', updateError);
+      logger.error('Error updating user profile:', updateError);
       return jsonError('Failed to update profile', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 
     return jsonSuccess(profile, 'Profile updated');
   } catch (error) {
-    console.error('User profile PATCH error:', error);
+    logger.error('User profile PATCH error:', error);
     return jsonError('An error occurred', 'INTERNAL_ERROR', HTTP_STATUS.INTERNAL_ERROR);
   }
 }

@@ -18,6 +18,7 @@ import {
   HTTP_STATUS,
 } from '@/lib/api';
 import { AddMessageSchema } from '@/lib/validations/conversation';
+import { logger } from '@/lib/logger';
 
 const DOMAIN_ERROR = 'Failed to process message request';
 
@@ -71,7 +72,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       .single();
 
     if (msgError) {
-      console.error('Database insert error:', msgError);
+      logger.error('Database insert error:', msgError);
       return jsonError('Failed to add message', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
     }
 

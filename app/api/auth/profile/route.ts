@@ -11,6 +11,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@/lib/supabase-server';
 import { z } from 'zod';
 import { rateLimit, RATE_LIMIT_CONFIGS } from '@/lib/middleware/rate-limit';
+import { logger } from '@/lib/logger';
 
 const UpdateProfileSchema = z.object({
   display_name: z
@@ -72,7 +73,7 @@ export async function GET(req: NextRequest) {
       profile,
     });
   } catch (error) {
-    console.error('Get profile error:', error);
+    logger.error('Get profile error:', error);
     return NextResponse.json(
       {
         success: false,
@@ -144,7 +145,7 @@ export async function PUT(req: NextRequest) {
     });
 
     if (error) {
-      console.error('Update profile error:', error);
+      logger.error('Update profile error:', error);
       return NextResponse.json(
         {
           success: false,
@@ -171,7 +172,7 @@ export async function PUT(req: NextRequest) {
       profile: updatedProfile,
     });
   } catch (error) {
-    console.error('Update profile error:', error);
+    logger.error('Update profile error:', error);
     return NextResponse.json(
       {
         success: false,

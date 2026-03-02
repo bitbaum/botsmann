@@ -9,6 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@/lib/supabase-server';
 import { z } from 'zod';
 import { rateLimit, RATE_LIMIT_CONFIGS } from '@/lib/middleware/rate-limit';
+import { logger } from '@/lib/logger';
 
 const ForgotPasswordSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -49,7 +50,7 @@ export async function POST(req: NextRequest) {
     // Always return success to prevent email enumeration
     // Even if the email doesn't exist, we don't reveal that
     if (error) {
-      console.error('Password reset error:', error);
+      logger.error('Password reset error:', error);
     }
 
     return NextResponse.json({
@@ -57,7 +58,7 @@ export async function POST(req: NextRequest) {
       message: 'If an account with this email exists, a password reset link has been sent',
     });
   } catch (error) {
-    console.error('Forgot password error:', error);
+    logger.error('Forgot password error:', error);
     return NextResponse.json(
       {
         success: false,

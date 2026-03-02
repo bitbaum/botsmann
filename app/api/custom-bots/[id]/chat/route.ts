@@ -10,11 +10,10 @@
  * 4. Generate response using user's preferred LLM
  */
 
-/* eslint-disable no-console */
-
 import { type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { generateLLMResponse } from '@/lib/llm-client';
+import { logger } from '@/lib/logger';
 import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import {
@@ -52,7 +51,7 @@ interface RouteParams {
  */
 export async function POST(request: NextRequest, { params }: RouteParams) {
   const startTime = Date.now();
-  console.log('[Custom Bot Chat] Starting request');
+  logger.log('[Custom Bot Chat] Starting request');
 
   try {
     // For public bots, auth is optional
@@ -81,7 +80,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       return jsonUnauthorized('This bot is private');
     }
 
-    console.log('[Custom Bot Chat] Bot loaded:', bot.title, 'Time:', Date.now() - startTime, 'ms');
+    logger.log(`[Custom Bot Chat] Bot loaded: ${bot.title} Time: ${Date.now() - startTime} ms`);
 
     // Validate request body
     const body = await request.json();
@@ -103,7 +102,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       .select('*', { count: 'exact', head: true })
       .eq('bot_id', botId);
 
-    console.log('[Custom Bot Chat] Knowledge chunks:', knowledgeCount);
+    logger.log(`[Custom Bot Chat] Knowledge chunks: ${knowledgeCount}`);
 
     let context = '';
     let sources: Array<{
@@ -115,7 +114,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     // If bot has knowledge, perform RAG search
     if (knowledgeCount && knowledgeCount > 0) {
       // Generate embedding for the query
-      console.log('[Custom Bot Chat] Generating query embedding...');
+      logger.log('[Custom Bot Chat] Generating query embedding...');
       const embeddingResult = await generateEmbeddingWithTimeout(message);
       if ('error' in embeddingResult) {
         return embeddingResult.error;
@@ -123,7 +122,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       const queryEmbedding = embeddingResult.embedding;
 
       // Search for relevant knowledge chunks
-      console.log('[Custom Bot Chat] Searching knowledge base...');
+      logger.log('[Custom Bot Chat] Searching knowledge base...');
       const searchStartTime = Date.now();
 
       const { data: searchResults, error: searchError } = await supabase.rpc(
@@ -135,10 +134,10 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
         },
       );
 
-      console.log('[Custom Bot Chat] Search completed in', Date.now() - searchStartTime, 'ms');
+      logger.log(`[Custom Bot Chat] Search completed in ${Date.now() - searchStartTime} ms`);
 
       if (searchError) {
-        console.error('[Custom Bot Chat] Search error:', searchError);
+        logger.error('[Custom Bot Chat] Search error:', searchError);
         // Continue without RAG context if search fails
       } else if (searchResults && searchResults.length > 0) {
         // Build context from knowledge chunks
@@ -161,7 +160,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
           }),
         );
 
-        console.log('[Custom Bot Chat] Context built');
+        logger.log('[Custom Bot Chat] Context built');
       }
     }
 
@@ -182,7 +181,7 @@ IMPORTANT: After your response, always include 2-3 contextually relevant follow-
 Make the questions natural, conversational, and directly related to the current topic.`;
 
     // Generate response using LLM
-    console.log('[Custom Bot Chat] Calling LLM, provider:', provider);
+    logger.log(`[Custom Bot Chat] Calling LLM, provider: ${provider}`);
     const llmStartTime = Date.now();
 
     try {
@@ -200,8 +199,8 @@ Make the questions natural, conversational, and directly related to the current 
         },
       );
 
-      console.log('[Custom Bot Chat] LLM response in', Date.now() - llmStartTime, 'ms');
-      console.log('[Custom Bot Chat] Total time:', Date.now() - startTime, 'ms');
+      logger.log(`[Custom Bot Chat] LLM response in ${Date.now() - llmStartTime} ms`);
+      logger.log(`[Custom Bot Chat] Total time: ${Date.now() - startTime} ms`);
 
       // Parse response to extract suggestions
       const { content, suggestions } = parseResponseWithSuggestions(llmResponse.content);
@@ -220,7 +219,7 @@ Make the questions natural, conversational, and directly related to the current 
         model: llmResponse.model,
       });
     } catch (llmError) {
-      console.error('[Custom Bot Chat] LLM failed after', Date.now() - llmStartTime, 'ms');
+      logger.error(`[Custom Bot Chat] LLM failed after ${Date.now() - llmStartTime} ms`);
 
       // Build fallback sources for API key errors
       const fallbackSources = sources.map((s, i) => ({
@@ -234,7 +233,7 @@ Make the questions natural, conversational, and directly related to the current 
       throw llmError;
     }
   } catch (error) {
-    console.error('[Custom Bot Chat] Unhandled error:', error);
+    logger.error('[Custom Bot Chat] Unhandled error:', error);
     return jsonError('Internal server error', 'INTERNAL_ERROR', HTTP_STATUS.INTERNAL_ERROR);
   }
 }

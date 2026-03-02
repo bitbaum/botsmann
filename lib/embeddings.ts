@@ -8,6 +8,7 @@
 // Defer heavy import to runtime to speed up dev/server startup.
 // Avoid pulling @xenova/transformers into the initial bundle.
 import type { FeatureExtractionPipeline } from '@xenova/transformers';
+import { logger } from './logger';
 
 // Model configuration
 const MODEL_NAME = 'Xenova/all-MiniLM-L6-v2';
@@ -30,8 +31,7 @@ async function getEmbeddingPipeline(): Promise<FeatureExtractionPipeline> {
     return pipelineLoading;
   }
 
-  // eslint-disable-next-line no-console
-  console.log('Initializing embedding model...');
+  logger.log('Initializing embedding model...');
   const { pipeline } = await import('@xenova/transformers');
   pipelineLoading = pipeline('feature-extraction', MODEL_NAME, {
     // Use ONNX runtime for better performance
@@ -40,8 +40,7 @@ async function getEmbeddingPipeline(): Promise<FeatureExtractionPipeline> {
 
   embeddingPipeline = await pipelineLoading;
   pipelineLoading = null;
-  // eslint-disable-next-line no-console
-  console.log('Embedding model initialized');
+  logger.log('Embedding model initialized');
 
   return embeddingPipeline;
 }
