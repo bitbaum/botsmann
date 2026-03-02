@@ -19,6 +19,7 @@ const customJestConfig = {
     '<rootDir>/tests/**/*.test.js',
     '<rootDir>/tests/**/*.test.jsx',
   ],
+  collectCoverageFrom: ['lib/**/*.{ts,tsx}', '!lib/**/*.d.ts', '!lib/**/index.ts'],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
