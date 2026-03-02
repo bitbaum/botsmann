@@ -25,6 +25,7 @@ import {
   HTTP_STATUS,
 } from '@/lib/api';
 import { DOMAIN_ERRORS } from '@/lib/constants';
+import { detectDomains } from '@/lib/context/domain-detector';
 
 // Extend function timeout for embedding generation (Vercel)
 export const maxDuration = 60; // Allow longer for document processing
@@ -160,6 +161,11 @@ export async function POST(request: NextRequest) {
         throw new Error('No text content found in document');
       }
 
+      // Auto-detect domains from content (if not already set by user)
+      const currentDomains: string[] = document.domains || [];
+      const detectedDomains =
+        currentDomains.length === 0 ? detectDomains(textContent) : currentDomains;
+
       // Chunk the text
       const chunks = chunkText(textContent, 500, 50);
 
@@ -195,12 +201,13 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Update document status
+      // Update document status and auto-detected domains
       const { data: updatedDocument } = await supabase
         .from('documents')
         .update({
           status: 'ready',
           chunk_count: chunks.length,
+          domains: detectedDomains,
           error_message: null,
         })
         .eq('id', documentId)
