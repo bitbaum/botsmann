@@ -17,7 +17,7 @@ import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import { jsonSuccess, jsonError, jsonUnauthorized, HTTP_STATUS } from '@/lib/api';
 import { SYSTEM_PROMPTS } from '@/lib/constants';
-import { rateLimit } from '@/lib/rate-limit';
+import { checkRateLimit } from '@/lib/rate-limit';
 import { getClientIp } from '@/lib/request';
 import {
   generateEmbeddingWithTimeout,
@@ -40,9 +40,8 @@ export async function POST(request: NextRequest) {
 
   try {
     // Rate limit per user/IP
-    const limiter = rateLimit({ limit: 20, interval: 60 * 1000, uniqueTokenPerInterval: 2000 });
     const ip = getClientIp(request);
-    const { isRateLimited } = await limiter.check(`chat:${ip}`);
+    const { isRateLimited } = await checkRateLimit(`chat:${ip}`, 20, 60);
     if (isRateLimited) {
       return jsonError(
         'Too many requests. Please slow down.',

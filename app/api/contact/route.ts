@@ -10,7 +10,7 @@ import {
 } from '@/lib/api';
 import { DOMAIN_ERRORS } from '@/lib/constants';
 import { isSupabaseConfigured, getServiceClient } from '@/lib/supabase';
-import { rateLimit } from '@/lib/rate-limit';
+import { checkRateLimit } from '@/lib/rate-limit';
 import { getClientIp } from '@/lib/request';
 
 const ContactSchema = z.object({
@@ -20,13 +20,11 @@ const ContactSchema = z.object({
   message: z.string().min(1, 'Message is required'),
 });
 
-const limiter = rateLimit({ limit: 5, interval: 10 * 60 * 1000, uniqueTokenPerInterval: 1000 });
-
 export async function POST(req: NextRequest) {
   try {
-    // Rate limit by IP
+    // Rate limit by IP (5 per 10 minutes)
     const ip = getClientIp(req);
-    const { isRateLimited } = await limiter.check(`contact:${ip}`);
+    const { isRateLimited } = await checkRateLimit(`contact:${ip}`, 5, 600);
     if (isRateLimited) {
       return jsonError(
         'Too many requests. Please try later.',

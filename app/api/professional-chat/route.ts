@@ -15,7 +15,7 @@ import { generateLLMResponse } from '@/lib/llm-client';
 import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import { jsonSuccess, jsonError, HTTP_STATUS } from '@/lib/api';
-import { rateLimit } from '@/lib/rate-limit';
+import { checkRateLimit } from '@/lib/rate-limit';
 import { getClientIp } from '@/lib/request';
 import { PROFESSIONAL_DOCUMENT_ACCESS, type DocumentCategory } from '@/types/document';
 import {
@@ -37,9 +37,8 @@ export async function POST(request: NextRequest) {
 
   try {
     // Rate limit per IP
-    const limiter = rateLimit({ limit: 15, interval: 60 * 1000, uniqueTokenPerInterval: 1500 });
     const ip = getClientIp(request);
-    const { isRateLimited } = limiter.check(`professional-chat:${ip}`);
+    const { isRateLimited } = await checkRateLimit(`professional-chat:${ip}`, 15, 60);
     if (isRateLimited) {
       return jsonError(
         'Too many requests. Please slow down.',

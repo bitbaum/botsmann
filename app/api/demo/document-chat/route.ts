@@ -12,7 +12,7 @@
 import { type NextRequest } from 'next/server';
 import { generateLLMResponse } from '@/lib/llm-client';
 import { jsonSuccess, jsonError, HTTP_STATUS } from '@/lib/api';
-import { rateLimit } from '@/lib/rate-limit';
+import { checkRateLimit } from '@/lib/rate-limit';
 import { getClientIp } from '@/lib/request';
 import { sanitizeUserMessage, sanitizePromptContent } from '@/lib/prompt-sanitizer';
 
@@ -29,11 +29,14 @@ export async function POST(request: NextRequest) {
 
   try {
     // Rate limit per IP (stricter since no auth)
-    const limiter = rateLimit({ limit: 15, interval: 60 * 1000, uniqueTokenPerInterval: 1000 });
     const ip = getClientIp(request);
-    const { isRateLimited } = await limiter.check(`demo-doc-chat:${ip}`);
+    const { isRateLimited } = await checkRateLimit(`demo-doc-chat:${ip}`, 15, 60);
     if (isRateLimited) {
-      return jsonError('Too many requests. Please wait a moment.', 'RATE_LIMIT', HTTP_STATUS.RATE_LIMIT);
+      return jsonError(
+        'Too many requests. Please wait a moment.',
+        'RATE_LIMIT',
+        HTTP_STATUS.RATE_LIMIT,
+      );
     }
 
     const body = await request.json();
@@ -47,7 +50,11 @@ export async function POST(request: NextRequest) {
     const sanitizedMessage = sanitizeUserMessage(message);
 
     if (!documents || !Array.isArray(documents) || documents.length === 0) {
-      return jsonError('At least one document required', 'VALIDATION_ERROR', HTTP_STATUS.BAD_REQUEST);
+      return jsonError(
+        'At least one document required',
+        'VALIDATION_ERROR',
+        HTTP_STATUS.BAD_REQUEST,
+      );
     }
 
     // Validate, sanitize, and truncate document content
@@ -74,7 +81,8 @@ export async function POST(request: NextRequest) {
       if (totalChars + content.length > MAX_CONTEXT_CHARS) {
         const remaining = MAX_CONTEXT_CHARS - totalChars;
         if (remaining > 500) {
-          content = content.substring(0, remaining) + '\n\n[Content truncated for context limit...]';
+          content =
+            content.substring(0, remaining) + '\n\n[Content truncated for context limit...]';
           processedDocs.push({ name: sanitizedName, content });
         }
         break;
@@ -85,12 +93,16 @@ export async function POST(request: NextRequest) {
     }
 
     if (processedDocs.length === 0) {
-      return jsonError('No valid document content provided', 'VALIDATION_ERROR', HTTP_STATUS.BAD_REQUEST);
+      return jsonError(
+        'No valid document content provided',
+        'VALIDATION_ERROR',
+        HTTP_STATUS.BAD_REQUEST,
+      );
     }
 
     // Build context from documents
-    const contextParts = processedDocs.map((doc, index) =>
-      `[Document ${index + 1}: ${doc.name}]\n${doc.content}`
+    const contextParts = processedDocs.map(
+      (doc, index) => `[Document ${index + 1}: ${doc.name}]\n${doc.content}`,
     );
     const context = contextParts.join('\n\n---\n\n');
 
@@ -130,7 +142,7 @@ Documents have been provided below. Use them to answer the user's question.`;
 
       return jsonSuccess({
         response: llmResponse.content,
-        sources: processedDocs.map(doc => ({
+        sources: processedDocs.map((doc) => ({
           document_name: doc.name,
           preview: doc.content.substring(0, 150) + (doc.content.length > 150 ? '...' : ''),
         })),
@@ -142,13 +154,16 @@ Documents have been provided below. Use them to answer the user's question.`;
 
       // Return document excerpts as fallback
       if (processedDocs.length > 0) {
-        const excerpts = processedDocs.map(doc =>
-          `**${doc.name}:**\n${doc.content.substring(0, 500)}${doc.content.length > 500 ? '...' : ''}`
-        ).join('\n\n');
+        const excerpts = processedDocs
+          .map(
+            (doc) =>
+              `**${doc.name}:**\n${doc.content.substring(0, 500)}${doc.content.length > 500 ? '...' : ''}`,
+          )
+          .join('\n\n');
 
         return jsonSuccess({
           response: `I'm having trouble generating a response, but here's what I found in your documents:\n\n${excerpts}`,
-          sources: processedDocs.map(doc => ({
+          sources: processedDocs.map((doc) => ({
             document_name: doc.name,
             preview: doc.content.substring(0, 150),
           })),

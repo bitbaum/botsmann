@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
-import { rateLimit } from '@/lib/rate-limit';
+import { checkRateLimit } from '@/lib/rate-limit';
 import { CustomerSchema } from '@/lib/schemas/customer';
 import { validateApiKey } from '@/lib/middleware/auth';
 import { monitorRequest } from '@/lib/middleware/monitoring';
@@ -16,12 +16,6 @@ import {
 import { DOMAIN_ERRORS } from '@/lib/constants';
 import { ZodError } from 'zod';
 
-const limiter = rateLimit({
-  limit: process.env.NODE_ENV === 'test' ? 3 : 5,
-  interval: process.env.NODE_ENV === 'test' ? 1000 : 60 * 1000,
-  uniqueTokenPerInterval: 500,
-});
-
 const emailService = new EmailService();
 
 async function handler(req: NextRequest) {
@@ -32,9 +26,10 @@ async function handler(req: NextRequest) {
       return authResponse;
     }
 
-    // Check rate limit
-    const rateLimitKey = 'CONSULTATION_FORM';
-    const { isRateLimited } = await limiter.check(rateLimitKey);
+    // Check rate limit (5 per minute, 3 per second in test)
+    const windowSeconds = process.env.NODE_ENV === 'test' ? 1 : 60;
+    const maxRequests = process.env.NODE_ENV === 'test' ? 3 : 5;
+    const { isRateLimited } = await checkRateLimit('CONSULTATION_FORM', maxRequests, windowSeconds);
     if (isRateLimited) {
       return jsonRateLimitError();
     }
