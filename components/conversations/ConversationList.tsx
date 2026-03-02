@@ -71,9 +71,12 @@ export const ConversationList = ({
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-      <div
-        className="flex items-center justify-between p-3 bg-gray-50 border-b border-gray-200 cursor-pointer"
+      <button
+        type="button"
+        className="flex items-center justify-between w-full p-3 bg-gray-50 border-b border-gray-200 cursor-pointer"
         onClick={() => setIsExpanded(!isExpanded)}
+        aria-label={isExpanded ? 'Collapse conversations' : 'Expand conversations'}
+        aria-expanded={isExpanded}
       >
         <div className="flex items-center gap-2">
           <svg
@@ -94,14 +97,14 @@ export const ConversationList = ({
             e.stopPropagation();
             onNewConversation();
           }}
-          className="p-1 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded"
-          title="New conversation"
+          className="p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded"
+          aria-label="New conversation"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
         </button>
-      </div>
+      </button>
 
       {isExpanded && (
         <div className="p-2 max-h-64 overflow-y-auto">

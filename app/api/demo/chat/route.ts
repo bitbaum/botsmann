@@ -494,7 +494,7 @@ export async function POST(request: NextRequest) {
 // GET handler for debugging/health check
 export async function GET() {
   // Check available providers
-  const hasOllama = process.env.OLLAMA_URL || 'http://localhost:11434';
+  const hasOllama = !!process.env.OLLAMA_URL;
   const hasGroq = !!process.env.GROQ_API_KEY;
   const hasOpenRouter = !!process.env.OPENROUTER_API_KEY;
 
@@ -504,7 +504,7 @@ export async function GET() {
     chunks: knowledgeChunks.length,
     topics: Array.from(new Set(knowledgeChunks.map((c) => c.topic))),
     providers: {
-      ollama: { configured: true, url: hasOllama },
+      ollama: { configured: hasOllama, url: process.env.OLLAMA_URL || null },
       groq: { configured: hasGroq },
       openrouter: { configured: hasOpenRouter },
     },

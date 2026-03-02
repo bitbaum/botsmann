@@ -13,7 +13,7 @@ import { DOMAINS } from '@/lib/domains';
  * Single domain validation schema.
  * Validates that a string is a valid domain from DOMAINS constant.
  */
-export const DomainSchema = z.enum(DOMAINS as unknown as [string, ...string[]]);
+export const DomainSchema = z.enum(DOMAINS);
 
 /**
  * Array of domains validation schema.

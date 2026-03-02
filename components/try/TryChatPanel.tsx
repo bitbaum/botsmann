@@ -77,7 +77,7 @@ export const TryChatPanel = ({ documents, onError }: TryChatPanelProps) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col h-[600px]">
+    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col h-[calc(100vh-16rem)] min-h-[400px] max-h-[600px] md:max-h-none md:h-[600px]">
       {/* Chat Header */}
       <div className="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
         <h2 className="text-lg font-bold text-gray-900">Chat</h2>
@@ -230,7 +230,13 @@ export const TryChatPanel = ({ documents, onError }: TryChatPanelProps) => {
               if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
                 e.preventDefault();
                 if (input.trim() && documents.length > 0 && !isLoading) {
-                  handleChat(e as unknown as FormEvent);
+                  const syntheticEvent = new Event('submit', {
+                    cancelable: true,
+                  }) as unknown as FormEvent;
+                  Object.defineProperty(syntheticEvent, 'preventDefault', {
+                    value: Function.prototype,
+                  });
+                  handleChat(syntheticEvent);
                 }
               }
             }}

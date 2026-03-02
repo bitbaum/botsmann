@@ -82,8 +82,8 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
 
       const { chunks } = validation.data;
 
-      // Generate embeddings for all chunks
-      const chunksWithEmbeddings = await Promise.all(
+      // Generate embeddings for all chunks (allSettled for partial failure handling)
+      const results = await Promise.allSettled(
         chunks.map(async (chunk) => {
           const embedding = await generateEmbedding(chunk.content);
           return {
@@ -98,6 +98,24 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
           };
         }),
       );
+
+      const chunksWithEmbeddings = results
+        .filter(
+          (
+            r,
+          ): r is PromiseFulfilledResult<
+            typeof r extends PromiseSettledResult<infer T> ? T : never
+          > => r.status === 'fulfilled',
+        )
+        .map((r) => r.value);
+
+      if (chunksWithEmbeddings.length === 0) {
+        return jsonError(
+          'Failed to generate embeddings for all chunks',
+          'INTERNAL_ERROR',
+          HTTP_STATUS.INTERNAL_ERROR,
+        );
+      }
 
       const { data: created, error: insertError } = await supabase
         .from('bot_knowledge_chunks')

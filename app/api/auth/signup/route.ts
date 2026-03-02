@@ -5,10 +5,11 @@
  * Rate limited: 5 requests per minute
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { createRouteHandlerClient } from '@/lib/supabase-server';
 import { z } from 'zod';
 import { rateLimit, RATE_LIMIT_CONFIGS } from '@/lib/middleware/rate-limit';
+import { jsonSuccess, jsonError, handleError, HTTP_STATUS } from '@/lib/api';
 
 const SignUpSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -26,14 +27,7 @@ export async function POST(req: NextRequest) {
     // Validate input
     const result = SignUpSchema.safeParse(body);
     if (!result.success) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: result.error.errors[0].message,
-          code: 'VALIDATION_ERROR',
-        },
-        { status: 400 },
-      );
+      return jsonError(result.error.errors[0].message, 'VALIDATION_ERROR', HTTP_STATUS.BAD_REQUEST);
     }
 
     const { email, password } = result.data;
@@ -54,28 +48,17 @@ export async function POST(req: NextRequest) {
     if (error) {
       // Check for specific errors
       if (error.message.includes('already registered')) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: 'An account with this email already exists',
-            code: 'EMAIL_EXISTS',
-          },
-          { status: 409 },
+        return jsonError(
+          'An account with this email already exists',
+          'VALIDATION_ERROR',
+          HTTP_STATUS.CONFLICT,
         );
       }
 
-      return NextResponse.json(
-        {
-          success: false,
-          error: error.message,
-          code: 'AUTH_ERROR',
-        },
-        { status: 400 },
-      );
+      return jsonError(error.message, 'UNAUTHORIZED', HTTP_STATUS.BAD_REQUEST);
     }
 
-    return NextResponse.json({
-      success: true,
+    return jsonSuccess({
       message: 'Please check your email to verify your account',
       user: data.user
         ? {
@@ -85,14 +68,6 @@ export async function POST(req: NextRequest) {
         : null,
     });
   } catch (error) {
-    console.error('Sign up error:', error);
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'An error occurred during sign up',
-        code: 'INTERNAL_ERROR',
-      },
-      { status: 500 },
-    );
+    return handleError(error, 'Failed to sign up');
   }
 }

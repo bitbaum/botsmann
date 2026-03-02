@@ -6,6 +6,7 @@ import {
   getProviderColorClasses,
   type ConnectionStatus,
 } from '@/lib/infrastructure';
+import { CONNECTION_STATUS_CONFIG } from '@/lib/config/connection-status';
 
 interface ProviderCardProps {
   provider: AIProvider;
@@ -159,18 +160,11 @@ export const ProviderCard: FC<ProviderCardProps> = ({
 
 // Internal status indicator component
 const StatusIndicator: FC<{ status: ConnectionStatus }> = ({ status }) => {
-  const statusConfig: Record<ConnectionStatus, { color: string; label: string }> = {
-    connected: { color: 'bg-green-500', label: 'Connected' },
-    'not-configured': { color: 'bg-gray-300', label: 'Not configured' },
-    validating: { color: 'bg-amber-500 animate-pulse', label: 'Validating' },
-    error: { color: 'bg-red-500', label: 'Error' },
-  };
-
-  const { color, label } = statusConfig[status];
+  const config = CONNECTION_STATUS_CONFIG[status];
 
   return (
-    <span className="flex items-center gap-1" title={label}>
-      <span className={`w-2 h-2 rounded-full ${color}`} />
+    <span className="flex items-center gap-1" title={config.label}>
+      <span className={`w-2 h-2 rounded-full ${config.dotColor}`} />
     </span>
   );
 };
