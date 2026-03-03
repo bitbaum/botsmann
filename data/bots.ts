@@ -195,7 +195,12 @@ const bots: Bot[] = [
         'Analyzes legal cases, matches you with expert lawyers, and provides secure collaborative workspaces',
       inputData: 'Legal documents, case descriptions, jurisdiction info',
       output: 'AI case analysis, lawyer matches, secure data room',
-      useCases: ['Immigration cases', 'Employment disputes', 'Real estate contracts', 'Business law'],
+      useCases: [
+        'Immigration cases',
+        'Employment disputes',
+        'Real estate contracts',
+        'Business law',
+      ],
     },
   },
   {

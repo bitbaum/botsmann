@@ -17,7 +17,9 @@ export const TransactionHeader: React.FC<TransactionHeaderProps> = ({ transactio
         </p>
       </div>
       <div className="mt-3 md:mt-0 flex items-center">
-        <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(transaction.status)}`}>
+        <span
+          className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(transaction.status)}`}
+        >
           {transaction.status}
         </span>
         <span className="ml-3 text-lg font-bold text-gray-900">

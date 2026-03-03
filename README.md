@@ -13,14 +13,14 @@ Domain-specialized AI professionals, not another generic chatbot wrapper.
 
 Six built-in specialists. Each with scoped knowledge, calibrated personality, and domain-specific system prompts.
 
-| Professional | Domain | Specialty |
-|---|---|---|
-| **Lex** | Legal | Contract review, case analysis, regulatory compliance |
-| **Imhotep** | Health | Evidence-based insights, research assistance |
-| **Nerd** | Research | Systematization, web scraping, discovery |
-| **Heidi** | Language | German/Swiss German, translation, culture |
-| **Muse** | Art | Style analysis, composition, art history |
-| **Trident** | Business | Project management, technical guidance |
+| Professional | Domain   | Specialty                                             |
+| ------------ | -------- | ----------------------------------------------------- |
+| **Lex**      | Legal    | Contract review, case analysis, regulatory compliance |
+| **Imhotep**  | Health   | Evidence-based insights, research assistance          |
+| **Nerd**     | Research | Systematization, web scraping, discovery              |
+| **Heidi**    | Language | German/Swiss German, translation, culture             |
+| **Muse**     | Art      | Style analysis, composition, art history              |
+| **Trident**  | Business | Project management, technical guidance                |
 
 SSOT: `data/bots.ts`. Each bot defines `system_prompt`, `expertise[]`, `interests[]`, `communicationStyle` (formality/verbosity/empathy), `navConfig`, and display metadata. Document access is scoped per professional -- Lex sees legal, business, and general docs only.
 
@@ -32,11 +32,11 @@ SSOT: `data/bots.ts`. Each bot defines `system_prompt`, `expertise[]`, `interest
 
 Three-tier provider strategy with graceful fallback:
 
-| Priority | Provider | Model | Cost |
-|---|---|---|---|
-| 1 | Ollama (local) | llama3.2:latest | Free, self-hosted |
-| 2 | Groq (cloud) | llama-3.1-8b-instant | Free tier |
-| 3 | OpenRouter (cloud) | Claude 3.5 Sonnet, GPT-4, Gemini, Grok, Llama, Mistral | Paid |
+| Priority | Provider           | Model                                                  | Cost              |
+| -------- | ------------------ | ------------------------------------------------------ | ----------------- |
+| 1        | Ollama (local)     | llama3.2:latest                                        | Free, self-hosted |
+| 2        | Groq (cloud)       | llama-3.1-8b-instant                                   | Free tier         |
+| 3        | OpenRouter (cloud) | Claude 3.5 Sonnet, GPT-4, Gemini, Grok, Llama, Mistral | Paid              |
 
 Local first, free cloud second, paid cloud last. Users can override via settings. If a provider key is invalid, the system falls back silently to the next tier.
 
@@ -93,15 +93,15 @@ Rate limits: 20 req/60s for chat, 15 req/60s for professional chat.
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | Next.js 14, React 18, TypeScript 5, Tailwind CSS + DaisyUI 5 |
-| LLM | Groq, OpenRouter (100+ models), Ollama (local) |
-| Database | Supabase PostgreSQL 15 + pgvector |
-| Embeddings | Transformers.js (all-MiniLM-L6-v2, 384d) |
-| Auth | Supabase Auth + Row Level Security |
-| Email | AWS SES |
-| Deployment | Vercel, GitHub Actions CI/CD |
+| Layer      | Technology                                                   |
+| ---------- | ------------------------------------------------------------ |
+| Frontend   | Next.js 14, React 18, TypeScript 5, Tailwind CSS + DaisyUI 5 |
+| LLM        | Groq, OpenRouter (100+ models), Ollama (local)               |
+| Database   | Supabase PostgreSQL 15 + pgvector                            |
+| Embeddings | Transformers.js (all-MiniLM-L6-v2, 384d)                     |
+| Auth       | Supabase Auth + Row Level Security                           |
+| Email      | AWS SES                                                      |
+| Deployment | Vercel, GitHub Actions CI/CD                                 |
 
 ---
 

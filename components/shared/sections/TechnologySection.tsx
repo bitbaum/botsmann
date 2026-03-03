@@ -17,7 +17,9 @@ export function TechnologySection({ content, accentColor }: TechnologySectionPro
     <div className="max-w-6xl mx-auto">
       {badge && (
         <div className="text-center mb-4">
-          <span className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${accent.badge}`}>
+          <span
+            className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${accent.badge}`}
+          >
             {badge}
           </span>
         </div>
@@ -36,10 +38,7 @@ export function TechnologySection({ content, accentColor }: TechnologySectionPro
             <h3 className="text-lg font-semibold text-gray-900 mb-4">{category.title}</h3>
             <div className="space-y-4">
               {category.items.map((item, itemIndex) => (
-                <div
-                  key={itemIndex}
-                  className="bg-white rounded-lg border border-gray-200 p-4"
-                >
+                <div key={itemIndex} className="bg-white rounded-lg border border-gray-200 p-4">
                   {item.icon && <span className="text-xl mb-2 block">{item.icon}</span>}
                   <h4 className="font-medium text-gray-900 mb-1">{item.title}</h4>
                   <p className="text-sm text-gray-600">{item.description}</p>

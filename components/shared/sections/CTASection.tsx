@@ -21,9 +21,7 @@ export function CTASection({ content, accentColor, tryLink }: CTASectionProps) {
       <div className="bg-gray-50 rounded-2xl p-8 md:p-12 text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
 
-        {subtitle && (
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">{subtitle}</p>
-        )}
+        {subtitle && <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">{subtitle}</p>}
 
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
           <a

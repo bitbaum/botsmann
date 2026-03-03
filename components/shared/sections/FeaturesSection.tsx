@@ -23,7 +23,9 @@ export function FeaturesSection({ content, accentColor }: FeaturesSectionProps) 
     <div className="max-w-6xl mx-auto">
       {badge && (
         <div className="text-center mb-4">
-          <span className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${accent.badge}`}>
+          <span
+            className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${accent.badge}`}
+          >
             {badge}
           </span>
         </div>

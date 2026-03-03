@@ -397,6 +397,62 @@ export const ACCENT_TEMPLATE_HOVER_CLASSES: Record<AccentColor, string> = {
 };
 
 /**
+ * Vision/roadmap status colors and labels
+ */
+export const VISION_STATUS_CONFIG: Record<string, { colors: string; label: string }> = {
+  completed: { colors: 'bg-green-100 text-green-800', label: 'Completed' },
+  'in-progress': { colors: 'bg-blue-100 text-blue-800', label: 'In Development' },
+  planned: { colors: 'bg-amber-100 text-amber-800', label: 'Research' },
+  vision: { colors: 'bg-purple-100 text-purple-800', label: 'Vision' },
+};
+
+/**
+ * Bot switcher color classes (button hover + active state)
+ */
+export const BOT_SWITCHER_COLORS: Record<CustomBotAccentColor, { button: string; active: string }> =
+  {
+    blue: { button: 'hover:bg-blue-50', active: 'bg-blue-50 text-blue-700' },
+    green: { button: 'hover:bg-green-50', active: 'bg-green-50 text-green-700' },
+    indigo: { button: 'hover:bg-indigo-50', active: 'bg-indigo-50 text-indigo-700' },
+    red: { button: 'hover:bg-red-50', active: 'bg-red-50 text-red-700' },
+    amber: { button: 'hover:bg-amber-50', active: 'bg-amber-50 text-amber-700' },
+  };
+
+/**
+ * Step color schemes for BotStepsSection gradients
+ */
+export const STEP_COLOR_SCHEMES: Record<
+  CustomBotAccentColor,
+  { numberBg: string; bgGradient: string; connector: string }
+> = {
+  blue: {
+    numberBg: 'bg-gradient-to-br from-blue-600 to-cyan-600',
+    bgGradient: 'from-slate-50 to-blue-50',
+    connector: 'from-blue-400 to-cyan-400',
+  },
+  green: {
+    numberBg: 'bg-gradient-to-br from-green-600 to-emerald-600',
+    bgGradient: 'from-slate-50 to-green-50',
+    connector: 'from-green-400 to-emerald-400',
+  },
+  indigo: {
+    numberBg: 'bg-gradient-to-br from-indigo-600 to-purple-600',
+    bgGradient: 'from-slate-50 to-indigo-50',
+    connector: 'from-indigo-400 to-purple-400',
+  },
+  red: {
+    numberBg: 'bg-gradient-to-br from-red-600 to-rose-600',
+    bgGradient: 'from-slate-50 to-red-50',
+    connector: 'from-red-400 to-rose-400',
+  },
+  amber: {
+    numberBg: 'bg-gradient-to-br from-amber-600 to-orange-600',
+    bgGradient: 'from-slate-50 to-amber-50',
+    connector: 'from-amber-400 to-orange-400',
+  },
+};
+
+/**
  * Default accent color
  */
 export const DEFAULT_ACCENT_COLOR: CustomBotAccentColor = 'blue';

@@ -30,7 +30,9 @@ export function HowItWorksSection({ content, accentColor }: HowItWorksSectionPro
               {step.icon ? (
                 <span className="text-2xl">{step.icon}</span>
               ) : (
-                <span className={`text-xl font-bold ${accent.text}`}>{step.number ?? index + 1}</span>
+                <span className={`text-xl font-bold ${accent.text}`}>
+                  {step.number ?? index + 1}
+                </span>
               )}
             </div>
             <h3 className="font-semibold text-gray-900 mb-2">{step.title}</h3>

@@ -20,7 +20,7 @@ export const RegulationsTab: React.FC<RegulationsTabProps> = ({ regulations }) =
                 <div className="ml-2 flex-shrink-0 flex">
                   <p
                     className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(
-                      regulation.status
+                      regulation.status,
                     )}`}
                   >
                     {regulation.status.charAt(0).toUpperCase() + regulation.status.slice(1)}
@@ -58,7 +58,7 @@ export const RegulationsTab: React.FC<RegulationsTabProps> = ({ regulations }) =
                       <div className="flex items-center">
                         <div
                           className={`flex-shrink-0 h-3 w-3 rounded-full ${getKpiStatusColor(
-                            kpi.status
+                            kpi.status,
                           )}`}
                         />
                         <div className="ml-3">

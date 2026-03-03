@@ -46,7 +46,7 @@ export const EMAIL_ADDRESSES = {
 export const EMAIL_SUBJECTS = {
   welcome: 'Welcome to Botsmann!',
   newCustomer: 'New Customer Registration',
-  waitlistConfirmation: 'You\'re on the Waitlist!',
+  waitlistConfirmation: "You're on the Waitlist!",
   consultationConfirmation: 'Consultation Booking Confirmed',
 } as const;
 

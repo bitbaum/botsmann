@@ -27,7 +27,9 @@ export const DetailsTab: React.FC<DetailsTabProps> = ({ transaction }) => (
           </div>
           <div className="sm:col-span-1">
             <dt className="text-sm font-medium text-gray-500">Contract Compliance</dt>
-            <dd className="mt-1 text-sm text-gray-900">{transaction.metrics.contractCompliance}%</dd>
+            <dd className="mt-1 text-sm text-gray-900">
+              {transaction.metrics.contractCompliance}%
+            </dd>
           </div>
         </dl>
       </div>

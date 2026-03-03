@@ -2,6 +2,7 @@
 
 import { type FC } from 'react';
 import type { BotAccentColor } from '@/types/bot';
+import { STEP_COLOR_SCHEMES } from '@/lib/config/colors';
 
 /**
  * Step configuration for the steps section
@@ -30,42 +31,6 @@ interface BotStepsSectionProps {
   variant?: 'card' | 'gradient-bg';
 }
 
-// Color scheme mappings for steps
-const stepColorSchemes: Record<
-  BotAccentColor,
-  {
-    numberBg: string;
-    bgGradient: string;
-    connector: string;
-  }
-> = {
-  blue: {
-    numberBg: 'bg-gradient-to-br from-blue-600 to-cyan-600',
-    bgGradient: 'from-slate-50 to-blue-50',
-    connector: 'from-blue-400 to-cyan-400',
-  },
-  green: {
-    numberBg: 'bg-gradient-to-br from-green-600 to-emerald-600',
-    bgGradient: 'from-slate-50 to-green-50',
-    connector: 'from-green-400 to-emerald-400',
-  },
-  indigo: {
-    numberBg: 'bg-gradient-to-br from-indigo-600 to-purple-600',
-    bgGradient: 'from-slate-50 to-indigo-50',
-    connector: 'from-indigo-400 to-purple-400',
-  },
-  red: {
-    numberBg: 'bg-gradient-to-br from-red-600 to-rose-600',
-    bgGradient: 'from-slate-50 to-red-50',
-    connector: 'from-red-400 to-rose-400',
-  },
-  amber: {
-    numberBg: 'bg-gradient-to-br from-amber-600 to-orange-600',
-    bgGradient: 'from-slate-50 to-amber-50',
-    connector: 'from-amber-400 to-orange-400',
-  },
-};
-
 /**
  * Shared Steps/How It Works section for bot pages
  *
@@ -90,7 +55,7 @@ export const BotStepsSection: FC<BotStepsSectionProps> = ({
   columns = 4,
   variant = 'card',
 }) => {
-  const colors = stepColorSchemes[accentColor];
+  const colors = STEP_COLOR_SCHEMES[accentColor];
   const gridCols = columns === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4';
 
   if (variant === 'gradient-bg') {

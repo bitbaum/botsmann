@@ -5,6 +5,7 @@ import { Popover, Transition, Portal } from '@headlessui/react';
 import Link from 'next/link';
 import bots from '@/data/bots';
 import { getBotPath } from '@/lib/routes';
+import { BOT_SWITCHER_COLORS, type CustomBotAccentColor } from '@/lib/config/colors';
 
 interface BotSwitcherProps {
   currentBotSlug: string;
@@ -12,29 +13,6 @@ interface BotSwitcherProps {
   currentBotEmoji: string;
   accentColor?: string;
 }
-
-const colorClasses = {
-  blue: {
-    button: 'hover:bg-blue-50',
-    active: 'bg-blue-50 text-blue-700',
-  },
-  green: {
-    button: 'hover:bg-green-50',
-    active: 'bg-green-50 text-green-700',
-  },
-  indigo: {
-    button: 'hover:bg-indigo-50',
-    active: 'bg-indigo-50 text-indigo-700',
-  },
-  red: {
-    button: 'hover:bg-red-50',
-    active: 'bg-red-50 text-red-700',
-  },
-  amber: {
-    button: 'hover:bg-amber-50',
-    active: 'bg-amber-50 text-amber-700',
-  },
-};
 
 export function BotSwitcher({
   currentBotSlug,
@@ -45,7 +23,8 @@ export function BotSwitcher({
   const buttonRef = useRef<HTMLButtonElement>(null);
   // Filter out current bot and bots without nav config
   const otherBots = bots.filter((bot) => bot.slug !== currentBotSlug && bot.nav);
-  const colors = colorClasses[accentColor as keyof typeof colorClasses] || colorClasses.blue;
+  const colors =
+    BOT_SWITCHER_COLORS[accentColor as CustomBotAccentColor] || BOT_SWITCHER_COLORS.blue;
 
   // Get button position for portal positioning
   const getDropdownStyle = () => {

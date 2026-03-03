@@ -10,10 +10,7 @@ interface TeamTabProps {
 
 export const TeamTab: React.FC<TeamTabProps> = ({ team }) => (
   <div>
-    <ul
-      role="list"
-      className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-    >
+    <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {team.map((member) => (
         <li
           key={member.id}
@@ -23,11 +20,7 @@ export const TeamTab: React.FC<TeamTabProps> = ({ team }) => (
             <div className="w-24 h-24 flex-shrink-0 mx-auto rounded-full bg-gray-200 overflow-hidden">
               {member.imageUrl ? (
                 /* eslint-disable-next-line @next/next/no-img-element -- Dynamic external image URL from data */
-                <img
-                  className="w-24 h-24 object-cover"
-                  src={member.imageUrl}
-                  alt={member.name}
-                />
+                <img className="w-24 h-24 object-cover" src={member.imageUrl} alt={member.name} />
               ) : (
                 <div className="h-full w-full flex items-center justify-center bg-gray-300 text-gray-500 text-2xl">
                   {member.name.charAt(0)}
@@ -43,7 +36,7 @@ export const TeamTab: React.FC<TeamTabProps> = ({ team }) => (
               <dd className="mt-3">
                 <span
                   className={`px-2 py-1 text-xs font-medium rounded-full ${getTransparencyColor(
-                    member.transparency
+                    member.transparency,
                   )}`}
                 >
                   T-Score: {member.transparency}/100

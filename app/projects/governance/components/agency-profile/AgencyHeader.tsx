@@ -25,7 +25,7 @@ export const AgencyHeader: React.FC<AgencyHeaderProps> = ({ agency }) => (
             <div className="mt-2 flex items-center">
               <div
                 className={`px-2 py-1 text-xs font-medium rounded-full ${getTransparencyColor(
-                  agency.transparencyScore
+                  agency.transparencyScore,
                 )}`}
               >
                 Transparency Score: {agency.transparencyScore}/100

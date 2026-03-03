@@ -29,24 +29,24 @@ const CitizenProfile: React.FC<CitizenProfileProps> = ({ citizen, agencies: _age
 
   useEffect(() => {
     if (citizen.contributions.length > 0) {
-      const initialDistribution = citizen.contributions.map(contribution => ({
+      const initialDistribution = citizen.contributions.map((contribution) => ({
         agencyId: contribution.agencyId,
         agencyName: contribution.agencyName,
         currentPercentage: contribution.percentage,
         advisoryPercentage: contribution.percentage,
-        difference: 0
+        difference: 0,
       }));
       setAdvisoryDistribution(initialDistribution);
     }
   }, [citizen.contributions]);
 
   const handleDistributionChange = (agencyId: string, value: number) => {
-    const updatedDistribution = advisoryDistribution.map(item => {
+    const updatedDistribution = advisoryDistribution.map((item) => {
       if (item.agencyId === agencyId) {
         return {
           ...item,
           advisoryPercentage: value,
-          difference: value - item.currentPercentage
+          difference: value - item.currentPercentage,
         };
       }
       return item;
@@ -59,10 +59,10 @@ const CitizenProfile: React.FC<CitizenProfileProps> = ({ citizen, agencies: _age
   };
 
   const resetAdvisoryDistribution = () => {
-    const resetDistribution = advisoryDistribution.map(item => ({
+    const resetDistribution = advisoryDistribution.map((item) => ({
       ...item,
       advisoryPercentage: item.currentPercentage,
-      difference: 0
+      difference: 0,
     }));
     setAdvisoryDistribution(resetDistribution);
     setSliderTotal(100);

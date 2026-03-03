@@ -46,7 +46,9 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ citizen }) => {
           </div>
           <div className="sm:col-span-1">
             <dt className="text-sm font-medium text-gray-500">Elected Representative</dt>
-            <dd className="mt-1 text-sm text-gray-900">{citizen.representativeName || 'Not assigned'}</dd>
+            <dd className="mt-1 text-sm text-gray-900">
+              {citizen.representativeName || 'Not assigned'}
+            </dd>
           </div>
           <div className="sm:col-span-1">
             <dt className="text-sm font-medium text-gray-500">Registration Date</dt>
@@ -54,7 +56,9 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ citizen }) => {
           </div>
           <div className="sm:col-span-1">
             <dt className="text-sm font-medium text-gray-500">Annual Tax Contribution</dt>
-            <dd className="mt-1 text-sm font-bold text-gray-900">{formatCurrency(citizen.totalTaxContribution)}</dd>
+            <dd className="mt-1 text-sm font-bold text-gray-900">
+              {formatCurrency(citizen.totalTaxContribution)}
+            </dd>
           </div>
         </dl>
       </div>
@@ -74,14 +78,18 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ citizen }) => {
           >
             <div className="flex justify-between items-start">
               <h4 className="text-base font-medium text-gray-900">{contribution.agencyName}</h4>
-              <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${getTransparencyScoreColor(contribution.transparencyScore)}`}>
+              <span
+                className={`px-2 py-0.5 text-xs font-medium rounded-full ${getTransparencyScoreColor(contribution.transparencyScore)}`}
+              >
                 T-Score: {contribution.transparencyScore}
               </span>
             </div>
             <div className="mt-2">
               <div className="flex justify-between text-sm mb-1">
                 <span className="text-gray-500">Annual Contribution:</span>
-                <span className="font-medium text-gray-900">{formatCurrency(contribution.amount)}</span>
+                <span className="font-medium text-gray-900">
+                  {formatCurrency(contribution.amount)}
+                </span>
               </div>
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-gray-500">Percentage:</span>
@@ -107,7 +115,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ citizen }) => {
                       <div
                         className="bg-blue-500 rounded"
                         style={{
-                          height: `${Math.max(15, Math.min(60, (year.amount / citizen.totalTaxContribution) * 300))}px`
+                          height: `${Math.max(15, Math.min(60, (year.amount / citizen.totalTaxContribution) * 300))}px`,
                         }}
                       ></div>
                     </div>

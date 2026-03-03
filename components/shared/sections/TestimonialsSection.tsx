@@ -17,7 +17,9 @@ export function TestimonialsSection({ content, accentColor }: TestimonialsSectio
     <div className="max-w-6xl mx-auto">
       {badge && (
         <div className="text-center mb-4">
-          <span className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${accent.badge}`}>
+          <span
+            className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${accent.badge}`}
+          >
             {badge}
           </span>
         </div>
@@ -31,10 +33,7 @@ export function TestimonialsSection({ content, accentColor }: TestimonialsSectio
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {testimonials.map((testimonial, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm"
-          >
+          <div key={index} className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
                 <span className="text-gray-500 text-sm">

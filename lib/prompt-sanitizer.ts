@@ -143,10 +143,7 @@ export function sanitizeSystemPrompt(content: string): SanitizeResult {
 
   for (const phrase of safetyBypassPatterns) {
     if (lowerContent.includes(phrase)) {
-      result.sanitized = result.sanitized.replace(
-        new RegExp(phrase, 'gi'),
-        '[filtered]'
-      );
+      result.sanitized = result.sanitized.replace(new RegExp(phrase, 'gi'), '[filtered]');
       result.wasModified = true;
       result.warnings.push('Safety bypass attempt filtered');
     }

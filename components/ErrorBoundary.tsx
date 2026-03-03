@@ -68,17 +68,14 @@ function ErrorFallback({ onReset, error }: ErrorFallbackProps): ReactNode {
               />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Something went wrong
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Something went wrong</h1>
           <p className="text-gray-600 mb-6">
-            We apologize for the inconvenience. Please try again or contact support if the problem persists.
+            We apologize for the inconvenience. Please try again or contact support if the problem
+            persists.
           </p>
           {process.env.NODE_ENV === 'development' && error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-left">
-              <p className="text-sm font-mono text-red-800 break-all">
-                {error.message}
-              </p>
+              <p className="text-sm font-mono text-red-800 break-all">{error.message}</p>
             </div>
           )}
         </div>
@@ -90,7 +87,7 @@ function ErrorFallback({ onReset, error }: ErrorFallbackProps): ReactNode {
             Try Again
           </button>
           <button
-            onClick={() => window.location.href = '/'}
+            onClick={() => (window.location.href = '/')}
             className="px-6 py-3 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition-colors"
           >
             Go to Home

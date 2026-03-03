@@ -33,12 +33,12 @@ const supabase = createClient(supabaseUrl, supabaseKey, {
 // Read migration files
 const extensionsSql = readFileSync(
   join(__dirname, '../supabase/migrations/004_extensions.sql'),
-  'utf-8'
+  'utf-8',
 );
 
 const optimizationsSql = readFileSync(
   join(__dirname, '../supabase/migrations/005_optimizations.sql'),
-  'utf-8'
+  'utf-8',
 );
 
 async function applyMigrations() {
@@ -47,12 +47,14 @@ async function applyMigrations() {
   try {
     // Apply extensions first
     console.log('📦 Installing PostgreSQL extensions...');
-    const { error: extError } = await supabase.rpc('exec_sql', {
-      sql: extensionsSql,
-    }).catch(() => {
-      // If exec_sql doesn't exist, we'll need to use the SQL directly
-      return { error: null };
-    });
+    const { error: extError } = await supabase
+      .rpc('exec_sql', {
+        sql: extensionsSql,
+      })
+      .catch(() => {
+        // If exec_sql doesn't exist, we'll need to use the SQL directly
+        return { error: null };
+      });
 
     if (extError) {
       console.log('⚠️  Extensions: Using REST API workaround');
@@ -63,11 +65,13 @@ async function applyMigrations() {
 
     // Apply optimizations
     console.log('\n📈 Adding performance indexes and constraints...');
-    const { error: optError } = await supabase.rpc('exec_sql', {
-      sql: optimizationsSql,
-    }).catch(() => {
-      return { error: null };
-    });
+    const { error: optError } = await supabase
+      .rpc('exec_sql', {
+        sql: optimizationsSql,
+      })
+      .catch(() => {
+        return { error: null };
+      });
 
     if (optError) {
       console.log('⚠️  Optimizations: Using REST API workaround');
@@ -76,7 +80,9 @@ async function applyMigrations() {
     }
 
     console.log('\n✨ Migration application complete!');
-    console.log('\nNote: If any steps failed, please apply the SQL manually in the Supabase dashboard:');
+    console.log(
+      '\nNote: If any steps failed, please apply the SQL manually in the Supabase dashboard:',
+    );
     console.log('1. Go to https://supabase.com/dashboard');
     console.log('2. Select your botsmann project');
     console.log('3. Go to SQL Editor');
