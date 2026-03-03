@@ -2,9 +2,6 @@
   "buildCommand": "next build",
   "devCommand": "next dev",
   "framework": "nextjs",
-  "github": {
-    "enabled": false
-  },
   "crons": [
     {
       "path": "/api/rebuild",
