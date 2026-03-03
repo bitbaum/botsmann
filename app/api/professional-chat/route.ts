@@ -23,7 +23,7 @@ import {
   sanitizeConversationHistory,
   wrapUserContext,
 } from '@/lib/prompt-sanitizer';
-import { getUserLLMSettings, joinContext } from '@/lib/chat';
+import { getUserLLMSettings, searchUserDocuments } from '@/lib/chat';
 import { getRelevantContext, extractAndSaveContext } from '@/lib/context';
 
 // Extend function timeout for model loading (Vercel)
@@ -104,62 +104,29 @@ export async function POST(request: NextRequest) {
 
       if (documents && documents.length > 0) {
         hasDocuments = true;
-        logger.log(
-          `[Professional Chat API] Found ${documents.length} documents in categories:`,
-          accessibleCategories,
-        );
 
         try {
-          // Generate embedding for the query
           const queryEmbedding = await generateEmbedding(message);
+          const allowedDocumentIds = documents.map((d) => d.id);
 
-          // Search for relevant chunks
-          const { data: searchResults } = await supabase.rpc('match_documents', {
-            query_embedding: `[${queryEmbedding.join(',')}]`,
-            match_count: 5,
-            filter_user_id: user.id,
+          const result = await searchUserDocuments(supabase, queryEmbedding, user.id, {
+            allowedDocumentIds,
+            matchCount: 5,
+            maxContextChars: MAX_CONTEXT_CHARS,
           });
 
-          if (searchResults && searchResults.length > 0) {
-            // Filter to only include chunks from accessible categories
-            const documentIds = documents.map((d) => d.id);
-            const relevantChunks = searchResults.filter((r: { document_id: string }) =>
-              documentIds.includes(r.document_id),
+          if (result.context) {
+            documentContext = `\n\nRelevant information from the user's documents:\n\n${result.context}`;
+            sources.push(
+              ...result.sources.map((s) => ({
+                document_name: s.document_name,
+                preview: s.preview.substring(0, 150) + (s.preview.length > 150 ? '...' : ''),
+              })),
             );
-
-            // Get document names for sources
-            const documentMap = new Map(documents.map((d) => [d.id, d.name]));
-
-            // Build context from relevant chunks
-            let totalChars = 0;
-            const contextParts: string[] = [];
-
-            for (const chunk of relevantChunks as Array<{
-              document_id: string;
-              content: string;
-              similarity: number;
-            }>) {
-              if (totalChars + chunk.content.length > MAX_CONTEXT_CHARS) break;
-
-              const docName = documentMap.get(chunk.document_id) || 'Document';
-              contextParts.push(`[From ${docName}]:\n${chunk.content}`);
-              totalChars += chunk.content.length;
-
-              sources.push({
-                document_name: docName,
-                preview:
-                  chunk.content.substring(0, 150) + (chunk.content.length > 150 ? '...' : ''),
-              });
-            }
-
-            if (contextParts.length > 0) {
-              documentContext = `\n\nRelevant information from the user's documents:\n\n${joinContext(contextParts)}`;
-              logger.log(`[Professional Chat API] Added ${contextParts.length} chunks to context`);
-            }
+            logger.log(`[Professional Chat API] Added ${result.sources.length} chunks to context`);
           }
         } catch (err) {
           logger.error('[Professional Chat API] Document search error:', err);
-          // Continue without document context
         }
       }
     }

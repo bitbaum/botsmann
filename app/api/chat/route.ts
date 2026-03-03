@@ -21,9 +21,8 @@ import { getClientIp } from '@/lib/request';
 import {
   generateEmbeddingWithTimeout,
   getUserLLMSettings,
-  truncateChunks,
-  joinContext,
   handleLLMError,
+  searchUserDocuments,
 } from '@/lib/chat';
 
 // Extend function timeout for model loading (Vercel)
@@ -93,67 +92,20 @@ export async function POST(request: NextRequest) {
     if ('error' in embeddingResult) {
       return embeddingResult.error;
     }
-    const queryEmbedding = embeddingResult.embedding;
 
-    // Search for relevant chunks
+    // Search for relevant document chunks
     logger.log('[Chat API] Searching for relevant chunks...');
     const searchStartTime = Date.now();
-    const { data: searchResults, error: searchError } = await supabase.rpc('match_documents', {
-      query_embedding: `[${queryEmbedding.join(',')}]`,
-      match_count: contextSize,
-      filter_user_id: user.id,
+    const {
+      context,
+      sources,
+      chunks: relevantChunks,
+    } = await searchUserDocuments(supabase, embeddingResult.embedding, user.id, {
+      documentId,
+      matchCount: contextSize,
     });
-
-    logger.log(`[Chat API] Search completed in ${Date.now() - searchStartTime} ms`);
-
-    if (searchError) {
-      logger.error('[Chat API] Search error:', searchError);
-      return jsonError('Failed to search documents', 'DATABASE_ERROR', HTTP_STATUS.INTERNAL_ERROR);
-    }
-    logger.log(`[Chat API] Found ${searchResults?.length || 0} relevant chunks`);
-
-    // Filter by documentId if provided
-    let relevantChunks = searchResults || [];
-    if (documentId) {
-      relevantChunks = relevantChunks.filter(
-        (r: { document_id: string }) => r.document_id === documentId,
-      );
-    }
-
-    // Get document names
-    const documentIds = Array.from(
-      new Set(relevantChunks.map((r: { document_id: string }) => r.document_id)),
-    );
-
-    const { data: documents } = await supabase
-      .from('documents')
-      .select('id, name')
-      .in('id', documentIds);
-
-    const documentMap = new Map(
-      (documents || []).map((d: { id: string; name: string }) => [d.id, d.name]),
-    );
-
-    // Build context from relevant chunks, respecting token limits
-    const fitChunks = truncateChunks(
-      relevantChunks as Array<{ document_id: string; content: string; similarity: number }>,
-    );
-
-    const contextParts = fitChunks.map((chunk, index: number) => {
-      const docName = documentMap.get(chunk.document_id) || 'Unknown Document';
-      return `[Source ${index + 1}: ${docName}]\n${chunk.content}`;
-    });
-
-    const context = joinContext(contextParts);
-
-    // Format sources for response (prepare before LLM call)
-    const sources = relevantChunks.map(
-      (chunk: { id: string; document_id: string; content: string; similarity: number }) => ({
-        document_id: chunk.document_id,
-        document_name: documentMap.get(chunk.document_id) || 'Unknown',
-        preview: chunk.content.substring(0, 200) + (chunk.content.length > 200 ? '...' : ''),
-        similarity: chunk.similarity,
-      }),
+    logger.log(
+      `[Chat API] Search completed in ${Date.now() - searchStartTime} ms, found ${relevantChunks.length} chunks`,
     );
 
     // Try to generate response using LLM
@@ -190,12 +142,10 @@ export async function POST(request: NextRequest) {
       logger.error(`[Chat API] LLM call failed after ${Date.now() - llmStartTime} ms`);
 
       // Build fallback sources for API key errors
-      const fallbackSources = relevantChunks.map(
-        (chunk: { document_id: string; content: string }, index: number) => ({
-          label: `**[Source ${index + 1}: ${documentMap.get(chunk.document_id) || 'Unknown Document'}]**`,
-          content: chunk.content,
-        }),
-      );
+      const fallbackSources = sources.map((s, i) => ({
+        label: `**[Source ${i + 1}: ${s.document_name}]**`,
+        content: s.preview,
+      }));
 
       const errorResponse = handleLLMError(llmError, fallbackSources);
       if (errorResponse) return errorResponse;

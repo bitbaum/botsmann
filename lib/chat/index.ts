@@ -13,3 +13,4 @@ export { getUserLLMSettings, type LLMSettings } from './settings';
 export { truncateChunks, joinContext } from './context';
 export { handleLLMError } from './llm-errors';
 export { parseResponseWithSuggestions } from './parse';
+export { searchUserDocuments, type DocumentSource, type DocumentSearchResult } from './search';
