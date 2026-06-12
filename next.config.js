@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -75,7 +76,7 @@ const nextConfig = {
           "style-src 'self' 'unsafe-inline'",
           "img-src 'self' data: blob: https://raw.githubusercontent.com https://images.unsplash.com",
           "font-src 'self'",
-          "connect-src 'self' https://api.groq.com https://openrouter.ai https://api.openai.com https://api.github.com https://raw.githubusercontent.com https://*.supabase.co",
+          "connect-src 'self' https://api.groq.com https://openrouter.ai https://api.openai.com https://api.github.com https://raw.githubusercontent.com https://*.supabase.co https://supabase.orangecat.ch",
           "frame-src 'self' https://www.youtube.com https://giscus.app",
           "frame-ancestors 'none'",
         ].join('; '),
