@@ -101,7 +101,7 @@ Rate limits: 20 req/60s for chat, 15 req/60s for professional chat.
 | Embeddings | Transformers.js (all-MiniLM-L6-v2, 384d)                     |
 | Auth       | Supabase Auth + Row Level Security                           |
 | Email      | AWS SES                                                      |
-| Deployment | Vercel, GitHub Actions CI/CD                                 |
+| Deployment | Self-hosted on Hetzner (behind Caddy); GitHub Actions CI     |
 
 ---
 
