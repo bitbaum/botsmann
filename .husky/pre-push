@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+# >>> fleetcrown push-deploy >>>
+# Pushing main deploys to the Hetzner box (background; see /tmp/push-deploy-botsmann.log)
+if git symbolic-ref --short HEAD 2>/dev/null | grep -qx main; then
+  ( sleep 5 && env -u CI -u VERCEL bash /home/g/dev/fleetcrown/scripts/hetzner/deploy.sh botsmann ) >> /tmp/push-deploy-botsmann.log 2>&1 & disown 2>/dev/null || true
+  echo "[push-deploy] botsmann: deploy started in background → /tmp/push-deploy-botsmann.log"
+fi
+# <<< fleetcrown push-deploy <<<
