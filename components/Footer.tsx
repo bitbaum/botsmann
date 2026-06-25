@@ -35,7 +35,7 @@ export function Footer() {
                   <li key={bot.slug}>
                     <Link
                       href={`/bots/${bot.slug}`}
-                      className="hover:text-blue-600 transition-colors"
+                      className="hover:text-action transition-colors"
                     >
                       {bot.nav!.navTitle} ({category})
                     </Link>
@@ -50,22 +50,22 @@ export function Footer() {
           <h2 className="mb-4 font-semibold text-gray-800">Product</h2>
           <ul className="space-y-2 text-gray-600">
             <li>
-              <Link href={ROUTES.PROFESSIONALS} className="hover:text-blue-600 transition-colors">
+              <Link href={ROUTES.PROFESSIONALS} className="hover:text-action transition-colors">
                 All Professionals
               </Link>
             </li>
             <li>
-              <Link href={ROUTES.MY_DATA} className="hover:text-blue-600 transition-colors">
+              <Link href={ROUTES.MY_DATA} className="hover:text-action transition-colors">
                 My Data
               </Link>
             </li>
             <li>
-              <Link href={ROUTES.ENTERPRISE} className="hover:text-blue-600 transition-colors">
+              <Link href={ROUTES.ENTERPRISE} className="hover:text-action transition-colors">
                 Enterprise
               </Link>
             </li>
             <li>
-              <Link href="/personal" className="hover:text-blue-600 transition-colors">
+              <Link href="/personal" className="hover:text-action transition-colors">
                 Personal AI
               </Link>
             </li>
@@ -77,22 +77,22 @@ export function Footer() {
           <h2 className="mb-4 font-semibold text-gray-800">Resources</h2>
           <ul className="space-y-2 text-gray-600">
             <li>
-              <Link href="/knowledge" className="hover:text-blue-600 transition-colors">
+              <Link href="/knowledge" className="hover:text-action transition-colors">
                 Knowledge Base
               </Link>
             </li>
             <li>
-              <Link href={ROUTES.BLOG} className="hover:text-blue-600 transition-colors">
+              <Link href={ROUTES.BLOG} className="hover:text-action transition-colors">
                 Blog
               </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:text-blue-600 transition-colors">
+              <Link href="/about" className="hover:text-action transition-colors">
                 About
               </Link>
             </li>
             <li>
-              <Link href={ROUTES.CONTACT} className="hover:text-blue-600 transition-colors">
+              <Link href={ROUTES.CONTACT} className="hover:text-action transition-colors">
                 Contact
               </Link>
             </li>
@@ -108,7 +108,7 @@ export function Footer() {
                 href={site.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-blue-600 transition-colors"
+                className="flex items-center gap-2 hover:text-action transition-colors"
               >
                 <FaGithub className="text-lg" /> GitHub
               </a>
@@ -118,7 +118,7 @@ export function Footer() {
                 href={site.social.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-blue-600 transition-colors"
+                className="flex items-center gap-2 hover:text-action transition-colors"
               >
                 <FaTwitter className="text-lg" /> Twitter
               </a>

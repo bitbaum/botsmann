@@ -8,23 +8,17 @@ import Link from 'next/link';
 export const EnterpriseSection: FC = () => {
   return (
     <section className="py-20">
-      <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2" />
-        </div>
-
+      <div className="bg-brand rounded-card p-8 md:p-12 text-paper relative overflow-hidden">
         <div className="relative text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <span className="w-2 h-2 bg-green-400 rounded-full" />
-            <span>For Law Firms, Medical Practices & Businesses</span>
+          <div className="inline-flex items-center gap-2 border border-white/15 px-4 py-1.5 rounded-full text-sm font-medium mb-6 text-paper/80">
+            <span className="w-1.5 h-1.5 bg-action rounded-full" />
+            <span>For Law Firms, Medical Practices &amp; Businesses</span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            AI Professionals for Your Organization
+          <h2 className="font-serif text-3xl md:text-4xl font-semibold mb-4 text-paper">
+            AI Professionals for Your Organisation
           </h2>
-          <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-paper/70 mb-8 max-w-2xl mx-auto">
             Deploy private AI assistants on your infrastructure. Full data sovereignty, team
             accounts, custom training, and enterprise-grade security.
           </p>
@@ -32,7 +26,7 @@ export const EnterpriseSection: FC = () => {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/enterprise"
-              className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-colors inline-flex items-center justify-center gap-2"
+              className="bg-action text-white px-8 py-4 rounded-btn font-semibold hover:bg-action-hover transition-colors inline-flex items-center justify-center gap-2"
             >
               Learn About Enterprise
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,7 +40,7 @@ export const EnterpriseSection: FC = () => {
             </Link>
             <Link
               href="/contact"
-              className="border-2 border-white/50 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-colors inline-flex items-center justify-center gap-2"
+              className="border border-white/30 text-paper px-8 py-4 rounded-btn font-semibold hover:bg-white/10 transition-colors inline-flex items-center justify-center gap-2"
             >
               Schedule a Demo
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,7 +55,7 @@ export const EnterpriseSection: FC = () => {
           </div>
 
           {/* Trust badges */}
-          <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-blue-200">
+          <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-paper/60">
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path

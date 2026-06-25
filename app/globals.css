@@ -2,14 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * ============================================================================
+ * BOTSMANN DESIGN TOKENS — SINGLE SOURCE OF TRUTH
+ * ============================================================================
+ * Identity: serious, credible AI professionals — counsel you'd trust, not a
+ * toy chatbot. Editorial ink + one authoritative warm accent (notarial ochre).
+ * No generic "AI gradient" blue/purple. Typography (serif display) carries it.
+ *
+ * Every color/radius/shadow used in the product is defined HERE. tailwind.config
+ * maps utilities to these vars; components consume semantic classes only.
+ * Retheme = edit this block. Nothing else.
+ */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+  /* Tier 1 — Primitive palette (raw values; never used directly by components) */
+  --primitive-ink-950: #1a1714; /* near-black warm ink — text & wordmark */
+  --primitive-ink-700: #4a423b;
+  --primitive-ink-500: #6f655c; /* muted body copy */
+  --primitive-ochre-600: #b45309; /* authoritative warm accent */
+  --primitive-ochre-700: #92400e; /* accent hover / pressed */
+  --primitive-ochre-50: #fdf6ec; /* accent tint surface */
+  --primitive-paper: #faf8f4; /* warm off-white page */
+  --primitive-surface: #ffffff;
+  --primitive-border: #e8e2d8; /* warm hairline */
+
+  /* Tier 2 — Semantic tokens (what things MEAN — always use these) */
+  --color-brand: var(--primitive-ink-950); /* the Botsmann mark / authority */
+  --color-action: var(--primitive-ochre-600); /* primary CTAs, links, accents */
+  --color-action-hover: var(--primitive-ochre-700);
+  --color-action-tint: var(--primitive-ochre-50);
+  --color-bg: var(--primitive-paper);
+  --color-surface: var(--primitive-surface);
+  --color-border: var(--primitive-border);
+  --color-text: var(--primitive-ink-950);
+  --color-text-muted: var(--primitive-ink-500);
+
+  /* Radii — restrained, editorial (not bubbly) */
+  --radius-card: 12px;
+  --radius-btn: 8px;
+
+  /* Shadows — subtle, paper-like (no glassmorphism glow) */
+  --shadow-card: 0 1px 2px rgb(26 23 20 / 0.04), 0 1px 3px rgb(26 23 20 / 0.06);
+  --shadow-card-hover: 0 4px 12px rgb(26 23 20 / 0.08), 0 2px 4px rgb(26 23 20 / 0.06);
+
+  /* Back-compat for any legacy rgb() consumers */
+  --foreground-rgb: 26, 23, 20;
+  --background-rgb: 250, 248, 244;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  color: var(--color-text);
+  background: var(--color-bg);
 }
 
 /* Smooth scrolling for anchor links */
@@ -24,29 +67,30 @@ html {
 }
 
 @layer base {
+  /* Serif display carries the editorial identity for headings & wordmark */
   h1 {
-    @apply text-4xl font-semibold tracking-tight;
+    @apply font-serif text-4xl font-semibold tracking-tight text-ink;
   }
   h2 {
-    @apply text-3xl font-medium tracking-tight;
+    @apply font-serif text-3xl font-semibold tracking-tight text-ink;
   }
   h3 {
-    @apply text-2xl font-medium;
+    @apply text-2xl font-semibold text-ink;
   }
   p {
-    @apply text-gray-600;
+    @apply text-ink-muted;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply rounded-md bg-green-600 px-4 py-2 text-sm md:text-base font-medium text-white hover:bg-opacity-90 transition-all shadow-sm hover:shadow md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50;
+    @apply rounded-btn bg-action px-4 py-2 text-sm md:text-base font-medium text-white hover:bg-action-hover transition-colors shadow-card hover:shadow-card-hover md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-action focus:ring-opacity-40;
   }
   .btn-secondary {
-    @apply rounded-md border border-gray-200 px-4 py-2 text-sm md:text-base font-medium text-gray-600 hover:bg-gray-50 transition-all shadow-sm hover:shadow-md md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-opacity-50;
+    @apply rounded-btn border border-edge px-4 py-2 text-sm md:text-base font-medium text-ink hover:bg-action-tint transition-colors shadow-card hover:shadow-card-hover md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-action focus:ring-opacity-20;
   }
   .input-primary {
-    @apply w-full rounded-xl border-2 border-gray-200 bg-transparent px-4 py-3 text-gray-900 outline-none transition-colors focus:border-green-600 focus:ring-2 focus:ring-green-100;
+    @apply w-full rounded-btn border border-edge bg-surface px-4 py-3 text-ink outline-none transition-colors focus:border-action focus:ring-2 focus:ring-action focus:ring-opacity-20;
   }
 }
 

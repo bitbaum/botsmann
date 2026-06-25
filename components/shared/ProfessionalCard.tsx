@@ -7,6 +7,7 @@ import {
   getAccentColorClasses,
   getProfessionalPath,
 } from '@/data/professionals';
+import { ProfessionalAvatar } from './ProfessionalAvatar';
 
 interface ProfessionalCardProps {
   professional: Professional;
@@ -18,7 +19,7 @@ interface ProfessionalCardProps {
  * Used on homepage grid and professionals overview page
  */
 export const ProfessionalCard: FC<ProfessionalCardProps> = ({ professional, size = 'default' }) => {
-  const { slug, name, title, tagline, emoji, accentColor } = professional;
+  const { slug, name, title, tagline, accentColor } = professional;
   const colors = getAccentColorClasses(accentColor);
   const path = getProfessionalPath(slug);
 
@@ -27,29 +28,22 @@ export const ProfessionalCard: FC<ProfessionalCardProps> = ({ professional, size
   return (
     <Link
       href={path}
-      className={`group relative bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-gray-200 hover:-translate-y-1 ${
+      className={`group relative bg-surface rounded-card shadow-card border border-edge overflow-hidden transition-all duration-200 hover:shadow-card-hover hover:border-action/40 hover:-translate-y-0.5 ${
         isLarge ? 'p-8' : 'p-6'
       }`}
     >
-      {/* Accent gradient on hover */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${colors.bgGradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
-      />
-
       {/* Content */}
       <div className="relative">
-        {/* Avatar/Emoji */}
-        <div
-          className={`${colors.bgLight} rounded-2xl flex items-center justify-center mb-4 ${
-            isLarge ? 'w-20 h-20 text-4xl' : 'w-14 h-14 text-3xl'
-          }`}
-        >
-          {emoji}
-        </div>
+        {/* Monogram badge (replaces emoji) */}
+        <ProfessionalAvatar
+          professional={professional}
+          className={isLarge ? 'w-20 h-20 mb-4' : 'w-14 h-14 mb-4'}
+          textClassName={isLarge ? 'text-3xl' : 'text-xl'}
+        />
 
         {/* Name & Role */}
         <h3
-          className={`font-bold text-gray-900 mb-1 ${colors.groupHoverText} transition-colors ${
+          className={`font-serif font-semibold text-ink mb-1 ${colors.groupHoverText} transition-colors ${
             isLarge ? 'text-xl' : 'text-lg'
           }`}
         >
@@ -60,7 +54,7 @@ export const ProfessionalCard: FC<ProfessionalCardProps> = ({ professional, size
         </p>
 
         {/* Tagline */}
-        <p className={`text-gray-600 ${isLarge ? 'text-base' : 'text-sm'}`}>{tagline}</p>
+        <p className={`text-ink-muted ${isLarge ? 'text-base' : 'text-sm'}`}>{tagline}</p>
 
         {/* CTA */}
         <div

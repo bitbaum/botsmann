@@ -17,7 +17,7 @@ export function Header() {
   if (isImmersivePage(pathname)) return null;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-2xl border-b border-gray-100/50 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-paper/90 backdrop-blur-sm border-b border-edge">
       <div className="mx-auto max-w-screen-xl">
         <div className="flex h-16 items-center justify-between px-6">
           <div className="flex-shrink-0">
