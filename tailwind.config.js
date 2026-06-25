@@ -7,12 +7,32 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // Semantic tokens — values live in app/globals.css (SSOT). Never literals here.
       colors: {
-        'openai-green': '#10a37f',
-        'openai-gray': '#202123',
+        brand: 'var(--color-brand)',
+        action: 'var(--color-action)',
+        'action-hover': 'var(--color-action-hover)',
+        'action-tint': 'var(--color-action-tint)',
+        surface: 'var(--color-surface)',
+        paper: 'var(--color-bg)',
+        edge: 'var(--color-border)',
+        ink: {
+          DEFAULT: 'var(--color-text)',
+          muted: 'var(--color-text-muted)',
+        },
+      },
+      borderRadius: {
+        card: 'var(--radius-card)',
+        btn: 'var(--radius-btn)',
+      },
+      boxShadow: {
+        card: 'var(--shadow-card)',
+        'card-hover': 'var(--shadow-card-hover)',
       },
       fontFamily: {
-        sans: ['system-ui', 'sans-serif'],
+        // Bound to next/font CSS vars set in app/layout.tsx
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],
       },
       screens: {
         sm: '640px',

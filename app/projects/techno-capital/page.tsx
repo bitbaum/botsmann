@@ -30,7 +30,7 @@ export default function TechnoCapital() {
         {/* Title and Overview */}
         <div className="mb-16">
           <div className="flex items-center gap-2 mb-4">
-            <span className="inline-block bg-openai-green text-white text-xs font-medium px-2 py-1 rounded">
+            <span className="inline-block bg-action text-white text-xs font-medium px-2 py-1 rounded">
               Coming Soon
             </span>
             <span className="text-sm text-gray-500">Investment fund launching 2026</span>
@@ -51,7 +51,7 @@ export default function TechnoCapital() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <svg
-                  className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                  className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -69,7 +69,7 @@ export default function TechnoCapital() {
               </li>
               <li className="flex items-start">
                 <svg
-                  className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                  className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -87,7 +87,7 @@ export default function TechnoCapital() {
               </li>
               <li className="flex items-start">
                 <svg
-                  className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                  className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -105,7 +105,7 @@ export default function TechnoCapital() {
               </li>
               <li className="flex items-start">
                 <svg
-                  className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                  className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -150,7 +150,7 @@ export default function TechnoCapital() {
           <h2 className="mb-8 text-3xl font-semibold text-gray-900">SubSpace Capital</h2>
           <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
             <div className="flex items-center mb-6">
-              <div className="h-12 w-12 bg-openai-green rounded-full flex items-center justify-center text-white mr-4">
+              <div className="h-12 w-12 bg-action rounded-full flex items-center justify-center text-white mr-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -182,7 +182,7 @@ export default function TechnoCapital() {
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-start">
                     <svg
-                      className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                      className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -198,7 +198,7 @@ export default function TechnoCapital() {
                   </li>
                   <li className="flex items-start">
                     <svg
-                      className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                      className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -214,7 +214,7 @@ export default function TechnoCapital() {
                   </li>
                   <li className="flex items-start">
                     <svg
-                      className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                      className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -236,7 +236,7 @@ export default function TechnoCapital() {
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-start">
                     <svg
-                      className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                      className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -252,7 +252,7 @@ export default function TechnoCapital() {
                   </li>
                   <li className="flex items-start">
                     <svg
-                      className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                      className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -268,7 +268,7 @@ export default function TechnoCapital() {
                   </li>
                   <li className="flex items-start">
                     <svg
-                      className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                      className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -302,7 +302,7 @@ export default function TechnoCapital() {
           <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
             <ol className="space-y-4">
               <li className="flex items-start">
-                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-openai-green text-white">
+                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-action text-white">
                   1
                 </div>
                 <div>
@@ -314,7 +314,7 @@ export default function TechnoCapital() {
                 </div>
               </li>
               <li className="flex items-start">
-                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-openai-green text-white">
+                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-action text-white">
                   2
                 </div>
                 <div>
@@ -326,7 +326,7 @@ export default function TechnoCapital() {
                 </div>
               </li>
               <li className="flex items-start">
-                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-openai-green text-white">
+                <div className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-action text-white">
                   3
                 </div>
                 <div>
@@ -347,7 +347,7 @@ export default function TechnoCapital() {
               <ul className="space-y-2 text-gray-600">
                 <li className="flex items-start">
                   <svg
-                    className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                    className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -363,7 +363,7 @@ export default function TechnoCapital() {
                 </li>
                 <li className="flex items-start">
                   <svg
-                    className="mr-3 h-5 w-5 flex-shrink-0 text-openai-green"
+                    className="mr-3 h-5 w-5 flex-shrink-0 text-action"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -394,7 +394,7 @@ export default function TechnoCapital() {
             {formSubmitted ? (
               <div className="max-w-md mx-auto bg-green-50 border border-green-200 rounded-md p-4 text-center">
                 <svg
-                  className="w-16 h-16 text-openai-green mx-auto mb-4"
+                  className="w-16 h-16 text-action mx-auto mb-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -467,7 +467,7 @@ export default function TechnoCapital() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className={`w-full inline-flex items-center justify-center rounded-md bg-openai-green px-6 py-3 text-base font-medium text-white ${submitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-opacity-90'} transition-opacity`}
+                  className={`w-full inline-flex items-center justify-center rounded-md bg-action px-6 py-3 text-base font-medium text-white ${submitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-opacity-90'} transition-opacity`}
                 >
                   {submitting ? 'Submitting...' : 'Join Waitlist'}
                 </button>

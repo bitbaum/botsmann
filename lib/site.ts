@@ -6,7 +6,8 @@
 
 export const site = {
   name: 'Botsmann',
-  tagline: 'Your Data. Your AI. Your Control.',
+  // ONE headline value prop — must match the hero H1 and footer.
+  tagline: 'Your Private AI Professionals',
   description:
     'Private AI that works with your data. Upload documents, ask questions, get answers with citations. Pre-built assistants for legal, medical, research, and more.',
   url: 'https://botsmann.com',

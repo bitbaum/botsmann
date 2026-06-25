@@ -193,7 +193,7 @@ const MDXComponents = {
       return (
         <a
           href={href}
-          className="text-openai-green hover:text-opacity-80"
+          className="text-action hover:text-opacity-80"
           target="_blank"
           rel="noopener noreferrer"
           {...props}
@@ -204,7 +204,7 @@ const MDXComponents = {
     return (
       <Link
         href={(href || '/') as Route}
-        className="text-openai-green hover:text-opacity-80"
+        className="text-action hover:text-opacity-80"
         {...props}
       />
     );

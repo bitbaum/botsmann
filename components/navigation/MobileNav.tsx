@@ -53,7 +53,7 @@ export function MobileNav({ isOpen, onClose, items, currentPath }: MobileNavProp
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                     {/* Header */}
-                    <div className="flex items-center justify-between px-4 py-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50">
+                    <div className="flex items-center justify-between px-4 py-6 border-b border-edge bg-action-tint">
                       <div className="flex items-center gap-3">
                         <Logo href={null} showText={false} size="sm" />
                         <Dialog.Title className="text-lg font-semibold text-gray-900">
@@ -78,11 +78,11 @@ export function MobileNav({ isOpen, onClose, items, currentPath }: MobileNavProp
                             {/* Parent Item */}
                             <Link
                               href={item.path}
-                              className={`flex items-center px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                              className={`flex items-center px-3 py-2 rounded-btn text-base font-medium transition-colors ${
                                 currentPath === item.path
-                                  ? 'bg-blue-50 text-blue-600'
-                                  : 'text-gray-700 hover:bg-gray-100'
-                              } ${item.isButton ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:opacity-90' : ''}`}
+                                  ? 'bg-action-tint text-action'
+                                  : 'text-ink hover:bg-action-tint'
+                              } ${item.isButton ? 'bg-action text-white hover:bg-action-hover' : ''}`}
                               onClick={onClose}
                             >
                               {item.label}
@@ -160,7 +160,7 @@ export function MobileNav({ isOpen, onClose, items, currentPath }: MobileNavProp
                           </Link>
                           <Link
                             href="/auth/signup"
-                            className="flex-1 text-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:opacity-90"
+                            className="flex-1 text-center px-4 py-2 text-sm font-medium text-white bg-action rounded-btn hover:bg-action-hover"
                             onClick={onClose}
                           >
                             Register
