@@ -65,10 +65,7 @@ export default async function Blog() {
                     </div>
 
                     <h2 className="mt-4 text-2xl font-semibold tracking-tight text-gray-900">
-                      <Link
-                        href={`/blog/${post.slug}` as Route}
-                        className="hover:text-openai-green"
-                      >
+                      <Link href={`/blog/${post.slug}` as Route} className="hover:text-action">
                         {post.title}
                       </Link>
                     </h2>
@@ -90,7 +87,7 @@ export default async function Blog() {
 
                     <Link
                       href={`/blog/${post.slug}` as Route}
-                      className="mt-6 inline-flex items-center text-sm font-medium text-openai-green hover:text-opacity-80"
+                      className="mt-6 inline-flex items-center text-sm font-medium text-action hover:text-opacity-80"
                     >
                       Read more
                       <svg

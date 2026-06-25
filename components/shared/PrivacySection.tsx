@@ -8,12 +8,7 @@ export const PrivacySection: FC = () => {
   const features = [
     {
       icon: (
-        <svg
-          className="w-6 h-6 text-green-600"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
+        <svg className="w-6 h-6 text-action" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -22,19 +17,14 @@ export const PrivacySection: FC = () => {
           />
         </svg>
       ),
-      iconBg: 'bg-green-100',
+      iconBg: 'bg-action-tint',
       title: 'End-to-End Encryption',
       description:
         'Your conversations and documents are encrypted in transit and at rest. We cannot read your data.',
     },
     {
       icon: (
-        <svg
-          className="w-6 h-6 text-blue-600"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
+        <svg className="w-6 h-6 text-action" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -43,19 +33,14 @@ export const PrivacySection: FC = () => {
           />
         </svg>
       ),
-      iconBg: 'bg-blue-100',
+      iconBg: 'bg-action-tint',
       title: 'No Data Training',
       description:
         'Your information is never used to train AI models. Your intellectual property stays yours.',
     },
     {
       icon: (
-        <svg
-          className="w-6 h-6 text-purple-600"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
+        <svg className="w-6 h-6 text-action" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -64,7 +49,7 @@ export const PrivacySection: FC = () => {
           />
         </svg>
       ),
-      iconBg: 'bg-purple-100',
+      iconBg: 'bg-action-tint',
       title: 'You Control Your Data',
       description: 'Delete your data anytime. Export everything. No lock-in, no hidden retention.',
     },
@@ -72,14 +57,12 @@ export const PrivacySection: FC = () => {
 
   return (
     <section className="py-20">
-      <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl p-8 md:p-12">
+      <div className="bg-surface border border-edge rounded-card p-8 md:p-12">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-              Your Data Stays Yours
-            </span>
+          <h2 className="font-serif text-3xl md:text-4xl font-semibold mb-4 text-ink">
+            Your Data Stays Yours
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+          <p className="text-ink-muted max-w-2xl mx-auto text-lg">
             Unlike other AI tools, we built privacy into our foundation. Your conversations are
             confidential, your documents are secure, and you remain in control.
           </p>
@@ -87,17 +70,14 @@ export const PrivacySection: FC = () => {
 
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="bg-white rounded-2xl p-6 shadow-md border border-gray-100"
-            >
+            <div key={feature.title} className="bg-paper rounded-card p-6 border border-edge">
               <div
-                className={`w-12 h-12 ${feature.iconBg} rounded-xl flex items-center justify-center mb-4`}
+                className={`w-12 h-12 ${feature.iconBg} rounded-btn flex items-center justify-center mb-4`}
               >
                 {feature.icon}
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">{feature.title}</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
+              <h3 className="font-serif font-semibold text-ink mb-2">{feature.title}</h3>
+              <p className="text-sm text-ink-muted leading-relaxed">{feature.description}</p>
             </div>
           ))}
         </div>

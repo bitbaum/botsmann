@@ -35,7 +35,7 @@ export function NavItem({ item, isActive, onNavigate }: NavItemProps) {
     return (
       <Link
         href={item.path}
-        className="rounded-md bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity"
+        className="rounded-btn bg-action px-4 py-2 text-sm font-medium text-white hover:bg-action-hover transition-colors"
       >
         {item.label}
       </Link>
