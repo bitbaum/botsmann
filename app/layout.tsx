@@ -4,7 +4,6 @@ import { Providers } from '@/components/Providers';
 import { site } from '@/lib/site';
 import './globals.css';
 import { Toaster } from 'sonner';
-import { Analytics } from '@vercel/analytics/react';
 import { Inter, Fraunces } from 'next/font/google';
 
 // Brand typeface: a serif display (Fraunces) carries the editorial / "real
@@ -45,7 +44,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               duration: 4000,
             }}
           />
-          <Analytics />
         </Providers>
       </body>
     </html>
