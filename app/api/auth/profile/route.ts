@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
   if (rateLimitResult) return rateLimitResult;
 
   try {
-    const supabase = createRouteHandlerClient();
+    const supabase = await createRouteHandlerClient();
 
     const {
       data: { user },
@@ -94,7 +94,7 @@ export async function PUT(req: NextRequest) {
   if (rateLimitResult) return rateLimitResult;
 
   try {
-    const supabase = createRouteHandlerClient();
+    const supabase = await createRouteHandlerClient();
 
     // Check authentication
     const {
