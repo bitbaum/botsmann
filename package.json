@@ -47,7 +47,9 @@
   },
   "overrides": {
     "glob": "^10.5.0",
-    "fast-xml-parser": "^5.3.4"
+    "fast-xml-parser": "^5.3.4",
+    "protobufjs": "^7.6.5",
+    "ws": "^8.21.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
