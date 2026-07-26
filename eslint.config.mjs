@@ -45,15 +45,6 @@ const eslintConfig = [
       'react/no-unescaped-entities': 'off',
       'react/display-name': 'off',
       '@next/next/no-img-element': 'warn',
-      // eslint-plugin-react-hooks v6 (bundled with Next 16's eslint-config-next)
-      // adds React-Compiler-era rules that did not exist in the Next 15 config and
-      // flag pre-existing intentional patterns (localStorage hydration, load-on-mount
-      // effects). Adopting them is a dedicated refactor, out of scope for this
-      // framework upgrade — deferred, tracked as follow-up. rules-of-hooks and
-      // exhaustive-deps stay enabled.
-      'react-hooks/set-state-in-effect': 'off',
-      'react-hooks/error-boundaries': 'off',
-      'react-hooks/immutability': 'off',
     },
   },
 ];

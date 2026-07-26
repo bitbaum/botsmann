@@ -15,6 +15,7 @@ export function useLocalStorageFlag(
   useEffect(() => {
     const stored = localStorage.getItem(key);
     if (stored !== null) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrates from localStorage after mount (SSR-safe by design)
       setValue(stored === 'true');
     }
   }, [key]);

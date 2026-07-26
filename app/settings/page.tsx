@@ -44,6 +44,7 @@ export default function SettingsPage() {
 
   // Initialize profile form when user data loads
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- seeds editable form fields from async-loaded user metadata
     if (displayName) setProfileDisplayName(displayName);
     if (avatarUrl) setProfileAvatarUrl(avatarUrl);
   }, [displayName, avatarUrl]);

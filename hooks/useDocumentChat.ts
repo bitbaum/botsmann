@@ -29,6 +29,7 @@ export const useDocumentChat = ({ selectedDocId }: UseDocumentChatOptions) => {
   // Load conversation messages when active conversation changes
   useEffect(() => {
     if (!activeConversationId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- resets messages when the active conversation clears
       setChatMessages([]);
       return;
     }

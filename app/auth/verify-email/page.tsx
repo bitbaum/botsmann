@@ -36,6 +36,20 @@ export default function VerifyEmailPage() {
     return () => clearInterval(timer);
   }, [rateLimitSeconds]);
 
+  // Redirects run in effects (not during render) so the navigation side effects
+  // stay out of the render phase.
+  useEffect(() => {
+    if (!loading && !user) {
+      window.location.href = ROUTES.AUTH.SIGNIN;
+    }
+  }, [loading, user]);
+
+  useEffect(() => {
+    if (!loading && user && isEmailVerified) {
+      window.location.href = ROUTES.SETTINGS;
+    }
+  }, [loading, user, isEmailVerified]);
+
   const isRateLimited = rateLimitSeconds > 0;
 
   const handleResend = async () => {
@@ -72,15 +86,13 @@ export default function VerifyEmailPage() {
     return <PageLoading />;
   }
 
-  // Not logged in - redirect to signin
+  // Not logged in - the effect above redirects to signin.
   if (!user) {
-    window.location.href = ROUTES.AUTH.SIGNIN;
     return null;
   }
 
-  // Already verified - redirect to settings
+  // Already verified - the effect above redirects to settings.
   if (isEmailVerified) {
-    window.location.href = ROUTES.SETTINGS;
     return null;
   }
 
