@@ -51,6 +51,7 @@ export const ProfessionalDemo: FC<ProfessionalDemoProps> = ({ professional }) =>
       role: 'assistant',
       content: getWelcomeMessage(),
     };
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- seeds the on-mount welcome message
     setMessages([welcomeMessage]);
     inputRef.current?.focus({ preventScroll: true });
   }, [getWelcomeMessage]);

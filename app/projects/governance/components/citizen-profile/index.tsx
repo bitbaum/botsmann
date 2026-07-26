@@ -36,6 +36,7 @@ const CitizenProfile: React.FC<CitizenProfileProps> = ({ citizen, agencies: _age
         advisoryPercentage: contribution.percentage,
         difference: 0,
       }));
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- seeds editable advisory distribution from the citizen prop
       setAdvisoryDistribution(initialDistribution);
     }
   }, [citizen.contributions]);

@@ -23,6 +23,7 @@ export default function ResetPasswordPage() {
     // User should have a session from the email link
     // Supabase handles the token exchange automatically
     if (session) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- syncs a local validity flag to the external Supabase auth session
       setIsValidSession(true);
     } else {
       // Give it a moment for the session to be established
