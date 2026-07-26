@@ -95,7 +95,7 @@ Rate limits: 20 req/60s for chat, 15 req/60s for professional chat.
 
 | Layer      | Technology                                                   |
 | ---------- | ------------------------------------------------------------ |
-| Frontend   | Next.js 14, React 18, TypeScript 5, Tailwind CSS + DaisyUI 5 |
+| Frontend   | Next.js 16, React 19, TypeScript 5, Tailwind CSS + DaisyUI 5 |
 | LLM        | Groq, OpenRouter (100+ models), Ollama (local)               |
 | Database   | Supabase PostgreSQL 15 + pgvector                            |
 | Embeddings | Transformers.js (all-MiniLM-L6-v2, 384d)                     |
@@ -159,7 +159,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ```
 botsmann/
-  app/                    # Next.js 14 app router
+  app/                    # Next.js 16 app router
     api/                  # API routes (thin HTTP layer)
     (routes)/             # Page routes
   components/             # UI components (no business logic)
