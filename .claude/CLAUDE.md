@@ -6,7 +6,7 @@
 
 ## Overview
 
-**Botsmann** is a modern AI bot platform featuring intelligent assistants for legal, medical, research, and language learning. Built with Next.js 14, deployed on Vercel.
+**Botsmann** is a modern AI bot platform featuring intelligent assistants for legal, medical, research, and language learning. Built with Next.js 16 and React 19.
 
 ---
 
@@ -14,7 +14,8 @@
 
 | Layer      | Technology              |
 | ---------- | ----------------------- |
-| Framework  | Next.js 14 (App Router) |
+| Framework  | Next.js 16 (App Router) |
+| UI         | React 19                |
 | Language   | TypeScript              |
 | Styling    | Tailwind CSS            |
 | Testing    | Jest                    |
@@ -101,4 +102,4 @@ export const Component: FC<ComponentProps> = ({ title, onAction }) => {
 
 ---
 
-**Last Updated**: 2026-01-23
+**Last Updated**: 2026-07-26
