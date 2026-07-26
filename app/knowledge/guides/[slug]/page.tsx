@@ -155,7 +155,11 @@ const mdxComponents = {
   },
   pre: ({ children }: React.HTMLAttributes<HTMLPreElement>) => {
     // Extract language from code element if present
-    const codeElement = children as React.ReactElement;
+    // React 19 typed ReactElement['props'] as unknown; annotate the shape we read.
+    const codeElement = children as React.ReactElement<{
+      className?: string;
+      children?: React.ReactNode;
+    }>;
     const className = codeElement?.props?.className || '';
     const language = className.replace('language-', '');
 
