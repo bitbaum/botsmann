@@ -631,7 +631,7 @@ export default function LawFrameworkPage() {
           </p>
           <div className="inline-flex rounded-md shadow">
             <Link
-              href={{ pathname: '/projects/governance', hash: 'request-demo' }}
+              href="/projects/governance#request-demo"
               className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700"
             >
               Request Implementation Details

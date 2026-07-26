@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
   if (rateLimitResult) return rateLimitResult;
 
   try {
-    const supabase = createRouteHandlerClient();
+    const supabase = await createRouteHandlerClient();
 
     // Get current user
     const {

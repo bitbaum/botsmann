@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     const origin = req.headers.get('origin') || req.nextUrl.origin;
 
     // Sign up with Supabase
-    const supabase = createRouteHandlerClient();
+    const supabase = await createRouteHandlerClient();
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
