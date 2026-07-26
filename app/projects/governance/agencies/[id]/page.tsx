@@ -6,9 +6,9 @@ import Link from 'next/link';
 import AgencyProfile from '../../components/AgencyProfile';
 import { sampleAgencies } from '../../data/sampleData';
 
-export default function AgencyDetailPage({ params }: { params: { id: string } }) {
+export default function AgencyDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const _router = useRouter();
-  const agencyId = params.id;
+  const { id: agencyId } = React.use(params);
 
   const agency = sampleAgencies.find((a) => a.id === agencyId);
 

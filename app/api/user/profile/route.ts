@@ -27,7 +27,7 @@ import { logger } from '@/lib/logger';
  */
 export async function GET() {
   try {
-    const supabase = createRouteHandlerClient();
+    const supabase = await createRouteHandlerClient();
 
     // Check authentication
     const {
@@ -61,7 +61,7 @@ export async function GET() {
  */
 export async function PATCH(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient();
+    const supabase = await createRouteHandlerClient();
 
     // Check authentication
     const {

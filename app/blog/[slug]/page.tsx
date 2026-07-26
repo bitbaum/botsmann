@@ -23,10 +23,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   try {
-    const post = await fetchBlogPostBySlug(params.slug);
+    const { slug } = await params;
+    const post = await fetchBlogPostBySlug(slug);
 
     if (!post) {
       return {
@@ -69,19 +70,20 @@ export async function generateMetadata({
   }
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  console.info('Rendering blog post for slug:', params.slug);
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  console.info('Rendering blog post for slug:', slug);
 
   try {
-    if (!params.slug) {
+    if (!slug) {
       console.info('Missing slug parameter');
       notFound();
     }
 
-    const post = await fetchBlogPostBySlug(params.slug);
+    const post = await fetchBlogPostBySlug(slug);
 
     if (!post) {
-      console.info('Blog post not found for slug:', params.slug);
+      console.info('Blog post not found for slug:', slug);
       notFound();
     }
 

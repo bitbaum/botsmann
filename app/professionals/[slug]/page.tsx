@@ -10,7 +10,7 @@ import {
 import { ProfessionalDemo } from '@/components/shared/ProfessionalDemo';
 
 interface PageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 // Generate static paths for all professionals
@@ -19,8 +19,9 @@ export function generateStaticParams() {
 }
 
 // Generate metadata for each professional
-export function generateMetadata({ params }: PageProps): Metadata {
-  const professional = getProfessionalBySlug(params.slug);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const professional = getProfessionalBySlug(slug);
 
   if (!professional) {
     return { title: 'Professional Not Found | Botsmann' };
@@ -36,8 +37,8 @@ export function generateMetadata({ params }: PageProps): Metadata {
  * Individual Professional Page
  * Interactive page where users can chat with the AI professional
  */
-export default function ProfessionalPage({ params }: PageProps) {
-  const { slug } = params;
+export default async function ProfessionalPage({ params }: PageProps) {
+  const { slug } = await params;
   const professional = getProfessionalBySlug(slug);
 
   if (!professional) {
