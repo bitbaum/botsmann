@@ -8,13 +8,7 @@ import { type DocumentStatusType } from '@/lib/constants';
  * Document categories that map to professionals
  */
 export type DocumentCategory =
-  | 'legal'
-  | 'health'
-  | 'research'
-  | 'language'
-  | 'creative'
-  | 'business'
-  | 'general';
+  'legal' | 'health' | 'research' | 'language' | 'creative' | 'business' | 'general';
 
 export const DOCUMENT_CATEGORIES: {
   value: DocumentCategory;

@@ -12,3 +12,4 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 status.json
+next-env.d.ts

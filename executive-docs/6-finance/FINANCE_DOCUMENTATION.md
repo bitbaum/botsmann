@@ -109,13 +109,14 @@
 ### 2.2 Revenue Projections (3 Years)
 
 **Year 1 Breakdown:**
-| Month | Free Users | Paid Users | MRR | ARR |
-|-------|------------|------------|-----|-----|
-| M1 | 500 | 10 | $290 | $3.5K |
-| M3 | 2,000 | 50 | $1,450 | $17K |
-| M6 | 5,000 | 150 | $4,350 | $52K |
-| M9 | 8,000 | 400 | $11,600 | $139K |
-| M12 | 10,000 | 1,000 | $29,000 | $348K |
+
+| Month | Free Users | Paid Users | MRR     | ARR   |
+| ----- | ---------- | ---------- | ------- | ----- |
+| M1    | 500        | 10         | $290    | $3.5K |
+| M3    | 2,000      | 50         | $1,450  | $17K  |
+| M6    | 5,000      | 150        | $4,350  | $52K  |
+| M9    | 8,000      | 400        | $11,600 | $139K |
+| M12   | 10,000     | 1,000      | $29,000 | $348K |
 
 **Year 1 Total:**
 
@@ -125,12 +126,13 @@
 - **Total ARR: ~$400K**
 
 **Year 2 Breakdown:**
-| Quarter | Paid Users | Enterprise | MRR | ARR |
-|---------|------------|------------|-----|-----|
-| Q1 | 1,500 | 5 | $43,500 | $522K |
-| Q2 | 2,500 | 10 | $72,500 | $870K |
-| Q3 | 4,000 | 20 | $116,000 | $1.39M |
-| Q4 | 5,000 | 50 | $145,000 | $1.74M |
+
+| Quarter | Paid Users | Enterprise | MRR      | ARR    |
+| ------- | ---------- | ---------- | -------- | ------ |
+| Q1      | 1,500      | 5          | $43,500  | $522K  |
+| Q2      | 2,500      | 10         | $72,500  | $870K  |
+| Q3      | 4,000      | 20         | $116,000 | $1.39M |
+| Q4      | 5,000      | 50         | $145,000 | $1.74M |
 
 **Year 2 Total:**
 
@@ -193,11 +195,12 @@
 - Managed: $10/user/month
 
 **Total COGS Estimate:**
+
 | Year | Users (Paid) | Monthly COGS | Annual COGS | Gross Margin |
-|------|--------------|--------------|-------------|--------------|
-| 1 | 1,000 | $5,500 | $66K | 75% |
-| 2 | 5,000 | $27,500 | $330K | 80% |
-| 3 | 15,000 | $82,500 | $990K | 85% |
+| ---- | ------------ | ------------ | ----------- | ------------ |
+| 1    | 1,000        | $5,500       | $66K        | 75%          |
+| 2    | 5,000        | $27,500      | $330K       | 80%          |
+| 3    | 15,000       | $82,500      | $990K       | 85%          |
 
 ### 3.2 Operating Expenses
 
@@ -218,32 +221,35 @@
 | **Total**                | **5.5** | **$870K**     | **$261K**            | **$871K** |
 
 **Infrastructure (Year 1):**
-| Service | Monthly | Annual |
-|---------|---------|--------|
-| Vercel Pro | $20 | $240 |
-| Supabase Pro | $25 | $300 |
-| AWS SES | $50 | $600 |
-| Sentry | $26 | $312 |
-| Monitoring Tools | $20 | $240 |
-| **Total** | **$141** | **$1,692** |
+
+| Service          | Monthly  | Annual     |
+| ---------------- | -------- | ---------- |
+| Vercel Pro       | $20      | $240       |
+| Supabase Pro     | $25      | $300       |
+| AWS SES          | $50      | $600       |
+| Sentry           | $26      | $312       |
+| Monitoring Tools | $20      | $240       |
+| **Total**        | **$141** | **$1,692** |
 
 **Marketing & Sales (Year 1):**
-| Item | Monthly | Annual |
-|------|---------|--------|
-| Advertising (Google, LinkedIn) | $5,000 | $60K |
-| Conferences | - | $20K |
-| Content Creation | $2,000 | $24K |
-| Sales Tools (CRM, etc.) | $500 | $6K |
-| **Total** | **$7,500** | **$110K** |
+
+| Item                           | Monthly    | Annual    |
+| ------------------------------ | ---------- | --------- |
+| Advertising (Google, LinkedIn) | $5,000     | $60K      |
+| Conferences                    | -          | $20K      |
+| Content Creation               | $2,000     | $24K      |
+| Sales Tools (CRM, etc.)        | $500       | $6K       |
+| **Total**                      | **$7,500** | **$110K** |
 
 **Operations (Year 1):**
-| Item | Annual |
-|------|--------|
-| Legal & Accounting | $20K |
-| Insurance | $10K |
-| Office/Co-working | $15K |
-| Software & Tools | $10K |
-| **Total** | **$55K** |
+
+| Item               | Annual   |
+| ------------------ | -------- |
+| Legal & Accounting | $20K     |
+| Insurance          | $10K     |
+| Office/Co-working  | $15K     |
+| Software & Tools   | $10K     |
+| **Total**          | **$55K** |
 
 **Year 1 Total OpEx:**
 
@@ -484,14 +490,15 @@ Total Liabilities + Equity      $804,000
 ### 5.5 Cohort Analysis
 
 **Month 0 Cohort (100 premium users sign up):**
+
 | Month | Active Users | Churn | Revenue | Cumulative Revenue |
-|-------|--------------|-------|---------|-------------------|
-| 0 | 100 | 0 | $2,900 | $2,900 |
-| 1 | 99 | 1% | $2,871 | $5,771 |
-| 3 | 97 | 3% | $2,813 | $11,471 |
-| 6 | 93 | 7% | $2,697 | $22,583 |
-| 12 | 85 | 15% | $2,465 | $43,780 |
-| 24 | 72 | 28% | $2,088 | $81,312 |
+| ----- | ------------ | ----- | ------- | ------------------ |
+| 0     | 100          | 0     | $2,900  | $2,900             |
+| 1     | 99           | 1%    | $2,871  | $5,771             |
+| 3     | 97           | 3%    | $2,813  | $11,471            |
+| 6     | 93           | 7%    | $2,697  | $22,583            |
+| 12    | 85           | 15%   | $2,465  | $43,780            |
+| 24    | 72           | 28%   | $2,088  | $81,312            |
 
 ---
 
@@ -591,12 +598,13 @@ Runway Remaining              13 months
 ### 7.2 Pricing Analysis
 
 **Competitive Benchmarking:**
-| Competitor | Price/Month | Features |
-|------------|-------------|----------|
-| ChatGPT Plus | $20 | Generic AI |
-| Notion AI | $10 | Knowledge base |
-| Jasper AI | $39 | Content creation |
-| **Botsmann** | **$29** | **Specialized bots + RAG** |
+
+| Competitor   | Price/Month | Features                   |
+| ------------ | ----------- | -------------------------- |
+| ChatGPT Plus | $20         | Generic AI                 |
+| Notion AI    | $10         | Knowledge base             |
+| Jasper AI    | $39         | Content creation           |
+| **Botsmann** | **$29**     | **Specialized bots + RAG** |
 
 **Value-Based Pricing:**
 
@@ -643,14 +651,15 @@ Runway Remaining              13 months
 - **Total: $398K**
 
 **Expense Budget:**
-| Category | Budget | % of Revenue |
-|----------|--------|--------------|
-| **COGS** | $66K | 17% |
-| **Personnel** | $871K | 219% |
-| **Infrastructure** | $2K | 0.5% |
-| **Marketing & Sales** | $110K | 28% |
-| **Operations** | $55K | 14% |
-| **Total** | **$1.1M** | **278%** |
+
+| Category              | Budget    | % of Revenue |
+| --------------------- | --------- | ------------ |
+| **COGS**              | $66K      | 17%          |
+| **Personnel**         | $871K     | 219%         |
+| **Infrastructure**    | $2K       | 0.5%         |
+| **Marketing & Sales** | $110K     | 28%          |
+| **Operations**        | $55K      | 14%          |
+| **Total**             | **$1.1M** | **278%**     |
 
 **Net: -$706K** (funded by seed round)
 

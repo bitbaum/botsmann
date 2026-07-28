@@ -71,9 +71,7 @@ CAPABILITIES:
 TONE: Professional, helpful, clear. Avoid legalese. Be empathetic.`,
   is_public: true,
   is_published: true,
-  nav_config: {
-    /* copy from data/bots.ts */
-  },
+  nav_config: {/* copy from data/bots.ts */},
 };
 ```
 
