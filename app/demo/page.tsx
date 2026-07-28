@@ -256,7 +256,7 @@ const DemoPage: FC = () => {
                   • <strong>Backend:</strong> Next.js API routes
                 </li>
                 <li>
-                  • <strong>Deployment:</strong> Vercel serverless
+                  • <strong>Deployment:</strong> Self-hosted (Hetzner + Caddy)
                 </li>
               </ul>
             </div>

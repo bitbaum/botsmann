@@ -28,7 +28,7 @@ import { DOMAIN_ERRORS } from '@/lib/constants';
 import { detectDomains } from '@/lib/context/domain-detector';
 import { logger } from '@/lib/logger';
 
-// Extend function timeout for embedding generation (Vercel)
+// Extend function timeout for embedding generation (Next.js route segment config)
 export const maxDuration = 60; // Allow longer for document processing
 
 /**

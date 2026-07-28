@@ -28,9 +28,9 @@ This document provides comprehensive technical context for the Botsmann project.
 
 ### Infrastructure
 
-| Service  | Purpose                          |
-| -------- | -------------------------------- |
-| Vercel   | Hosting & deployment             |
+| Service              | Purpose                          |
+| -------------------- | -------------------------------- |
+| Hetzner + Caddy      | Hosting & deployment (self-host) |
 | Supabase | Database, Auth, Storage, SQL API |
 | AWS SES  | Email delivery                   |
 
@@ -130,13 +130,14 @@ Chosen for:
 - Built-in Auth, Storage, and realtime subscriptions
 - Strong TypeScript support via generated types
 
-### Serverless API Routes
+### API Routes
 
-All backend logic runs in Vercel serverless functions:
+All backend logic runs in Next.js API routes, served by the self-hosted
+Next.js server (systemd) on the Hetzner box:
 
-- No server to maintain
-- Auto-scaling
-- Pay-per-use
+- Single long-running server (no cold starts)
+- Fronted by Caddy for TLS + reverse proxy
+- Predictable, flat hosting cost
 
 ---
 
@@ -218,18 +219,16 @@ User → components/*Form.tsx
 
 ### Automatic (Recommended)
 
-Push to `main` branch → GitHub Actions → Vercel
+Push to `main` → local `.husky/pre-push` hook → self-hosted deploy on the
+Hetzner box "bitbaum" (build → rsync → systemd restart), behind Caddy.
+GitHub Actions runs build/lint/tests as CI only.
 
 ### Manual
 
 ```bash
 npm run build
-vercel --prod
+bash /home/g/dev/fleetcrown/scripts/hetzner/deploy.sh botsmann
 ```
-
-### Preview Deployments
-
-Every PR gets a preview URL automatically.
 
 ---
 
@@ -238,7 +237,7 @@ Every PR gets a preview URL automatically.
 1. **Server Components**: Use by default, add `'use client'` only when needed
 2. **Image Optimization**: Use `next/image` for all images
 3. **Code Splitting**: Automatic with App Router
-4. **Caching**: Vercel Edge caching for static content
+4. **Caching**: Caddy + Next.js caching for static content
 
 ---
 
