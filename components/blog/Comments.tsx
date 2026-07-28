@@ -7,6 +7,7 @@ export default function Comments({ slug }: { slug: string }) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- client-mount detection for SSR-safe giscus embed
     setIsClient(true);
   }, []);
 

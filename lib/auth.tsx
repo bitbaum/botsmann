@@ -76,6 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     // If Supabase is not configured, just set loading to false
     if (!client) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- initializes auth state from the external Supabase client
       setLoading(false);
       return;
     }

@@ -7,7 +7,7 @@ import { categoryConfig } from '@/types/knowledge';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 
 interface GuidePageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 // Generate static params for all guides
@@ -20,7 +20,8 @@ export async function generateStaticParams() {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: GuidePageProps): Promise<Metadata> {
-  const guide = await fetchGuideBySlug(params.slug);
+  const { slug } = await params;
+  const guide = await fetchGuideBySlug(slug);
 
   if (!guide) {
     return {
@@ -154,7 +155,11 @@ const mdxComponents = {
   },
   pre: ({ children }: React.HTMLAttributes<HTMLPreElement>) => {
     // Extract language from code element if present
-    const codeElement = children as React.ReactElement;
+    // React 19 typed ReactElement['props'] as unknown; annotate the shape we read.
+    const codeElement = children as React.ReactElement<{
+      className?: string;
+      children?: React.ReactNode;
+    }>;
     const className = codeElement?.props?.className || '';
     const language = className.replace('language-', '');
 
@@ -193,7 +198,8 @@ const mdxComponents = {
 };
 
 export default async function GuidePage({ params }: GuidePageProps) {
-  const guide = await fetchGuideBySlug(params.slug);
+  const { slug } = await params;
+  const guide = await fetchGuideBySlug(slug);
 
   if (!guide) {
     notFound();
