@@ -24,16 +24,13 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-      - name: Install dependencies and build
-        run: npm run build:ci
+      - name: Install dependencies
+        run: npm ci
+
+      # Single SSOT gate: format:check + lint + test + build.
+      # Runs verbatim what developers run locally via `npm run verify`.
+      # No --if-present: a missing/renamed gate script fails loudly.
+      - name: Verify (format + lint + test + build)
+        run: npm run verify
         env:
           NEXT_PUBLIC_DEPLOY_TIME: ${{ github.event.head_commit.timestamp }}
-
-      - name: Run format check
-        run: npm run format:check --if-present
-
-      - name: Run linting
-        run: npm run lint --if-present
-
-      - name: Run tests
-        run: npm run test --if-present
