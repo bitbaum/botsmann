@@ -116,6 +116,7 @@ export function useDashboardStats(userId: string | undefined): UseDashboardStats
   }, [userId]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- loads dashboard stats from the API on mount
     loadData();
   }, [loadData]);
 

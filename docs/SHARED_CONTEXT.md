@@ -112,7 +112,7 @@ botsmann/
 
 ## Architecture Decisions
 
-### App Router (Next.js 14)
+### App Router (Next.js 16)
 
 We use the App Router for:
 

@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     const origin = req.headers.get('origin') || req.nextUrl.origin;
 
     // Send password reset email
-    const supabase = createRouteHandlerClient();
+    const supabase = await createRouteHandlerClient();
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${origin}/auth/callback?type=recovery`,
     });

@@ -49,6 +49,7 @@ export const ConversationList = ({
   }, [botType, botId, documentId]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- loads conversations from the API on mount
     loadConversations();
   }, [loadConversations, refreshTrigger]);
 

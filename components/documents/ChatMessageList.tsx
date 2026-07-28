@@ -8,7 +8,7 @@ interface ChatMessageListProps {
   messages: ChatMessage[];
   loading: boolean;
   selectedDocId: string | null;
-  chatEndRef: RefObject<HTMLDivElement>;
+  chatEndRef: RefObject<HTMLDivElement | null>;
 }
 
 export const ChatMessageList = ({

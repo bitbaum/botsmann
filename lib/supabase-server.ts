@@ -17,11 +17,11 @@ import { getClientEnv } from '@/lib/config/env';
  *
  * @param _options - Options object (for backwards compatibility, not used)
  */
-export function createRouteHandlerClient(_options?: { cookies?: unknown }) {
+export async function createRouteHandlerClient(_options?: { cookies?: unknown }) {
   const { NEXT_PUBLIC_SUPABASE_URL: supabaseUrl, NEXT_PUBLIC_SUPABASE_ANON_KEY: supabaseAnonKey } =
     getClientEnv();
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {

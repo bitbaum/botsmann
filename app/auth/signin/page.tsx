@@ -33,9 +33,15 @@ export default function SignInPage() {
     return () => clearInterval(timer);
   }, [rateLimitSeconds]);
 
-  // Redirect if already logged in
+  // Redirect if already logged in. Runs in an effect (not during render) so the
+  // navigation side effect stays out of the render phase.
+  useEffect(() => {
+    if (user) {
+      window.location.href = ROUTES.SETTINGS;
+    }
+  }, [user]);
+
   if (user) {
-    window.location.href = ROUTES.SETTINGS;
     return null;
   }
 

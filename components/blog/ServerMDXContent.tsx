@@ -136,7 +136,9 @@ export default function ServerMDXContent({ content, slug }: ServerMDXContentProp
     img: (imgProps: React.ImgHTMLAttributes<HTMLImageElement>) => {
       const { src, alt } = imgProps;
 
-      if (!src) {
+      // React 19 widened ImgHTMLAttributes['src'] to string | Blob; MDX only ever
+      // passes string paths, so narrow before the string operations below.
+      if (!src || typeof src !== 'string') {
         return <span className="block my-8 p-4 bg-red-50 text-red-500">Image source missing</span>;
       }
 

@@ -23,10 +23,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   try {
-    const post = await fetchBlogPostBySlug(params.slug);
+    const { slug } = await params;
+    const post = await fetchBlogPostBySlug(slug);
 
     if (!post) {
       return {
@@ -69,67 +70,66 @@ export async function generateMetadata({
   }
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  console.info('Rendering blog post for slug:', params.slug);
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  console.info('Rendering blog post for slug:', slug);
 
-  try {
-    if (!params.slug) {
-      console.info('Missing slug parameter');
-      notFound();
-    }
-
-    const post = await fetchBlogPostBySlug(params.slug);
-
-    if (!post) {
-      console.info('Blog post not found for slug:', params.slug);
-      notFound();
-    }
-
-    return (
-      <article className="mx-auto max-w-3xl px-6 py-16">
-        <header className="mb-12">
-          <div className="flex items-center gap-4 text-sm text-gray-500">
-            <time dateTime={post.date}>{format(new Date(post.date), 'MMMM d, yyyy')}</time>
-            <span>•</span>
-            <span>{post.author}</span>
-          </div>
-
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-gray-900">{post.title}</h1>
-
-          {post.tags && post.tags.length > 0 && (
-            <div className="mt-4 flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-block rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {post.featuredImage && (
-            <div className="mt-8 relative h-96 w-full overflow-hidden rounded-lg">
-              <Image
-                src={post.featuredImage}
-                alt={post.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 800px"
-                className="object-cover"
-                priority
-              />
-            </div>
-          )}
-        </header>
-
-        <ServerMDXContent content={post.content} slug={post.slug} />
-
-        <Comments slug={post.slug} />
-      </article>
-    );
-  } catch (error) {
-    console.info('Error rendering blog post:', error);
-    throw error;
+  // No try/catch: notFound() and render errors must propagate to Next's
+  // not-found.tsx / error.tsx boundaries. A catch that only re-throws would also
+  // spuriously log notFound() as an error.
+  if (!slug) {
+    console.info('Missing slug parameter');
+    notFound();
   }
+
+  const post = await fetchBlogPostBySlug(slug);
+
+  if (!post) {
+    console.info('Blog post not found for slug:', slug);
+    notFound();
+  }
+
+  return (
+    <article className="mx-auto max-w-3xl px-6 py-16">
+      <header className="mb-12">
+        <div className="flex items-center gap-4 text-sm text-gray-500">
+          <time dateTime={post.date}>{format(new Date(post.date), 'MMMM d, yyyy')}</time>
+          <span>•</span>
+          <span>{post.author}</span>
+        </div>
+
+        <h1 className="mt-4 text-4xl font-semibold tracking-tight text-gray-900">{post.title}</h1>
+
+        {post.tags && post.tags.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="inline-block rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {post.featuredImage && (
+          <div className="mt-8 relative h-96 w-full overflow-hidden rounded-lg">
+            <Image
+              src={post.featuredImage}
+              alt={post.title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 800px"
+              className="object-cover"
+              priority
+            />
+          </div>
+        )}
+      </header>
+
+      <ServerMDXContent content={post.content} slug={post.slug} />
+
+      <Comments slug={post.slug} />
+    </article>
+  );
 }

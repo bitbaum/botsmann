@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     const { email, password } = result.data;
 
     // Sign in with Supabase
-    const supabase = createRouteHandlerClient();
+    const supabase = await createRouteHandlerClient();
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,

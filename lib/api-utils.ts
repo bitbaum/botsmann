@@ -21,7 +21,7 @@ import { createRouteHandlerClient } from './supabase-server';
 export async function verifyUser(request: NextRequest): Promise<User | null> {
   // Preferred: cookie-based via auth-helpers
   try {
-    const routeClient = createRouteHandlerClient({ cookies });
+    const routeClient = await createRouteHandlerClient({ cookies });
     const { data, error } = await routeClient.auth.getUser();
     if (!error && data.user) return data.user;
   } catch {}

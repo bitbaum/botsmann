@@ -66,8 +66,11 @@ const Img = (
 
   // Extract slug from URL if not provided directly
   useEffect(() => {
-    if (!src) {
+    // React 19 widened ImgHTMLAttributes['src'] to string | Blob; MDX only ever
+    // passes string paths, so narrow before the string operations below.
+    if (!src || typeof src !== 'string') {
       console.info('Image source missing');
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only image URL resolution (reads window.location as a slug fallback)
       setIsError(true);
       return;
     }

@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation';
 import { sampleTeamMembers } from '../../data/sampleData';
 import { formatCurrency } from '@/lib/format';
 
-export default function EmployeeDetailPage({ params }: { params: { id: string } }) {
+export default function EmployeeDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const _router = useRouter();
-  const employeeId = params.id;
+  const { id: employeeId } = React.use(params);
 
   // Find the employee with the matching ID
   const employee = sampleTeamMembers.find((emp) => emp.id === employeeId);

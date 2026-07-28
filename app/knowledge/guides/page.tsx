@@ -12,16 +12,17 @@ export const metadata: Metadata = {
 };
 
 interface GuidesPageProps {
-  searchParams: { difficulty?: string; category?: string };
+  searchParams: Promise<{ difficulty?: string; category?: string }>;
 }
 
 export default async function GuidesPage({ searchParams }: GuidesPageProps) {
+  const { difficulty, category } = await searchParams;
   const allGuides = await fetchAllGuides();
 
   // Filter by difficulty if specified
   let guides = allGuides;
-  const difficultyFilter = searchParams.difficulty as DifficultyLevel | undefined;
-  const categoryFilter = searchParams.category as GuideCategory | undefined;
+  const difficultyFilter = difficulty as DifficultyLevel | undefined;
+  const categoryFilter = category as GuideCategory | undefined;
 
   if (difficultyFilter) {
     guides = guides.filter((g) => g.difficulty === difficultyFilter);

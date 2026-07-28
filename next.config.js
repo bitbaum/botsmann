@@ -11,10 +11,9 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    typedRoutes: true,
-    serverComponentsExternalPackages: ['onnxruntime-node', '@xenova/transformers', 'sharp'],
-  },
+  serverExternalPackages: ['onnxruntime-node', '@xenova/transformers', 'sharp'],
+  // typedRoutes graduated from `experimental` to a stable top-level option in Next 16.
+  typedRoutes: true,
   env: {
     NEXT_PUBLIC_DEPLOY_TIME: new Date().toUTCString(),
   },

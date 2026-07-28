@@ -240,7 +240,7 @@ export default function OpenPay() {
           </p>
           <div className="inline-flex rounded-md shadow">
             <Link
-              href={{ pathname: '/projects/governance', hash: 'request-demo' }}
+              href="/projects/governance#request-demo"
               className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50"
             >
               Request Implementation Details
