@@ -30,7 +30,7 @@ class ProviderConfig:
 
 # Default models per provider
 DEFAULT_MODELS = {
-    Provider.ANTHROPIC: "claude-sonnet-4-20250514",
+    Provider.ANTHROPIC: "claude-sonnet-5",
     Provider.GROQ: "llama-3.1-70b-versatile",
     Provider.OLLAMA: "phi3",  # Small, fast, works on most machines
 }
