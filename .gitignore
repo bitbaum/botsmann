@@ -26,9 +26,6 @@ Thumbs.db
 logs/
 *.log
 
-# Vercel
-.vercel
-
 # Runtime state / cache (bot runtime artifacts)
 .call_count
 .circuit_breaker_history

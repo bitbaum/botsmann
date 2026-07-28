@@ -160,22 +160,21 @@ npm audit fix
 
 ## Deployment
 
-### Manual Deploy to Vercel
-
-```bash
-# Install Vercel CLI if needed
-npm i -g vercel
-
-# Deploy to preview
-vercel
-
-# Deploy to production
-vercel --prod
-```
+Botsmann is self-hosted on the Hetzner box "bitbaum" behind Caddy
+(botsmann.orangecat.ch). There is no Vercel.
 
 ### Automatic Deploy
 
-Push to `main` branch - GitHub Actions handles deployment.
+Push to `main` — the local `.husky/pre-push` hook runs the self-hosted deploy
+script (build → rsync → systemd restart) in the background. Logs stream to
+`/tmp/push-deploy-botsmann.log`.
+
+### Manual Deploy
+
+```bash
+# Re-run the same self-hosted deploy the pre-push hook triggers
+bash /home/g/dev/fleetcrown/scripts/hetzner/deploy.sh botsmann
+```
 
 ---
 

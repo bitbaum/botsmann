@@ -6,7 +6,7 @@
 
 ## Overview
 
-**Botsmann** is a modern AI bot platform featuring intelligent assistants for legal, medical, research, and language learning. Built with Next.js 14, deployed on Vercel.
+**Botsmann** is a modern AI bot platform featuring intelligent assistants for legal, medical, research, and language learning. Built with Next.js 14, self-hosted on the Hetzner box "bitbaum" behind Caddy (botsmann.orangecat.ch).
 
 ---
 
@@ -18,7 +18,7 @@
 | Language   | TypeScript              |
 | Styling    | Tailwind CSS            |
 | Testing    | Jest                    |
-| Deployment | Vercel                  |
+| Deployment | Self-hosted (Hetzner + Caddy) |
 
 ---
 

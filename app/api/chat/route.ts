@@ -25,8 +25,7 @@ import {
   searchUserDocuments,
 } from '@/lib/chat';
 
-// Extend function timeout for model loading (Vercel)
-// Note: Free tier max is 10s, Pro tier allows up to 60s
+// Extend function timeout for model loading (Next.js route segment config)
 export const maxDuration = 30;
 
 /**

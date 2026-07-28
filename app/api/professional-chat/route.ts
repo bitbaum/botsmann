@@ -26,7 +26,7 @@ import {
 import { getUserLLMSettings, searchUserDocuments } from '@/lib/chat';
 import { getRelevantContext, extractAndSaveContext } from '@/lib/context';
 
-// Extend function timeout for model loading (Vercel)
+// Extend function timeout for model loading (Next.js route segment config)
 export const maxDuration = 30;
 
 const MAX_CONTEXT_CHARS = 4000; // Leave room for system prompt + response
