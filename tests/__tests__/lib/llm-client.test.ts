@@ -6,7 +6,7 @@ jest.mock('@/lib/constants', () => ({
     GROQ_API_URL: 'https://api.groq.com/openai/v1/chat/completions',
     GROQ_MODEL: 'llama-3.1-8b-instant',
     OPENROUTER_API_URL: 'https://openrouter.ai/api/v1/chat/completions',
-    OPENROUTER_DEFAULT_MODEL: 'anthropic/claude-3.5-sonnet',
+    OPENROUTER_DEFAULT_MODEL: 'anthropic/claude-sonnet-5',
   },
 }));
 
@@ -162,10 +162,10 @@ describe('generateLLMResponse', () => {
       expect(mockFetch).toHaveBeenCalledWith(
         'https://openrouter.ai/api/v1/chat/completions',
         expect.objectContaining({
-          body: expect.stringContaining('"model":"anthropic/claude-3.5-sonnet"'),
+          body: expect.stringContaining('"model":"anthropic/claude-sonnet-5"'),
         }),
       );
-      expect(result.model).toBe('anthropic/claude-3.5-sonnet');
+      expect(result.model).toBe('anthropic/claude-sonnet-5');
     });
 
     it('uses custom model when specified', async () => {
