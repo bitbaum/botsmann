@@ -134,20 +134,22 @@
 ### 2.1 Monitoring Stack
 
 **Current Tools:**
-| Tool | Purpose | Access |
-|------|---------|--------|
-| **Vercel Dashboard** | Deployment, errors, analytics | Team |
-| **Supabase Dashboard** | Database, auth, storage | Team |
-| **Browser Console** | Client-side errors | Development |
-| **Git Logs** | Application logs | Development |
+
+| Tool                   | Purpose                       | Access      |
+| ---------------------- | ----------------------------- | ----------- |
+| **Vercel Dashboard**   | Deployment, errors, analytics | Team        |
+| **Supabase Dashboard** | Database, auth, storage       | Team        |
+| **Browser Console**    | Client-side errors            | Development |
+| **Git Logs**           | Application logs              | Development |
 
 **Recommended (To Be Implemented):**
-| Tool | Purpose | Tier |
-|------|---------|------|
-| **Sentry** | Error tracking | Free (5K errors/mo) |
-| **Plausible** | Privacy-friendly analytics | $9/mo |
-| **UptimeRobot** | Uptime monitoring | Free (50 monitors) |
-| **CloudWatch** | AWS SES metrics | Included |
+
+| Tool            | Purpose                    | Tier                |
+| --------------- | -------------------------- | ------------------- |
+| **Sentry**      | Error tracking             | Free (5K errors/mo) |
+| **Plausible**   | Privacy-friendly analytics | $9/mo               |
+| **UptimeRobot** | Uptime monitoring          | Free (50 monitors)  |
+| **CloudWatch**  | AWS SES metrics            | Included            |
 
 ### 2.2 Key Metrics to Monitor
 

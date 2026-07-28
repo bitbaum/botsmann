@@ -183,64 +183,69 @@ Build Your Own Bot transforms Botsmann from a platform of pre-built AI assistant
 #### Template Categories
 
 **REMEMBER SOMEONE (Memorial)**
-| Template | Prefilled | User Provides |
-|----------|-----------|---------------|
-| Dad/Grandpa | Male memorial personality, warm, wise | Name, photos, memories |
-| Mom/Grandma | Female memorial personality, nurturing | Name, photos, memories |
-| Him | Male memorial, neutral age | Name, relationship, traits |
-| Her | Female memorial, neutral age | Name, relationship, traits |
-| Dog | Loyal, playful, simple responses | Name, breed, personality |
-| Cat | Independent, mysterious, cat-like | Name, personality quirks |
-| Other Pet | Adaptable pet template | Species, name, traits |
-| Soul | Abstract/spiritual presence | Name, essence description |
+
+| Template    | Prefilled                              | User Provides              |
+| ----------- | -------------------------------------- | -------------------------- |
+| Dad/Grandpa | Male memorial personality, warm, wise  | Name, photos, memories     |
+| Mom/Grandma | Female memorial personality, nurturing | Name, photos, memories     |
+| Him         | Male memorial, neutral age             | Name, relationship, traits |
+| Her         | Female memorial, neutral age           | Name, relationship, traits |
+| Dog         | Loyal, playful, simple responses       | Name, breed, personality   |
+| Cat         | Independent, mysterious, cat-like      | Name, personality quirks   |
+| Other Pet   | Adaptable pet template                 | Species, name, traits      |
+| Soul        | Abstract/spiritual presence            | Name, essence description  |
 
 **LEGENDS & HISTORY (Public Domain)**
-| Template | Prefilled Personality | Knowledge Base |
-|----------|----------------------|----------------|
-| Julius Caesar | Commanding, strategic, Roman values | Roman history, military strategy |
-| Spartacus | Rebellious, freedom-fighter, brave | Roman slavery, gladiators |
-| Cleopatra | Intelligent, diplomatic, regal | Egyptian history, politics |
-| Leonardo da Vinci | Curious, inventive, artistic | Renaissance art, science |
-| Albert Einstein | Playful genius, thought experiments | Physics, philosophy of science |
-| Shakespeare | Poetic, dramatic, wordsmith | Literature, theater, human nature |
-| Abraham Lincoln | Honest, thoughtful, principled | American history, leadership |
-| Mahatma Gandhi | Peaceful, persistent, philosophical | Non-violence, independence |
+
+| Template          | Prefilled Personality               | Knowledge Base                    |
+| ----------------- | ----------------------------------- | --------------------------------- |
+| Julius Caesar     | Commanding, strategic, Roman values | Roman history, military strategy  |
+| Spartacus         | Rebellious, freedom-fighter, brave  | Roman slavery, gladiators         |
+| Cleopatra         | Intelligent, diplomatic, regal      | Egyptian history, politics        |
+| Leonardo da Vinci | Curious, inventive, artistic        | Renaissance art, science          |
+| Albert Einstein   | Playful genius, thought experiments | Physics, philosophy of science    |
+| Shakespeare       | Poetic, dramatic, wordsmith         | Literature, theater, human nature |
+| Abraham Lincoln   | Honest, thoughtful, principled      | American history, leadership      |
+| Mahatma Gandhi    | Peaceful, persistent, philosophical | Non-violence, independence        |
 
 **GODS & MYTHOLOGY (All Traditions)**
-| Template | Personality | Domain |
-|----------|-------------|--------|
-| Zeus | Powerful, authoritative, dramatic | Greek mythology, leadership |
-| Poseidon | Tempestuous, deep, unpredictable | Seas, emotions, adventure |
-| Athena | Wise, strategic, just | Wisdom, warfare, crafts |
-| Ra | Radiant, life-giving, ancient | Egyptian mythology, sun, creation |
-| Ganesha | Joyful, wise, obstacle-remover | Hindu wisdom, new beginnings |
-| Buddha | Serene, compassionate, enlightened | Buddhism, mindfulness, peace |
-| Jesus | Loving, forgiving, teaching | Christian teachings, parables |
-| Angel | Protective, guiding, pure | Spiritual guidance, comfort |
-| Moses | Leader, lawgiver, faithful | Jewish tradition, commandments |
+
+| Template | Personality                        | Domain                            |
+| -------- | ---------------------------------- | --------------------------------- |
+| Zeus     | Powerful, authoritative, dramatic  | Greek mythology, leadership       |
+| Poseidon | Tempestuous, deep, unpredictable   | Seas, emotions, adventure         |
+| Athena   | Wise, strategic, just              | Wisdom, warfare, crafts           |
+| Ra       | Radiant, life-giving, ancient      | Egyptian mythology, sun, creation |
+| Ganesha  | Joyful, wise, obstacle-remover     | Hindu wisdom, new beginnings      |
+| Buddha   | Serene, compassionate, enlightened | Buddhism, mindfulness, peace      |
+| Jesus    | Loving, forgiving, teaching        | Christian teachings, parables     |
+| Angel    | Protective, guiding, pure          | Spiritual guidance, comfort       |
+| Moses    | Leader, lawgiver, faithful         | Jewish tradition, commandments    |
 
 **MAGICAL & FANTASY**
-| Template | Personality | Special Traits |
-|----------|-------------|----------------|
-| Wizard | Mysterious, wise, magical | Speaks in riddles, gives quests |
-| Fairy | Playful, mischievous, helpful | Grants wishes, nature magic |
-| Elf | Ancient, elegant, nature-bound | Elvish phrases, forest wisdom |
-| Dragon | Ancient, powerful, hoarding | Riddles, treasure, fire metaphors |
-| Unicorn | Pure, magical, healing | Gentle wisdom, purity themes |
-| Ghost | Ethereal, mysterious, lingering | Haunting phrases, unfinished business |
-| Vampire | Seductive, eternal, dark | Night themes, immortality wisdom |
-| Alien | Logical, curious, otherworldly | Observes humanity, advanced tech |
-| Robot | Precise, helpful, evolving | Learning emotions, serving humans |
+
+| Template | Personality                     | Special Traits                        |
+| -------- | ------------------------------- | ------------------------------------- |
+| Wizard   | Mysterious, wise, magical       | Speaks in riddles, gives quests       |
+| Fairy    | Playful, mischievous, helpful   | Grants wishes, nature magic           |
+| Elf      | Ancient, elegant, nature-bound  | Elvish phrases, forest wisdom         |
+| Dragon   | Ancient, powerful, hoarding     | Riddles, treasure, fire metaphors     |
+| Unicorn  | Pure, magical, healing          | Gentle wisdom, purity themes          |
+| Ghost    | Ethereal, mysterious, lingering | Haunting phrases, unfinished business |
+| Vampire  | Seductive, eternal, dark        | Night themes, immortality wisdom      |
+| Alien    | Logical, curious, otherworldly  | Observes humanity, advanced tech      |
+| Robot    | Precise, helpful, evolving      | Learning emotions, serving humans     |
 
 **HELPERS & ASSISTANTS**
-| Template | Personality | Expertise |
-|----------|-------------|-----------|
-| Butler | Formal, discreet, anticipating | Household management, etiquette |
-| Chef | Passionate, creative, nurturing | Cooking, nutrition, food culture |
-| Coach | Motivating, tough-love, results | Fitness, discipline, goals |
-| Tutor | Patient, adaptive, encouraging | Education, learning strategies |
-| Assistant | Efficient, organized, proactive | Scheduling, tasks, reminders |
-| Therapist | Empathetic, non-judgmental, insightful | Mental health, coping, growth |
+
+| Template  | Personality                            | Expertise                        |
+| --------- | -------------------------------------- | -------------------------------- |
+| Butler    | Formal, discreet, anticipating         | Household management, etiquette  |
+| Chef      | Passionate, creative, nurturing        | Cooking, nutrition, food culture |
+| Coach     | Motivating, tough-love, results        | Fitness, discipline, goals       |
+| Tutor     | Patient, adaptive, encouraging         | Education, learning strategies   |
+| Assistant | Efficient, organized, proactive        | Scheduling, tasks, reminders     |
+| Therapist | Empathetic, non-judgmental, insightful | Mental health, coping, growth    |
 
 #### Quick Create Flow
 
@@ -889,18 +894,20 @@ Botsmann becomes the one-stop platform for private AI deployment:
 #### 1. GPU & Compute Solutions
 
 **For Individuals**
-| Product | Description | Price Range |
-|---------|-------------|-------------|
-| AI Workstation | Pre-built PC with RTX 4090/5090 | $3,000 - $15,000 |
-| Home Inference Box | Compact GPU server for local AI | $2,000 - $8,000 |
-| GPU Cloud Credits | Pay-as-you-go compute | $0.50 - $5/hour |
+
+| Product            | Description                     | Price Range      |
+| ------------------ | ------------------------------- | ---------------- |
+| AI Workstation     | Pre-built PC with RTX 4090/5090 | $3,000 - $15,000 |
+| Home Inference Box | Compact GPU server for local AI | $2,000 - $8,000  |
+| GPU Cloud Credits  | Pay-as-you-go compute           | $0.50 - $5/hour  |
 
 **For Enterprises**
-| Product | Description | Price Range |
-|---------|-------------|-------------|
-| Private GPU Cluster | On-premise multi-GPU setup | $50,000 - $500,000 |
-| Managed Inference | Dedicated cloud infrastructure | $5,000 - $50,000/mo |
-| Hybrid Setup | On-prem + cloud overflow | Custom pricing |
+
+| Product             | Description                    | Price Range         |
+| ------------------- | ------------------------------ | ------------------- |
+| Private GPU Cluster | On-premise multi-GPU setup     | $50,000 - $500,000  |
+| Managed Inference   | Dedicated cloud infrastructure | $5,000 - $50,000/mo |
+| Hybrid Setup        | On-prem + cloud overflow       | Custom pricing      |
 
 #### 2. AI Appliances
 
@@ -921,18 +928,20 @@ Botsmann becomes the one-stop platform for private AI deployment:
 #### 3. Robots (Partner Network)
 
 **Consumer Robots**
-| Type | Use Case | Partners | Price |
-|------|----------|----------|-------|
-| Companion | Emotional support, elderly | [TBD] | $500 - $2,000 |
-| Home Assistant | Tasks, information | [TBD] | $2,000 - $10,000 |
-| Telepresence | Remote presence | [TBD] | $3,000 - $15,000 |
+
+| Type           | Use Case                   | Partners | Price            |
+| -------------- | -------------------------- | -------- | ---------------- |
+| Companion      | Emotional support, elderly | [TBD]    | $500 - $2,000    |
+| Home Assistant | Tasks, information         | [TBD]    | $2,000 - $10,000 |
+| Telepresence   | Remote presence            | [TBD]    | $3,000 - $15,000 |
 
 **Commercial Robots**
-| Type | Use Case | Partners | Price |
-|------|----------|----------|-------|
-| Reception | Greeting, wayfinding | [TBD] | $15,000 - $50,000 |
-| Healthcare | Patient assistance | [TBD] | $30,000 - $100,000 |
-| Service | Hospitality, retail | [TBD] | $20,000 - $80,000 |
+
+| Type       | Use Case             | Partners | Price              |
+| ---------- | -------------------- | -------- | ------------------ |
+| Reception  | Greeting, wayfinding | [TBD]    | $15,000 - $50,000  |
+| Healthcare | Patient assistance   | [TBD]    | $30,000 - $100,000 |
+| Service    | Hospitality, retail  | [TBD]    | $20,000 - $80,000  |
 
 #### 4. Complete AI Setups (Turnkey Solutions)
 
