@@ -12,13 +12,13 @@
 
 ## Tech Stack
 
-| Layer      | Technology              |
-| ---------- | ----------------------- |
-| Framework  | Next.js 16 (App Router) |
-| UI         | React 19                |
-| Language   | TypeScript              |
-| Styling    | Tailwind CSS            |
-| Testing    | Jest                    |
+| Layer      | Technology                    |
+| ---------- | ----------------------------- |
+| Framework  | Next.js 16 (App Router)       |
+| UI         | React 19                      |
+| Language   | TypeScript                    |
+| Styling    | Tailwind CSS                  |
+| Testing    | Jest                          |
 | Deployment | Self-hosted (Hetzner + Caddy) |
 
 ---
