@@ -3,7 +3,7 @@
  *
  * GET /api/warmup - Pre-loads the embedding model to avoid cold start delays
  *
- * Called periodically by Vercel cron to keep the function warm
+ * Called periodically by a cron/uptime check to keep the embedding model warm
  */
 
 import { NextResponse } from 'next/server';

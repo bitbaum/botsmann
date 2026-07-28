@@ -20,7 +20,7 @@ import {
   wrapUserContext,
 } from '@/lib/prompt-sanitizer';
 
-// Extend function timeout for model loading (Vercel)
+// Extend function timeout for model loading (Next.js route segment config)
 export const maxDuration = 30;
 
 export async function POST(request: NextRequest) {
