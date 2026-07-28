@@ -34,7 +34,7 @@ import {
   parseResponseWithSuggestions,
 } from '@/lib/chat';
 
-// Extend function timeout for model loading (Vercel)
+// Extend function timeout for model loading (Next.js route segment config)
 export const maxDuration = 30;
 
 const ChatRequestSchema = z.object({

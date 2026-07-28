@@ -14,7 +14,7 @@ import { jsonSuccess, jsonError, jsonUnauthorized, handleError, HTTP_STATUS } fr
 import { DOMAIN_ERRORS } from '@/lib/constants';
 import { logger } from '@/lib/logger';
 
-// Extend function timeout for embedding generation (Vercel)
+// Extend function timeout for embedding generation (Next.js route segment config)
 export const maxDuration = 30;
 
 /**

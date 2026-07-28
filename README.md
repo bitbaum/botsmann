@@ -5,7 +5,7 @@ Domain-specialized AI professionals, not another generic chatbot wrapper.
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6.svg)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-14-000000.svg)](https://nextjs.org/)
-[![Live](https://img.shields.io/badge/Live-botsmann.vercel.app-brightgreen.svg)](https://botsmann.vercel.app)
+[![Live](https://img.shields.io/badge/Live-botsmann.orangecat.ch-brightgreen.svg)](https://botsmann.orangecat.ch)
 
 ---
 

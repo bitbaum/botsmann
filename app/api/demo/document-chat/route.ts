@@ -15,7 +15,7 @@ import { getClientIp } from '@/lib/request';
 import { sanitizeUserMessage, sanitizePromptContent } from '@/lib/prompt-sanitizer';
 import { logger } from '@/lib/logger';
 
-// Extend function timeout for model loading (Vercel)
+// Extend function timeout for model loading (Next.js route segment config)
 export const maxDuration = 30;
 
 // Maximum document content size (characters) to prevent abuse
