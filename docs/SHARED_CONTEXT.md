@@ -28,11 +28,11 @@ This document provides comprehensive technical context for the Botsmann project.
 
 ### Infrastructure
 
-| Service              | Purpose                          |
-| -------------------- | -------------------------------- |
-| Hetzner + Caddy      | Hosting & deployment (self-host) |
-| Supabase | Database, Auth, Storage, SQL API |
-| AWS SES  | Email delivery                   |
+| Service         | Purpose                          |
+| --------------- | -------------------------------- |
+| Hetzner + Caddy | Hosting & deployment (self-host) |
+| Supabase        | Database, Auth, Storage, SQL API |
+| AWS SES         | Email delivery                   |
 
 ### Development Tools
 

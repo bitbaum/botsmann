@@ -1084,12 +1084,13 @@ function chunkText(text: string, targetTokens: number = 512): string[] {
 ### 9.2 Access Control
 
 **Who Has Access:**
-| Resource | Developers | Admins | CI/CD |
-|----------|------------|--------|-------|
-| **GitHub Repo** | ✅ | ✅ | ✅ |
-| **Vercel** | Read | Full | Deploy |
-| **Supabase** | Dev DB | Prod DB | None |
-| **AWS SES** | No | Yes | No |
+
+| Resource        | Developers | Admins  | CI/CD  |
+| --------------- | ---------- | ------- | ------ |
+| **GitHub Repo** | ✅         | ✅      | ✅     |
+| **Vercel**      | Read       | Full    | Deploy |
+| **Supabase**    | Dev DB     | Prod DB | None   |
+| **AWS SES**     | No         | Yes     | No     |
 
 **Principle of Least Privilege:**
 
