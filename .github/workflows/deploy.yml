@@ -1,0 +1,22 @@
+name: Deploy
+
+# Push to main → deploy botsmann.orangecat.ch to bitbaum. All the logic lives in
+# one place: maonakamoto/fleetcrown/.github/workflows/selfhost-deploy.yml (docs:
+# docs/infrastructure/self-host-cd.md there). It waits for this commit's own CI
+# to go green before anything reaches the box.
+#
+# Replaces a Vercel deploy workflow: this app has been served from bitbaum
+# behind Caddy for months, so those deploys were shipping to somewhere nobody
+# looks while the real production build only ever changed by hand.
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    uses: maonakamoto/fleetcrown/.github/workflows/selfhost-deploy.yml@main
+    with:
+      app: botsmann
+      node-version: '22'
+    secrets: inherit
