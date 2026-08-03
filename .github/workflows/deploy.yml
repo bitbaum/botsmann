@@ -18,5 +18,4 @@ jobs:
     uses: maonakamoto/fleetcrown/.github/workflows/selfhost-deploy.yml@main
     with:
       app: botsmann
-      node-version-file: .nvmrc
     secrets: inherit
