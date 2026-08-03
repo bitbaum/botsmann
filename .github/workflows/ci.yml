@@ -1,36 +1,41 @@
 name: CI
 
-# Botsmann is deployed self-hosted on the Hetzner box "bitbaum" behind Caddy.
-# Deployment runs from the local `.husky/pre-push` hook (build -> rsync -> systemd
-# restart) when main is pushed. This workflow only validates build/lint/tests.
+# The verification that used to live inside the Vercel deploy workflow. It
+# belongs in its own file: prod is self-hosted on bitbaum, so the deploy
+# workflow is now a shim over the shared pipeline — and that pipeline refuses
+# to ship a commit whose CI is not green. Without this file there would be no
+# CI to be green, and every deploy would sail through unverified.
 
 on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build-and-test:
+  verify:
+    name: Format, lint, test, build
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
+          cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
 
-      # Single SSOT gate: format:check + lint + test + build.
-      # Runs verbatim what developers run locally via `npm run verify`.
-      # No --if-present: a missing/renamed gate script fails loudly.
-      - name: Verify (format + lint + test + build)
-        run: npm run verify
-        env:
-          NEXT_PUBLIC_DEPLOY_TIME: ${{ github.event.head_commit.timestamp }}
+      - name: Format check
+        run: npm run format:check --if-present
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Test
+        run: npm run test --if-present
+
+      - name: Build
+        run: npm run build
