@@ -10,6 +10,7 @@ name: Deploy
 # looks while the real production build only ever changed by hand.
 
 on:
+  workflow_dispatch: {}
   push:
     branches: [main]
 

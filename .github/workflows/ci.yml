@@ -7,6 +7,7 @@ name: CI
 # CI to be green, and every deploy would sail through unverified.
 
 on:
+  workflow_dispatch: {}
   push:
     branches: [main]
   pull_request:
