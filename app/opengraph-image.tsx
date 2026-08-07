@@ -24,50 +24,52 @@ const MUTED = '#6F655C';
 
 export default function OGImage() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          background: PAPER,
-          padding: '72px 80px',
-          fontFamily: 'serif',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{ width: 18, height: 18, borderRadius: 4, background: OCHRE, display: 'flex' }} />
-          <div style={{ fontSize: 30, fontWeight: 700, color: INK, letterSpacing: '-0.01em' }}>
-            {site.name}
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div
-            style={{
-              fontSize: 88,
-              fontWeight: 700,
-              letterSpacing: '-0.03em',
-              lineHeight: 1.04,
-              color: INK,
-              maxWidth: 960,
-            }}
-          >
-            {site.tagline}
-          </div>
-          <div style={{ marginTop: 28, fontSize: 32, lineHeight: 1.35, color: MUTED, maxWidth: 900 }}>
-            Private AI that works with your data — answers with citations.
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <div style={{ width: 64, height: 5, borderRadius: 999, background: OCHRE, display: 'flex' }} />
-          <div style={{ fontSize: 24, color: MUTED }}>botsmann.orangecat.ch</div>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        background: PAPER,
+        padding: '72px 80px',
+        fontFamily: 'serif',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div
+          style={{ width: 18, height: 18, borderRadius: 4, background: OCHRE, display: 'flex' }}
+        />
+        <div style={{ fontSize: 30, fontWeight: 700, color: INK, letterSpacing: '-0.01em' }}>
+          {site.name}
         </div>
       </div>
-    ),
+
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div
+          style={{
+            fontSize: 88,
+            fontWeight: 700,
+            letterSpacing: '-0.03em',
+            lineHeight: 1.04,
+            color: INK,
+            maxWidth: 960,
+          }}
+        >
+          {site.tagline}
+        </div>
+        <div style={{ marginTop: 28, fontSize: 32, lineHeight: 1.35, color: MUTED, maxWidth: 900 }}>
+          Private AI that works with your data — answers with citations.
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div
+          style={{ width: 64, height: 5, borderRadius: 999, background: OCHRE, display: 'flex' }}
+        />
+        <div style={{ fontSize: 24, color: MUTED }}>botsmann.orangecat.ch</div>
+      </div>
+    </div>,
     { ...size },
   );
 }
