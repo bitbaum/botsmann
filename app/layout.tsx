@@ -24,8 +24,19 @@ const serif = Fraunces({
 });
 
 export const metadata = {
+  // Load-bearing: Next resolves the generated og:image against metadataBase.
+  // Without it the tag is emitted as http://localhost:3000/opengraph-image —
+  // present, plausible, and unfetchable by every social scraper.
+  metadataBase: new URL(site.url),
   title: `${site.name} — ${site.tagline}`,
   description: site.description,
+  openGraph: {
+    title: `${site.name} — ${site.tagline}`,
+    description: site.description,
+    url: site.url,
+    siteName: site.name,
+    type: 'website',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
