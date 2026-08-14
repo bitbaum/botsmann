@@ -2,7 +2,7 @@
 
 **Created:** 2026-01-23  
 **Last modified:** 2026-08-14  
-**Last modified summary:** Documented that `FLEETCROWN_FEEDBACK_TOKEN` must be present at `next build` or the widget Script is tree-shaken.
+**Last modified summary:** CSP must allow `https://fleetcrown.orangecat.ch` on script-src and connect-src, and the widget token must be present at `next build`.
 
 This document is the authoritative SSOT map for where things live and how to use them. Follow this to avoid duplication and drift.
 
@@ -62,6 +62,8 @@ This document is the authoritative SSOT map for where things live and how to use
   (self-host CD pulls box `.env`). Runtime-only `.env` after deploy does not emit
   the script — Next tree-shakes an empty token. Production layout also has a
   public-token fallback so the FAB still ships if the env var is missing at build.
+- CSP (`next.config.js`): `script-src` and `connect-src` must allow
+  `https://fleetcrown.orangecat.ch` or the browser blocks `widget.js` and boot/submit.
 
 ## Testing
 

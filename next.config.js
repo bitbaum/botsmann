@@ -71,11 +71,11 @@ const nextConfig = {
         key: 'Content-Security-Policy',
         value: [
           "default-src 'self'",
-          "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giscus.app https://platform.twitter.com",
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giscus.app https://platform.twitter.com https://fleetcrown.orangecat.ch",
           "style-src 'self' 'unsafe-inline'",
           "img-src 'self' data: blob: https://raw.githubusercontent.com https://images.unsplash.com",
           "font-src 'self'",
-          "connect-src 'self' https://api.groq.com https://openrouter.ai https://api.openai.com https://api.github.com https://raw.githubusercontent.com https://*.supabase.co https://supabase.orangecat.ch",
+          "connect-src 'self' https://api.groq.com https://openrouter.ai https://api.openai.com https://api.github.com https://raw.githubusercontent.com https://*.supabase.co https://supabase.orangecat.ch https://fleetcrown.orangecat.ch",
           "frame-src 'self' https://www.youtube.com https://giscus.app",
           "frame-ancestors 'none'",
         ].join('; '),
