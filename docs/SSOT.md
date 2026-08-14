@@ -54,6 +54,10 @@ This document is the authoritative SSOT map for where things live and how to use
 - SSOT: `.env.local` (not committed) built from `.env.example`
 - Never commit: any `.env*` files. `.gitignore` already ignores them.
 - Rotate immediately if a secret leaks (Supabase service role, anon key, Groq, AWS, etc.).
+- `FLEETCROWN_FEEDBACK_TOKEN`: public widget token. Must be present at `next build`
+  (self-host CD pulls box `.env`). Runtime-only `.env` after deploy does not emit
+  the script — Next tree-shakes an empty token. Production layout also has a
+  public-token fallback so the FAB still ships if the env var is missing at build.
 
 ## Testing
 
