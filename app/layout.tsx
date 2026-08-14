@@ -40,8 +40,14 @@ export const metadata = {
   },
 };
 
+// Public project token (same string as the site snippet). Next inlines
+// process.env.* at `next build` — a runtime-only .env after deploy will not
+// resurrect a Script branch that was tree-shaken when the var was empty.
+// Fallback keeps the embed live even if CI/box env drifts; override via env.
+const FLEETCROWN_FEEDBACK_TOKEN =
+  process.env.FLEETCROWN_FEEDBACK_TOKEN || 'fcw_73518de7a20c97c968d6c53bf964874d';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const feedbackToken = process.env.FLEETCROWN_FEEDBACK_TOKEN;
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <body className="bg-paper font-sans text-ink">
@@ -58,14 +64,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }}
           />
         </Providers>
-        {feedbackToken ? (
-          <Script
-            src="https://fleetcrown.orangecat.ch/widget.js"
-            strategy="afterInteractive"
-            data-fc-project={feedbackToken}
-            data-fc-bottom="88"
-          />
-        ) : null}
+        <Script
+          src="https://fleetcrown.orangecat.ch/widget.js"
+          strategy="afterInteractive"
+          data-fc-project={FLEETCROWN_FEEDBACK_TOKEN}
+          data-fc-bottom="88"
+        />
       </body>
     </html>
   );
