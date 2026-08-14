@@ -5,6 +5,7 @@ import { site } from '@/lib/site';
 import './globals.css';
 import { Toaster } from 'sonner';
 import { Inter, Fraunces } from 'next/font/google';
+import Script from 'next/script';
 
 // Brand typeface: a serif display (Fraunces) carries the editorial / "real
 // counsel" identity for headings & wordmark; Inter handles UI/body copy.
@@ -40,6 +41,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const feedbackToken = process.env.FLEETCROWN_FEEDBACK_TOKEN;
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <body className="bg-paper font-sans text-ink">
@@ -56,6 +58,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }}
           />
         </Providers>
+        {feedbackToken ? (
+          <Script
+            src="https://fleetcrown.orangecat.ch/widget.js"
+            strategy="afterInteractive"
+            data-fc-project={feedbackToken}
+            data-fc-bottom="88"
+          />
+        ) : null}
       </body>
     </html>
   );
