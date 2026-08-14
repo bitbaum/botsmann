@@ -1,5 +1,9 @@
 # SSOT: Single Source of Truth (Botsmann)
 
+**Created:** 2026-01-23  
+**Last modified:** 2026-08-14  
+**Last modified summary:** Documented that `FLEETCROWN_FEEDBACK_TOKEN` must be present at `next build` or the widget Script is tree-shaken.
+
 This document is the authoritative SSOT map for where things live and how to use them. Follow this to avoid duplication and drift.
 
 ---
