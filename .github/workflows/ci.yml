@@ -29,14 +29,11 @@ jobs:
 
       - run: npm ci
 
-      - name: Format check
-        run: npm run format:check --if-present
-
-      - name: Lint
-        run: npm run lint --if-present
-
-      - name: Test
-        run: npm run test --if-present
-
-      - name: Build
-        run: npm run build
+      # SSOT: "verified" is defined ONCE, in package.json `verify`
+      # (= format:check + lint + test + build), and run identically here and
+      # locally. This used to hand-copy those four steps, which drifts the
+      # moment `verify` changes — and each carried `--if-present`, so renaming
+      # or deleting a script would have turned its gate into a silent pass. A
+      # gate that cannot go red is worse than no gate, because it is believed.
+      - name: Verify
+        run: npm run verify
