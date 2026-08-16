@@ -29,14 +29,16 @@ jobs:
 
       - run: npm ci
 
-      - name: Format check
-        run: npm run format:check --if-present
-
-      - name: Lint
-        run: npm run lint --if-present
-
-      - name: Test
-        run: npm run test --if-present
-
-      - name: Build
-        run: npm run build
+      # SSOT: format + lint + typecheck + test + build are bundled in the
+      # `verify` npm script (package.json), and CI calls it verbatim so the
+      # gating chain cannot drift from what a developer runs locally. This job
+      # was already NAMED verify but re-inlined the chain, which is how the
+      # typecheck gate went missing: `tsc --noEmit` ran nowhere, and type
+      # errors were caught only as a side effect of `next build`.
+      #
+      # The `--if-present` flags are gone on purpose. They made three of these
+      # gates unable to fail: rename or delete the `lint` script and the step
+      # passes green instead of erroring. A gate that cannot go red is not a
+      # gate — the same defect that let evig ship 25 failing tests under a ✓.
+      - name: Verify (format + lint + typecheck + test + build)
+        run: npm run verify
