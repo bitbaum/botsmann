@@ -55,7 +55,18 @@ export const API_CONFIG = {
 
   // OpenRouter
   OPENROUTER_API_URL: 'https://openrouter.ai/api/v1/chat/completions',
-  OPENROUTER_DEFAULT_MODEL: 'anthropic/claude-sonnet-5',
+  // Must be a FREE id. OpenRouter is the FALLBACK here — reached when Groq's
+  // free tier is spent, i.e. only when nobody is watching. This default was
+  // `anthropic/claude-sonnet-5`, a premium paid model, so "the free tier ran
+  // out" produced a bill rather than a degraded answer — a spending decision
+  // made by an outage instead of by a person. (It also broke the standing rule
+  // that Anthropic is never a primary or fallback provider in this fleet.)
+  //
+  // `openai/gpt-oss-20b:free` reports pricing.prompt = 0 in OpenRouter's own
+  // catalogue (checked 2026-08-16) and was probed live for tool support on
+  // 2026-08-15. Free catalogues rot — when it does, replace it with another
+  // `:free` id, never by dropping the suffix.
+  OPENROUTER_DEFAULT_MODEL: 'openai/gpt-oss-20b:free',
 
   // Token limits
   MAX_CONTEXT_CHARS: 8000,
