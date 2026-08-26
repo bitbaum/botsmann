@@ -1,14 +1,21 @@
 import { generateLLMResponse, isOllamaAvailable, getBestProvider } from '@/lib/llm-client';
 
 // Mock dependencies
+// The model ids are deliberately absent: they come from `ai-kit` now, not from
+// this repo. Asserting them literally here is what made these tests agree with
+// a production outage — they mocked `llama-3.1-8b-instant` and passed happily
+// for as long as Groq had been refusing that id in production.
 jest.mock('@/lib/constants', () => ({
   API_CONFIG: {
     GROQ_API_URL: 'https://api.groq.com/openai/v1/chat/completions',
-    GROQ_MODEL: 'llama-3.1-8b-instant',
     OPENROUTER_API_URL: 'https://openrouter.ai/api/v1/chat/completions',
-    OPENROUTER_DEFAULT_MODEL: 'anthropic/claude-sonnet-5',
   },
 }));
+
+import { freeChain, providerModels } from 'ai-kit';
+
+const GROQ_MODELS = providerModels(freeChain('BOTSMANN')[0]);
+const OPENROUTER_MODELS = providerModels(freeChain('BOTSMANN')[1]);
 
 jest.mock('@/lib/config/env', () => ({
   getServerEnv: jest.fn(() => ({
@@ -78,14 +85,53 @@ describe('generateLLMResponse', () => {
           headers: expect.objectContaining({
             Authorization: 'Bearer test-groq-key',
           }),
-          body: expect.stringContaining('"model":"llama-3.1-8b-instant"'),
+          body: expect.stringContaining(`"model":"${GROQ_MODELS[0]}"`),
         }),
       );
       expect(result).toEqual({
         content: 'Hello back!',
         provider: 'groq',
-        model: 'llama-3.1-8b-instant',
+        model: GROQ_MODELS[0],
       });
+      // The id must come from the maintained list, not from a constant here.
+      // `llama-3.*` is what this repo used to hardcode and what Groq retired.
+      expect(result.model).not.toMatch(/^llama-3/);
+    });
+
+    it('steps to the next model when the vendor has retired the first', async () => {
+      // The actual outage: HTTP 404 model_not_found, with a perfectly valid key.
+      // Before this, `generateWithBestProvider` picked one provider and called
+      // it once, so a retired id was simply a dead chatbot.
+      mockFetch
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 404,
+          text: async () => '{"error":{"code":"model_not_found"}}',
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => ({ choices: [{ message: { content: 'second model' } }] }),
+        });
+
+      const result = await generateLLMResponse(testMessages, { provider: 'groq' });
+
+      expect(result.content).toBe('second model');
+      expect(mockFetch).toHaveBeenCalledTimes(2);
+      // A retry that sends the SAME id is not a fallback.
+      expect(result.model).toBe(GROQ_MODELS[1]);
+    });
+
+    it('reports the whole list when every model fails', async () => {
+      mockFetch.mockResolvedValue({
+        ok: false,
+        status: 429,
+        text: async () => 'rate limit exceeded',
+      });
+
+      await expect(generateLLMResponse(testMessages, { provider: 'groq' })).rejects.toThrow(
+        /all \d+ model\(s\) failed/,
+      );
+      expect(mockFetch).toHaveBeenCalledTimes(GROQ_MODELS.length);
     });
 
     it('uses provided API key over server key', async () => {
@@ -162,10 +208,15 @@ describe('generateLLMResponse', () => {
       expect(mockFetch).toHaveBeenCalledWith(
         'https://openrouter.ai/api/v1/chat/completions',
         expect.objectContaining({
-          body: expect.stringContaining('"model":"anthropic/claude-sonnet-5"'),
+          body: expect.stringContaining(`"model":"${OPENROUTER_MODELS[0]}"`),
         }),
       );
-      expect(result.model).toBe('anthropic/claude-sonnet-5');
+      expect(result.model).toBe(OPENROUTER_MODELS[0]);
+      // This test used to assert `anthropic/claude-sonnet-5` — a PAID model, on
+      // the path reached only when Groq's free tier is spent. It passed, which
+      // is how the fleet's no-Anthropic-fallback rule got broken in the first
+      // place. See free-fallback.test.ts for the cost guarantee itself.
+      expect(result.model).not.toMatch(/anthropic/i);
     });
 
     it('uses custom model when specified', async () => {
