@@ -7,9 +7,26 @@
  * - Ollama (local)
  */
 
+import { freeChain, providerModels } from 'ai-kit';
 import { API_CONFIG } from '@/lib/constants';
 import { getServerEnv, getClientEnv } from '@/lib/config/env';
 import { logger } from './logger';
+
+/**
+ * The models to try at each vendor, in order, from `ai-kit`.
+ *
+ * A list rather than a name, because the previous single ids were retired out
+ * from under this app and there was nothing between that and total failure:
+ * `generateWithBestProvider` picks ONE provider and calls it once. A retired id
+ * was a dead chatbot with a valid key.
+ *
+ * The lists cross models, not vendors — vendor selection above stays exactly as
+ * it was. That is the smaller half of the protection (a spent daily budget is
+ * org-wide, so every model at the same vendor dies together), but it is the
+ * half that covers rot, which is what actually happened here twice.
+ */
+const groqModels = () => providerModels(freeChain('BOTSMANN')[0]);
+const openRouterModels = () => providerModels(freeChain('BOTSMANN')[1]);
 
 export type ModelProvider = 'groq' | 'openrouter' | 'ollama';
 
@@ -75,32 +92,44 @@ async function generateWithGroq(
     throw new Error('Groq API key not configured');
   }
 
-  const response = await fetch(API_CONFIG.GROQ_API_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${key}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: API_CONFIG.GROQ_MODEL,
-      messages,
-      temperature,
-      max_tokens: maxTokens,
-    }),
-  });
+  const models = groqModels();
+  let lastStatus = 0;
+  let lastError = '';
 
-  if (!response.ok) {
-    const error = await response.text();
-    logger.error(`Groq API error: ${response.status}`, error);
-    throw new Error(`Groq API error: ${response.status}`);
+  for (const model of models) {
+    const response = await fetch(API_CONFIG.GROQ_API_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${key}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model,
+        messages,
+        temperature,
+        max_tokens: maxTokens,
+      }),
+    });
+
+    if (!response.ok) {
+      lastStatus = response.status;
+      lastError = await response.text();
+      // A 404 here means the id was retired, which is the whole reason this is
+      // a loop; a 429 means this model is busy or spent. Either way the next id
+      // is a different model and worth asking.
+      logger.error(`Groq API error: ${response.status} (model ${model})`, lastError);
+      continue;
+    }
+
+    const data = await response.json();
+    return {
+      content: data.choices[0]?.message?.content || '',
+      provider: 'groq',
+      model,
+    };
   }
 
-  const data = await response.json();
-  return {
-    content: data.choices[0]?.message?.content || '',
-    provider: 'groq',
-    model: API_CONFIG.GROQ_MODEL,
-  };
+  throw new Error(`Groq API error: ${lastStatus} — all ${models.length} model(s) failed`);
 }
 
 /**
@@ -118,36 +147,47 @@ async function generateWithOpenRouter(
     throw new Error('OpenRouter API key required');
   }
 
-  const selectedModel = model || API_CONFIG.OPENROUTER_DEFAULT_MODEL;
+  // An explicit caller override is honoured as-is and alone: if someone names a
+  // model, silently answering from a different one is worse than failing.
+  const models = model ? [model] : openRouterModels();
+  let lastStatus = 0;
+  let lastError = '';
 
-  const response = await fetch(API_CONFIG.OPENROUTER_API_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-      'HTTP-Referer': getClientEnv().NEXT_PUBLIC_APP_URL,
-      'X-Title': 'Botsmann',
-    },
-    body: JSON.stringify({
+  for (const selectedModel of models) {
+    const response = await fetch(API_CONFIG.OPENROUTER_API_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': getClientEnv().NEXT_PUBLIC_APP_URL,
+        'X-Title': 'Botsmann',
+      },
+      body: JSON.stringify({
+        model: selectedModel,
+        messages,
+        temperature,
+        max_tokens: maxTokens,
+      }),
+    });
+
+    if (!response.ok) {
+      lastStatus = response.status;
+      lastError = await response.text();
+      logger.error(`OpenRouter API error: ${response.status} (model ${selectedModel})`, lastError);
+      continue;
+    }
+
+    const data = await response.json();
+    return {
+      content: data.choices[0]?.message?.content || '',
+      provider: 'openrouter',
       model: selectedModel,
-      messages,
-      temperature,
-      max_tokens: maxTokens,
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    logger.error('OpenRouter API error:', error);
-    throw new Error('OpenRouter API request failed');
+    };
   }
 
-  const data = await response.json();
-  return {
-    content: data.choices[0]?.message?.content || '',
-    provider: 'openrouter',
-    model: selectedModel,
-  };
+  throw new Error(
+    `OpenRouter API request failed: ${lastStatus} — all ${models.length} model(s) failed`,
+  );
 }
 
 /**

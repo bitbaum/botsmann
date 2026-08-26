@@ -48,25 +48,29 @@ export const DOMAIN_ERRORS = {
 } as const;
 
 // API Configuration
+//
+// NO MODEL IDS HERE. They used to live in this object — `llama-3.1-8b-instant`
+// for Groq and `openai/gpt-oss-20b:free` for OpenRouter — and both have since
+// been retired by their vendors. The comment they carried said "free catalogues
+// rot — when it does, replace it with another `:free` id", which was correct
+// and is exactly the maintenance this repo then did not do, because nothing
+// tells a constant when it has stopped being true.
+//
+// So `lib/llm-client.ts` takes them from `ai-kit`, which holds one list for the
+// whole fleet, re-probes it against the live catalogues, and is checked daily by
+// dotfiles/scripts/ci/model-pin-audit.mjs. Pasting an id back into this file
+// removes it from that coverage.
+//
+// The cost rule that lived here still holds and is still tested: OpenRouter is
+// only reached when Groq's free tier is spent — i.e. when nobody is watching —
+// so a paid id there turns an outage into a bill. `ai-kit`'s `modelCost` is now
+// what enforces it, over the whole list rather than over one default.
 export const API_CONFIG = {
   // Groq
   GROQ_API_URL: 'https://api.groq.com/openai/v1/chat/completions',
-  GROQ_MODEL: 'llama-3.1-8b-instant',
 
   // OpenRouter
   OPENROUTER_API_URL: 'https://openrouter.ai/api/v1/chat/completions',
-  // Must be a FREE id. OpenRouter is the FALLBACK here — reached when Groq's
-  // free tier is spent, i.e. only when nobody is watching. This default was
-  // `anthropic/claude-sonnet-5`, a premium paid model, so "the free tier ran
-  // out" produced a bill rather than a degraded answer — a spending decision
-  // made by an outage instead of by a person. (It also broke the standing rule
-  // that Anthropic is never a primary or fallback provider in this fleet.)
-  //
-  // `openai/gpt-oss-20b:free` reports pricing.prompt = 0 in OpenRouter's own
-  // catalogue (checked 2026-08-16) and was probed live for tool support on
-  // 2026-08-15. Free catalogues rot — when it does, replace it with another
-  // `:free` id, never by dropping the suffix.
-  OPENROUTER_DEFAULT_MODEL: 'openai/gpt-oss-20b:free',
 
   // Token limits
   MAX_CONTEXT_CHARS: 8000,
