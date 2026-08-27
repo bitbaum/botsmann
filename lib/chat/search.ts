@@ -6,7 +6,7 @@
  * shared by app/api/chat and app/api/professional-chat routes.
  */
 
-import type { SupabaseClient } from '@supabase/supabase-js';
+import type { AppSupabaseClient } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 import { truncateChunks, joinContext } from './context';
 
@@ -38,7 +38,7 @@ export interface DocumentSearchResult {
  * @param options - Optional filters (documentId, allowedDocumentIds, matchCount, maxContextChars)
  */
 export async function searchUserDocuments(
-  supabase: SupabaseClient,
+  supabase: AppSupabaseClient,
   embedding: number[],
   userId: string,
   options: {

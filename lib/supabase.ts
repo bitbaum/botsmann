@@ -10,9 +10,10 @@
  * Setup: https://supabase.com/dashboard
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 import { createBrowserClient } from '@supabase/ssr';
 import { getClientEnv, getServerEnv } from '@/lib/config/env';
+import { DB_SCHEMA } from '@/lib/constants';
 
 // Database row types
 export interface ConsultationRow {
@@ -65,18 +66,33 @@ export function isSupabaseConfigured(): boolean {
   return Boolean(supabaseUrl && supabaseAnonKey);
 }
 
-// Lazy-loaded Supabase client singleton
-let _supabaseClient: SupabaseClient | null = null;
+function createAnonClient() {
+  const { NEXT_PUBLIC_SUPABASE_URL: supabaseUrl, NEXT_PUBLIC_SUPABASE_ANON_KEY: supabaseAnonKey } =
+    getClientEnv();
 
-export function getSupabaseClient(): SupabaseClient {
+  return createClient(supabaseUrl, supabaseAnonKey, { db: { schema: DB_SCHEMA } });
+}
+
+/**
+ * A client scoped to OUR schema.
+ *
+ * The bare `SupabaseClient` type hardcodes `'public'` as its schema, so
+ * annotating with it silently asserts we query orangecat's tables — and the
+ * compiler rejects the client we actually build. Deriving the type from the
+ * factory keeps the two in step, and survives supabase-js changing the order
+ * of its generic parameters.
+ */
+export type AppSupabaseClient = ReturnType<typeof createAnonClient>;
+
+// Lazy-loaded Supabase client singleton
+let _supabaseClient: AppSupabaseClient | null = null;
+
+export function getSupabaseClient(): AppSupabaseClient {
   if (_supabaseClient) {
     return _supabaseClient;
   }
 
-  const { NEXT_PUBLIC_SUPABASE_URL: supabaseUrl, NEXT_PUBLIC_SUPABASE_ANON_KEY: supabaseAnonKey } =
-    getClientEnv();
-
-  _supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+  _supabaseClient = createAnonClient();
   return _supabaseClient;
 }
 
@@ -105,11 +121,12 @@ export const supabase = {
 };
 
 // Server-side client with service role (for admin operations)
-export function getServiceClient(): SupabaseClient {
+export function getServiceClient() {
   const { NEXT_PUBLIC_SUPABASE_URL: supabaseUrl } = getClientEnv();
   const { SUPABASE_SERVICE_ROLE_KEY: serviceRoleKey } = getServerEnv();
 
   return createClient(supabaseUrl, serviceRoleKey, {
+    db: { schema: DB_SCHEMA },
     auth: {
       autoRefreshToken: false,
       persistSession: false,
@@ -187,5 +204,5 @@ export function createClientComponentClient() {
     return mockClient;
   }
 
-  return createBrowserClient(supabaseUrl, supabaseAnonKey);
+  return createBrowserClient(supabaseUrl, supabaseAnonKey, { db: { schema: DB_SCHEMA } });
 }

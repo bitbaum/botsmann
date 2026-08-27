@@ -8,6 +8,21 @@
  * This file contains domain-specific constants.
  */
 
+/**
+ * The Postgres schema this app's tables live in.
+ *
+ * Botsmann shares one self-hosted Supabase database with orangecat, which owns
+ * `public` and its 128 tables. Our names collide with theirs — `conversations`,
+ * `documents`, `waitlist`, and a function `update_updated_at()` that public
+ * already defines — so our migrations apply into a schema of our own, exactly
+ * as printcraft's do. Every client must be told, or it queries orangecat's
+ * `public` and gets PGRST205 "Could not find the table" (which is the 503
+ * /api/health served for months).
+ *
+ * SSOT: this constant and `supabase:botsmann` in fleetcrown's apps.conf.
+ */
+export const DB_SCHEMA = 'botsmann';
+
 // Domain-specific error messages (extends api-utils ERROR_MESSAGES)
 export const DOMAIN_ERRORS = {
   // Service errors

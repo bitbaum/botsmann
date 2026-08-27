@@ -9,6 +9,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import { DB_SCHEMA } from '../lib/constants';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
@@ -23,7 +24,9 @@ if (!supabaseUrl || !supabaseKey) {
   process.exit(1);
 }
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Our tables live in our own schema, not orangecat's `public` — without this
+// the diagnostic reports every table missing and looks like a broken database.
+const supabase = createClient(supabaseUrl, supabaseKey, { db: { schema: DB_SCHEMA } });
 
 async function testConnection() {
   console.log('🔍 Testing Supabase Connection...\n');
