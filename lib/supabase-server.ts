@@ -10,6 +10,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { getClientEnv } from '@/lib/config/env';
+import { DB_SCHEMA } from '@/lib/constants';
 
 /**
  * Create Supabase client for route handlers (API routes)
@@ -24,6 +25,7 @@ export async function createRouteHandlerClient(_options?: { cookies?: unknown })
   const cookieStore = await cookies();
 
   return createServerClient(supabaseUrl, supabaseAnonKey, {
+    db: { schema: DB_SCHEMA },
     cookies: {
       getAll() {
         return cookieStore.getAll();
