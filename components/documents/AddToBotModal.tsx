@@ -131,7 +131,7 @@ export const AddToBotModal = ({
               <p className="text-gray-600 mb-4">No bots yet</p>
               <Link
                 href="/bots/create"
-                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors text-sm"
+                className="inline-flex items-center px-4 py-2 bg-action text-white rounded-lg font-medium hover:bg-action-hover transition-colors text-sm"
               >
                 Create your first bot
               </Link>
@@ -148,7 +148,7 @@ export const AddToBotModal = ({
                   disabled={importing !== null}
                   className={`w-full flex items-center gap-3 p-3 rounded-lg border transition-colors text-left ${
                     importing === bot.id
-                      ? 'bg-blue-50 border-blue-300'
+                      ? 'bg-action-tint border-edge'
                       : 'bg-gray-50 border-gray-200 hover:bg-gray-100 hover:border-gray-300'
                   } disabled:opacity-60 disabled:cursor-not-allowed`}
                 >
@@ -160,7 +160,7 @@ export const AddToBotModal = ({
                     </p>
                   </div>
                   {importing === bot.id ? (
-                    <div className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin flex-shrink-0" />
+                    <div className="w-5 h-5 border-2 border-edge border-t-transparent rounded-full animate-spin flex-shrink-0" />
                   ) : (
                     <svg
                       className="w-5 h-5 text-gray-400 flex-shrink-0"
@@ -184,10 +184,7 @@ export const AddToBotModal = ({
 
         {/* Footer */}
         <div className="flex items-center justify-between p-4 border-t border-gray-200 bg-gray-50">
-          <Link
-            href="/bots/create"
-            className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-          >
+          <Link href="/bots/create" className="text-sm text-action hover:text-action font-medium">
             + Create new bot
           </Link>
           <button

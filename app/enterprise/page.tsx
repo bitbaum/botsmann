@@ -146,29 +146,25 @@ export default function EnterprisePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-action-tint">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full opacity-10 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-cyan-400 to-blue-600 rounded-full opacity-10 blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-action rounded-full opacity-10 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-action to-action-hover rounded-full opacity-10 blur-3xl" />
       </div>
 
       <main className="relative max-w-screen-xl mx-auto px-6 py-20">
         {/* Hero */}
         <section className="text-center mb-20 pt-8">
-          <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium mb-8">
-            <span className="w-2 h-2 bg-purple-500 rounded-full" />
+          <div className="inline-flex items-center gap-2 bg-action-tint text-action px-4 py-2 rounded-full text-sm font-medium mb-8">
+            <span className="w-2 h-2 bg-action rounded-full" />
             <span>Enterprise-Grade AI Professionals</span>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent">
-              AI Professionals for
-            </span>
+            <span className="text-ink">AI Professionals for</span>
             <br />
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
-              Your Organization
-            </span>
+            <span className="text-action">Your Organization</span>
           </h1>
 
           <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
@@ -179,7 +175,7 @@ export default function EnterprisePage() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a
               href="#contact"
-              className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              className="group bg-action text-white px-8 py-4 rounded-xl text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
               <span className="flex items-center justify-center gap-2">
                 Schedule a Demo
@@ -200,7 +196,7 @@ export default function EnterprisePage() {
             </a>
             <Link
               href="/professionals"
-              className="group border-2 border-gray-300 hover:border-blue-400 px-8 py-4 rounded-xl text-lg font-semibold text-gray-700 hover:text-blue-600 transition-all duration-300"
+              className="group border-2 border-gray-300 hover:border-action px-8 py-4 rounded-xl text-lg font-semibold text-gray-700 hover:text-action transition-all duration-300"
             >
               <span className="flex items-center justify-center gap-2">
                 Try Our Professionals
@@ -226,9 +222,7 @@ export default function EnterprisePage() {
         <section className="mb-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                Built for Your Industry
-              </span>
+              <span className="text-ink">Built for Your Industry</span>
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               AI professionals tailored to the specific needs of your organization
@@ -263,9 +257,7 @@ export default function EnterprisePage() {
         <section className="mb-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                Enterprise Features
-              </span>
+              <span className="text-ink">Enterprise Features</span>
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Everything you need to deploy AI professionals at scale
@@ -278,7 +270,7 @@ export default function EnterprisePage() {
                 key={feature.title}
                 className="bg-white rounded-xl p-6 shadow-md border border-gray-100"
               >
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4 text-blue-600">
+                <div className="w-12 h-12 bg-action-tint rounded-xl flex items-center justify-center mb-4 text-action">
                   {feature.icon}
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">{feature.title}</h3>
@@ -320,9 +312,7 @@ export default function EnterprisePage() {
         <section id="contact" className="scroll-mt-24">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                Get in Touch
-              </span>
+              <span className="text-ink">Get in Touch</span>
             </h2>
             <p className="text-gray-600">
               Schedule a demo or discuss your specific requirements with our team

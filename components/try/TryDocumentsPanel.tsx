@@ -132,12 +132,12 @@ export const TryDocumentsPanel = ({
           htmlFor="file-upload"
           className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-xl cursor-pointer transition-colors ${
             uploading
-              ? 'border-blue-300 bg-blue-50'
-              : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50'
+              ? 'border-edge bg-action-tint'
+              : 'border-gray-300 hover:border-action hover:bg-action-tint'
           }`}
         >
           {uploading ? (
-            <div className="flex items-center gap-2 text-blue-600">
+            <div className="flex items-center gap-2 text-action">
               <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
                 <circle
                   className="opacity-25"

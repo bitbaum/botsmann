@@ -15,8 +15,8 @@ export const DashboardEmptyState: FC<DashboardEmptyStateProps> = ({ displayName 
   return (
     <div className="space-y-6">
       {/* Main CTA Card */}
-      <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-2xl border border-blue-100 p-8 text-center">
-        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+      <div className="bg-gradient-to-br from-action-tint via-white to-action-tint rounded-2xl border border-edge p-8 text-center">
+        <div className="w-16 h-16 bg-gradient-to-br from-action to-action-hover rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
           <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               strokeLinecap="round"
@@ -39,7 +39,7 @@ export const DashboardEmptyState: FC<DashboardEmptyStateProps> = ({ displayName 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link
             href="/documents"
-            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-action to-action-hover text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
@@ -54,7 +54,7 @@ export const DashboardEmptyState: FC<DashboardEmptyStateProps> = ({ displayName 
 
           <Link
             href="/professionals"
-            className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 hover:border-blue-300 text-gray-700 hover:text-blue-600 px-6 py-3 rounded-xl font-semibold transition-all"
+            className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 hover:border-action text-gray-700 hover:text-action px-6 py-3 rounded-xl font-semibold transition-all"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
@@ -82,8 +82,8 @@ export const DashboardEmptyState: FC<DashboardEmptyStateProps> = ({ displayName 
               />
             </svg>
           }
-          iconColor="text-blue-600"
-          iconBg="bg-blue-100"
+          iconColor="text-action"
+          iconBg="bg-action-tint"
           title="Analyze Documents"
           description="Upload contracts, research papers, or any document and get instant answers"
           examples={[
@@ -113,8 +113,8 @@ export const DashboardEmptyState: FC<DashboardEmptyStateProps> = ({ displayName 
 
         <CapabilityCard
           icon={<span className="text-2xl">🤖</span>}
-          iconColor="text-purple-600"
-          iconBg="bg-purple-100"
+          iconColor="text-action"
+          iconBg="bg-action-tint"
           title="Build Custom Bots"
           description="Create your own AI assistant trained on your specific knowledge"
           examples={['Company FAQ bot', 'Product support assistant', 'Personal knowledge base']}

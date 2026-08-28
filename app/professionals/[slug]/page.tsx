@@ -48,14 +48,12 @@ export default async function ProfessionalPage({ params }: PageProps) {
   const colors = getAccentColorClasses(professional.accentColor);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-action-tint">
       {/* Navigation Bar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-2xl border-b border-gray-100/50 shadow-sm">
         <div className="max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Botsmann
-            </span>
+            <span className="text-2xl font-bold text-action">Botsmann</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link
@@ -87,9 +85,7 @@ export default async function ProfessionalPage({ params }: PageProps) {
               </div>
 
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                  {professional.name}
-                </span>
+                <span className="text-ink">{professional.name}</span>
               </h1>
 
               <p className={`text-xl ${colors.text} font-semibold mb-4`}>{professional.title}</p>
@@ -193,7 +189,7 @@ export default async function ProfessionalPage({ params }: PageProps) {
           </section>
 
           {/* How to Get the Most */}
-          <section className="mb-16 bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-8">
+          <section className="mb-16 bg-gradient-to-br from-gray-50 to-action-tint rounded-2xl p-8">
             <h2 className="text-2xl font-bold mb-6 text-gray-900">
               Get the Most Out of {professional.name}
             </h2>

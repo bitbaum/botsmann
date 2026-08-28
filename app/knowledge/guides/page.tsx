@@ -41,7 +41,7 @@ export default async function GuidesPage({ searchParams }: GuidesPageProps) {
       <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border-b border-amber-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6">
-            <Link href="/knowledge" className="hover:text-blue-600">
+            <Link href="/knowledge" className="hover:text-action">
               Knowledge
             </Link>
             <span>/</span>
@@ -112,7 +112,7 @@ export default async function GuidesPage({ searchParams }: GuidesPageProps) {
                   href={`/knowledge/guides?category=${key}${difficultyFilter ? `&difficulty=${difficultyFilter}` : ''}`}
                   className={`px-3 py-1.5 rounded-full text-sm transition-colors flex items-center gap-1 ${
                     categoryFilter === key
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-action text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -147,7 +147,7 @@ export default async function GuidesPage({ searchParams }: GuidesPageProps) {
             {(difficultyFilter || categoryFilter) && (
               <Link
                 href="/knowledge/guides"
-                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center px-4 py-2 bg-action text-white rounded-lg hover:bg-action-hover transition-colors"
               >
                 Clear filters
               </Link>
@@ -156,15 +156,15 @@ export default async function GuidesPage({ searchParams }: GuidesPageProps) {
         )}
 
         {/* CTA Section */}
-        <div className="mt-16 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-center text-white">
+        <div className="mt-16 rounded-2xl bg-action p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">Need Help?</h2>
-          <p className="text-blue-100 mb-6 max-w-xl mx-auto">
+          <p className="text-paper mb-6 max-w-xl mx-auto">
             Can&apos;t find what you&apos;re looking for? Our team is here to help you build your AI
             infrastructure.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center px-6 py-3 bg-white text-action font-semibold rounded-lg hover:bg-gray-100 transition-colors"
           >
             Contact Us
           </Link>

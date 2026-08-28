@@ -9,7 +9,7 @@ export default function BotsList() {
   const readyBots = bots.filter((b) => b.tryLink).map((b) => b.slug);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-action-tint">
       <div className="mx-auto max-w-screen-xl px-6 py-16">
         {/* Header with Core Concept */}
         <div className="text-center mb-16">
@@ -23,7 +23,7 @@ export default function BotsList() {
           <div className="max-w-4xl mx-auto bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
             <div className="grid md:grid-cols-3 gap-6 items-center">
               <div className="text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-16 h-16 bg-action-tint rounded-full flex items-center justify-center mx-auto mb-3">
                   <span className="text-2xl">📥</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">1. Ingest Data</h3>
@@ -33,7 +33,7 @@ export default function BotsList() {
               </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-16 h-16 bg-action-tint rounded-full flex items-center justify-center mx-auto mb-3">
                   <span className="text-2xl">🤖</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">2. AI Processing</h3>
@@ -83,7 +83,7 @@ export default function BotsList() {
               <Link
                 key={bot.slug}
                 href={getChatPathFromBotSlug(bot.slug)}
-                className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-gray-100 hover:border-blue-200"
+                className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-gray-100 hover:border-action"
               >
                 {!isReady && (
                   <span className="absolute right-4 top-4 z-10 inline-block bg-gray-900 text-white text-xs font-semibold px-3 py-1 rounded-full">
@@ -115,7 +115,7 @@ export default function BotsList() {
 
                 {/* Data Flow */}
                 <div className="px-6 pb-4">
-                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-3">
+                  <div className="bg-action-tint rounded-lg p-3">
                     <div className="grid grid-cols-2 gap-3 text-xs">
                       <div>
                         <div className="font-semibold text-gray-700 mb-1">📥 Input</div>
@@ -150,7 +150,7 @@ export default function BotsList() {
 
                 {/* CTA */}
                 <div className="px-6 pb-6">
-                  <div className="flex items-center text-blue-600 font-semibold group-hover:gap-2 transition-all">
+                  <div className="flex items-center text-action font-semibold group-hover:gap-2 transition-all">
                     <span>Chat Now</span>
                     <svg
                       className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
@@ -183,7 +183,7 @@ export default function BotsList() {
           </p>
           <Link
             href="/#collaboration"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-lg transition-all shadow-md"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-action hover:bg-action-hover text-white font-semibold rounded-lg transition-all shadow-md"
           >
             Let's Build Together
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -60,11 +60,11 @@ export default function CreatePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-action-tint">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full opacity-10 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-blue-400 to-cyan-600 rounded-full opacity-10 blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-action to-action-hover rounded-full opacity-10 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-action to-action-hover rounded-full opacity-10 blur-3xl" />
       </div>
 
       <main className="relative max-w-screen-xl mx-auto px-6 py-12">
@@ -106,11 +106,11 @@ export default function CreatePage() {
         {/* Progress Indicator */}
         <div className="flex items-center justify-center gap-4 mb-12">
           <div
-            className={`flex items-center gap-2 ${step === 'pick' ? 'text-purple-600' : 'text-gray-400'}`}
+            className={`flex items-center gap-2 ${step === 'pick' ? 'text-action' : 'text-gray-400'}`}
           >
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                step === 'pick' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-500'
+                step === 'pick' ? 'bg-action text-white' : 'bg-gray-200 text-gray-500'
               }`}
             >
               1
@@ -118,17 +118,17 @@ export default function CreatePage() {
             <span className="hidden sm:inline font-medium">Choose</span>
           </div>
 
-          <div className={`w-12 h-0.5 ${step !== 'pick' ? 'bg-purple-600' : 'bg-gray-200'}`} />
+          <div className={`w-12 h-0.5 ${step !== 'pick' ? 'bg-action' : 'bg-gray-200'}`} />
 
           <div
-            className={`flex items-center gap-2 ${step === 'name' ? 'text-purple-600' : 'text-gray-400'}`}
+            className={`flex items-center gap-2 ${step === 'name' ? 'text-action' : 'text-gray-400'}`}
           >
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                 step === 'name'
-                  ? 'bg-purple-600 text-white'
+                  ? 'bg-action text-white'
                   : step === 'chat'
-                    ? 'bg-purple-600 text-white'
+                    ? 'bg-action text-white'
                     : 'bg-gray-200 text-gray-500'
               }`}
             >
@@ -137,14 +137,14 @@ export default function CreatePage() {
             <span className="hidden sm:inline font-medium">Name</span>
           </div>
 
-          <div className={`w-12 h-0.5 ${step === 'chat' ? 'bg-purple-600' : 'bg-gray-200'}`} />
+          <div className={`w-12 h-0.5 ${step === 'chat' ? 'bg-action' : 'bg-gray-200'}`} />
 
           <div
-            className={`flex items-center gap-2 ${step === 'chat' ? 'text-purple-600' : 'text-gray-400'}`}
+            className={`flex items-center gap-2 ${step === 'chat' ? 'text-action' : 'text-gray-400'}`}
           >
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                step === 'chat' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-500'
+                step === 'chat' ? 'bg-action text-white' : 'bg-gray-200 text-gray-500'
               }`}
             >
               3

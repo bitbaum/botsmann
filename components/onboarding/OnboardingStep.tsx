@@ -36,7 +36,7 @@ export const OnboardingStep = ({
       {/* Step Number / Checkmark */}
       <div
         className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-          completed ? 'bg-green-500 text-white' : 'bg-blue-100 text-blue-700'
+          completed ? 'bg-green-500 text-white' : 'bg-action-tint text-action'
         }`}
       >
         {completed ? (
@@ -71,7 +71,7 @@ export const OnboardingStep = ({
       {!completed && (
         <div className="flex-shrink-0">
           {href ? (
-            <span className="text-blue-600 text-sm font-medium">Go &rarr;</span>
+            <span className="text-action text-sm font-medium">Go &rarr;</span>
           ) : onComplete ? (
             <button
               onClick={(e) => {
@@ -79,7 +79,7 @@ export const OnboardingStep = ({
                 e.stopPropagation();
                 onComplete();
               }}
-              className="text-blue-600 text-sm font-medium hover:text-blue-700"
+              className="text-action text-sm font-medium hover:text-action"
             >
               Mark done
             </button>
