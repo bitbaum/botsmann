@@ -2,8 +2,7 @@
 
 import { useState, useRef, type FC, type DragEvent, type ChangeEvent } from 'react';
 import type { FileCategory, UploadedFile } from '@/lib/demo/types';
-import type { BotAccentColor } from '@/types/bot';
-import { ACCENT_DROPZONE_CLASSES } from '@/lib/config/colors';
+import { BRAND_DROPZONE } from '@/lib/config/colors';
 import { formatBytes } from '@/lib/format';
 
 interface DemoFileUploadProps {
@@ -12,7 +11,6 @@ interface DemoFileUploadProps {
   onUpload: (files: File[]) => Promise<void>;
   onRemove: (fileId: string) => void;
   isUploading: boolean;
-  accentColor: BotAccentColor;
 }
 
 function getStatusIcon(status: UploadedFile['status']) {
@@ -95,11 +93,10 @@ export const DemoFileUpload: FC<DemoFileUploadProps> = ({
   onUpload,
   onRemove,
   isUploading,
-  accentColor,
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const colors = ACCENT_DROPZONE_CLASSES[accentColor];
+  const colors = BRAND_DROPZONE;
 
   // Get all accepted file types from categories
   const acceptedTypes = Array.from(new Set(categories.flatMap((c) => c.acceptedTypes))).join(',');

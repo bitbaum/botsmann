@@ -2,12 +2,10 @@
 
 import type { FC } from 'react';
 import type { DemoStep } from '@/lib/demo/types';
-import type { BotAccentColor } from '@/types/bot';
-import { ACCENT_PROGRESS_CLASSES } from '@/lib/config/colors';
+import { BRAND_PROGRESS } from '@/lib/config/colors';
 
 interface DemoProgressProps {
   currentStep: DemoStep;
-  accentColor: BotAccentColor;
 }
 
 const steps: { id: DemoStep; label: string; number: number }[] = [
@@ -15,8 +13,8 @@ const steps: { id: DemoStep; label: string; number: number }[] = [
   { id: 'chat', label: 'Chat with your assistant', number: 2 },
 ];
 
-export const DemoProgress: FC<DemoProgressProps> = ({ currentStep, accentColor }) => {
-  const colors = ACCENT_PROGRESS_CLASSES[accentColor];
+export const DemoProgress: FC<DemoProgressProps> = ({ currentStep }) => {
+  const colors = BRAND_PROGRESS;
   const currentIndex = steps.findIndex((s) => s.id === currentStep);
 
   return (

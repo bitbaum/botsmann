@@ -528,6 +528,39 @@ const ACCENT_CLASS_SETS: Record<CustomBotAccentColor, AccentClasses> = {
  * app/globals.css. The per-colour sets below remain for user-created custom
  * bots, where accent_color is a real column the owner chooses.
  */
+// ---------------------------------------------------------------------------
+// Brand equivalents of the per-colour maps above.
+//
+// First-party surfaces (the six bots, their demo, the bot switcher) use these.
+// The per-colour maps remain for user-created bots, where the owner picks
+// accent_color and it is stored on the row.
+// ---------------------------------------------------------------------------
+
+export const BRAND_BUTTON = 'bg-action hover:bg-action-hover focus:ring-action';
+export const BRAND_FOCUS_RING = 'focus:border-action focus:ring-action';
+export const BRAND_STARTER = 'border-edge hover:border-action hover:bg-action-tint text-action';
+export const BRAND_CHECKBOX = 'text-action focus:ring-action';
+export const BRAND_PROGRESS = {
+  active: 'border-action bg-action-tint',
+  completed: 'bg-action border-action',
+  text: 'text-action',
+};
+export const BRAND_MESSAGE = { bg: 'bg-action-tint', border: 'border-edge' };
+export const BRAND_DROPZONE = {
+  border: 'border-edge',
+  bg: 'bg-action-tint',
+  text: 'text-action',
+};
+export const BRAND_CONTEXT_PANEL = {
+  bg: 'bg-action-tint',
+  text: 'text-action',
+  border: 'border-edge',
+};
+export const BRAND_SWITCHER = {
+  button: 'hover:bg-action-tint',
+  active: 'bg-action-tint text-action',
+};
+
 export const BRAND_ACCENT: AccentClasses = {
   primary: 'bg-action',
   text: 'text-action',

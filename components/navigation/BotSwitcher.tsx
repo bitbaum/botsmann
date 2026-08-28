@@ -5,26 +5,23 @@ import { Popover, Transition, Portal } from '@headlessui/react';
 import Link from 'next/link';
 import bots from '@/data/bots';
 import { getBotPath } from '@/lib/routes';
-import { BOT_SWITCHER_COLORS, type CustomBotAccentColor } from '@/lib/config/colors';
+import { BRAND_SWITCHER } from '@/lib/config/colors';
 
 interface BotSwitcherProps {
   currentBotSlug: string;
   currentBotTitle: string;
   currentBotEmoji: string;
-  accentColor?: string;
 }
 
 export function BotSwitcher({
   currentBotSlug,
   currentBotTitle,
   currentBotEmoji,
-  accentColor = 'blue',
 }: BotSwitcherProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   // Filter out current bot and bots without nav config
   const otherBots = bots.filter((bot) => bot.slug !== currentBotSlug && bot.nav);
-  const colors =
-    BOT_SWITCHER_COLORS[accentColor as CustomBotAccentColor] || BOT_SWITCHER_COLORS.blue;
+  const colors = BRAND_SWITCHER;
 
   // Get button position for portal positioning
   const getDropdownStyle = () => {

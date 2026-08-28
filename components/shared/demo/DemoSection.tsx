@@ -39,7 +39,7 @@ export const DemoSection: FC<DemoSectionProps> = ({ botSlug, className = '' }) =
   return (
     <div className={`${className}`}>
       {/* Progress indicator */}
-      <DemoProgress currentStep={state.step} accentColor={config.accentColor} />
+      <DemoProgress currentStep={state.step} />
 
       {/* Intake step */}
       {state.step === 'intake' && (
@@ -49,7 +49,6 @@ export const DemoSection: FC<DemoSectionProps> = ({ botSlug, className = '' }) =
             responses={state.intakeResponses}
             onUpdate={state.updateIntake}
             onStart={state.startChat}
-            accentColor={config.accentColor}
             icon={config.icon}
             botName={botName}
           />
@@ -67,7 +66,6 @@ export const DemoSection: FC<DemoSectionProps> = ({ botSlug, className = '' }) =
               isLoading={state.isLoading}
               starterQuestions={config.starterQuestions}
               botIcon={config.icon}
-              accentColor={config.accentColor}
               outputConfig={config.outputConfig}
             />
           </div>
@@ -80,7 +78,6 @@ export const DemoSection: FC<DemoSectionProps> = ({ botSlug, className = '' }) =
               intakeResponses={state.intakeResponses}
               files={state.files}
               onReset={state.reset}
-              accentColor={config.accentColor}
             />
 
             {/* File upload */}
@@ -108,7 +105,6 @@ export const DemoSection: FC<DemoSectionProps> = ({ botSlug, className = '' }) =
                   onUpload={state.uploadFiles}
                   onRemove={state.removeFile}
                   isUploading={state.isUploading}
-                  accentColor={config.accentColor}
                 />
               </div>
             )}

@@ -2,24 +2,17 @@
 
 import type { FC } from 'react';
 import type { ChatMessage, DemoOutputConfig } from '@/lib/demo/types';
-import type { BotAccentColor } from '@/types/bot';
-import { ACCENT_MESSAGE_CLASSES } from '@/lib/config/colors';
+import { BRAND_MESSAGE } from '@/lib/config/colors';
 
 interface DemoMessageProps {
   message: ChatMessage;
   botIcon: string;
-  accentColor: BotAccentColor;
   outputConfig: DemoOutputConfig;
 }
 
-export const DemoMessage: FC<DemoMessageProps> = ({
-  message,
-  botIcon,
-  accentColor,
-  outputConfig,
-}) => {
+export const DemoMessage: FC<DemoMessageProps> = ({ message, botIcon, outputConfig }) => {
   const isUser = message.role === 'user';
-  const colors = ACCENT_MESSAGE_CLASSES[accentColor];
+  const colors = BRAND_MESSAGE;
 
   return (
     <div className={`flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}>
@@ -100,13 +93,12 @@ export const DemoMessage: FC<DemoMessageProps> = ({
 // Disclaimer component shown at bottom of chat
 interface DemoDisclaimerProps {
   config: DemoOutputConfig;
-  accentColor: BotAccentColor;
 }
 
-export const DemoDisclaimer: FC<DemoDisclaimerProps> = ({ config, accentColor }) => {
+export const DemoDisclaimer: FC<DemoDisclaimerProps> = ({ config }) => {
   if (!config.showDisclaimer || !config.disclaimerText) return null;
 
-  const colors = ACCENT_MESSAGE_CLASSES[accentColor];
+  const colors = BRAND_MESSAGE;
 
   return (
     <div className={`${colors.bg} ${colors.border} border rounded-lg p-3 text-xs text-gray-600`}>

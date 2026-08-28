@@ -15,7 +15,6 @@ interface BotNavigationProps {
   botTitle: string;
   botEmoji: string;
   botDescription?: string;
-  accentColor?: string;
   menuItems: BotMenuItem[];
   chatLink?: string;
   sections?: boolean;
@@ -30,7 +29,6 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
   botTitle,
   botEmoji,
   botDescription: _botDescription = '',
-  accentColor = 'blue',
   menuItems: sectionMenuItems,
   chatLink,
   sections = true,
@@ -79,7 +77,6 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
               currentBotSlug={botSlug}
               currentBotTitle={botTitle}
               currentBotEmoji={botEmoji}
-              accentColor={accentColor}
             />
           </div>
 
