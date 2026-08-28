@@ -63,9 +63,7 @@ export const TemplatePicker: FC<TemplatePickerProps> = ({ onSelect }) => {
       {/* Title */}
       <div className="text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-            Who Do You Want to Create?
-          </span>
+          <span className="text-action">Who Do You Want to Create?</span>
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Pick a template and start chatting in under 60 seconds

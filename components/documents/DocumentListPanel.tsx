@@ -111,7 +111,7 @@ export const DocumentListPanel = ({
             <div
               key={doc.id}
               className={`p-4 border rounded-lg ${
-                selectedDocId === doc.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                selectedDocId === doc.id ? 'border-edge bg-action-tint' : 'border-gray-200'
               }`}
             >
               <div className="flex items-start justify-between">
@@ -133,7 +133,7 @@ export const DocumentListPanel = ({
                     <button
                       onClick={() => handleProcess(doc.id)}
                       disabled={processing === doc.id}
-                      className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200 disabled:opacity-50"
+                      className="px-3 py-1 text-sm bg-surface text-action rounded hover:bg-action-tint disabled:opacity-50"
                     >
                       {processing === doc.id ? 'Processing...' : 'Process'}
                     </button>
@@ -143,7 +143,7 @@ export const DocumentListPanel = ({
                       {onOpenAddToBot && (
                         <button
                           onClick={() => onOpenAddToBot(doc)}
-                          className="px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200"
+                          className="px-3 py-1 text-sm bg-surface text-action rounded hover:bg-action-tint"
                           title="Add to Bot"
                         >
                           + Bot
@@ -153,7 +153,7 @@ export const DocumentListPanel = ({
                         onClick={() => onSelectDoc(selectedDocId === doc.id ? null : doc.id)}
                         className={`px-3 py-1 text-sm rounded ${
                           selectedDocId === doc.id
-                            ? 'bg-blue-600 text-white'
+                            ? 'bg-action text-white'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >

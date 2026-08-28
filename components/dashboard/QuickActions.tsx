@@ -94,19 +94,19 @@ interface QuickActionCardProps {
 
 function QuickActionCard({ href, icon, label, color }: QuickActionCardProps) {
   const colorClasses = {
-    blue: 'hover:bg-blue-50 hover:border-blue-200',
+    blue: 'hover:bg-action-tint hover:border-action',
     green: 'hover:bg-green-50 hover:border-green-200',
-    purple: 'hover:bg-purple-50 hover:border-purple-200',
+    purple: 'hover:bg-action-tint hover:border-action',
     orange: 'hover:bg-orange-50 hover:border-orange-200',
-    indigo: 'hover:bg-indigo-50 hover:border-indigo-200',
+    indigo: 'hover:bg-action-tint hover:border-action',
   };
 
   const iconColorClasses = {
-    blue: 'text-blue-600',
+    blue: 'text-action',
     green: 'text-green-600',
-    purple: 'text-purple-600',
+    purple: 'text-action',
     orange: 'text-orange-600',
-    indigo: 'text-indigo-600',
+    indigo: 'text-action',
   };
 
   return (

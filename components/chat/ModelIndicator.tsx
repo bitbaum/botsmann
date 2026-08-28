@@ -47,7 +47,7 @@ export const ModelIndicator: FC<ModelIndicatorProps> = ({
           className={`px-2 py-0.5 rounded text-xs font-medium ${
             tier.privacyLevel === 'maximum'
               ? 'bg-green-100 text-green-700'
-              : 'bg-blue-100 text-blue-700'
+              : 'bg-action-tint text-action'
           }`}
         >
           {tier.privacyLevel === 'maximum' ? 'Private' : 'Cloud'}

@@ -73,7 +73,7 @@ const mdxComponents = {
         : '';
     return (
       <h2 id={id} className="text-2xl font-bold text-gray-900 mt-8 mb-4 scroll-mt-24" {...props}>
-        <a href={`#${id}`} className="hover:text-blue-600 transition-colors">
+        <a href={`#${id}`} className="hover:text-action transition-colors">
           {children}
         </a>
       </h2>
@@ -89,7 +89,7 @@ const mdxComponents = {
         : '';
     return (
       <h3 id={id} className="text-xl font-semibold text-gray-900 mt-6 mb-3 scroll-mt-24" {...props}>
-        <a href={`#${id}`} className="hover:text-blue-600 transition-colors">
+        <a href={`#${id}`} className="hover:text-action transition-colors">
           {children}
         </a>
       </h3>
@@ -118,7 +118,7 @@ const mdxComponents = {
   a: ({ href, children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a
       href={href}
-      className="text-blue-600 hover:text-blue-800 underline transition-colors"
+      className="text-action hover:text-action underline transition-colors"
       target={href?.startsWith('http') ? '_blank' : undefined}
       rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
       {...props}
@@ -128,7 +128,7 @@ const mdxComponents = {
   ),
   blockquote: ({ children, ...props }: React.HTMLAttributes<HTMLQuoteElement>) => (
     <blockquote
-      className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-blue-50 rounded-r-lg italic text-gray-700"
+      className="border-l-4 border-edge pl-4 py-2 my-4 bg-action-tint rounded-r-lg italic text-gray-700"
       {...props}
     >
       {children}
@@ -217,21 +217,21 @@ export default async function GuidePage({ params }: GuidePageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100">
+      <div className="bg-action-tint border-b border-edge">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6">
-            <Link href="/knowledge" className="hover:text-blue-600">
+            <Link href="/knowledge" className="hover:text-action">
               Knowledge
             </Link>
             <span>/</span>
-            <Link href="/knowledge/guides" className="hover:text-blue-600">
+            <Link href="/knowledge/guides" className="hover:text-action">
               Guides
             </Link>
             <span>/</span>
             <Link
               href={`/knowledge/guides?category=${metadata.category}`}
-              className="hover:text-blue-600 flex items-center gap-1"
+              className="hover:text-action flex items-center gap-1"
             >
               <span>{categoryInfo.icon}</span>
               <span>{categoryInfo.label}</span>
@@ -277,7 +277,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
 
           {/* Prerequisites */}
           {metadata.prerequisites && metadata.prerequisites.length > 0 && (
-            <div className="mt-6 p-4 bg-white/50 rounded-lg border border-blue-100">
+            <div className="mt-6 p-4 bg-white/50 rounded-lg border border-edge">
               <h3 className="text-sm font-semibold text-gray-900 mb-2">Prerequisites</h3>
               <ul className="flex flex-wrap gap-2">
                 {metadata.prerequisites.map((prereq) => (
@@ -355,13 +355,13 @@ export default async function GuidePage({ params }: GuidePageProps) {
                 <Link
                   key={relatedGuide.slug}
                   href={`/knowledge/guides/${relatedGuide.slug}`}
-                  className="group p-6 bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all"
+                  className="group p-6 bg-white rounded-xl border border-gray-200 hover:border-action hover:shadow-lg transition-all"
                 >
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-lg">{categoryConfig[relatedGuide.category].icon}</span>
                     <DifficultyBadge level={relatedGuide.difficulty} size="sm" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
+                  <h3 className="font-semibold text-gray-900 group-hover:text-action transition-colors mb-2">
                     {relatedGuide.title}
                   </h3>
                   <p className="text-sm text-gray-600 line-clamp-2">{relatedGuide.description}</p>
@@ -372,21 +372,21 @@ export default async function GuidePage({ params }: GuidePageProps) {
         )}
 
         {/* CTA Section */}
-        <div className="mt-16 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-center text-white">
+        <div className="mt-16 rounded-2xl bg-action p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">Ready to Build?</h2>
-          <p className="text-blue-100 mb-6 max-w-xl mx-auto">
+          <p className="text-paper mb-6 max-w-xl mx-auto">
             Put what you&apos;ve learned into practice. Start building your AI infrastructure today.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/knowledge/guides"
-              className="inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-white text-action font-semibold rounded-lg hover:bg-gray-100 transition-colors"
             >
               Browse More Guides
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-400 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-action text-white font-semibold rounded-lg hover:bg-action-hover transition-colors"
             >
               Get Help
             </Link>

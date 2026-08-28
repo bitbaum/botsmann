@@ -79,7 +79,7 @@ export const TryChatPanel = ({ documents, onError }: TryChatPanelProps) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col h-[calc(100vh-16rem)] min-h-[400px] max-h-[600px] md:max-h-none md:h-[600px]">
       {/* Chat Header */}
-      <div className="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
+      <div className="px-6 py-4 border-b border-gray-100 bg-action-tint">
         <h2 className="text-lg font-bold text-gray-900">Chat</h2>
         <p className="text-sm text-gray-600">Ask questions about your documents</p>
       </div>
@@ -89,9 +89,9 @@ export const TryChatPanel = ({ documents, onError }: TryChatPanelProps) => {
         {documents.length === 0 ? (
           <div className="flex items-center justify-center h-full text-gray-500 text-center">
             <div className="max-w-sm">
-              <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center">
+              <div className="w-20 h-20 mx-auto mb-4 bg-action-tint rounded-2xl flex items-center justify-center">
                 <svg
-                  className="w-10 h-10 text-blue-500"
+                  className="w-10 h-10 text-action"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -119,7 +119,7 @@ export const TryChatPanel = ({ documents, onError }: TryChatPanelProps) => {
         ) : messages.length === 0 ? (
           <div className="flex items-center justify-center h-full text-gray-500 text-center">
             <div className="max-w-md">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-100 to-blue-100 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-100 to-action-tint rounded-full flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-green-500"
                   fill="none"
@@ -141,25 +141,25 @@ export const TryChatPanel = ({ documents, onError }: TryChatPanelProps) => {
               <div className="flex flex-wrap justify-center gap-2">
                 <button
                   onClick={() => setInput('What is this document about?')}
-                  className="px-3 py-1.5 text-sm bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors"
+                  className="px-3 py-1.5 text-sm bg-surface text-action rounded-full hover:bg-action-tint transition-colors"
                 >
                   What is this document about?
                 </button>
                 <button
                   onClick={() => setInput('Summarize the key points')}
-                  className="px-3 py-1.5 text-sm bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors"
+                  className="px-3 py-1.5 text-sm bg-surface text-action rounded-full hover:bg-action-tint transition-colors"
                 >
                   Summarize the key points
                 </button>
                 <button
                   onClick={() => setInput('What are the main conclusions?')}
-                  className="px-3 py-1.5 text-sm bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors"
+                  className="px-3 py-1.5 text-sm bg-surface text-action rounded-full hover:bg-action-tint transition-colors"
                 >
                   What are the main conclusions?
                 </button>
                 <button
                   onClick={() => setInput('List any action items or recommendations')}
-                  className="px-3 py-1.5 text-sm bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors"
+                  className="px-3 py-1.5 text-sm bg-surface text-action rounded-full hover:bg-action-tint transition-colors"
                 >
                   List action items
                 </button>
@@ -174,7 +174,7 @@ export const TryChatPanel = ({ documents, onError }: TryChatPanelProps) => {
             >
               <div
                 className={`max-w-[85%] rounded-2xl px-4 py-3 ${
-                  msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-900'
+                  msg.role === 'user' ? 'bg-action text-white' : 'bg-gray-100 text-gray-900'
                 }`}
               >
                 <p className="whitespace-pre-wrap">{msg.content}</p>
@@ -246,12 +246,12 @@ export const TryChatPanel = ({ documents, onError }: TryChatPanelProps) => {
                 : 'Ask a question about your documents...'
             }
             disabled={isLoading || documents.length === 0}
-            className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all disabled:opacity-50 disabled:bg-gray-50"
+            className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:border-action focus:ring-2 focus:ring-action transition-all disabled:opacity-50 disabled:bg-gray-50"
           />
           <button
             type="submit"
             disabled={isLoading || !input.trim() || documents.length === 0}
-            className="px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            className="px-6 py-3 bg-action text-white rounded-xl font-medium hover:bg-action-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
             title="Send (Cmd+Enter)"
           >
             Send

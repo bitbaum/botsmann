@@ -43,7 +43,7 @@ export function Navigation() {
       {/* Mobile Menu Button */}
       <button
         type="button"
-        className="lg:hidden rounded-md p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="lg:hidden rounded-md p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-action"
         onClick={() => setMobileMenuOpen(true)}
         aria-label="Open menu"
       >

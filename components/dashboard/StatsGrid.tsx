@@ -84,12 +84,12 @@ interface StatCardProps {
 
 function StatCard({ label, value, subtext, icon, color, loading }: StatCardProps) {
   const colorClasses = {
-    blue: 'bg-blue-50 text-blue-600',
+    blue: 'bg-action-tint text-action',
     green: 'bg-green-50 text-green-600',
-    purple: 'bg-purple-50 text-purple-600',
+    purple: 'bg-action-tint text-action',
     yellow: 'bg-yellow-50 text-yellow-600',
     orange: 'bg-orange-50 text-orange-600',
-    indigo: 'bg-indigo-50 text-indigo-600',
+    indigo: 'bg-action-tint text-action',
   };
 
   return (

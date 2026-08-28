@@ -72,9 +72,9 @@ export function SiteMenuDropdown({ className = '' }: SiteMenuDropdownProps) {
               <Popover.Panel static style={getDropdownStyle()} className="w-56">
                 <div className="overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-black ring-opacity-5 border border-gray-100">
                   {/* Header */}
-                  <div className="border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50 px-4 py-3">
+                  <div className="border-b border-gray-100 bg-action-tint px-4 py-3">
                     <Link href="/" onClick={() => close()} className="flex items-center gap-2">
-                      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-sm px-2 py-1 rounded">
+                      <div className="bg-action text-white font-bold text-sm px-2 py-1 rounded">
                         B
                       </div>
                       <span className="text-sm font-semibold text-gray-900">Botsmann</span>
@@ -117,7 +117,7 @@ export function SiteMenuDropdown({ className = '' }: SiteMenuDropdownProps) {
                     <Link
                       href="/contact"
                       onClick={() => close()}
-                      className="flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity"
+                      className="flex items-center justify-center gap-2 rounded-lg bg-action px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity"
                     >
                       Contact Us
                     </Link>

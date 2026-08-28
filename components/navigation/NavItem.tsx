@@ -48,8 +48,8 @@ export function NavItem({ item, isActive, onNavigate }: NavItemProps) {
       <Link
         href={item.path}
         className={`text-sm font-medium transition-colors ${
-          isActive ? 'text-blue-600' : 'text-gray-600'
-        } hover:text-blue-600`}
+          isActive ? 'text-action' : 'text-gray-600'
+        } hover:text-action`}
       >
         {item.label}
       </Link>
@@ -64,8 +64,8 @@ export function NavItem({ item, isActive, onNavigate }: NavItemProps) {
           <Popover.Button
             ref={buttonRef}
             className={`group inline-flex items-center gap-1 text-sm font-medium transition-colors focus:outline-none ${
-              open || isActive ? 'text-blue-600' : 'text-gray-600'
-            } hover:text-blue-600`}
+              open || isActive ? 'text-action' : 'text-gray-600'
+            } hover:text-action`}
           >
             {item.label}
             <ChevronIcon open={open} className="h-4 w-4" />

@@ -154,7 +154,7 @@ function AuthCallbackContent() {
           <div className="space-y-3">
             <Link
               href={ROUTES.AUTH.SIGNIN}
-              className="block w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors text-center"
+              className="block w-full py-3 bg-action text-white rounded-lg font-medium hover:bg-action-hover transition-colors text-center"
             >
               Go to Sign In
             </Link>
@@ -200,7 +200,7 @@ function LoadingFallback() {
  */
 export default function AuthCallbackPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-b from-action-tint to-white flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <Link href="/" className="text-3xl font-bold text-gray-900">

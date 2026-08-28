@@ -124,7 +124,7 @@ const TierCard: FC<TierCardProps> = ({ tier }) => {
   return (
     <div
       className={`p-4 rounded-lg border ${
-        isPrivate ? 'border-green-200 bg-green-50' : 'border-blue-200 bg-blue-50'
+        isPrivate ? 'border-green-200 bg-green-50' : 'border-edge bg-action-tint'
       }`}
     >
       <div className="flex items-center gap-2 mb-2">
@@ -132,7 +132,7 @@ const TierCard: FC<TierCardProps> = ({ tier }) => {
         <h3 className="font-semibold text-gray-900">{tier.name}</h3>
         <span
           className={`px-2 py-0.5 rounded text-xs font-medium ${
-            isPrivate ? 'bg-green-200 text-green-800' : 'bg-blue-200 text-blue-800'
+            isPrivate ? 'bg-green-200 text-green-800' : 'bg-action-tint text-action'
           }`}
         >
           {tier.costIndicator}

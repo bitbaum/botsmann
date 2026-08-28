@@ -22,7 +22,7 @@ export function RecentActivity({ documents, bots, loading }: RecentActivityProps
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-gray-900">Recent Documents</h2>
-          <Link href="/documents" className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+          <Link href="/documents" className="text-action hover:text-action text-sm font-medium">
             View all
           </Link>
         </div>
@@ -48,10 +48,7 @@ export function RecentActivity({ documents, bots, loading }: RecentActivityProps
             }
             message="No documents yet"
             action={
-              <Link
-                href="/documents"
-                className="text-blue-600 hover:text-blue-700 text-sm font-medium"
-              >
+              <Link href="/documents" className="text-action hover:text-action text-sm font-medium">
                 Upload your first document
               </Link>
             }
@@ -69,7 +66,7 @@ export function RecentActivity({ documents, bots, loading }: RecentActivityProps
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-gray-900">Your Custom Bots</h2>
-          <Link href="/bots/mine" className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+          <Link href="/bots/mine" className="text-action hover:text-action text-sm font-medium">
             Manage bots
           </Link>
         </div>
@@ -83,7 +80,7 @@ export function RecentActivity({ documents, bots, loading }: RecentActivityProps
             action={
               <Link
                 href="/bots/create"
-                className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                className="text-action hover:text-action text-sm font-medium"
               >
                 Create your first bot
               </Link>

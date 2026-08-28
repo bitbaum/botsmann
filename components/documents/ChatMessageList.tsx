@@ -33,7 +33,7 @@ export const ChatMessageList = ({
           <div
             key={msg.id || i}
             className={`p-4 rounded-lg ${
-              msg.role === 'user' ? 'bg-blue-100 ml-8' : 'bg-gray-100 mr-8'
+              msg.role === 'user' ? 'bg-action-tint ml-8' : 'bg-gray-100 mr-8'
             }`}
           >
             <p className="text-gray-900 whitespace-pre-wrap">{msg.content}</p>

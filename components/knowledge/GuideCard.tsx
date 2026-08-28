@@ -18,12 +18,12 @@ export function GuideCard({ guide }: GuideCardProps) {
   return (
     <Link
       href={`/knowledge/guides/${guide.slug}`}
-      className="group block rounded-xl border border-gray-200 bg-white p-6 transition-all hover:border-blue-300 hover:shadow-lg"
+      className="group block rounded-xl border border-gray-200 bg-white p-6 transition-all hover:border-action hover:shadow-lg"
     >
       {/* Header with icon and difficulty */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-xl group-hover:bg-blue-50 transition-colors">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-xl group-hover:bg-action-tint transition-colors">
             {guide.icon || category.icon}
           </div>
           <div>
@@ -36,7 +36,7 @@ export function GuideCard({ guide }: GuideCardProps) {
       </div>
 
       {/* Title */}
-      <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
+      <h3 className="text-lg font-semibold text-gray-900 group-hover:text-action transition-colors mb-2">
         {guide.title}
       </h3>
 
@@ -57,7 +57,7 @@ export function GuideCard({ guide }: GuideCardProps) {
             </span>
           )}
         </div>
-        <span className="text-blue-600 font-medium group-hover:underline">Read guide</span>
+        <span className="text-action font-medium group-hover:underline">Read guide</span>
       </div>
 
       {/* Tags */}

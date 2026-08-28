@@ -4,13 +4,11 @@ import { professionals } from '@/data/professionals';
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-action-tint">
       {/* Hero */}
       <section className="max-w-4xl mx-auto px-6 pt-20 pb-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">
-          <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent">
-            Expert Advice for Everyone
-          </span>
+          <span className="text-ink">Expert Advice for Everyone</span>
         </h1>
         <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
           Botsmann brings AI-powered professionals to your fingertips. Get guidance from specialized
@@ -66,7 +64,7 @@ export default function About() {
       {/* Privacy First */}
       <section className="max-w-4xl mx-auto px-6 py-12">
         <h2 className="text-2xl font-bold mb-6 text-gray-900">Privacy First</h2>
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
+        <div className="bg-action-tint rounded-2xl p-8 border border-edge">
           <p className="text-lg text-gray-700 mb-6">
             Your conversations with our AI professionals are private. We do not use your data to
             train models. We do not share your information with third parties. Your health
@@ -100,7 +98,7 @@ export default function About() {
       {/* The Future: Embodied AI */}
       <section className="max-w-4xl mx-auto px-6 py-12">
         <h2 className="text-2xl font-bold mb-6 text-gray-900">The Future: Embodied AI</h2>
-        <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+        <div className="bg-action-tint rounded-2xl p-8 border border-edge">
           <p className="text-lg text-gray-700 mb-6">
             We envision a future where AI professionals are not just on your screen but present in
             your world. Imagine a health advisor that monitors your wellbeing through wearables. A
@@ -130,25 +128,25 @@ export default function About() {
           </p>
           <ul className="space-y-3 mb-8">
             <li className="flex items-center gap-3">
-              <span className="text-blue-600">&#10140;</span>
+              <span className="text-action">&#10140;</span>
               <span className="text-gray-700">On-premises deployment options</span>
             </li>
             <li className="flex items-center gap-3">
-              <span className="text-blue-600">&#10140;</span>
+              <span className="text-action">&#10140;</span>
               <span className="text-gray-700">SSO and team management</span>
             </li>
             <li className="flex items-center gap-3">
-              <span className="text-blue-600">&#10140;</span>
+              <span className="text-action">&#10140;</span>
               <span className="text-gray-700">HIPAA and GDPR compliance</span>
             </li>
             <li className="flex items-center gap-3">
-              <span className="text-blue-600">&#10140;</span>
+              <span className="text-action">&#10140;</span>
               <span className="text-gray-700">Custom training on your knowledge base</span>
             </li>
           </ul>
           <Link
             href="/enterprise"
-            className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 bg-action text-white px-6 py-3 rounded-xl font-semibold hover:bg-action-hover transition-colors"
           >
             Learn About Enterprise
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,7 +163,7 @@ export default function About() {
 
       {/* CTA */}
       <section className="max-w-4xl mx-auto px-6 py-16">
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-white text-center">
+        <div className="bg-action rounded-2xl p-8 md:p-12 text-white text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Ready to Meet Your AI Professional?
           </h2>

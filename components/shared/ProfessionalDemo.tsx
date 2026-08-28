@@ -241,7 +241,7 @@ export const ProfessionalDemo: FC<ProfessionalDemoProps> = ({ professional }) =>
                 <button
                   key={index}
                   onClick={() => handleStarterQuestion(question)}
-                  className={`text-sm bg-white border border-gray-200 px-3 py-1.5 rounded-full ${ACCENT_STARTER_HOVER_CLASSES[professional.accentColor] || 'hover:border-blue-300 hover:bg-blue-50'} transition-colors`}
+                  className={`text-sm bg-white border border-gray-200 px-3 py-1.5 rounded-full ${ACCENT_STARTER_HOVER_CLASSES[professional.accentColor] || 'hover:border-action hover:bg-action-tint'} transition-colors`}
                 >
                   {question}
                 </button>
@@ -260,7 +260,7 @@ export const ProfessionalDemo: FC<ProfessionalDemoProps> = ({ professional }) =>
               onChange={(e) => setInput(e.target.value)}
               placeholder={`Message ${professional.name}...`}
               disabled={isLoading}
-              className={`flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 ${ACCENT_FOCUS_BORDER_CLASSES[professional.accentColor] || 'focus:border-blue-500'} focus:ring-0 transition-colors disabled:opacity-50`}
+              className={`flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 ${ACCENT_FOCUS_BORDER_CLASSES[professional.accentColor] || 'focus:border-action'} focus:ring-0 transition-colors disabled:opacity-50`}
             />
             <button
               type="submit"

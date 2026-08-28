@@ -145,13 +145,13 @@ export const OnboardingChecklist = ({
     <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
       {/* Header */}
       <div
-        className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 cursor-pointer"
+        className="flex items-center justify-between p-4 bg-action-tint border-b border-gray-200 cursor-pointer"
         onClick={() => setIsMinimized(!isMinimized)}
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+          <div className="w-10 h-10 bg-action-tint rounded-full flex items-center justify-center">
             <svg
-              className="w-5 h-5 text-blue-600"
+              className="w-5 h-5 text-action"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -177,7 +177,7 @@ export const OnboardingChecklist = ({
           <div className="hidden sm:flex items-center gap-2">
             <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
               <div
-                className="h-full bg-blue-500 rounded-full transition-all duration-300"
+                className="h-full bg-action rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
               />
             </div>

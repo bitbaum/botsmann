@@ -16,10 +16,10 @@ export default async function InfrastructurePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border-b border-purple-100">
+      <div className="bg-action-tint border-b border-edge">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6">
-            <Link href="/knowledge" className="hover:text-blue-600">
+            <Link href="/knowledge" className="hover:text-action">
               Knowledge
             </Link>
             <span>/</span>
@@ -73,8 +73,8 @@ export default async function InfrastructurePage() {
 
             {/* Cloud Managed Card */}
             <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <CloudIcon className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-action-tint rounded-lg flex items-center justify-center mb-4">
+                <CloudIcon className="w-6 h-6 text-action" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Cloud Managed</h3>
               <p className="text-gray-600 mb-4">
@@ -142,21 +142,21 @@ export default async function InfrastructurePage() {
             {/* Hosting Comparison */}
             <Link
               href={'/knowledge/infrastructure/hosting-comparison' as Route}
-              className="group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-blue-300 transition-all"
+              className="group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-action transition-all"
             >
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-action-tint rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-2xl">🏗️</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-action transition-colors mb-2">
                     Hosting Comparison
                   </h3>
                   <p className="text-gray-600 text-sm mb-4">
                     Compare self-hosted, cloud, and serverless options. Understand the trade-offs
                     between Vercel, AWS, GCP, and running your own servers.
                   </p>
-                  <div className="flex items-center text-sm text-blue-600 font-medium">
+                  <div className="flex items-center text-sm text-action font-medium">
                     Read comparison
                     <ArrowRightIcon className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -167,21 +167,21 @@ export default async function InfrastructurePage() {
             {/* Model Comparison */}
             <Link
               href={'/knowledge/infrastructure/model-comparison' as Route}
-              className="group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-blue-300 transition-all"
+              className="group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-action transition-all"
             >
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-action-tint rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-2xl">🤖</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-action transition-colors mb-2">
                     AI Model Comparison
                   </h3>
                   <p className="text-gray-600 text-sm mb-4">
                     OpenAI vs Claude vs open source. Compare GPT-4, Claude 3, Llama 3, Mistral by
                     quality, cost, speed, and privacy.
                   </p>
-                  <div className="flex items-center text-sm text-blue-600 font-medium">
+                  <div className="flex items-center text-sm text-action font-medium">
                     Read comparison
                     <ArrowRightIcon className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -192,21 +192,21 @@ export default async function InfrastructurePage() {
             {/* Cost Estimation */}
             <Link
               href={'/knowledge/infrastructure/cost-estimation' as Route}
-              className="group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-blue-300 transition-all"
+              className="group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-action transition-all"
             >
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-2xl">💰</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-action transition-colors mb-2">
                     Cost Estimation Guide
                   </h3>
                   <p className="text-gray-600 text-sm mb-4">
                     Understand token pricing, estimate monthly costs for different usage levels, and
                     discover hidden infrastructure costs.
                   </p>
-                  <div className="flex items-center text-sm text-blue-600 font-medium">
+                  <div className="flex items-center text-sm text-action font-medium">
                     Read guide
                     <ArrowRightIcon className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -217,21 +217,21 @@ export default async function InfrastructurePage() {
             {/* Security Best Practices */}
             <Link
               href={'/knowledge/infrastructure/security' as Route}
-              className="group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-blue-300 transition-all"
+              className="group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-action transition-all"
             >
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-2xl">🔒</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-action transition-colors mb-2">
                     Security Best Practices
                   </h3>
                   <p className="text-gray-600 text-sm mb-4">
                     Secure your AI infrastructure. API key management, data encryption, rate
                     limiting, and compliance considerations.
                   </p>
-                  <div className="flex items-center text-sm text-blue-600 font-medium">
+                  <div className="flex items-center text-sm text-action font-medium">
                     Read guide
                     <ArrowRightIcon className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -417,22 +417,22 @@ export default async function InfrastructurePage() {
         </div>
 
         {/* CTA Section */}
-        <div className="rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 p-8 text-center text-white">
+        <div className="rounded-2xl bg-action p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">Need Help Deciding?</h2>
-          <p className="text-purple-100 mb-6 max-w-xl mx-auto">
+          <p className="text-paper mb-6 max-w-xl mx-auto">
             Not sure which infrastructure is right for your project? We can help you evaluate
             options and make the right choice.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/knowledge/guides?category=infrastructure"
-              className="inline-flex items-center px-6 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-white text-action font-semibold rounded-lg hover:bg-gray-100 transition-colors"
             >
               Browse Infrastructure Guides
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center px-6 py-3 bg-purple-500 text-white font-semibold rounded-lg hover:bg-purple-400 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-action text-white font-semibold rounded-lg hover:bg-action-hover transition-colors"
             >
               Talk to an Expert
             </Link>
@@ -451,7 +451,7 @@ function DifficultyDot({ level }: { level: 'easy' | 'medium' | 'hard' | 'low' | 
     hard: 'bg-red-500',
     low: 'bg-amber-500',
     high: 'bg-green-500',
-    full: 'bg-blue-500',
+    full: 'bg-action',
   };
 
   return (
