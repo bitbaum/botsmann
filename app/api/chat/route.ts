@@ -16,8 +16,7 @@ import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import { jsonSuccess, jsonError, jsonUnauthorized, HTTP_STATUS } from '@/lib/api';
 import { SYSTEM_PROMPTS } from '@/lib/constants';
-import { checkRateLimit } from '@/lib/rate-limit';
-import { getClientIp } from '@/lib/request';
+import { enforceRateLimit } from '@/lib/rate-limit';
 import {
   generateEmbeddingWithTimeout,
   getUserLLMSettings,
@@ -37,15 +36,8 @@ export async function POST(request: NextRequest) {
 
   try {
     // Rate limit per user/IP
-    const ip = getClientIp(request);
-    const { isRateLimited } = await checkRateLimit(`chat:${ip}`, 20, 60);
-    if (isRateLimited) {
-      return jsonError(
-        'Too many requests. Please slow down.',
-        'RATE_LIMIT',
-        HTTP_STATUS.RATE_LIMIT,
-      );
-    }
+    const limited = await enforceRateLimit(request, 'chat');
+    if (limited) return limited;
     logger.log('[Chat API] Verifying user...');
     const user = await verifyUser(request);
     if (!user) {
