@@ -14,6 +14,7 @@ import { type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { generateLLMResponse } from '@/lib/llm-client';
 import { logger } from '@/lib/logger';
+import { enforceRateLimit } from '@/lib/rate-limit';
 import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import {
@@ -58,6 +59,11 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     // For private bots, auth is required
     const user = await verifyUser(request);
     const { id: botId } = await params;
+
+    // Anonymous callers may chat with public bots, and the call is billed to the
+    // bot OWNER's API key — so limit per bot, not just per IP.
+    const limited = await enforceRateLimit(request, 'custom-bot-chat', botId);
+    if (limited) return limited;
 
     const supabase = getServiceClient();
 

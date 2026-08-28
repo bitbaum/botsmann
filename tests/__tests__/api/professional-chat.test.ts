@@ -6,10 +6,10 @@
  * - Supabase (document search, user context)
  * - LLM (generateLLMResponse)
  * - Embeddings (generateEmbedding)
- * - Rate limiting (checkRateLimit)
+ * - Rate limiting (enforceRateLimit)
  */
 
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // Mock dependencies before importing route
 jest.mock('@/lib/api-utils', () => ({
@@ -30,7 +30,7 @@ jest.mock('@/lib/embeddings', () => ({
 }));
 
 jest.mock('@/lib/rate-limit', () => ({
-  checkRateLimit: jest.fn(() => Promise.resolve({ isRateLimited: false, remaining: 10 })),
+  enforceRateLimit: jest.fn(() => Promise.resolve(null)),
 }));
 
 jest.mock('@/lib/chat', () => ({
@@ -48,11 +48,11 @@ jest.mock('@/lib/context', () => ({
 import { POST } from '@/app/api/professional-chat/route';
 import { verifyUser } from '@/lib/api-utils';
 import { generateLLMResponse } from '@/lib/llm-client';
-import { checkRateLimit } from '@/lib/rate-limit';
+import { enforceRateLimit } from '@/lib/rate-limit';
 
 const mockVerifyUser = verifyUser as jest.MockedFunction<typeof verifyUser>;
 const mockGenerateLLM = generateLLMResponse as jest.MockedFunction<typeof generateLLMResponse>;
-const mockCheckRateLimit = checkRateLimit as jest.MockedFunction<typeof checkRateLimit>;
+const mockEnforceRateLimit = enforceRateLimit as jest.MockedFunction<typeof enforceRateLimit>;
 
 function makeRequest(body: Record<string, unknown>): NextRequest {
   return new NextRequest('http://localhost:3000/api/professional-chat', {
@@ -65,7 +65,7 @@ function makeRequest(body: Record<string, unknown>): NextRequest {
 describe('POST /api/professional-chat', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockCheckRateLimit.mockResolvedValue({ isRateLimited: false, remaining: 10 });
+    mockEnforceRateLimit.mockResolvedValue(null);
     mockVerifyUser.mockResolvedValue(null);
     mockGenerateLLM.mockResolvedValue({
       content: 'Test response from AI',
@@ -110,7 +110,12 @@ describe('POST /api/professional-chat', () => {
   });
 
   it('returns 429 when rate limited', async () => {
-    mockCheckRateLimit.mockResolvedValue({ isRateLimited: true, remaining: 0 });
+    mockEnforceRateLimit.mockResolvedValue(
+      NextResponse.json(
+        { success: false, error: 'Too many requests. Please slow down.', code: 'RATE_LIMIT' },
+        { status: 429 },
+      ),
+    );
 
     const req = makeRequest({
       message: 'Hello',

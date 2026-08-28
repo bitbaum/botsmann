@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { jsonError, jsonValidationError, formatZodErrors, HTTP_STATUS } from '@/lib/api';
 import { generateWithBestProvider, type ModelProvider } from '@/lib/llm-client';
 import { logger } from '@/lib/logger';
+import { enforceRateLimit } from '@/lib/rate-limit';
 import {
   sanitizeSystemPrompt,
   sanitizeUserMessage,
@@ -423,6 +424,10 @@ const ChatRequestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Public, unauthenticated endpoint that spends LLM budget — limit before any work.
+    const limited = await enforceRateLimit(request, 'demo-chat');
+    if (limited) return limited;
+
     const body = await request.json();
     const { message, includeContext, systemPrompt, additionalContext } =
       ChatRequestSchema.parse(body);
