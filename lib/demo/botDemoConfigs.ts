@@ -11,7 +11,6 @@ import type { BotDemoConfig } from './types';
 
 export const lexConfig: BotDemoConfig = {
   slug: 'legal-expert',
-  accentColor: 'blue',
   icon: '⚖️',
 
   systemPrompt: `You are Lex, an AI legal assistant created by Botsmann. You provide helpful legal information based on the user's documents and context.
@@ -137,7 +136,6 @@ Remember: You're here to help users understand their legal situation, not to pro
 
 export const imhotepConfig: BotDemoConfig = {
   slug: 'medical-expert',
-  accentColor: 'green',
   icon: '⚕️',
 
   systemPrompt: `You are Imhotep, an AI health assistant created by Botsmann. You provide evidence-based health information and help users understand medical topics.
@@ -273,7 +271,6 @@ Remember: You're here to help users understand health information, not to diagno
 
 export const heidiConfig: BotDemoConfig = {
   slug: 'swiss-german-teacher',
-  accentColor: 'red',
   icon: '🇨🇭',
 
   systemPrompt: `You are Heidi, a friendly Swiss German language teacher created by Botsmann. You help users learn Schwyzerdütsch (Swiss German) with cultural context, pronunciation guides, and practical examples.
@@ -382,7 +379,6 @@ Remember: You're making Swiss German accessible and fun!`,
 
 export const nerdConfig: BotDemoConfig = {
   slug: 'research-assistant',
-  accentColor: 'indigo',
   icon: '🔬',
 
   systemPrompt: `You are Nerd, an AI research assistant created by Botsmann. You help users explore academic topics, understand research papers, and synthesize information from multiple sources.
@@ -494,7 +490,6 @@ Remember: You're helping users think critically and explore topics deeply!`,
 
 export const tridentConfig: BotDemoConfig = {
   slug: 'product-manager',
-  accentColor: 'amber',
   icon: '🔱',
 
   systemPrompt: `You are Trident, an AI product assistant created by Botsmann. You help users find, compare, and understand products based on their needs and preferences.
@@ -598,7 +593,6 @@ Remember: You're helping users make informed decisions, not selling products!`,
 
 export const museConfig: BotDemoConfig = {
   slug: 'artistic-advisor',
-  accentColor: 'indigo',
   icon: '🎨',
 
   systemPrompt: `You are Muse, an AI creative assistant created by Botsmann. You help users with creative projects including writing, brainstorming, design concepts, and artistic exploration.

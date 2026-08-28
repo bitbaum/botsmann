@@ -1,5 +1,3 @@
-import type { BotAccentColor } from '@/types/bot';
-
 /**
  * Type definitions for the unified bot demo system
  */
@@ -84,7 +82,6 @@ export interface BotDemoConfig {
   slug: string;
 
   // Theming
-  accentColor: BotAccentColor;
   icon: string;
 
   // Interview/Intake Questions
