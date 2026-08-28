@@ -1,20 +1,26 @@
+import { type NextRequest } from 'next/server';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { jsonSuccess, jsonServiceUnavailable } from '@/lib/api';
 import { logger } from '@/lib/logger';
 import { getLLMHealth } from '@/lib/llm-health';
 
 /**
- * Health check.
+ * Health check, in two flavours.
  *
- * Reports the database AND the LLM chain. It used to report only the database,
- * so on 2026-08-28 it answered "healthy" while every AI feature on the site was
- * failing on an invalid Groq key -- the product's core capability was dead and
- * nothing that watches this endpoint could tell.
+ * Default (liveness): is this process serving and can it reach its database?
+ * Answers 200 even when the LLM chain is down, because restarting the app does
+ * not fix an expired API key -- failing liveness on it would just get a healthy
+ * process killed, and would fail deploy gates on a problem no deploy caused.
  *
- * LLM state comes from what the chat routes actually observed, so it costs
- * nothing here and reflects real traffic rather than a synthetic probe.
+ * ?strict=1 (readiness): is the PRODUCT working? 503 once the LLM chain is
+ * consistently failing. Point alerting here.
+ *
+ * Either way the body carries the real state. This endpoint used to report
+ * only the database, so on 2026-08-28 it said "healthy" while every AI feature
+ * on the site was failing on an invalid Groq key.
  */
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const strict = request.nextUrl.searchParams.get('strict') === '1';
   const llm = getLLMHealth();
 
   try {
@@ -28,20 +34,17 @@ export async function GET() {
       throw error;
     }
 
-    // The database being up is not the same as the product working.
-    if (llm.status === 'down') {
-      logger.error('Health check: LLM chain is down', { lastError: llm.lastError });
+    // 'unknown' means nothing has exercised the chain since this process
+    // started. That is not evidence of a problem, so it is not degraded.
+    const status =
+      llm.status === 'down' ? 'down' : llm.status === 'degraded' ? 'degraded' : 'healthy';
+
+    if (strict && llm.status === 'down') {
+      logger.error('Health check (strict): LLM chain is down', { lastError: llm.lastError });
       return jsonServiceUnavailable('AI provider unavailable');
     }
 
-    return jsonSuccess(
-      {
-        status: llm.status === 'degraded' ? 'degraded' : 'healthy',
-        database: 'connected',
-        llm,
-      },
-      { cache: 'PUBLIC_SHORT' },
-    );
+    return jsonSuccess({ status, database: 'connected', llm }, { cache: 'PUBLIC_SHORT' });
   } catch (error) {
     logger.error('Health check failed:', error);
     return jsonServiceUnavailable('Database connection failed');
