@@ -323,26 +323,72 @@ export async function getBestProvider(): Promise<{
 /**
  * Generate a response using the best available provider
  */
+/**
+ * Every provider that is configured, in preference order.
+ *
+ * Ollama first (local, private, free), then Groq (free tier), then OpenRouter
+ * (paid). Being configured is not the same as working -- a key can be present
+ * and revoked -- so this returns the whole chain and lets the caller demote.
+ */
+export async function getProviderChain(): Promise<
+  Array<{ provider: ModelProvider; reason: string }>
+> {
+  const chain: Array<{ provider: ModelProvider; reason: string }> = [];
+  const env = getServerEnv();
+
+  if (await isOllamaAvailable()) {
+    chain.push({ provider: 'ollama', reason: 'Local Ollama running' });
+  }
+  if (env.GROQ_API_KEY) {
+    chain.push({ provider: 'groq', reason: 'Groq API key configured' });
+  }
+  if (env.OPENROUTER_API_KEY) {
+    chain.push({ provider: 'openrouter', reason: 'OpenRouter API key configured' });
+  }
+
+  return chain;
+}
+
+/**
+ * Generate using the first provider that actually answers.
+ *
+ * This used to pick one provider and call it once, so a configured-but-revoked
+ * key was indistinguishable from having no provider at all: botsmann's Groq key
+ * started returning 401 and the whole AI layer went down while an OpenRouter
+ * key sat unused. Being chosen must not mean being trusted -- each provider
+ * gets demoted on failure and the next one is tried.
+ *
+ * generateLLMResponse already walks the model list within a provider, so this
+ * is the layer above that: models, then providers.
+ */
 export async function generateWithBestProvider(
   messages: LLMMessage[],
   options?: Partial<Omit<LLMOptions, 'provider'>>,
 ): Promise<LLMResponse & { providerInfo: string }> {
-  const { provider, available, reason } = await getBestProvider();
+  const chain = await getProviderChain();
 
-  if (!available) {
-    throw new Error(reason);
+  if (chain.length === 0) {
+    throw new Error('No LLM provider available. Start Ollama or configure API keys.');
   }
 
-  const fullOptions: LLMOptions = {
-    provider,
-    apiKey: provider === 'groq' ? getServerEnv().GROQ_API_KEY : getServerEnv().OPENROUTER_API_KEY,
-    ollamaUrl: getServerEnv().OLLAMA_URL,
-    ...options,
-  };
+  const env = getServerEnv();
+  const failures: string[] = [];
 
-  const response = await generateLLMResponse(messages, fullOptions);
-  return {
-    ...response,
-    providerInfo: reason,
-  };
+  for (const { provider, reason } of chain) {
+    try {
+      const response = await generateLLMResponse(messages, {
+        provider,
+        apiKey: provider === 'groq' ? env.GROQ_API_KEY : env.OPENROUTER_API_KEY,
+        ollamaUrl: env.OLLAMA_URL,
+        ...options,
+      });
+      return { ...response, providerInfo: reason };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      failures.push(`${provider}: ${message}`);
+      logger.warn(`[LLM] ${provider} failed, trying next provider`, { error: message });
+    }
+  }
+
+  throw new Error(`All ${chain.length} provider(s) failed \u2014 ${failures.join('; ')}`);
 }
