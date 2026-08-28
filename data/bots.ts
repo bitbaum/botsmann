@@ -52,6 +52,9 @@ const bots: Bot[] = [
       menuItems: [
         { id: 'demo', label: 'Demo', icon: '💬', section: 'demo' },
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
+        { id: 'learning', label: 'Learning', icon: '📖', section: 'language-learning' },
+        { id: 'communication', label: 'Communication', icon: '✉️', section: 'communication' },
+        { id: 'culture', label: 'Culture', icon: '🏔️', section: 'culture' },
       ],
     },
     display: {
@@ -94,6 +97,10 @@ const bots: Bot[] = [
       menuItems: [
         { id: 'demo', label: 'Demo', icon: '💻', section: 'demo' },
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
+        { id: 'system', label: 'Organise', icon: '🗂️', section: 'research-system' },
+        { id: 'scraping', label: 'Sources', icon: '🌐', section: 'scraping' },
+        { id: 'drafts', label: 'Drafts', icon: '✍️', section: 'drafts' },
+        { id: 'vision', label: 'Vision', icon: '🚀', section: 'vision' },
       ],
     },
     display: {
@@ -218,6 +225,8 @@ const bots: Bot[] = [
       menuItems: [
         { id: 'demo', label: 'Demo', icon: '🖼️', section: 'demo' },
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
+        { id: 'how-it-works', label: 'How It Works', icon: '🎨', section: 'how-it-works' },
+        { id: 'get-started', label: 'Get Started', icon: '🚀', section: 'cta' },
       ],
     },
     display: {
@@ -258,6 +267,9 @@ const bots: Bot[] = [
       menuItems: [
         { id: 'demo', label: 'Demo', icon: '💻', section: 'demo' },
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
+        { id: 'benefits', label: 'Benefits', icon: '⚡', section: 'benefits' },
+        { id: 'showcase', label: 'Showcase', icon: '🎯', section: 'showcase' },
+        { id: 'integration', label: 'Integrations', icon: '🔗', section: 'integration' },
       ],
     },
     display: {
