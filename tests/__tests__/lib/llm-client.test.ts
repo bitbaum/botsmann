@@ -1,4 +1,9 @@
-import { generateLLMResponse, isOllamaAvailable, getBestProvider } from '@/lib/llm-client';
+import {
+  generateLLMResponse,
+  isOllamaAvailable,
+  getBestProvider,
+  generateWithBestProvider,
+} from '@/lib/llm-client';
 
 // Mock dependencies
 // The model ids are deliberately absent: they come from `ai-kit` now, not from
@@ -382,5 +387,71 @@ describe('getBestProvider', () => {
     const result = await getBestProvider();
     expect(result.available).toBe(false);
     expect(result.reason).toContain('No LLM provider available');
+  });
+});
+
+describe('generateWithBestProvider — provider-level failover', () => {
+  const messages = [{ role: 'user' as const, content: 'hi' }];
+
+  /**
+   * The real outage: botsmann's Groq key started returning 401 while an
+   * OpenRouter key sat unused, and the whole AI layer went down. Being
+   * configured is not the same as working, so a provider must be demoted on
+   * failure rather than trusted because it was listed first.
+   */
+  it('falls through to the next provider when the first has a revoked key', async () => {
+    (getServerEnv as jest.Mock).mockReturnValue({
+      ...defaultEnv,
+      GROQ_API_KEY: 'gsk_revoked',
+      OPENROUTER_API_KEY: 'sk-or-working',
+      OLLAMA_URL: '',
+    });
+
+    mockFetch.mockImplementation(async (url: string) => {
+      const target = String(url);
+      if (target.includes('11434')) throw new Error('connection refused'); // no Ollama
+      if (target.includes('groq.com')) {
+        return { ok: false, status: 401, text: async () => '{"error":{"code":"invalid_api_key"}}' };
+      }
+      return {
+        ok: true,
+        json: async () => ({ choices: [{ message: { content: 'from openrouter' } }] }),
+      };
+    });
+
+    const result = await generateWithBestProvider(messages);
+
+    expect(result.content).toBe('from openrouter');
+    expect(result.provider).toBe('openrouter');
+  });
+
+  it('reports every provider it tried when they all fail', async () => {
+    (getServerEnv as jest.Mock).mockReturnValue({
+      ...defaultEnv,
+      GROQ_API_KEY: 'gsk_revoked',
+      OPENROUTER_API_KEY: 'sk-or-also-revoked',
+      OLLAMA_URL: '',
+    });
+
+    mockFetch.mockImplementation(async (url: string) => {
+      if (String(url).includes('11434')) throw new Error('connection refused');
+      return { ok: false, status: 401, text: async () => 'invalid_api_key' };
+    });
+
+    await expect(generateWithBestProvider(messages)).rejects.toThrow(
+      /All \d+ provider\(s\) failed/,
+    );
+  });
+
+  it('says so plainly when nothing is configured at all', async () => {
+    (getServerEnv as jest.Mock).mockReturnValue({
+      ...defaultEnv,
+      GROQ_API_KEY: '',
+      OPENROUTER_API_KEY: '',
+      OLLAMA_URL: '',
+    });
+    mockFetch.mockRejectedValue(new Error('connection refused'));
+
+    await expect(generateWithBestProvider(messages)).rejects.toThrow(/No LLM provider available/);
   });
 });
