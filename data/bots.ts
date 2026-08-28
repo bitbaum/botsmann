@@ -52,9 +52,6 @@ const bots: Bot[] = [
       menuItems: [
         { id: 'demo', label: 'Demo', icon: '💬', section: 'demo' },
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
-        { id: 'communication', label: 'Communication', icon: '✉️', section: 'communication' },
-        { id: 'culture', label: 'Culture', icon: '🏔️', section: 'culture' },
-        { id: 'waitlist', label: 'Join Waitlist', icon: '📝', section: 'waitlist' },
       ],
     },
     display: {
@@ -97,12 +94,6 @@ const bots: Bot[] = [
       menuItems: [
         { id: 'demo', label: 'Demo', icon: '💻', section: 'demo' },
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
-        { id: 'scraping', label: 'Web Scraping', icon: '🌐', section: 'scraping' },
-        { id: 'drafts', label: 'Drafts', icon: '📝', section: 'drafts' },
-        { id: 'questions', label: 'Daily Questions', icon: '❓', section: 'questions' },
-        { id: 'discovery', label: 'Discovery', icon: '💡', section: 'discovery' },
-        { id: 'integration', label: 'Integration', icon: '🔗', section: 'integration' },
-        { id: 'roadmap', label: 'Roadmap', icon: '🗺️', section: 'roadmap' },
       ],
     },
     display: {
@@ -143,7 +134,8 @@ const bots: Bot[] = [
         { id: 'demo', label: 'Demo', icon: '💻', section: 'demo' },
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
         { id: 'professionals', label: 'For Professionals', icon: '👨‍⚕️', section: 'professionals' },
-        { id: 'harm-reduction', label: 'Harm Reduction', icon: '🛡️', section: 'harm-reduction' },
+        { id: 'medbox', label: 'MedBox', icon: '🔬', section: 'medbox' },
+        { id: 'health-topics', label: 'Topics', icon: '🩺', section: 'health-topics' },
         { id: 'vision', label: 'Vision', icon: '🚀', section: 'vision' },
       ],
     },
@@ -186,7 +178,7 @@ const bots: Bot[] = [
         { id: 'testimonials', label: 'Testimonials', icon: '💬', section: 'testimonials' },
         { id: 'vision', label: 'Vision', icon: '🚀', section: 'vision' },
         { id: 'technology', label: 'Technology', icon: '⚙️', section: 'technology' },
-        { id: 'get-started', label: 'Join Waitlist', icon: '✨', section: 'get-started' },
+        { id: 'get-started', label: 'Join Waitlist', icon: '✨', section: 'cta' },
       ],
     },
     display: {
@@ -226,9 +218,6 @@ const bots: Bot[] = [
       menuItems: [
         { id: 'demo', label: 'Demo', icon: '🖼️', section: 'demo' },
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
-        { id: 'styles', label: 'Styles', icon: '🎭', section: 'styles' },
-        { id: 'techniques', label: 'Techniques', icon: '🖌️', section: 'techniques' },
-        { id: 'get-started', label: 'Get Started', icon: '🚀', section: 'get-started' },
       ],
     },
     display: {
@@ -269,13 +258,6 @@ const bots: Bot[] = [
       menuItems: [
         { id: 'demo', label: 'Demo', icon: '💻', section: 'demo' },
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
-        { id: 'workflow', label: 'Workflow', icon: '🔄', section: 'workflow' },
-        { id: 'showcase', label: 'Showcase', icon: '🎯', section: 'showcase' },
-        { id: 'examples', label: 'Examples', icon: '📋', section: 'examples' },
-        { id: 'integration', label: 'Integration', icon: '🔗', section: 'integration' },
-        { id: 'testimonials', label: 'Testimonials', icon: '💬', section: 'testimonials' },
-        { id: 'pricing', label: 'Pricing', icon: '💰', section: 'pricing' },
-        { id: 'get-started', label: 'Get Started', icon: '🚀', section: 'get-started' },
       ],
     },
     display: {
