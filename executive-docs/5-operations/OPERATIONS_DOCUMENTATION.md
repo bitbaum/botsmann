@@ -930,14 +930,17 @@ All Hands On Deck
 
 **Production:**
 
-- Website: https://www.botsmann.com
-- Vercel Dashboard: https://vercel.com/botsmann
-- Supabase Dashboard: https://app.supabase.com
+- Website: https://botsmann.orangecat.ch
+- Deploys: GitHub Actions `Deploy` workflow (push to `main`) — self-hosted on
+  the Hetzner box "bitbaum". There is no Vercel.
+- Database: self-hosted Supabase Studio at https://supabase.orangecat.ch
+  (behind Kong basic auth). There is no supabase.com project.
 
 **Monitoring:**
 
+- Uptime: fleetcrown `fleet-uptime` workflow probes `/api/health` every 15
+  minutes and opens a GitHub issue when this app goes down.
 - Sentry: (to be set up)
-- UptimeRobot: (to be set up)
 
 **Documentation:**
 

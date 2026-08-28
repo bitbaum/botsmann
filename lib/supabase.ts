@@ -1,13 +1,16 @@
 /**
  * Supabase Client for Botsmann
  *
- * Free tier includes:
- * - 500MB PostgreSQL database
- * - 1GB file storage
- * - Unlimited API requests
- * - pgvector for embeddings
+ * This talks to OUR Supabase, self-hosted on bitbaum at supabase.orangecat.ch —
+ * there is no supabase.com project and no dashboard to log into. Capacity is
+ * whatever the box has, not a hosted tier.
  *
- * Setup: https://supabase.com/dashboard
+ * One database backs several apps, so every client here is pinned to the
+ * `botsmann` schema via DB_SCHEMA. An unpinned client reads `public`, which is
+ * orangecat's, where our tables simply do not exist — that reads as a dead
+ * database rather than as a misconfiguration.
+ *
+ * Setup: docs/SUPABASE_SETUP.md
  */
 
 import { createClient } from '@supabase/supabase-js';
