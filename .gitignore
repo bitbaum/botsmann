@@ -40,3 +40,6 @@ status.json
 
 # Lint cache
 .eslintcache
+
+# supabase CLI scratch — machine state, and it used to leak the old hosted project ref
+supabase/.temp/
