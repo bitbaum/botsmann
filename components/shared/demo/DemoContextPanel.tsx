@@ -2,15 +2,13 @@
 
 import { useState, type FC } from 'react';
 import type { IntakeQuestion, IntakeResponses, UploadedFile } from '@/lib/demo/types';
-import type { BotAccentColor } from '@/types/bot';
-import { ACCENT_CONTEXT_PANEL_CLASSES } from '@/lib/config/colors';
+import { BRAND_CONTEXT_PANEL } from '@/lib/config/colors';
 
 interface DemoContextPanelProps {
   intakeQuestions: IntakeQuestion[];
   intakeResponses: IntakeResponses;
   files: UploadedFile[];
   onReset: () => void;
-  accentColor: BotAccentColor;
 }
 
 export const DemoContextPanel: FC<DemoContextPanelProps> = ({
@@ -18,10 +16,9 @@ export const DemoContextPanel: FC<DemoContextPanelProps> = ({
   intakeResponses,
   files,
   onReset,
-  accentColor,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const colors = ACCENT_CONTEXT_PANEL_CLASSES[accentColor];
+  const colors = BRAND_CONTEXT_PANEL;
 
   // Filter to only show answered questions
   const answeredQuestions = intakeQuestions.filter((q) => {

@@ -2,12 +2,7 @@
 
 import { useState, useRef, useEffect, type FC, type FormEvent, type KeyboardEvent } from 'react';
 import type { ChatMessage, DemoOutputConfig } from '@/lib/demo/types';
-import type { BotAccentColor } from '@/types/bot';
-import {
-  ACCENT_BUTTON_CLASSES,
-  ACCENT_FOCUS_RING_CLASSES,
-  ACCENT_STARTER_CLASSES,
-} from '@/lib/config/colors';
+import { BRAND_BUTTON, BRAND_FOCUS_RING, BRAND_STARTER } from '@/lib/config/colors';
 import { DemoMessage, DemoDisclaimer } from './DemoMessage';
 
 interface DemoChatProps {
@@ -16,7 +11,6 @@ interface DemoChatProps {
   isLoading: boolean;
   starterQuestions: string[];
   botIcon: string;
-  accentColor: BotAccentColor;
   outputConfig: DemoOutputConfig;
 }
 
@@ -42,15 +36,14 @@ export const DemoChat: FC<DemoChatProps> = ({
   isLoading,
   starterQuestions,
   botIcon,
-  accentColor,
   outputConfig,
 }) => {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const buttonClass = ACCENT_BUTTON_CLASSES[accentColor];
-  const focusClass = ACCENT_FOCUS_RING_CLASSES[accentColor];
-  const starterClass = ACCENT_STARTER_CLASSES[accentColor];
+  const buttonClass = BRAND_BUTTON;
+  const focusClass = BRAND_FOCUS_RING;
+  const starterClass = BRAND_STARTER;
 
   // Show starter questions only when there's just the welcome message
   const showStarters = messages.length === 1 && messages[0].role === 'assistant';
@@ -109,7 +102,6 @@ export const DemoChat: FC<DemoChatProps> = ({
             key={message.id}
             message={message}
             botIcon={botIcon}
-            accentColor={accentColor}
             outputConfig={outputConfig}
           />
         ))}
@@ -142,7 +134,7 @@ export const DemoChat: FC<DemoChatProps> = ({
       {/* Disclaimer */}
       {outputConfig.showDisclaimer && (
         <div className="px-4 pb-2">
-          <DemoDisclaimer config={outputConfig} accentColor={accentColor} />
+          <DemoDisclaimer config={outputConfig} />
         </div>
       )}
 

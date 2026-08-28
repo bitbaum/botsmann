@@ -2,19 +2,13 @@
 
 import { useState, type FC, type FormEvent } from 'react';
 import type { IntakeQuestion, IntakeResponses } from '@/lib/demo/types';
-import type { BotAccentColor } from '@/types/bot';
-import {
-  ACCENT_BUTTON_CLASSES,
-  ACCENT_FOCUS_RING_CLASSES,
-  ACCENT_CHECKBOX_CLASSES,
-} from '@/lib/config/colors';
+import { BRAND_BUTTON, BRAND_FOCUS_RING, BRAND_CHECKBOX } from '@/lib/config/colors';
 
 interface DemoIntakeProps {
   questions: IntakeQuestion[];
   responses: IntakeResponses;
   onUpdate: (questionId: string, value: string | string[]) => void;
   onStart: () => void;
-  accentColor: BotAccentColor;
   icon: string;
   botName: string;
 }
@@ -24,14 +18,13 @@ export const DemoIntake: FC<DemoIntakeProps> = ({
   responses,
   onUpdate,
   onStart,
-  accentColor,
   icon,
   botName,
 }) => {
   const [showAdvanced, setShowAdvanced] = useState(false);
-  const buttonClass = ACCENT_BUTTON_CLASSES[accentColor];
-  const focusClass = ACCENT_FOCUS_RING_CLASSES[accentColor];
-  const checkboxClass = ACCENT_CHECKBOX_CLASSES[accentColor];
+  const buttonClass = BRAND_BUTTON;
+  const focusClass = BRAND_FOCUS_RING;
+  const checkboxClass = BRAND_CHECKBOX;
 
   const essentialQuestions = questions.filter((q) => q.phase === 'essential');
   const advancedQuestions = questions.filter((q) => q.phase === 'advanced');
