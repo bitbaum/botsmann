@@ -700,6 +700,119 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
         } as BenefitsContent,
       },
       {
+        id: 'medbox',
+        type: 'features',
+        content: {
+          badge: 'Home Health Lab',
+          title: 'MedBox: Your Home Health Laboratory',
+          subtitle:
+            'Clinical-grade diagnostics at home. MedBox automates health monitoring and puts the power of a medical lab at your fingertips.',
+          columns: 3,
+          features: [
+            {
+              icon: '\u{1F4C8}',
+              title: 'Continuous Glucose Monitor',
+              description: 'Real-time blood glucose tracking without finger pricks.',
+            },
+            {
+              icon: '\u2764\uFE0F',
+              title: '12-Lead ECG Monitor',
+              description: 'Clinical-grade heart monitoring and arrhythmia detection.',
+            },
+            {
+              icon: '\u{1F9EA}',
+              title: 'Blood Chemistry Analyzer',
+              description: 'Complete blood count, lipid panels, and metabolic testing.',
+            },
+            {
+              icon: '\u{1FA78}',
+              title: 'Blood Pressure System',
+              description: 'Continuous monitoring with physician-grade accuracy.',
+            },
+            {
+              icon: '\u{1F634}',
+              title: 'Sleep & Recovery Monitor',
+              description: 'Tracks deep sleep, REM, HRV, and respiratory patterns.',
+            },
+            {
+              icon: '\u2696\uFE0F',
+              title: 'Body Composition Scanner',
+              description: 'Measures muscle mass, visceral fat, and bone density.',
+            },
+          ],
+        } as FeaturesContent,
+      },
+      {
+        id: 'health-topics',
+        type: 'features',
+        content: {
+          badge: 'What You Can Ask',
+          title: 'Health Topics Imhotep Covers',
+          subtitle:
+            'Common areas people bring to Imhotep, from daily habits to chronic conditions.',
+          columns: 3,
+          features: [
+            {
+              icon: '\u2764\uFE0F',
+              title: 'Heart Health',
+              description: 'Blood pressure, cholesterol, and cardiovascular risk.',
+            },
+            {
+              icon: '\u{1F9E0}',
+              title: 'Mental Wellness',
+              description: 'Stress, mood, and evidence-based coping strategies.',
+            },
+            {
+              icon: '\u{1F957}',
+              title: 'Nutrition',
+              description: 'Diet patterns, macronutrients, and supplementation.',
+            },
+            {
+              icon: '\u{1F3C3}',
+              title: 'Exercise',
+              description: 'Training load, recovery, and building a sustainable routine.',
+            },
+            {
+              icon: '\u{1F634}',
+              title: 'Sleep',
+              description: 'Sleep quality, circadian rhythm, and insomnia.',
+            },
+            {
+              icon: '\u{1F4CA}',
+              title: 'Diabetes',
+              description: 'Glucose management, monitoring, and long-term risk.',
+            },
+          ],
+        } as FeaturesContent,
+      },
+      {
+        id: 'regimens',
+        type: 'how-it-works',
+        content: {
+          title: 'Personalized Health Regimens',
+          steps: [
+            {
+              icon: '\u{1F4CB}',
+              title: 'Imhotep Basic',
+              description:
+                'Low cost, about 30 minutes a day, low complexity — and still fully customised to you.',
+            },
+            {
+              icon: '\u{1F4C8}',
+              title: 'Imhotep Advanced',
+              description:
+                'Medium cost, one to two hours a day, for people who want to go deeper without a full protocol.',
+            },
+            {
+              icon: '\u2696\uFE0F',
+              title: 'Compared to Blueprint',
+              description:
+                'High cost, three or more hours a day, high complexity, and limited customisation.',
+            },
+          ],
+        } as HowItWorksContent,
+      },
+      {
         id: 'vision',
         type: 'vision',
         content: {
