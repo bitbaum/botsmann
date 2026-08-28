@@ -1,24 +1,22 @@
 'use client';
 
 import type { HowItWorksContent } from '@/lib/config/bot-pages';
-import type { BotAccentColor } from '@/types/bot';
-import { getAccentClasses } from '@/lib/config/colors';
+import { BRAND_ACCENT } from '@/lib/config/colors';
 
 interface HowItWorksSectionProps {
   content: HowItWorksContent;
-  accentColor: BotAccentColor;
 }
 
-export function HowItWorksSection({ content, accentColor }: HowItWorksSectionProps) {
+export function HowItWorksSection({ content }: HowItWorksSectionProps) {
   const { title, subtitle, steps } = content;
-  const accent = getAccentClasses(accentColor);
+  const accent = BRAND_ACCENT;
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">{title}</h2>
+      <h2 className="text-3xl font-bold text-center text-ink mb-4">{title}</h2>
 
       {subtitle && (
-        <p className="text-lg text-gray-600 text-center max-w-2xl mx-auto mb-12">{subtitle}</p>
+        <p className="text-lg text-ink-muted text-center max-w-2xl mx-auto mb-12">{subtitle}</p>
       )}
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -35,8 +33,8 @@ export function HowItWorksSection({ content, accentColor }: HowItWorksSectionPro
                 </span>
               )}
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2">{step.title}</h3>
-            <p className="text-gray-600 text-sm">{step.description}</p>
+            <h3 className="font-semibold text-ink mb-2">{step.title}</h3>
+            <p className="text-ink-muted text-sm">{step.description}</p>
           </div>
         ))}
       </div>

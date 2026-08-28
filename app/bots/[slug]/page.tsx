@@ -30,7 +30,6 @@ import type {
   DemoContent,
   SectionConfig,
 } from '@/lib/config/bot-pages';
-import type { BotAccentColor } from '@/types/bot';
 
 /**
  * Dynamic bot page that renders from config
@@ -52,16 +51,14 @@ export default function BotPage() {
 
   const rawTryLink = getBotTryLink(bot);
   const tryLink = rawTryLink || '#waitlist';
-  const accentColor = pageConfig.accentColor;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-paper">
       <BotNavigation
         botSlug={bot.slug}
         botTitle={bot.nav.navTitle}
         botEmoji={bot.nav.emoji}
         botDescription={bot.nav.navDescription}
-        accentColor={bot.nav.accentColor}
         menuItems={bot.nav.menuItems}
         chatLink={tryLink}
       />
@@ -71,7 +68,6 @@ export default function BotPage() {
           <SectionRenderer
             key={section.id}
             section={section}
-            accentColor={accentColor}
             botSlug={slug}
             tryLink={tryLink}
             heroConfig={heroConfig}
@@ -87,19 +83,12 @@ export default function BotPage() {
  */
 interface SectionRendererProps {
   section: SectionConfig;
-  accentColor: BotAccentColor;
   botSlug: string;
   tryLink: string;
   heroConfig: ReturnType<typeof getBotHeroConfig>;
 }
 
-function SectionRenderer({
-  section,
-  accentColor,
-  botSlug,
-  tryLink,
-  heroConfig,
-}: SectionRendererProps) {
+function SectionRenderer({ section, botSlug, tryLink, heroConfig }: SectionRendererProps) {
   const { id, type, content, isLast } = section;
 
   // Hero section uses external config
@@ -109,13 +98,13 @@ function SectionRenderer({
       ...heroConfig,
       primaryCTA: { ...heroConfig.primaryCTA, href: tryLink },
     };
-    return <BotHeroSection config={config} accentColor={accentColor} />;
+    return <BotHeroSection config={config} />;
   }
 
   // All other sections wrapped in BotSection
   return (
     <BotSection id={id} isLast={isLast}>
-      {renderSectionContent(type, content, accentColor, botSlug, tryLink)}
+      {renderSectionContent(type, content, botSlug, tryLink)}
     </BotSection>
   );
 }
@@ -126,7 +115,6 @@ function SectionRenderer({
 function renderSectionContent(
   type: SectionConfig['type'],
   content: SectionConfig['content'],
-  accentColor: BotAccentColor,
   botSlug: string,
   tryLink: string,
 ): React.ReactNode {
@@ -140,29 +128,25 @@ function renderSectionContent(
       return <DemoSectionWrapper content={content as DemoContent} botSlug={botSlug} />;
 
     case 'features':
-      return <FeaturesSection content={content as FeaturesContent} accentColor={accentColor} />;
+      return <FeaturesSection content={content as FeaturesContent} />;
 
     case 'how-it-works':
-      return <HowItWorksSection content={content as HowItWorksContent} accentColor={accentColor} />;
+      return <HowItWorksSection content={content as HowItWorksContent} />;
 
     case 'benefits':
-      return <BenefitsSection content={content as BenefitsContent} accentColor={accentColor} />;
+      return <BenefitsSection content={content as BenefitsContent} />;
 
     case 'testimonials':
-      return (
-        <TestimonialsSection content={content as TestimonialsContent} accentColor={accentColor} />
-      );
+      return <TestimonialsSection content={content as TestimonialsContent} />;
 
     case 'vision':
-      return <VisionSection content={content as VisionContent} accentColor={accentColor} />;
+      return <VisionSection content={content as VisionContent} />;
 
     case 'technology':
-      return <TechnologySection content={content as TechnologyContent} accentColor={accentColor} />;
+      return <TechnologySection content={content as TechnologyContent} />;
 
     case 'cta':
-      return (
-        <CTASection content={content as CTAContent} accentColor={accentColor} tryLink={tryLink} />
-      );
+      return <CTASection content={content as CTAContent} tryLink={tryLink} />;
 
     default:
       return null;

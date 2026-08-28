@@ -321,6 +321,20 @@ export const ACCENT_CONTEXT_PANEL_CLASSES: Record<
 /**
  * Hero section color scheme (restricted set)
  */
+/**
+ * Hero styling for first-party bot pages — brand, not per-bot colour.
+ * (The per-colour ACCENT_HERO_CLASSES below was not even self-consistent:
+ * its `green` and `indigo` entries both set chatBg to 'bg-blue-50'.)
+ */
+export const BRAND_HERO = {
+  badge: 'bg-action-tint text-action',
+  chatBg: 'bg-action-tint',
+  chatBorder: 'border-edge',
+  userBubble: 'bg-surface',
+  iconBg: 'bg-action-tint',
+  benefitIcon: 'text-action',
+};
+
 export const ACCENT_HERO_CLASSES: Record<
   CustomBotAccentColor,
   {
@@ -504,6 +518,22 @@ const ACCENT_CLASS_SETS: Record<CustomBotAccentColor, AccentClasses> = {
     lightBg: 'bg-amber-100',
     badge: 'bg-amber-100 text-amber-800',
   },
+};
+
+/**
+ * The Botsmann brand accent, expressed as design-system classes.
+ *
+ * First-party bot pages use THIS, not a per-bot colour. The six professional
+ * bots are Botsmann, so they wear the brand: ochre on ink, defined once in
+ * app/globals.css. The per-colour sets below remain for user-created custom
+ * bots, where accent_color is a real column the owner chooses.
+ */
+export const BRAND_ACCENT: AccentClasses = {
+  primary: 'bg-action',
+  text: 'text-action',
+  border: 'border-action',
+  lightBg: 'bg-action-tint',
+  badge: 'bg-action-tint text-action',
 };
 
 /**

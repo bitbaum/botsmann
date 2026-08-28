@@ -1,5 +1,3 @@
-import type { BotAccentColor } from '@/types/bot';
-
 /**
  * Bot Page Configuration System
  * SSOT for all bot page content and structure
@@ -225,7 +223,6 @@ export interface SectionConfig {
 export interface BotPageConfig {
   slug: string;
   displayName: string;
-  accentColor: BotAccentColor;
   sections: SectionConfig[];
   styles?: string; // Optional CSS file path
 }
@@ -238,7 +235,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
   'legal-expert': {
     slug: 'legal-expert',
     displayName: 'Lex',
-    accentColor: 'blue',
     sections: [
       { id: 'hero', type: 'hero', content: null },
       {
@@ -607,7 +603,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
   'medical-expert': {
     slug: 'medical-expert',
     displayName: 'Imhotep',
-    accentColor: 'green',
     sections: [
       { id: 'hero', type: 'hero', content: null },
       {
@@ -764,7 +759,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
   'swiss-german-teacher': {
     slug: 'swiss-german-teacher',
     displayName: 'Heidi',
-    accentColor: 'red',
     sections: [
       { id: 'hero', type: 'hero', content: null },
       {
@@ -870,7 +864,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
   'research-assistant': {
     slug: 'research-assistant',
     displayName: 'Nerd',
-    accentColor: 'indigo',
     sections: [
       { id: 'hero', type: 'hero', content: null },
       {
@@ -983,7 +976,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
   'product-manager': {
     slug: 'product-manager',
     displayName: 'Trident',
-    accentColor: 'indigo',
     sections: [
       { id: 'hero', type: 'hero', content: null },
       {
@@ -1089,7 +1081,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
   'artistic-advisor': {
     slug: 'artistic-advisor',
     displayName: 'Muse',
-    accentColor: 'amber',
     sections: [
       { id: 'hero', type: 'hero', content: null },
       {
