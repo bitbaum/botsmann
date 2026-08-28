@@ -955,6 +955,87 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
         } as HowItWorksContent,
       },
       {
+        id: 'language-learning',
+        type: 'features',
+        content: {
+          badge: 'Language Learning',
+          title: 'Learn to Speak Like a Local',
+          subtitle:
+            'Personalised Swiss German focused on real conversation, not textbook grammar drills.',
+          columns: 3,
+          features: [
+            {
+              icon: '📖',
+              title: 'Vocabulary Builder',
+              description:
+                'Practical words and phrases in Zürich dialect, with pronunciation guides.',
+            },
+            {
+              icon: '💬',
+              title: 'Conversation Practice',
+              description: 'Everyday exchanges shown in both Standard German and Swiss German.',
+            },
+            {
+              icon: '📐',
+              title: 'Grammar Explanations',
+              description: 'Swiss German grammar explained by how it differs from Standard German.',
+            },
+          ],
+        } as FeaturesContent,
+      },
+      {
+        id: 'communication',
+        type: 'features',
+        content: {
+          badge: 'Communication',
+          title: 'Write Like You Live Here',
+          subtitle: 'The everyday writing that trips people up, handled in the right register.',
+          columns: 2,
+          features: [
+            {
+              icon: '✉️',
+              title: 'Email Writing',
+              description:
+                'Formal and informal Swiss email conventions, with the phrasing locals actually use.',
+            },
+            {
+              icon: '📱',
+              title: 'Texting Help',
+              description:
+                'Casual Swiss German as it is really written — abbreviations, dialect spellings and all.',
+            },
+          ],
+        } as FeaturesContent,
+      },
+      {
+        id: 'culture',
+        type: 'features',
+        content: {
+          badge: 'Swiss Content',
+          title: 'Immerse Yourself',
+          subtitle:
+            'Authentic Swiss German content, matched to your level so it stretches you without losing you.',
+          columns: 3,
+          features: [
+            {
+              icon: '🎬',
+              title: 'Video',
+              description: 'Short videos subtitled in both Standard and Swiss German.',
+            },
+            {
+              icon: '🎙️',
+              title: 'Podcasts',
+              description: 'Audio with transcripts, for listening practice you can follow along.',
+            },
+            {
+              icon: '📰',
+              title: 'Articles',
+              description: 'News and blog posts with vocabulary assistance built in.',
+            },
+          ],
+        } as FeaturesContent,
+      },
+      {
         id: 'cta',
         type: 'cta',
         content: {
@@ -1029,6 +1110,109 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             },
           ],
         } as FeaturesContent,
+      },
+      {
+        id: 'research-system',
+        type: 'features',
+        content: {
+          badge: 'Systematisation',
+          title: 'Upload Once, Organise Automatically',
+          subtitle:
+            'Drop in papers, notes and transcripts. Nerd sorts them into a system you can actually navigate.',
+          columns: 3,
+          features: [
+            {
+              icon: '🏷️',
+              title: 'By Theme',
+              description: 'Group research by topics and subtopics.',
+            },
+            {
+              icon: '⭐',
+              title: 'By Relevance',
+              description: 'Prioritise by importance to your core question.',
+            },
+            {
+              icon: '📅',
+              title: 'By Chronology',
+              description: 'Organise materials along a timeline.',
+            },
+            {
+              icon: '📚',
+              title: 'By Source Type',
+              description: 'Group by papers, books, interviews and more.',
+            },
+            {
+              icon: '🧪',
+              title: 'By Methodology',
+              description: 'Categorise by the research methods used.',
+            },
+            { icon: '👩‍🔬', title: 'By Author', description: 'Group research by key contributors.' },
+          ],
+        } as FeaturesContent,
+      },
+      {
+        id: 'scraping',
+        type: 'features',
+        content: {
+          badge: 'Real-Time Sources',
+          title: 'Never Miss Important Developments',
+          subtitle:
+            'Nerd watches the literature and the news, so a relevant paper does not sit unread for three months.',
+          columns: 3,
+          features: [
+            { icon: '📑', title: 'ArXiv', description: 'Preprint server for scientific papers.' },
+            {
+              icon: '🎓',
+              title: 'Google Scholar',
+              description: 'Search across scholarly literature.',
+            },
+            { icon: '🔬', title: 'PubMed', description: 'Biomedical literature and abstracts.' },
+            {
+              icon: '🌿',
+              title: 'Nature',
+              description: 'Leading multidisciplinary science journal.',
+            },
+            {
+              icon: '📰',
+              title: 'Science Daily',
+              description: 'Science news articles and summaries.',
+            },
+            {
+              icon: '💻',
+              title: 'MIT Technology Review',
+              description: 'Technology and innovation reporting.',
+            },
+          ],
+        } as FeaturesContent,
+      },
+      {
+        id: 'drafts',
+        type: 'how-it-works',
+        content: {
+          title: 'Turn Unstructured Notes into Polished Research',
+          steps: [
+            {
+              icon: '📋',
+              title: 'Abstract',
+              description: 'A tight summary of the question, method and finding.',
+            },
+            {
+              icon: '📖',
+              title: 'Literature Review',
+              description: 'What the field already says, and where the gap is.',
+            },
+            {
+              icon: '📄',
+              title: 'Methodology',
+              description: 'How the work was done, in the form reviewers expect.',
+            },
+            {
+              icon: '✍️',
+              title: 'Discussion',
+              description: 'What the result means, and what it does not show.',
+            },
+          ],
+        } as HowItWorksContent,
       },
       {
         id: 'vision',
@@ -1170,6 +1354,92 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             },
           ],
         } as HowItWorksContent,
+      },
+      {
+        id: 'benefits',
+        type: 'benefits',
+        content: {
+          badge: 'Why Trident',
+          title: 'Why Use Trident?',
+          subtitle: 'Project management that understands the code, not just the ticket.',
+          columns: 2,
+          benefits: [
+            {
+              icon: '🚀',
+              title: 'Accelerated Development',
+              description:
+                'Speed up development with AI-powered project management and technical guidance.',
+            },
+            {
+              icon: '⚡',
+              title: 'Optimised Workflows',
+              description:
+                "Identify bottlenecks and streamline your team's processes for maximum productivity.",
+            },
+            {
+              icon: '🎯',
+              title: 'Technical Precision',
+              description:
+                'Expert development guidance with concrete best practices and implementation strategies.',
+            },
+            {
+              icon: '📊',
+              title: 'Better Planning',
+              description:
+                'Detailed roadmaps with realistic timelines, resource allocation and clear deliverables.',
+            },
+          ],
+        } as BenefitsContent,
+      },
+      {
+        id: 'showcase',
+        type: 'how-it-works',
+        content: {
+          title: 'What Trident Is Actually For',
+          steps: [
+            {
+              icon: '🗺️',
+              title: 'Feature Planning & Development',
+              description:
+                'From a rough intent to a scoped plan, an implementation path, and a way to tell whether it worked.',
+            },
+            {
+              icon: '🧹',
+              title: 'Technical Debt Management',
+              description:
+                'Identify what is actually costing you, then sequence remediation so it fits around delivery.',
+            },
+            {
+              icon: '🤝',
+              title: 'Cross-Team Coordination',
+              description:
+                'One set of documentation everyone reads, kept current without a weekly meeting about it.',
+            },
+          ],
+        } as HowItWorksContent,
+      },
+      {
+        id: 'integration',
+        type: 'features',
+        content: {
+          badge: 'Integrations',
+          title: 'Fits the Tools You Already Use',
+          columns: 2,
+          features: [
+            {
+              icon: '🐙',
+              title: 'GitHub',
+              description:
+                'Link tasks to pull requests, track milestones, and generate documentation from the code itself.',
+            },
+            {
+              icon: '📋',
+              title: 'Jira',
+              description:
+                'Sync tasks with tickets, import existing sprint structures, and generate sprint reports.',
+            },
+          ],
+        } as FeaturesContent,
       },
       {
         id: 'cta',
