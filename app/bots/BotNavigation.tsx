@@ -5,6 +5,7 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { Dialog, Transition } from '@headlessui/react';
 import { BotSwitcher, SiteMenuDropdown } from '@/components/navigation';
+import { Logo } from '@/components/shared/Logo';
 import { menuItems } from '@/data/menuItems';
 import { useScrollNavigation, getNavColors } from '@/lib/hooks';
 import type { BotMenuItem } from '@/types/bot';
@@ -53,11 +54,11 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
   };
 
   // Get color classes from centralized config
-  const colors = getNavColors(accentColor);
+  const colors = getNavColors();
 
   const navClasses = isScrolled
-    ? 'bg-white shadow-md border-b border-gray-200'
-    : 'bg-white border-b border-gray-200';
+    ? 'bg-surface shadow-md border-b border-edge'
+    : 'bg-surface border-b border-edge';
 
   return (
     <nav
@@ -67,17 +68,11 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
         <div className="flex justify-between items-center h-12">
           {/* Left side: Botsmann logo + divider + Bot Switcher */}
           <div className="flex items-center h-full">
-            {/* Botsmann 'B' logo - links to home */}
-            <Link
-              href="/"
-              className="flex items-center justify-center w-9 h-9 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-sm rounded-lg hover:opacity-90 transition-opacity"
-              aria-label="Go to Botsmann home"
-            >
-              B
-            </Link>
+            {/* Botsmann 'B' mark — the shared Logo, so it cannot drift again */}
+            <Logo href="/" showText={false} size="sm" />
 
             {/* Vertical divider */}
-            <div className="h-6 w-px bg-gray-300 mx-3" />
+            <div className="h-6 w-px bg-edge mx-3" />
 
             {/* Bot Switcher dropdown */}
             <BotSwitcher
@@ -95,7 +90,7 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
                 key={item.id}
                 onClick={() => handleScrollToSection(item.section)}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex items-center ${
-                  activeSection === item.section ? colors.active : `text-gray-600 ${colors.hover}`
+                  activeSection === item.section ? colors.active : `text-ink-muted ${colors.hover}`
                 } ${item.id === 'roadmap' ? `border ${colors.border}` : ''}`}
               >
                 {item.icon && <span className="mr-1">{item.icon}</span>}
@@ -108,7 +103,7 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
           <div className="flex items-center gap-2">
             {/* Mobile menu button */}
             <button
-              className="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-800 hover:bg-gray-100 focus:outline-none"
+              className="md:hidden p-2 rounded-md text-ink-muted hover:text-ink hover:bg-paper focus:outline-none"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
@@ -182,20 +177,20 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
                   leaveTo="translate-x-full"
                 >
                   <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                    <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                    <div className="flex h-full flex-col overflow-y-scroll bg-surface shadow-xl">
                       {/* Header with Botsmann branding */}
-                      <div className="flex items-center justify-between px-4 py-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50">
+                      <div className="flex items-center justify-between px-4 py-6 border-b border-edge bg-gradient-to-r from-blue-50 to-purple-50">
                         <div className="flex items-center gap-3">
                           <div className="flex items-center justify-center w-9 h-9 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-sm rounded-lg">
                             B
                           </div>
-                          <Dialog.Title className="text-lg font-semibold text-gray-900">
+                          <Dialog.Title className="text-lg font-semibold text-ink">
                             Botsmann
                           </Dialog.Title>
                         </div>
                         <button
                           type="button"
-                          className="rounded-md p-2 text-gray-400 hover:bg-white/50"
+                          className="rounded-md p-2 text-ink-muted hover:bg-surface/50"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           <span className="sr-only">Close menu</span>
@@ -221,7 +216,7 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
                           {/* Home link */}
                           <Link
                             href="/"
-                            className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
+                            className="flex items-center px-3 py-2 rounded-md text-base font-medium text-ink hover:bg-paper"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             <svg
@@ -243,7 +238,7 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
                           {/* All Bots link */}
                           <Link
                             href="/bots"
-                            className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
+                            className="flex items-center px-3 py-2 rounded-md text-base font-medium text-ink hover:bg-paper"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             <svg
@@ -262,27 +257,27 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
                             All Bots
                           </Link>
 
-                          <hr className="my-4 border-gray-200" />
+                          <hr className="my-4 border-edge" />
 
                           {/* Site Navigation */}
-                          <p className="px-3 text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                          <p className="px-3 text-xs font-medium text-ink-muted uppercase tracking-wider mb-2">
                             Botsmann
                           </p>
                           {siteNavItems.map((item) => (
                             <Link
                               key={item.label}
                               href={item.path}
-                              className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
+                              className="flex items-center px-3 py-2 rounded-md text-base font-medium text-ink hover:bg-paper"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
                               <span>{item.label}</span>
                             </Link>
                           ))}
 
-                          <hr className="my-4 border-gray-200" />
+                          <hr className="my-4 border-edge" />
 
                           {/* Bot Section links */}
-                          <p className="px-3 text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                          <p className="px-3 text-xs font-medium text-ink-muted uppercase tracking-wider mb-2">
                             {botTitle} Sections
                           </p>
                           {sectionMenuItems.map((item) => (
@@ -292,7 +287,7 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
                               className={`w-full text-left flex items-center px-3 py-2 rounded-md text-base font-medium transition-colors ${
                                 activeSection === item.section
                                   ? colors.active
-                                  : `text-gray-700 hover:bg-gray-100`
+                                  : `text-ink hover:bg-paper`
                               }`}
                             >
                               {item.icon && <span className="mr-3 text-lg">{item.icon}</span>}
@@ -302,7 +297,7 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
 
                           {chatLink && (
                             <>
-                              <hr className="my-4 border-gray-200" />
+                              <hr className="my-4 border-edge" />
                               <Link
                                 href={chatLink as Route}
                                 className={`w-full flex items-center justify-center px-4 py-3 ${colors.accent} text-white text-base font-medium rounded-md transition-colors`}

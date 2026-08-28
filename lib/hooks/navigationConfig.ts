@@ -1,8 +1,13 @@
-import type { BotAccentColor } from '@/types/bot';
-
 /**
- * Color classes for navigation elements by accent color
- * Centralized to avoid duplication across navigation components
+ * Navigation colour classes for first-party bot pages.
+ *
+ * There is one scheme, because there is one brand. Bot pages used to carry a
+ * per-bot accent (blue, green, indigo, red, amber), which put a blue logo and
+ * a blue nav button on the same screen as the ochre CTA defined in
+ * app/globals.css — two design systems arguing inside one viewport.
+ *
+ * Values here are semantic Tailwind classes bound to the CSS custom properties
+ * in app/globals.css. That file is the SSOT; nothing below is a literal colour.
  */
 export interface NavColorClasses {
   /** Logo/icon background */
@@ -19,57 +24,14 @@ export interface NavColorClasses {
   border: string;
 }
 
-/**
- * Navigation color schemes for all bot accent colors
- * SSOT for navigation styling - update here to change all bot pages
- */
-export const NAV_COLOR_CLASSES: Record<BotAccentColor, NavColorClasses> = {
-  blue: {
-    logo: 'bg-blue-100',
-    title: 'text-blue-900',
-    active: 'text-blue-700 bg-blue-50',
-    hover: 'hover:text-blue-700 hover:bg-blue-50',
-    accent: 'bg-blue-600 hover:bg-blue-700',
-    border: 'border-blue-300',
-  },
-  green: {
-    logo: 'bg-green-100',
-    title: 'text-green-900',
-    active: 'text-green-700 bg-green-50',
-    hover: 'hover:text-green-700 hover:bg-green-50',
-    accent: 'bg-green-600 hover:bg-green-700',
-    border: 'border-green-300',
-  },
-  indigo: {
-    logo: 'bg-indigo-100',
-    title: 'text-indigo-900',
-    active: 'text-indigo-700 bg-indigo-50',
-    hover: 'hover:text-indigo-700 hover:bg-indigo-50',
-    accent: 'bg-indigo-600 hover:bg-indigo-700',
-    border: 'border-indigo-300',
-  },
-  red: {
-    logo: 'bg-red-100',
-    title: 'text-red-900',
-    active: 'text-red-700 bg-red-50',
-    hover: 'hover:text-red-700 hover:bg-red-50',
-    accent: 'bg-red-600 hover:bg-red-700',
-    border: 'border-red-300',
-  },
-  amber: {
-    logo: 'bg-amber-100',
-    title: 'text-amber-900',
-    active: 'text-amber-700 bg-amber-50',
-    hover: 'hover:text-amber-700 hover:bg-amber-50',
-    accent: 'bg-amber-600 hover:bg-amber-700',
-    border: 'border-amber-300',
-  },
+export const NAV_COLORS: NavColorClasses = {
+  logo: 'bg-action-tint',
+  title: 'text-ink',
+  active: 'text-action bg-action-tint',
+  hover: 'hover:text-action hover:bg-action-tint',
+  accent: 'bg-action hover:bg-action-hover',
+  border: 'border-edge',
 };
 
-/**
- * Get color classes for a given accent color
- * Falls back to blue if invalid color provided
- */
-export const getNavColors = (accentColor: string): NavColorClasses => {
-  return NAV_COLOR_CLASSES[accentColor as BotAccentColor] ?? NAV_COLOR_CLASSES.blue;
-};
+/** Navigation colours for first-party bot pages. */
+export const getNavColors = (): NavColorClasses => NAV_COLORS;

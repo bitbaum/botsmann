@@ -14,8 +14,8 @@ export function DemoSectionWrapper({ content, botSlug }: DemoSectionWrapperProps
   return (
     <div className="max-w-5xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-semibold text-gray-900 mb-3">{title}</h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">{subtitle}</p>
+        <h2 className="text-3xl font-semibold text-ink mb-3">{title}</h2>
+        <p className="text-lg text-ink-muted max-w-2xl mx-auto">{subtitle}</p>
       </div>
       <DemoSection botSlug={botSlug} />
     </div>
