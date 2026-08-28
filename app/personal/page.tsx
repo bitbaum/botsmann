@@ -64,11 +64,11 @@ export default function PersonalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-action-tint">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full opacity-10 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-blue-400 to-cyan-600 rounded-full opacity-10 blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-action to-action-hover rounded-full opacity-10 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-action rounded-full opacity-10 blur-3xl" />
       </div>
 
       <main className="relative max-w-screen-xl mx-auto px-6 py-12">
@@ -111,9 +111,7 @@ export default function PersonalPage() {
         {step === 'pick' && (
           <div className="text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Personal AI
-              </span>
+              <span className="text-action">Personal AI</span>
             </h1>
             <p className="text-gray-600 max-w-lg mx-auto">
               Create memorial bots for loved ones, companion bots, and other personal AI assistants
@@ -125,11 +123,11 @@ export default function PersonalPage() {
         {/* Progress Indicator */}
         <div className="flex items-center justify-center gap-4 mb-12">
           <div
-            className={`flex items-center gap-2 ${step === 'pick' ? 'text-purple-600' : 'text-gray-400'}`}
+            className={`flex items-center gap-2 ${step === 'pick' ? 'text-action' : 'text-gray-400'}`}
           >
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                step === 'pick' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-500'
+                step === 'pick' ? 'bg-action text-white' : 'bg-gray-200 text-gray-500'
               }`}
             >
               1
@@ -137,17 +135,17 @@ export default function PersonalPage() {
             <span className="hidden sm:inline font-medium">Choose</span>
           </div>
 
-          <div className={`w-12 h-0.5 ${step !== 'pick' ? 'bg-purple-600' : 'bg-gray-200'}`} />
+          <div className={`w-12 h-0.5 ${step !== 'pick' ? 'bg-action' : 'bg-gray-200'}`} />
 
           <div
-            className={`flex items-center gap-2 ${step === 'name' ? 'text-purple-600' : 'text-gray-400'}`}
+            className={`flex items-center gap-2 ${step === 'name' ? 'text-action' : 'text-gray-400'}`}
           >
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                 step === 'name'
-                  ? 'bg-purple-600 text-white'
+                  ? 'bg-action text-white'
                   : step === 'chat'
-                    ? 'bg-purple-600 text-white'
+                    ? 'bg-action text-white'
                     : 'bg-gray-200 text-gray-500'
               }`}
             >
@@ -156,14 +154,14 @@ export default function PersonalPage() {
             <span className="hidden sm:inline font-medium">Name</span>
           </div>
 
-          <div className={`w-12 h-0.5 ${step === 'chat' ? 'bg-purple-600' : 'bg-gray-200'}`} />
+          <div className={`w-12 h-0.5 ${step === 'chat' ? 'bg-action' : 'bg-gray-200'}`} />
 
           <div
-            className={`flex items-center gap-2 ${step === 'chat' ? 'text-purple-600' : 'text-gray-400'}`}
+            className={`flex items-center gap-2 ${step === 'chat' ? 'text-action' : 'text-gray-400'}`}
           >
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                step === 'chat' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-500'
+                step === 'chat' ? 'bg-action text-white' : 'bg-gray-200 text-gray-500'
               }`}
             >
               3
@@ -186,7 +184,7 @@ export default function PersonalPage() {
           <div className="mt-16 text-center">
             <p className="text-gray-500 text-sm">
               Looking for professional AI advisors?{' '}
-              <Link href="/professionals" className="text-purple-600 hover:text-purple-700">
+              <Link href="/professionals" className="text-action hover:text-action">
                 Visit our AI Professionals
               </Link>
             </p>

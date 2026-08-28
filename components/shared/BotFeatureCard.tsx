@@ -41,7 +41,7 @@ interface BotFeatureCardProps {
  *     icon: '🔐',
  *     title: 'Secure',
  *     description: 'End-to-end encryption',
- *     color: 'from-purple-500 to-pink-500'
+ *     color: 'from-action to-action-hover'
  *   }}
  *   variant="gradient"
  * />
@@ -74,7 +74,7 @@ export const BotFeatureCard: FC<BotFeatureCardProps> = ({
     gradient: `${baseClasses} border-2 border-gray-100 hover:border-gray-200 hover:shadow-xl group`,
     simple: `${baseClasses} border ${
       isSelected
-        ? 'border-blue-500 shadow-md'
+        ? 'border-action shadow-md'
         : 'border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300'
     }`,
   };
@@ -163,7 +163,7 @@ export const BotFeatureGrid: FC<BotFeatureGridProps> = ({
       {header && (
         <div className="text-center mb-12">
           {header.badge && (
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-700 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center px-4 py-2 bg-action-tint text-action rounded-full text-sm font-medium mb-6">
               {header.badge.emoji && <span className="mr-2">{header.badge.emoji}</span>}
               {header.badge.text}
             </div>

@@ -21,7 +21,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-action-tint to-white">
       <div className="max-w-6xl mx-auto px-4 py-8">
         <WelcomeHeader
           user={user}

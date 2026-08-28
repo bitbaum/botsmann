@@ -74,7 +74,7 @@ export const CategorySelector: FC<CategorySelectorProps> = ({
               key={cat.value}
               onClick={() => handleSelect(cat.value)}
               className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 flex items-center gap-2 ${
-                cat.value === category ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                cat.value === category ? 'bg-action-tint text-action' : 'text-gray-700'
               }`}
             >
               <span>{cat.emoji}</span>

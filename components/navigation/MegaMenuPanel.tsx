@@ -28,7 +28,7 @@ export function MegaMenuPanel({ items, config, onNavigate }: MegaMenuPanelProps)
       {/* Optional Header */}
       {config?.header && (
         <div
-          className={`border-b border-gray-100 px-6 py-4 ${config.header.gradient ?? 'bg-gradient-to-r from-blue-50 to-cyan-50'}`}
+          className={`border-b border-gray-100 px-6 py-4 ${config.header.gradient ?? 'bg-action-tint'}`}
         >
           <h3 className="text-sm font-semibold text-gray-900">{config.header.title}</h3>
           {config.header.subtitle && (
@@ -50,7 +50,7 @@ export function MegaMenuPanel({ items, config, onNavigate }: MegaMenuPanelProps)
           <Link
             href={config.footer.href}
             onClick={onNavigate}
-            className="group flex items-center justify-between text-sm font-medium text-gray-900 hover:text-blue-600 transition-colors"
+            className="group flex items-center justify-between text-sm font-medium text-gray-900 hover:text-action transition-colors"
           >
             <span>{config.footer.label}</span>
             <svg

@@ -54,7 +54,7 @@ export const UserAvatar: FC<UserAvatarProps> = ({
   // Fallback to initial with gradient background
   return (
     <div
-      className={`${sizeClass} rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold ${className}`}
+      className={`${sizeClass} rounded-full bg-action flex items-center justify-center text-white font-bold ${className}`}
     >
       {displayInitial}
     </div>

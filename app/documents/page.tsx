@@ -67,7 +67,7 @@ export default function DocumentsPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-action-tint to-white flex items-center justify-center">
         <div className="max-w-md mx-auto text-center px-6">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Sign in required</h1>
           <p className="text-gray-600 mb-6">
@@ -76,7 +76,7 @@ export default function DocumentsPage() {
           <div className="space-y-3">
             <Link
               href="/auth/signin"
-              className="block w-full py-3 px-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              className="block w-full py-3 px-4 bg-action text-white rounded-lg font-medium hover:bg-action-hover transition-colors"
             >
               Sign In
             </Link>
@@ -98,7 +98,7 @@ export default function DocumentsPage() {
   const hasReadyDocuments = documents.some((d) => d.status === DOCUMENT_STATUS.READY);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-action-tint to-white">
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Header with User Controls */}
         <div className="flex items-center justify-between mb-6">
@@ -144,16 +144,16 @@ export default function DocumentsPage() {
         </div>
 
         {/* Info Box */}
-        <div className="mt-8 bg-blue-50 rounded-xl p-6 border border-blue-100">
-          <h3 className="font-semibold text-blue-900 mb-2">How it works</h3>
-          <ol className="list-decimal list-inside space-y-2 text-blue-800">
+        <div className="mt-8 bg-action-tint rounded-xl p-6 border border-edge">
+          <h3 className="font-semibold text-action mb-2">How it works</h3>
+          <ol className="list-decimal list-inside space-y-2 text-action">
             <li>Upload a document (PDF, TXT, or Markdown)</li>
             <li>Click &quot;Process&quot; to extract and index the content</li>
             <li>
               Ask questions in the chat - the AI will search your documents and provide answers
             </li>
           </ol>
-          <p className="mt-4 text-sm text-blue-600">
+          <p className="mt-4 text-sm text-action">
             Your documents are private and only accessible to you. Processing happens locally using
             free AI models. Your conversations are saved automatically.
           </p>

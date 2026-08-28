@@ -66,7 +66,7 @@ export default function ResetPasswordPage() {
   // Invalid or expired link
   if (!isValidSession) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-b from-action-tint to-white flex items-center justify-center px-4">
         <div className="max-w-md w-full">
           <div className="text-center mb-8">
             <Link href="/" className="text-3xl font-bold text-gray-900">
@@ -83,7 +83,7 @@ export default function ResetPasswordPage() {
               </p>
               <Link
                 href={ROUTES.AUTH.FORGOT_PASSWORD}
-                className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                className="inline-block px-6 py-3 bg-action text-white rounded-lg font-medium hover:bg-action-hover transition-colors"
               >
                 Request New Link
               </Link>
@@ -101,7 +101,7 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-b from-action-tint to-white flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <Link href="/" className="text-3xl font-bold text-gray-900">
@@ -121,7 +121,7 @@ export default function ResetPasswordPage() {
               </p>
               <Link
                 href={ROUTES.AUTH.SIGNIN}
-                className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                className="inline-block px-6 py-3 bg-action text-white rounded-lg font-medium hover:bg-action-hover transition-colors"
               >
                 Sign In
               </Link>
@@ -143,7 +143,7 @@ export default function ResetPasswordPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={PASSWORD_MIN_LENGTH}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-action"
                   placeholder={`At least ${PASSWORD_MIN_LENGTH} characters`}
                 />
               </div>
@@ -162,7 +162,7 @@ export default function ResetPasswordPage() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                   minLength={PASSWORD_MIN_LENGTH}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-action"
                   placeholder="Confirm your new password"
                 />
               </div>
@@ -170,7 +170,7 @@ export default function ResetPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                className="w-full py-3 bg-action text-white rounded-lg font-medium hover:bg-action-hover disabled:opacity-50 transition-colors"
               >
                 {loading ? 'Updating...' : 'Update Password'}
               </button>

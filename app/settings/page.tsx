@@ -132,7 +132,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-action-tint to-white">
       <div className="max-w-2xl mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
@@ -147,7 +147,7 @@ export default function SettingsPage() {
             {!isEditingProfile && (
               <button
                 onClick={() => setIsEditingProfile(true)}
-                className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                className="text-action hover:text-action text-sm font-medium"
               >
                 Edit
               </button>
@@ -198,7 +198,7 @@ export default function SettingsPage() {
                       onChange={(e) => setProfileDisplayName(e.target.value)}
                       maxLength={DISPLAY_NAME_MAX_LENGTH}
                       placeholder="Your name"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-action"
                     />
                     <p className="text-xs text-gray-500 mt-1">
                       {profileDisplayName.length}/{DISPLAY_NAME_MAX_LENGTH} characters
@@ -218,7 +218,7 @@ export default function SettingsPage() {
                       value={profileAvatarUrl}
                       onChange={(e) => setProfileAvatarUrl(e.target.value)}
                       placeholder="https://example.com/avatar.jpg"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-action"
                     />
                     <p className="text-xs text-gray-500 mt-1">
                       Enter a URL to an image (PNG, JPG, or GIF)
@@ -231,7 +231,7 @@ export default function SettingsPage() {
                 <button
                   type="submit"
                   disabled={profileSaving}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                  className="px-4 py-2 bg-action text-white rounded-lg font-medium hover:bg-action-hover disabled:opacity-50 transition-colors"
                 >
                   {profileSaving ? 'Saving...' : 'Save Profile'}
                 </button>
@@ -303,7 +303,7 @@ export default function SettingsPage() {
           <div className="mt-6">
             <Link
               href="/documents"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-action text-white rounded-lg text-sm font-medium hover:bg-action-hover transition-colors"
             >
               Go to My Documents
               <ChevronRightIcon className="w-4 h-4" />

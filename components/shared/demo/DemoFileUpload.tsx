@@ -19,7 +19,7 @@ function getStatusIcon(status: UploadedFile['status']) {
   switch (status) {
     case 'uploading':
       return (
-        <svg className="w-4 h-4 animate-spin text-blue-500" fill="none" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 animate-spin text-action" fill="none" viewBox="0 0 24 24">
           <circle
             className="opacity-25"
             cx="12"

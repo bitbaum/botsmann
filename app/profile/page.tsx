@@ -95,7 +95,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-action-tint to-white">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Profile Header */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
@@ -147,10 +147,7 @@ export default function ProfilePage() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Published Bots</h2>
-            <Link
-              href="/bots/create"
-              className="text-blue-600 hover:text-blue-700 text-sm font-medium"
-            >
+            <Link href="/bots/create" className="text-action hover:text-action text-sm font-medium">
               Create new
             </Link>
           </div>
@@ -166,7 +163,7 @@ export default function ProfilePage() {
               </p>
               <Link
                 href="/bots/create"
-                className="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                className="inline-block mt-4 px-4 py-2 bg-action text-white rounded-lg text-sm font-medium hover:bg-action-hover transition-colors"
               >
                 Create Your First Bot
               </Link>

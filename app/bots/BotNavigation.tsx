@@ -179,11 +179,9 @@ export const BotNavigation: React.FC<BotNavigationProps> = ({
                   <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
                     <div className="flex h-full flex-col overflow-y-scroll bg-surface shadow-xl">
                       {/* Header with Botsmann branding */}
-                      <div className="flex items-center justify-between px-4 py-6 border-b border-edge bg-gradient-to-r from-blue-50 to-purple-50">
+                      <div className="flex items-center justify-between px-4 py-6 border-b border-edge bg-action-tint">
                         <div className="flex items-center gap-3">
-                          <div className="flex items-center justify-center w-9 h-9 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-sm rounded-lg">
-                            B
-                          </div>
+                          <Logo href={null} showText={false} size="sm" />
                           <Dialog.Title className="text-lg font-semibold text-ink">
                             Botsmann
                           </Dialog.Title>

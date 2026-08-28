@@ -81,7 +81,7 @@ export const ModelSelector: FC<ModelSelectorProps> = ({
           className={`px-1.5 py-0.5 rounded text-xs ${
             currentTier.privacyLevel === 'maximum'
               ? 'bg-green-100 text-green-700'
-              : 'bg-blue-100 text-blue-700'
+              : 'bg-action-tint text-action'
           }`}
         >
           {currentTier.privacyLevel === 'maximum' ? 'Private' : 'Cloud'}
@@ -145,7 +145,7 @@ export const ModelSelector: FC<ModelSelectorProps> = ({
                       className={`px-1.5 py-0.5 rounded text-xs ${
                         tier.privacyLevel === 'maximum'
                           ? 'bg-green-100 text-green-700'
-                          : 'bg-blue-100 text-blue-700'
+                          : 'bg-action-tint text-action'
                       }`}
                     >
                       {tier.privacyLevel === 'maximum' ? 'Private' : 'Cloud'}

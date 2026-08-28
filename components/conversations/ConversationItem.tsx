@@ -28,7 +28,7 @@ export const ConversationItem = ({
       onClick={() => onSelect(conversation.id)}
       className={`p-3 rounded-lg cursor-pointer transition-colors group ${
         isActive
-          ? 'bg-blue-100 border-blue-300 border'
+          ? 'bg-action-tint border-edge border'
           : 'bg-gray-50 hover:bg-gray-100 border border-transparent'
       }`}
     >

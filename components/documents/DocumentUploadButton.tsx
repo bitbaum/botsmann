@@ -57,7 +57,7 @@ export const DocumentUploadButton = ({ onUploaded }: DocumentUploadButtonProps) 
       />
       <label
         htmlFor="file-upload"
-        className={`inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 cursor-pointer transition-colors ${
+        className={`inline-flex items-center px-4 py-2 bg-action text-white rounded-lg font-medium hover:bg-action-hover cursor-pointer transition-colors ${
           uploading ? 'opacity-50 cursor-not-allowed' : ''
         }`}
       >

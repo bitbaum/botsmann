@@ -56,7 +56,7 @@ export default function GlobalError({
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
                 onClick={reset}
-                className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-6 py-3 bg-action text-white font-medium rounded-lg hover:bg-action-hover transition-colors"
               >
                 Try again
               </button>
@@ -70,7 +70,7 @@ export default function GlobalError({
 
             <p className="mt-8 text-sm text-gray-500">
               If this problem persists, please{' '}
-              <a href="/contact" className="text-blue-600 hover:underline">
+              <a href="/contact" className="text-action hover:underline">
                 contact support
               </a>
             </p>

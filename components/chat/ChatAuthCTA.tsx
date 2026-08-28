@@ -30,9 +30,7 @@ export const ChatAuthCTA: FC<ChatAuthCTAProps> = ({ dismissible = true, classNam
   }
 
   return (
-    <div
-      className={`relative bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 rounded-xl p-4 ${className}`}
-    >
+    <div className={`relative bg-action-tint border border-edge rounded-xl p-4 ${className}`}>
       {dismissible && (
         <button
           type="button"
@@ -52,9 +50,9 @@ export const ChatAuthCTA: FC<ChatAuthCTAProps> = ({ dismissible = true, classNam
       )}
 
       <div className="flex items-start gap-3">
-        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
+        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-action-tint flex items-center justify-center">
           <svg
-            className="w-5 h-5 text-indigo-600"
+            className="w-5 h-5 text-action"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -94,7 +92,7 @@ export const ChatAuthCTA: FC<ChatAuthCTAProps> = ({ dismissible = true, classNam
           <div className="flex flex-wrap gap-2">
             <Link
               href={config.primaryAction.href}
-              className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+              className="inline-flex items-center px-4 py-2 bg-action text-white text-sm font-medium rounded-lg hover:bg-action-hover transition-colors"
             >
               {config.primaryAction.label}
             </Link>

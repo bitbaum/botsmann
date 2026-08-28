@@ -177,7 +177,7 @@ export default function InfrastructurePage() {
   const selectedProviderData = getProviderById(selectedProvider);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-action-tint to-white">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
@@ -308,7 +308,7 @@ export default function InfrastructurePage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              className="px-6 py-3 bg-action text-white rounded-xl font-medium hover:bg-action-hover disabled:opacity-50 transition-colors"
             >
               {saving ? 'Saving...' : 'Save Changes'}
             </button>

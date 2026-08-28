@@ -51,7 +51,7 @@ export default function MyDataPage() {
   const hasReadyDocuments = (documents || []).some((d) => d.status === DOCUMENT_STATUS.READY);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-action-tint to-white">
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Header with User Controls */}
         <div className="flex items-center justify-between mb-6">
@@ -62,7 +62,7 @@ export default function MyDataPage() {
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/professionals" className="text-sm text-blue-600 hover:text-blue-700">
+            <Link href="/professionals" className="text-sm text-action hover:text-action">
               AI Professionals
             </Link>
             <Link href="/settings" className="text-sm text-gray-500 hover:text-gray-700">
@@ -125,11 +125,11 @@ export default function MyDataPage() {
         </div>
 
         {/* Info Box */}
-        <div className="mt-8 bg-blue-50 rounded-xl p-6 border border-blue-100">
-          <h3 className="font-semibold text-blue-900 mb-2">
+        <div className="mt-8 bg-action-tint rounded-xl p-6 border border-edge">
+          <h3 className="font-semibold text-action mb-2">
             How to personalize your AI Professionals
           </h3>
-          <ol className="list-decimal list-inside space-y-2 text-blue-800">
+          <ol className="list-decimal list-inside space-y-2 text-action">
             <li>Upload your documents (contracts, medical records, research papers, etc.)</li>
             <li>Click &quot;Process&quot; to extract and index the content securely</li>
             <li>Your AI Professionals will use this knowledge to provide personalized guidance</li>
@@ -137,7 +137,7 @@ export default function MyDataPage() {
           <div className="mt-4">
             <Link
               href="/professionals"
-              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
+              className="inline-flex items-center gap-2 text-action hover:text-action font-medium"
             >
               Talk to an AI Professional
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

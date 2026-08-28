@@ -98,7 +98,7 @@ export const ConversationList = ({
             e.stopPropagation();
             onNewConversation();
           }}
-          className="p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded"
+          className="p-2 text-action hover:text-action hover:bg-action-tint rounded"
           aria-label="New conversation"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -118,7 +118,7 @@ export const ConversationList = ({
               <p>No conversations yet</p>
               <button
                 onClick={onNewConversation}
-                className="mt-2 text-blue-600 hover:text-blue-700 text-sm"
+                className="mt-2 text-action hover:text-action text-sm"
               >
                 Start a new conversation
               </button>

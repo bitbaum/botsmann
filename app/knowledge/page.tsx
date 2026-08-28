@@ -180,7 +180,7 @@ export default function KnowledgeCenterPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-full opacity-10 blur-3xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-emerald-400 to-action-hover rounded-full opacity-10 blur-3xl"></div>
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-green-400 to-emerald-600 rounded-full opacity-10 blur-3xl"></div>
       </div>
 
@@ -193,13 +193,8 @@ export default function KnowledgeCenterPage() {
           </div>
 
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-              Knowledge
-            </span>
-            <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-              {' '}
-              Center
-            </span>
+            <span className="text-ink">Knowledge</span>
+            <span className="text-ink"> Center</span>
           </h1>
 
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
@@ -210,7 +205,7 @@ export default function KnowledgeCenterPage() {
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="#guides"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-action-hover text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
             >
               <span>Browse Guides</span>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -235,13 +230,8 @@ export default function KnowledgeCenterPage() {
         <section id="guides" className="mb-24">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                Step-by-Step
-              </span>
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                {' '}
-                Guides
-              </span>
+              <span className="text-ink">Step-by-Step</span>
+              <span className="text-ink"> Guides</span>
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Practical tutorials to help you build and deploy AI bots yourself. From beginner to
@@ -306,13 +296,8 @@ export default function KnowledgeCenterPage() {
         <section id="faq" className="mb-24">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                Frequently Asked
-              </span>
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                {' '}
-                Questions
-              </span>
+              <span className="text-ink">Frequently Asked</span>
+              <span className="text-ink"> Questions</span>
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Quick answers to common questions about AI bots, our platform, and consulting
@@ -379,7 +364,7 @@ export default function KnowledgeCenterPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="text-center bg-gradient-to-br from-emerald-50 to-teal-50 rounded-3xl p-12">
+        <section className="text-center bg-gradient-to-br from-emerald-50 to-action-tint rounded-3xl p-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Still have questions?</h2>
           <p className="text-gray-600 mb-8 max-w-xl mx-auto">
             Our team is here to help. Whether you want to build it yourself or need expert
@@ -388,7 +373,7 @@ export default function KnowledgeCenterPage() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-action-hover text-white px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity"
             >
               <span>Talk to an Expert</span>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

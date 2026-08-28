@@ -15,20 +15,18 @@ export const metadata: Metadata = {
  */
 export default function ProfessionalsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-action-tint">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full opacity-10 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-cyan-400 to-blue-600 rounded-full opacity-10 blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-action rounded-full opacity-10 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-action to-action-hover rounded-full opacity-10 blur-3xl" />
       </div>
 
       <main className="relative max-w-screen-xl mx-auto px-6 py-20">
         {/* Hero */}
         <section className="text-center mb-16 pt-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent">
-              Choose Your AI Professional
-            </span>
+            <span className="text-ink">Choose Your AI Professional</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Each professional brings specialized knowledge, expert guidance, and a unique approach
@@ -38,7 +36,7 @@ export default function ProfessionalsPage() {
 
         {/* Filter Tabs (future enhancement - for now just show all) */}
         <div className="flex justify-center gap-2 mb-12">
-          <button className="px-4 py-2 rounded-full bg-blue-600 text-white font-medium">All</button>
+          <button className="px-4 py-2 rounded-full bg-action text-white font-medium">All</button>
           <button className="px-4 py-2 rounded-full bg-gray-100 text-gray-600 font-medium hover:bg-gray-200 transition-colors">
             Advisory
           </button>
@@ -68,7 +66,7 @@ export default function ProfessionalsPage() {
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link
                 href="/professionals/legal"
-                className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center justify-center gap-2 bg-action text-white px-6 py-3 rounded-xl font-semibold hover:bg-action-hover transition-colors"
               >
                 <span>⚖️</span>
                 Start with Legal

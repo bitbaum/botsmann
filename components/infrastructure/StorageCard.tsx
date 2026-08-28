@@ -24,7 +24,7 @@ export const StorageCard: FC<StorageCardProps> = ({ option, isActive = false, on
   const isAvailable = status === 'available';
   const isDisabled = !isAvailable;
 
-  const selectedRing = isActive ? 'ring-2 ring-blue-500 ring-offset-2' : '';
+  const selectedRing = isActive ? 'ring-2 ring-action ring-offset-2' : '';
   const hoverClasses = isDisabled
     ? 'cursor-not-allowed opacity-60'
     : 'cursor-pointer hover:shadow-lg hover:border-gray-200 hover:-translate-y-0.5';
@@ -38,7 +38,7 @@ export const StorageCard: FC<StorageCardProps> = ({ option, isActive = false, on
     >
       {/* Active indicator */}
       {isActive && (
-        <div className="absolute top-2 right-2 bg-blue-500 rounded-full p-1">
+        <div className="absolute top-2 right-2 bg-action rounded-full p-1">
           <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"

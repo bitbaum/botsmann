@@ -44,7 +44,7 @@ export function AuthNav() {
       <div className="flex items-center gap-3">
         <Link
           href="/auth/signin"
-          className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
+          className="text-sm font-medium text-gray-700 hover:text-action transition-colors"
         >
           Login
         </Link>
@@ -68,7 +68,7 @@ export function AuthNav() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
+        className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-action transition-colors"
       >
         <UserAvatar email={user.email} initial={displayName?.[0]} avatarUrl={avatarUrl} size="sm" />
         <ChevronIcon open={dropdownOpen} className="w-4 h-4" />

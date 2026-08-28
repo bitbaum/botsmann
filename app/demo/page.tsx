@@ -104,7 +104,7 @@ const DemoPage: FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-action-tint to-white">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -125,9 +125,9 @@ const DemoPage: FC = () => {
       </header>
 
       {/* Info Banner */}
-      <div className="bg-blue-100 border-b border-blue-200">
+      <div className="bg-action-tint border-b border-edge">
         <div className="max-w-4xl mx-auto px-4 py-3">
-          <p className="text-sm text-blue-800">
+          <p className="text-sm text-action">
             <strong>How it works:</strong> This assistant uses RAG (Retrieval Augmented Generation)
             to search our knowledge base and generate helpful responses.
             {llmEnabled === true && " Powered by Groq's free LLM tier."}
@@ -148,7 +148,7 @@ const DemoPage: FC = () => {
               >
                 <div
                   className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                    message.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-900'
+                    message.role === 'user' ? 'bg-action text-white' : 'bg-gray-100 text-gray-900'
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{message.content}</p>
@@ -210,13 +210,13 @@ const DemoPage: FC = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about Botsmann..."
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-action focus:border-transparent"
                 disabled={isLoading}
               />
               <button
                 type="submit"
                 disabled={isLoading || !input.trim()}
-                className="px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-6 py-3 bg-action text-white rounded-xl font-medium hover:bg-action-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Send
               </button>
@@ -266,7 +266,7 @@ const DemoPage: FC = () => {
               <strong>Want this for your business?</strong> This is a simplified demo. For
               production, we use vector embeddings for semantic search, and can deploy locally on
               your infrastructure for maximum privacy.{' '}
-              <Link href="/contact" className="text-blue-600 hover:underline">
+              <Link href="/contact" className="text-action hover:underline">
                 Book a consultation →
               </Link>
             </p>

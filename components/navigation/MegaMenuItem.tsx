@@ -17,7 +17,7 @@ export function MegaMenuItem({ item, onNavigate }: MegaMenuItemProps) {
     <Link
       href={item.path}
       onClick={onNavigate}
-      className="group flex items-start gap-3 rounded-lg p-3 transition-all hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      className="group flex items-start gap-3 rounded-lg p-3 transition-all hover:bg-gradient-to-r hover:from-gray-50 hover:to-action-tint focus:outline-none focus:ring-2 focus:ring-action focus:ring-offset-2"
     >
       {/* Icon */}
       {item.icon && (
@@ -28,7 +28,7 @@ export function MegaMenuItem({ item, onNavigate }: MegaMenuItemProps) {
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+        <p className="text-sm font-semibold text-gray-900 group-hover:text-action transition-colors">
           {item.label}
         </p>
         {item.description && (

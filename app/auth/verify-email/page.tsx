@@ -97,7 +97,7 @@ export default function VerifyEmailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-b from-action-tint to-white flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <Link href="/" className="text-3xl font-bold text-gray-900">
@@ -108,9 +108,9 @@ export default function VerifyEmailPage() {
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8">
           <div className="text-center">
             {/* Email Icon */}
-            <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+            <div className="mx-auto w-16 h-16 bg-action-tint rounded-full flex items-center justify-center mb-6">
               <svg
-                className="w-8 h-8 text-blue-600"
+                className="w-8 h-8 text-action"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -170,7 +170,7 @@ export default function VerifyEmailPage() {
             <button
               onClick={handleResend}
               disabled={sending || sent || isRateLimited}
-              className="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors mb-4"
+              className="w-full py-3 bg-action text-white rounded-lg font-medium hover:bg-action-hover disabled:opacity-50 transition-colors mb-4"
             >
               {sending
                 ? 'Sending...'
@@ -201,7 +201,7 @@ export default function VerifyEmailPage() {
           <div className="space-y-3">
             <Link
               href={ROUTES.SETTINGS}
-              className="block w-full py-2 text-center text-sm text-gray-600 hover:text-blue-600 transition-colors"
+              className="block w-full py-2 text-center text-sm text-gray-600 hover:text-action transition-colors"
             >
               Continue without verifying (limited features)
             </Link>
