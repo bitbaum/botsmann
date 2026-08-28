@@ -11,8 +11,7 @@ import { type NextRequest } from 'next/server';
 import { generateLLMResponse } from '@/lib/llm-client';
 import { logger } from '@/lib/logger';
 import { jsonSuccess, jsonError, HTTP_STATUS } from '@/lib/api';
-import { checkRateLimit } from '@/lib/rate-limit';
-import { getClientIp } from '@/lib/request';
+import { enforceRateLimit } from '@/lib/rate-limit';
 import {
   sanitizeSystemPrompt,
   sanitizeUserMessage,
@@ -29,15 +28,8 @@ export async function POST(request: NextRequest) {
 
   try {
     // Rate limit per IP (stricter since no auth)
-    const ip = getClientIp(request);
-    const { isRateLimited } = await checkRateLimit(`quick-chat:${ip}`, 10, 60);
-    if (isRateLimited) {
-      return jsonError(
-        'Too many requests. Please slow down.',
-        'RATE_LIMIT',
-        HTTP_STATUS.RATE_LIMIT,
-      );
-    }
+    const limited = await enforceRateLimit(request, 'quick-chat');
+    if (limited) return limited;
 
     const body = await request.json();
     const { message, systemPrompt, additionalContext, conversationHistory } = body;

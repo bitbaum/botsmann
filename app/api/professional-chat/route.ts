@@ -14,8 +14,7 @@ import { logger } from '@/lib/logger';
 import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
 import { jsonSuccess, jsonError, HTTP_STATUS } from '@/lib/api';
-import { checkRateLimit } from '@/lib/rate-limit';
-import { getClientIp } from '@/lib/request';
+import { enforceRateLimit } from '@/lib/rate-limit';
 import { PROFESSIONAL_DOCUMENT_ACCESS, type DocumentCategory } from '@/types/document';
 import {
   sanitizeSystemPrompt,
@@ -37,15 +36,8 @@ export async function POST(request: NextRequest) {
 
   try {
     // Rate limit per IP
-    const ip = getClientIp(request);
-    const { isRateLimited } = await checkRateLimit(`professional-chat:${ip}`, 15, 60);
-    if (isRateLimited) {
-      return jsonError(
-        'Too many requests. Please slow down.',
-        'RATE_LIMIT',
-        HTTP_STATUS.RATE_LIMIT,
-      );
-    }
+    const limited = await enforceRateLimit(request, 'professional-chat');
+    if (limited) return limited;
 
     const body = await request.json();
     const {
