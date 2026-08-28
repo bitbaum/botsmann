@@ -64,7 +64,7 @@ export const menuItems: MenuItem[] = [
       header: {
         title: 'AI Professionals',
         subtitle: 'Expert advisors for every need',
-        gradient: 'bg-gradient-to-r from-blue-50 to-purple-50',
+        gradient: 'bg-action-tint',
       },
     },
   },

@@ -334,64 +334,21 @@ export const professionalCategories = {
 } as const;
 
 /**
- * Get accent color class for Tailwind
+ * Accent classes for a first-party professional.
+ *
+ * There is one scheme, because there is one brand. These six ARE Botsmann, so
+ * they wear the identity defined in app/globals.css rather than a per-person
+ * colour -- a blue Lex beside an ochre CTA was the whole problem.
+ *
+ * The `color` argument is kept so callers and the data shape stay unchanged;
+ * it no longer selects a palette.
  */
-export const getAccentColorClasses = (color: ProfessionalAccentColor) => {
-  const colors = {
-    blue: {
-      bg: 'bg-blue-500',
-      bgLight: 'bg-blue-100',
-      bgGradient: 'from-blue-500 to-blue-600',
-      text: 'text-blue-600',
-      border: 'border-blue-500',
-      hover: 'hover:bg-blue-600',
-      groupHoverText: 'group-hover:text-blue-600',
-    },
-    green: {
-      bg: 'bg-green-500',
-      bgLight: 'bg-green-100',
-      bgGradient: 'from-green-500 to-green-600',
-      text: 'text-green-600',
-      border: 'border-green-500',
-      hover: 'hover:bg-green-600',
-      groupHoverText: 'group-hover:text-green-600',
-    },
-    indigo: {
-      bg: 'bg-indigo-500',
-      bgLight: 'bg-indigo-100',
-      bgGradient: 'from-indigo-500 to-indigo-600',
-      text: 'text-indigo-600',
-      border: 'border-indigo-500',
-      hover: 'hover:bg-indigo-600',
-      groupHoverText: 'group-hover:text-indigo-600',
-    },
-    red: {
-      bg: 'bg-red-500',
-      bgLight: 'bg-red-100',
-      bgGradient: 'from-red-500 to-red-600',
-      text: 'text-red-600',
-      border: 'border-red-500',
-      hover: 'hover:bg-red-600',
-      groupHoverText: 'group-hover:text-red-600',
-    },
-    amber: {
-      bg: 'bg-amber-500',
-      bgLight: 'bg-amber-100',
-      bgGradient: 'from-amber-500 to-amber-600',
-      text: 'text-amber-600',
-      border: 'border-amber-500',
-      hover: 'hover:bg-amber-600',
-      groupHoverText: 'group-hover:text-amber-600',
-    },
-    purple: {
-      bg: 'bg-purple-500',
-      bgLight: 'bg-purple-100',
-      bgGradient: 'from-purple-500 to-purple-600',
-      text: 'text-purple-600',
-      border: 'border-purple-500',
-      hover: 'hover:bg-purple-600',
-      groupHoverText: 'group-hover:text-purple-600',
-    },
-  };
-  return colors[color];
-};
+export const getAccentColorClasses = (_color?: ProfessionalAccentColor) => ({
+  bg: 'bg-action',
+  bgLight: 'bg-action-tint',
+  bgGradient: 'from-action to-action-hover',
+  text: 'text-action',
+  border: 'border-action',
+  hover: 'hover:bg-action-hover',
+  groupHoverText: 'group-hover:text-action',
+});

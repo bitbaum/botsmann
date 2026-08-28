@@ -37,8 +37,19 @@ const CUSTOM_BOT_SURFACES = [
   join('lib', 'config', 'colors.ts'),
 ];
 
-/** Semantic status colours are a separate scale from the brand accent. */
-const SEMANTIC_FILES = [join('components', 'knowledge', 'Callout.tsx')];
+/**
+ * Categorical and semantic scales, which are NOT the brand accent.
+ *
+ * A status scale has to stay mutually distinguishable: recolouring
+ * "processing" to ochre would make it read as brand chrome rather than state.
+ * Same for provider identity, which exists so you can tell Ollama from OpenAI
+ * at a glance. Each entry is an exception with a reason, not a to-do.
+ */
+const SEMANTIC_FILES = [
+  join('components', 'knowledge', 'Callout.tsx'), // info / warning / error
+  join('lib', 'constants.ts'), // document status: pending / processing / ready / error
+  join('lib', 'infrastructure', 'providers.ts'), // per-provider identity colours
+];
 
 function tsxFiles(dir: string): string[] {
   const out: string[] = [];
@@ -59,7 +70,15 @@ function isAllowed(rel: string): boolean {
 }
 
 describe('design tokens', () => {
-  const files = [...tsxFiles(join(ROOT, 'app')), ...tsxFiles(join(ROOT, 'components'))];
+  // data/ and lib/ too: the palette hid in data/professionals.ts for a whole
+  // sweep because the first version of this guard only looked at app/ and
+  // components/. A scanner is blind in exactly the shapes it forgets to read.
+  const files = [
+    ...tsxFiles(join(ROOT, 'app')),
+    ...tsxFiles(join(ROOT, 'components')),
+    ...tsxFiles(join(ROOT, 'data')),
+    ...tsxFiles(join(ROOT, 'lib')),
+  ];
 
   it('scans a meaningful number of files', () => {
     expect(files.length).toBeGreaterThan(100);
