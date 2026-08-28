@@ -15,6 +15,7 @@ export {
   jsonUnauthorized,
   jsonNotFound,
   jsonServiceUnavailable,
+  jsonLLMUnavailable,
   // Validation helpers
   validateBody,
   hasValidationError,

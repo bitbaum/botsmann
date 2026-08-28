@@ -130,7 +130,10 @@ describe('POST /api/professional-chat', () => {
     expect(data.code).toBe('RATE_LIMIT');
   });
 
-  it('handles LLM errors gracefully', async () => {
+  // This used to assert 200 + "I'm having a moment...", which is how a total
+  // LLM outage stayed invisible: the endpoint looked healthy to every check
+  // while answering nobody. A failure is a failure.
+  it('reports an LLM failure as 503, not a cheerful 200', async () => {
     mockGenerateLLM.mockRejectedValue(new Error('LLM unavailable'));
 
     const req = makeRequest({
@@ -142,9 +145,9 @@ describe('POST /api/professional-chat', () => {
     const res = await POST(req);
     const data = await res.json();
 
-    expect(res.status).toBe(200);
-    expect(data.data.response).toContain('moment');
-    expect(data.data.provider).toBe('fallback');
+    expect(res.status).toBe(503);
+    expect(data.success).toBe(false);
+    expect(data.code).toBe('LLM_UNAVAILABLE');
   });
 
   it('includes conversation history in LLM call', async () => {

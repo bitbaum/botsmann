@@ -97,6 +97,7 @@ export type ErrorCode =
   | 'RATE_LIMIT'
   | 'DATABASE_ERROR'
   | 'SERVICE_UNAVAILABLE'
+  | 'LLM_UNAVAILABLE'
   | 'INTERNAL_ERROR';
 
 /**
@@ -231,6 +232,20 @@ export function jsonServiceUnavailable(
   message = 'Service temporarily unavailable',
 ): NextResponse<ApiResponse> {
   return jsonError(message, 'SERVICE_UNAVAILABLE', HTTP_STATUS.SERVICE_UNAVAILABLE);
+}
+
+/**
+ * No LLM provider could answer.
+ *
+ * This is a 503, not a 200 with an apology in the message body. A chat route
+ * that answers "I'm having a moment... could you try again?" with HTTP 200
+ * looks healthy to every uptime check while the product's core feature is
+ * dead -- which is exactly how a total outage went unnoticed.
+ */
+export function jsonLLMUnavailable(
+  message = 'The AI service is temporarily unavailable. Please try again shortly.',
+): NextResponse<ApiResponse> {
+  return jsonError(message, 'LLM_UNAVAILABLE', HTTP_STATUS.SERVICE_UNAVAILABLE);
 }
 
 /**

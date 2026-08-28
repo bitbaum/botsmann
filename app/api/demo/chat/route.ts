@@ -1,8 +1,15 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { jsonError, jsonValidationError, formatZodErrors, HTTP_STATUS } from '@/lib/api';
+import {
+  jsonError,
+  jsonValidationError,
+  jsonLLMUnavailable,
+  formatZodErrors,
+  HTTP_STATUS,
+} from '@/lib/api';
 import { generateWithBestProvider, type ModelProvider } from '@/lib/llm-client';
 import { logger } from '@/lib/logger';
+import { recordLLMSuccess, recordLLMFailure } from '@/lib/llm-health';
 import { enforceRateLimit } from '@/lib/rate-limit';
 import {
   sanitizeSystemPrompt,
@@ -14,6 +21,14 @@ import {
 // ============================================================================
 // Types
 // ============================================================================
+
+/** Raised when no provider could produce an answer and there is no fallback. */
+class LLMUnavailableError extends Error {
+  constructor(message: string, options?: { cause?: unknown }) {
+    super(message, options);
+    this.name = 'LLMUnavailableError';
+  }
+}
 
 interface KnowledgeChunk {
   id: string;
@@ -104,6 +119,7 @@ async function generateResponse(
       { role: 'user', content: userContent },
     ]);
 
+    recordLLMSuccess();
     return {
       content: result.content,
       provider: result.provider,
@@ -111,7 +127,16 @@ async function generateResponse(
     };
   } catch (error) {
     logger.error('LLM generation failed:', error);
-    // Fallback to context-only response
+    recordLLMFailure(error);
+
+    // The knowledge-base demo can still serve the retrieved passage. A
+    // bot-specific demo has no context to fall back on, so returning it would
+    // mean answering with an empty string -- which is what made a total LLM
+    // outage look like a successful request.
+    if (!context) {
+      throw new LLMUnavailableError('No LLM provider could answer', { cause: error });
+    }
+
     return {
       content: context,
       provider: 'ollama', // placeholder
@@ -489,6 +514,10 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return jsonValidationError('Validation failed', formatZodErrors(error));
+    }
+    if (error instanceof LLMUnavailableError) {
+      logger.error('Chat API: no LLM provider available', error);
+      return jsonLLMUnavailable();
     }
     logger.error('Chat API error:', error);
     return jsonError('Internal server error', 'INTERNAL_ERROR', HTTP_STATUS.INTERNAL_ERROR);
