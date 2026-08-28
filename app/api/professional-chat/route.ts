@@ -11,9 +11,10 @@ import { type NextRequest } from 'next/server';
 import { generateEmbedding } from '@/lib/embeddings';
 import { generateLLMResponse } from '@/lib/llm-client';
 import { logger } from '@/lib/logger';
+import { recordLLMSuccess, recordLLMFailure } from '@/lib/llm-health';
 import { getServiceClient } from '@/lib/supabase';
 import { verifyUser } from '@/lib/api-utils';
-import { jsonSuccess, jsonError, HTTP_STATUS } from '@/lib/api';
+import { jsonSuccess, jsonError, HTTP_STATUS, jsonLLMUnavailable } from '@/lib/api';
 import { enforceRateLimit } from '@/lib/rate-limit';
 import { PROFESSIONAL_DOCUMENT_ACCESS, type DocumentCategory } from '@/types/document';
 import {
@@ -216,6 +217,8 @@ export async function POST(request: NextRequest) {
         ).catch((err) => logger.error('[Professional Chat API] Context extraction error:', err));
       }
 
+      recordLLMSuccess();
+
       return jsonSuccess({
         response: llmResponse.content,
         provider: llmResponse.provider,
@@ -225,12 +228,8 @@ export async function POST(request: NextRequest) {
       });
     } catch (llmError) {
       logger.error('[Professional Chat API] LLM error:', llmError);
-
-      return jsonSuccess({
-        response: "I'm having a moment... could you try again?",
-        provider: 'fallback',
-        model: 'none',
-      });
+      recordLLMFailure(llmError);
+      return jsonLLMUnavailable();
     }
   } catch (error) {
     logger.error('[Professional Chat API] Unhandled error:', error);
