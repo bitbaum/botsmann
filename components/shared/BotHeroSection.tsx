@@ -1,8 +1,7 @@
 'use client';
 
 import { type FC, type ReactNode } from 'react';
-import type { BotAccentColor } from '@/types/bot';
-import { ACCENT_HERO_CLASSES } from '@/lib/config/colors';
+import { BRAND_HERO } from '@/lib/config/colors';
 
 /**
  * Chat message for the hero preview
@@ -69,7 +68,6 @@ export interface BotHeroConfig {
 
 interface BotHeroSectionProps {
   config: BotHeroConfig;
-  accentColor: BotAccentColor;
   /** Optional custom content for the right panel instead of chat preview */
   rightPanel?: ReactNode;
 }
@@ -93,12 +91,11 @@ interface BotHeroSectionProps {
  *       { role: 'user', content: 'I need a summary of recent data privacy cases.' },
  *     ],
  *   }}
- *   accentColor="blue"
  * />
  * ```
  */
-export const BotHeroSection: FC<BotHeroSectionProps> = ({ config, accentColor, rightPanel }) => {
-  const colors = ACCENT_HERO_CLASSES[accentColor];
+export const BotHeroSection: FC<BotHeroSectionProps> = ({ config, rightPanel }) => {
+  const colors = BRAND_HERO;
   const {
     badge,
     title,
@@ -126,7 +123,7 @@ export const BotHeroSection: FC<BotHeroSectionProps> = ({ config, accentColor, r
             </div>
           )}
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-3 sm:mb-4">
             {title}
             {titleSuffix && (
               <>
@@ -136,7 +133,7 @@ export const BotHeroSection: FC<BotHeroSectionProps> = ({ config, accentColor, r
             )}
           </h1>
 
-          <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-4 sm:mb-6">{subtitle}</p>
+          <p className="text-base sm:text-lg lg:text-xl text-ink mb-4 sm:mb-6">{subtitle}</p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <a
@@ -167,12 +164,12 @@ export const BotHeroSection: FC<BotHeroSectionProps> = ({ config, accentColor, r
           {/* Mobile key benefits */}
           {showMobileBenefits && keyBenefits && keyBenefits.length > 0 && (
             <div className="mt-8 md:hidden">
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">Key Benefits:</h3>
+              <h3 className="text-lg font-semibold text-ink mb-3">Key Benefits:</h3>
               <ul className="space-y-2">
                 {keyBenefits.slice(0, 3).map((benefit, idx) => (
                   <li key={idx} className="flex items-start">
                     <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-gray-700">{benefit.text}</span>
+                    <span className="text-ink">{benefit.text}</span>
                   </li>
                 ))}
               </ul>
@@ -205,8 +202,8 @@ export const BotHeroSection: FC<BotHeroSectionProps> = ({ config, accentColor, r
                 <span className="text-xl md:text-2xl">{botInfo.emoji}</span>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">{botInfo.name}</h3>
-                <p className="text-sm text-gray-600">{botInfo.description}</p>
+                <h3 className="font-semibold text-ink">{botInfo.name}</h3>
+                <p className="text-sm text-ink-muted">{botInfo.description}</p>
               </div>
             </div>
 
@@ -217,11 +214,11 @@ export const BotHeroSection: FC<BotHeroSectionProps> = ({ config, accentColor, r
                   key={idx}
                   className={`p-3 rounded-lg shadow-sm ${
                     message.role === 'bot'
-                      ? 'bg-white ml-auto max-w-[85%]'
+                      ? 'bg-surface ml-auto max-w-[85%]'
                       : `${colors.userBubble} max-w-[85%]`
                   }`}
                 >
-                  <p className="text-gray-800 text-sm md:text-base">{message.content}</p>
+                  <p className="text-ink text-sm md:text-base">{message.content}</p>
                 </div>
               ))}
             </div>
@@ -229,12 +226,12 @@ export const BotHeroSection: FC<BotHeroSectionProps> = ({ config, accentColor, r
             {/* Desktop key benefits inside chat panel */}
             {showMobileBenefits && keyBenefits && keyBenefits.length > 0 && (
               <div className="mt-6 hidden md:block">
-                <h4 className="font-medium text-gray-900 mb-2">Key Benefits:</h4>
+                <h4 className="font-medium text-ink mb-2">Key Benefits:</h4>
                 <div className="grid grid-cols-2 gap-2">
                   {keyBenefits.slice(0, 4).map((benefit, idx) => (
-                    <div key={idx} className="bg-white p-2 rounded-md flex items-center">
+                    <div key={idx} className="bg-surface p-2 rounded-md flex items-center">
                       <span className="text-green-500 mr-2">✓</span>
-                      <span className="text-sm text-gray-700">{benefit.text}</span>
+                      <span className="text-sm text-ink">{benefit.text}</span>
                     </div>
                   ))}
                 </div>
