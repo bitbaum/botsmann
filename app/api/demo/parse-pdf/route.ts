@@ -9,8 +9,7 @@
 
 import { type NextRequest, NextResponse } from 'next/server';
 import { PDFParse } from 'pdf-parse';
-import { checkRateLimit } from '@/lib/rate-limit';
-import { getClientIp } from '@/lib/request';
+import { enforceRateLimit } from '@/lib/rate-limit';
 import { VALIDATION } from '@/lib/constants';
 
 // Extend function timeout for PDF parsing
@@ -19,14 +18,8 @@ export const maxDuration = 30;
 export async function POST(request: NextRequest) {
   try {
     // Rate limit per IP (stricter since no auth)
-    const ip = getClientIp(request);
-    const { isRateLimited } = await checkRateLimit(`demo-pdf-parse:${ip}`, 10, 60);
-    if (isRateLimited) {
-      return NextResponse.json(
-        { success: false, error: 'Too many requests. Please wait a moment.' },
-        { status: 429 },
-      );
-    }
+    const limited = await enforceRateLimit(request, 'demo-pdf-parse');
+    if (limited) return limited;
 
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
