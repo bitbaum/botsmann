@@ -10,7 +10,8 @@
 import { type NextRequest } from 'next/server';
 import { generateLLMResponse } from '@/lib/llm-client';
 import { logger } from '@/lib/logger';
-import { jsonSuccess, jsonError, HTTP_STATUS } from '@/lib/api';
+import { recordLLMSuccess, recordLLMFailure } from '@/lib/llm-health';
+import { jsonSuccess, jsonError, HTTP_STATUS, jsonLLMUnavailable } from '@/lib/api';
 import { enforceRateLimit } from '@/lib/rate-limit';
 import {
   sanitizeSystemPrompt,
@@ -91,6 +92,8 @@ export async function POST(request: NextRequest) {
       logger.log(`[Quick Chat API] LLM response in ${Date.now() - llmStartTime} ms`);
       logger.log(`[Quick Chat API] Total time: ${Date.now() - startTime} ms`);
 
+      recordLLMSuccess();
+
       return jsonSuccess({
         response: llmResponse.content,
         provider: llmResponse.provider,
@@ -98,13 +101,8 @@ export async function POST(request: NextRequest) {
       });
     } catch (llmError) {
       logger.error('[Quick Chat API] LLM error:', llmError);
-
-      // Return a friendly fallback response
-      return jsonSuccess({
-        response: "I'm having a moment... could you try again?",
-        provider: 'fallback',
-        model: 'none',
-      });
+      recordLLMFailure(llmError);
+      return jsonLLMUnavailable();
     }
   } catch (error) {
     logger.error('[Quick Chat API] Unhandled error:', error);
