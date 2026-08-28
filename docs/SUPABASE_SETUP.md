@@ -1,280 +1,100 @@
-# Supabase Database Setup for Botsmann
+# Botsmann's Database
 
-## ✅ Completed Setup
+## Where it is
 
-### 1. Project Configuration
+Self-hosted. There is **no supabase.com project**, no hosted dashboard, and no
+bill from Supabase. We run the open-source Supabase stack in Docker on the
+Hetzner box "bitbaum", the same box that serves the app.
 
-**Supabase Project:** botsmann
-**Project Reference:** jkjmhtirxwhljpkcfxqe
-**Region:** West EU (Ireland)
-**URL:** https://jkjmhtirxwhljpkcfxqe.supabase.co
+|            |                                                                    |
+| ---------- | ------------------------------------------------------------------ |
+| API URL    | `https://supabase.orangecat.ch` (Caddy → Kong on `127.0.0.1:8000`) |
+| Database   | `supabase-db` container, Postgres, no published port               |
+| Our schema | **`botsmann`** — not `public`                                      |
+| Studio     | `https://supabase.orangecat.ch/` — behind Kong's basic auth        |
+| Keys       | `/opt/botsmann/shared/.env` on the box                             |
 
-### 2. Database Schema
+If you find a hosted-dashboard link anywhere in this repo, it is a
+leftover from before the move and it is wrong. `npm run check:selfhost` fails
+the build on new ones.
 
-All core migrations have been successfully applied:
+## Why we are not in `public`
 
-#### Tables Created:
+**One database backs several apps.** OrangeCat owns `public` and has ~136 tables
+there. Our table names collide with theirs — `conversations`, `documents`,
+`waitlist` — and our `001` defines `update_updated_at()`, a function name
+`public` already holds and OrangeCat's triggers call.
 
-- ✅ `consultations` - Contact form submissions
-- ✅ `user_settings` - User preferences and API keys
-- ✅ `documents` - Uploaded documents for RAG
-- ✅ `document_chunks` - Document chunks with vector embeddings
-- ✅ `custom_bots` - User-created AI assistants
-- ✅ `bot_knowledge_chunks` - Knowledge base for custom bots
+So every app gets its own schema. Ours is `botsmann`, pinned in one place:
 
-#### Security Features:
+```ts
+// lib/constants.ts
+export const DB_SCHEMA = 'botsmann';
+```
 
-- ✅ Row Level Security (RLS) enabled on all user tables
-- ✅ RLS policies for user isolation
-- ✅ Public bot sharing policies
-- ✅ Service role access for admin operations
+Every client in `lib/supabase.ts` passes `db: { schema: DB_SCHEMA }`. **A client
+that forgets it reads `public`**, where our tables do not exist, and PostgREST
+answers `PGRST205 — Could not find the table 'public.consultations'`. That looks
+like a dead database but is really a missing five words of config. It is what
+took the app down; `tests/__tests__/lib/supabase-schema.test.ts` now guards it.
 
-#### Performance Features:
+## How migrations are applied
 
-- ✅ Indexes on foreign keys
-- ✅ Indexes on frequently queried columns (status, user_id, created_at)
-- ✅ Timestamps with auto-update triggers
-- ✅ Vector similarity search functions
+**Automatically, on deploy. You never paste SQL anywhere.**
 
-### 3. Environment Configuration
+Pushing to `main` runs `.github/workflows/deploy.yml`, which calls fleetcrown's
+`selfhost-deploy.yml`. That pipeline runs
+`scripts/hetzner/apply-schema.sh botsmann … supabase:botsmann` before restarting
+the app. It:
 
-The `.env.local` file must be updated with your project credentials (never commit real values):
+- applies only files in `supabase/migrations/` not already recorded in
+  `botsmann._deploy_schema_history`,
+- runs the batch in **one transaction** — all or nothing,
+- **refuses** any migration containing a destructive statement, aborting the
+  deploy rather than silently dropping production data.
+
+Current state: 11 migrations applied, 13 tables in the schema.
+
+### Adding one
+
+1. Add `supabase/migrations/0NN_what_it_does.sql`. Keep it forward-only and
+   non-destructive, or the deploy will refuse it.
+2. Open a PR. Merging deploys it and applies it.
+
+A genuinely destructive change is applied by hand, then recorded so the
+automation skips it:
 
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=https://jkjmhtirxwhljpkcfxqe.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...
-SUPABASE_ACCESS_TOKEN=sbp_...
+ssh ubuntu@167.233.22.31 "docker exec supabase-db psql -U postgres -d postgres \
+  -c \"INSERT INTO botsmann._deploy_schema_history(tag) VALUES ('0NN_what_it_does')\""
 ```
 
-### 4. Connection Verified
-
-All tables are accessible and working:
-
-- ✅ consultations
-- ✅ user_settings
-- ✅ documents
-- ✅ document_chunks
-- ✅ custom_bots
-- ✅ bot_knowledge_chunks
-
----
-
-## 🔧 Additional Optimizations to Apply Manually
-
-The following optimizations are defined in migration files but should be applied manually through the Supabase dashboard:
-
-### Migration Files to Apply:
-
-1. **004_extensions.sql** - PostgreSQL extensions
-   - `vector` - For embeddings (likely already installed)
-   - `pgcrypto` - For UUID generation
-   - `pg_trgm` - For fuzzy text search
-
-2. **005_optimizations.sql** - Performance optimizations
-   - Additional indexes for email search
-   - Composite indexes for common queries
-   - Text search indexes using trigrams
-   - Email validation constraints
-   - Helper functions for stats and search
-   - Cleanup functions for orphaned data
-
-### How to Apply:
-
-1. Go to [Supabase Dashboard](https://supabase.com/dashboard/project/jkjmhtirxwhljpkcfxqe)
-2. Navigate to **SQL Editor**
-3. Click **New Query**
-4. Copy contents of `supabase/migrations/004_extensions.sql`
-5. Run the query
-6. Repeat for `supabase/migrations/005_optimizations.sql`
-
----
-
-## 📦 Storage Bucket Setup
-
-**Action Required:** Create a storage bucket for document uploads
-
-### Steps:
-
-1. Go to [Storage](https://supabase.com/dashboard/project/jkjmhtirxwhljpkcfxqe/storage/buckets)
-2. Click **New Bucket**
-3. Configure:
-   - **Name:** `documents`
-   - **Public:** No (private bucket)
-   - **File size limit:** 50 MB (adjust as needed)
-   - **Allowed MIME types:**
-     - `application/pdf`
-     - `text/plain`
-     - `text/markdown`
-     - `application/msword`
-     - `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
-
-4. **Set up storage policies:**
-
-```sql
--- Allow users to upload to their own folder
-CREATE POLICY "Users can upload own documents"
-ON storage.objects FOR INSERT
-TO authenticated
-WITH CHECK (
-  bucket_id = 'documents'
-  AND (storage.foldername(name))[1] = auth.uid()::text
-);
-
--- Allow users to read their own documents
-CREATE POLICY "Users can read own documents"
-ON storage.objects FOR SELECT
-TO authenticated
-USING (
-  bucket_id = 'documents'
-  AND (storage.foldername(name))[1] = auth.uid()::text
-);
-
--- Allow users to delete their own documents
-CREATE POLICY "Users can delete own documents"
-ON storage.objects FOR DELETE
-TO authenticated
-USING (
-  bucket_id = 'documents'
-  AND (storage.foldername(name))[1] = auth.uid()::text
-);
-```
-
----
-
-## 🔐 Authentication Setup
-
-**Action Required:** Configure authentication settings
-
-### Steps:
-
-1. Go to [Authentication Settings](https://supabase.com/dashboard/project/jkjmhtirxwhljpkcfxqe/auth/url-configuration)
-2. Add **Site URL:** `http://localhost:3000` (for development)
-3. Add **Redirect URLs:**
-   - `http://localhost:3000/auth/callback`
-   - `https://your-production-domain.com/auth/callback` (when deploying)
-
-4. Configure **Email Templates** (optional but recommended)
-5. Enable **Email Provider** or other auth methods as needed
-
----
-
-## 🚀 Testing the Setup
-
-### Quick Test
-
-Run the connection test script:
+## Checking the database
 
 ```bash
-cd /home/g/botsmann
-npm install  # Ensure dependencies are installed
-node scripts/test-db-connection.ts
+npm run test:db   # connects with our schema and reports every expected table
 ```
 
-### Manual API Test
+Straight from the box, when you need to see the schema itself:
 
 ```bash
-curl "https://jkjmhtirxwhljpkcfxqe.supabase.co/rest/v1/consultations?select=count" \
-  -H "apikey: YOUR_ANON_KEY" \
-  -H "Authorization: Bearer YOUR_ANON_KEY"
+ssh ubuntu@167.233.22.31 \
+  "docker exec supabase-db psql -U postgres -d postgres \
+   -c '\\dt botsmann.*'"
 ```
 
----
+## Storage and auth
 
-## 📊 Database Schema Best Practices Implemented
+Storage (`supabase-storage`) and auth (`supabase-auth`, GoTrue) are shared
+services on the box, not per-app. Buckets and auth redirect URLs are configured
+in Studio. Storage policies live on `storage.objects`, which is shared with
+every other app on this stack — scope any policy you add to our bucket, and
+prefer a bucket per app over a shared one.
 
-### ✅ DRY (Don't Repeat Yourself)
+## Resources
 
-- Reusable utility functions (`match_documents`, `match_bot_knowledge`)
-- Shared trigger functions (`update_updated_at`)
-- Centralized RLS policies
-
-### ✅ SSOT (Single Source of Truth)
-
-- User data linked via foreign keys to `auth.users`
-- Document ownership tracked in single location
-- Bot knowledge linked to custom bots table
-
-### ✅ Separation of Concerns
-
-- Auth handled by Supabase Auth
-- Data access controlled by RLS
-- Business logic in application layer
-- Vector search in database functions
-
-### ✅ Performance
-
-- Indexes on all foreign keys
-- Composite indexes for common queries
-- Vector indexes for similarity search (ready for when data grows)
-- Efficient RLS policies
-
-### ✅ Security
-
-- Row Level Security on all user tables
-- Service role separation
-- User data isolation
-- Public/private bot sharing controls
-
----
-
-## 🛠️ Maintenance
-
-### Regular Tasks
-
-1. **Monitor Database Size:**
-
-   ```sql
-   SELECT pg_size_pretty(pg_database_size('postgres'));
-   ```
-
-2. **Clean Orphaned Chunks:**
-
-   ```sql
-   SELECT cleanup_orphaned_chunks();
-   SELECT cleanup_orphaned_bot_chunks();
-   ```
-
-3. **Check User Stats:**
-   ```sql
-   SELECT * FROM get_document_stats('user-uuid-here');
-   SELECT get_user_bots_count('user-uuid-here');
-   ```
-
-### Backup Strategy
-
-Supabase provides automatic daily backups. To create manual backup:
-
-1. Go to [Database Settings](https://supabase.com/dashboard/project/jkjmhtirxwhljpkcfxqe/settings/database)
-2. Click **Backups**
-3. Create manual backup before major changes
-
----
-
-## 📚 Resources
-
-- [Supabase Documentation](https://supabase.com/docs)
-- [pgvector Documentation](https://github.com/pgvector/pgvector)
+- [Supabase docs](https://supabase.com/docs) — the product docs are still the
+  right reference; only the hosted dashboard does not apply to us.
+- [pgvector](https://github.com/pgvector/pgvector)
 - [PostgreSQL Row Level Security](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)
-- [Supabase Storage](https://supabase.com/docs/guides/storage)
-
----
-
-## ✨ Summary
-
-Your Botsmann application is now connected to Supabase with:
-
-- ✅ All tables created with proper schema
-- ✅ Row Level Security configured
-- ✅ Vector search capabilities ready
-- ✅ Environment variables updated
-- ✅ Connection tested and verified
-- ⏳ Storage bucket (manual setup required)
-- ⏳ Advanced optimizations (manual SQL execution recommended)
-
-**Next Steps:**
-
-1. Apply the optimization migrations manually
-2. Set up the storage bucket
-3. Configure authentication URLs
-4. Start building features!
+- fleetcrown: `scripts/hetzner/apply-schema.sh`, `docs/infrastructure/migration-strategy.md`

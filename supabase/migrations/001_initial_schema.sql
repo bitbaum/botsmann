@@ -1,5 +1,5 @@
 -- Botsmann Initial Schema
--- Run this in Supabase SQL Editor: https://supabase.com/dashboard/project/_/sql
+-- Applied automatically on deploy into the `botsmann` schema; see docs/SUPABASE_SETUP.md.
 
 -- Enable pgvector extension for future vector search
 CREATE EXTENSION IF NOT EXISTS vector;

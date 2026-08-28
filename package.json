@@ -16,7 +16,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build",
+    "check:selfhost": "bash scripts/ci/no-hosted-supabase.sh",
+    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run check:selfhost && npm run test && npm run build",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
