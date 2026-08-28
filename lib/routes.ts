@@ -31,7 +31,6 @@ export const ROUTES = {
   SETTINGS: '/settings',
   INFRASTRUCTURE: '/infrastructure',
   // Other
-  PROJECTS: '/projects',
   AUTH: {
     SIGNIN: '/auth/signin',
     SIGNUP: '/auth/signup',
