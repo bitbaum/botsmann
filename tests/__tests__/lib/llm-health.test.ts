@@ -81,4 +81,14 @@ describe('chat routes do not dress a failure as success', () => {
     expect(source).toContain('getLLMHealth');
     expect(source).toMatch(/llm/);
   });
+
+  // Liveness must not fail on a dependency a restart cannot fix -- otherwise a
+  // stale API key gets a perfectly healthy process killed, and fails deploy
+  // gates on a problem no deploy caused. Readiness is where that belongs.
+  it('health separates liveness from readiness', () => {
+    const source = readFileSync(join(process.cwd(), 'app/api/health/route.ts'), 'utf-8');
+    expect(source).toContain('strict');
+    // the 503-on-LLM path must be gated behind strict, never unconditional
+    expect(source).toMatch(/if \(strict && llm\.status === 'down'\)/);
+  });
 });
