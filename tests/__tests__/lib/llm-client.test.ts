@@ -438,9 +438,10 @@ describe('generateWithBestProvider — provider-level failover', () => {
       return { ok: false, status: 401, text: async () => 'invalid_api_key' };
     });
 
-    await expect(generateWithBestProvider(messages)).rejects.toThrow(
-      /All \d+ provider\(s\) failed/,
-    );
+    // Wording moved from "provider(s)" to "link(s)" when the walk moved into
+    // ai-kit's tryChain, which reports per provider+model, not per provider —
+    // strictly more information (2026-08-29).
+    await expect(generateWithBestProvider(messages)).rejects.toThrow(/All \d+ link\(s\) failed/);
   });
 
   it('says so plainly when nothing is configured at all', async () => {
