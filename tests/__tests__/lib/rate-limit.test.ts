@@ -6,20 +6,21 @@
  */
 
 // Mock supabase before import
-jest.mock('@/lib/supabase', () => ({
-  isSupabaseConfigured: jest.fn(),
-  getServiceClient: jest.fn(),
+vi.mock('@/lib/supabase', () => ({
+  isSupabaseConfigured: vi.fn(),
+  getServiceClient: vi.fn(),
 }));
 
 import { checkRateLimit } from '@/lib/rate-limit';
 import { isSupabaseConfigured, getServiceClient } from '@/lib/supabase';
+import type { MockedFunction } from 'vitest';
 
-const mockIsConfigured = isSupabaseConfigured as jest.MockedFunction<typeof isSupabaseConfigured>;
-const mockGetServiceClient = getServiceClient as jest.MockedFunction<typeof getServiceClient>;
+const mockIsConfigured = isSupabaseConfigured as MockedFunction<typeof isSupabaseConfigured>;
+const mockGetServiceClient = getServiceClient as MockedFunction<typeof getServiceClient>;
 
 describe('checkRateLimit', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('allows all requests when Supabase is not configured', async () => {
@@ -33,7 +34,7 @@ describe('checkRateLimit', () => {
 
   it('calls Supabase RPC when configured', async () => {
     mockIsConfigured.mockReturnValue(true);
-    const mockRpc = jest.fn().mockResolvedValue({
+    const mockRpc = vi.fn().mockResolvedValue({
       data: { allowed: true, remaining: 9 },
       error: null,
     });
@@ -51,7 +52,7 @@ describe('checkRateLimit', () => {
 
   it('reports rate limited when RPC returns allowed=false', async () => {
     mockIsConfigured.mockReturnValue(true);
-    const mockRpc = jest.fn().mockResolvedValue({
+    const mockRpc = vi.fn().mockResolvedValue({
       data: { allowed: false, remaining: 0 },
       error: null,
     });
@@ -64,7 +65,7 @@ describe('checkRateLimit', () => {
 
   it('fails open on RPC error', async () => {
     mockIsConfigured.mockReturnValue(true);
-    const mockRpc = jest.fn().mockResolvedValue({
+    const mockRpc = vi.fn().mockResolvedValue({
       data: null,
       error: { message: 'DB error' },
     });

@@ -10,7 +10,7 @@ import {
 // this repo. Asserting them literally here is what made these tests agree with
 // a production outage — they mocked `llama-3.1-8b-instant` and passed happily
 // for as long as Groq had been refusing that id in production.
-jest.mock('@/lib/constants', () => ({
+vi.mock('@/lib/constants', () => ({
   API_CONFIG: {
     GROQ_API_URL: 'https://api.groq.com/openai/v1/chat/completions',
     OPENROUTER_API_URL: 'https://openrouter.ai/api/v1/chat/completions',
@@ -22,20 +22,20 @@ import { freeChain, providerModels } from 'ai-kit';
 const GROQ_MODELS = providerModels(freeChain('BOTSMANN')[0]);
 const OPENROUTER_MODELS = providerModels(freeChain('BOTSMANN')[1]);
 
-jest.mock('@/lib/config/env', () => ({
-  getServerEnv: jest.fn(() => ({
+vi.mock('@/lib/config/env', () => ({
+  getServerEnv: vi.fn(() => ({
     GROQ_API_KEY: 'test-groq-key',
     OPENROUTER_API_KEY: '',
     OLLAMA_URL: 'http://localhost:11434',
     OLLAMA_MODEL: 'llama3.2',
   })),
-  getClientEnv: jest.fn(() => ({
+  getClientEnv: vi.fn(() => ({
     NEXT_PUBLIC_APP_URL: 'http://localhost:3000',
   })),
 }));
 
-jest.mock('@/lib/logger', () => ({
-  logger: { log: jest.fn(), error: jest.fn(), warn: jest.fn(), debug: jest.fn() },
+vi.mock('@/lib/logger', () => ({
+  logger: { log: vi.fn(), error: vi.fn(), warn: vi.fn(), debug: vi.fn() },
 }));
 
 // Polyfill AbortSignal.timeout for Jest/Node environment
@@ -48,10 +48,11 @@ if (!AbortSignal.timeout) {
 }
 
 // Mock global fetch
-const mockFetch = jest.fn();
+const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
 import { getServerEnv } from '@/lib/config/env';
+import type { Mock } from 'vitest';
 
 const defaultEnv = {
   GROQ_API_KEY: 'test-groq-key',
@@ -61,9 +62,9 @@ const defaultEnv = {
 };
 
 beforeEach(() => {
-  jest.clearAllMocks();
+  vi.clearAllMocks();
   // Restore default env mock after each test
-  (getServerEnv as jest.Mock).mockReturnValue(defaultEnv);
+  (getServerEnv as Mock).mockReturnValue(defaultEnv);
 });
 
 const testMessages = [
@@ -160,7 +161,7 @@ describe('generateLLMResponse', () => {
     });
 
     it('throws when no Groq API key available', async () => {
-      (getServerEnv as jest.Mock).mockReturnValue({ ...defaultEnv, GROQ_API_KEY: '' });
+      (getServerEnv as Mock).mockReturnValue({ ...defaultEnv, GROQ_API_KEY: '' });
 
       await expect(generateLLMResponse(testMessages, { provider: 'groq' })).rejects.toThrow(
         'Groq API key not configured',
@@ -353,7 +354,7 @@ describe('getBestProvider', () => {
 
   it('falls back to Groq when Ollama unavailable', async () => {
     mockFetch.mockRejectedValue(new Error('connection refused'));
-    (getServerEnv as jest.Mock).mockReturnValue({
+    (getServerEnv as Mock).mockReturnValue({
       ...defaultEnv,
       GROQ_API_KEY: 'key',
     });
@@ -365,7 +366,7 @@ describe('getBestProvider', () => {
 
   it('falls back to OpenRouter when no Groq key', async () => {
     mockFetch.mockRejectedValue(new Error('connection refused'));
-    (getServerEnv as jest.Mock).mockReturnValue({
+    (getServerEnv as Mock).mockReturnValue({
       ...defaultEnv,
       GROQ_API_KEY: '',
       OPENROUTER_API_KEY: 'or-key',
@@ -378,7 +379,7 @@ describe('getBestProvider', () => {
 
   it('returns unavailable when no provider configured', async () => {
     mockFetch.mockRejectedValue(new Error('connection refused'));
-    (getServerEnv as jest.Mock).mockReturnValue({
+    (getServerEnv as Mock).mockReturnValue({
       ...defaultEnv,
       GROQ_API_KEY: '',
       OPENROUTER_API_KEY: '',
@@ -400,7 +401,7 @@ describe('generateWithBestProvider — provider-level failover', () => {
    * failure rather than trusted because it was listed first.
    */
   it('falls through to the next provider when the first has a revoked key', async () => {
-    (getServerEnv as jest.Mock).mockReturnValue({
+    (getServerEnv as Mock).mockReturnValue({
       ...defaultEnv,
       GROQ_API_KEY: 'gsk_revoked',
       OPENROUTER_API_KEY: 'sk-or-working',
@@ -426,7 +427,7 @@ describe('generateWithBestProvider — provider-level failover', () => {
   });
 
   it('reports every provider it tried when they all fail', async () => {
-    (getServerEnv as jest.Mock).mockReturnValue({
+    (getServerEnv as Mock).mockReturnValue({
       ...defaultEnv,
       GROQ_API_KEY: 'gsk_revoked',
       OPENROUTER_API_KEY: 'sk-or-also-revoked',
@@ -445,7 +446,7 @@ describe('generateWithBestProvider — provider-level failover', () => {
   });
 
   it('says so plainly when nothing is configured at all', async () => {
-    (getServerEnv as jest.Mock).mockReturnValue({
+    (getServerEnv as Mock).mockReturnValue({
       ...defaultEnv,
       GROQ_API_KEY: '',
       OPENROUTER_API_KEY: '',

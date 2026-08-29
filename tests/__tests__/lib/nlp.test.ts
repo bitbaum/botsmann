@@ -1,9 +1,10 @@
 import { processQuery } from '@/lib/nlp';
+import type { Mock } from 'vitest';
 
 describe('NLP Processing', () => {
   beforeEach(() => {
     // Mock OpenAI API response
-    global.fetch = jest.fn(() =>
+    global.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
         json: () =>
@@ -24,7 +25,7 @@ describe('NLP Processing', () => {
             ],
           }),
       }),
-    ) as jest.Mock;
+    ) as Mock;
   });
 
   it('processes one-word query correctly', async () => {
@@ -40,7 +41,7 @@ describe('NLP Processing', () => {
   });
 
   it('handles API errors gracefully', async () => {
-    global.fetch = jest.fn(() => Promise.reject('API Error')) as jest.Mock;
+    global.fetch = vi.fn(() => Promise.reject('API Error')) as Mock;
     const result = await processQuery('laptop');
     expect(result).toEqual({
       category: 'general',
@@ -49,7 +50,7 @@ describe('NLP Processing', () => {
   });
 
   it('handles invalid API responses', async () => {
-    global.fetch = jest.fn(() =>
+    global.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
         json: () =>
@@ -63,7 +64,7 @@ describe('NLP Processing', () => {
             ],
           }),
       }),
-    ) as jest.Mock;
+    ) as Mock;
     const result = await processQuery('laptop');
     expect(result).toEqual({
       category: 'general',
