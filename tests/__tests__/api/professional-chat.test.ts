@@ -12,47 +12,48 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // Mock dependencies before importing route
-jest.mock('@/lib/api-utils', () => ({
-  verifyUser: jest.fn(),
+vi.mock('@/lib/api-utils', () => ({
+  verifyUser: vi.fn(),
 }));
 
-jest.mock('@/lib/supabase', () => ({
-  getServiceClient: jest.fn(),
-  isSupabaseConfigured: jest.fn(() => true),
+vi.mock('@/lib/supabase', () => ({
+  getServiceClient: vi.fn(),
+  isSupabaseConfigured: vi.fn(() => true),
 }));
 
-jest.mock('@/lib/llm-client', () => ({
-  generateLLMResponse: jest.fn(),
+vi.mock('@/lib/llm-client', () => ({
+  generateLLMResponse: vi.fn(),
 }));
 
-jest.mock('@/lib/embeddings', () => ({
-  generateEmbedding: jest.fn(),
+vi.mock('@/lib/embeddings', () => ({
+  generateEmbedding: vi.fn(),
 }));
 
-jest.mock('@/lib/rate-limit', () => ({
-  enforceRateLimit: jest.fn(() => Promise.resolve(null)),
+vi.mock('@/lib/rate-limit', () => ({
+  enforceRateLimit: vi.fn(() => Promise.resolve(null)),
 }));
 
-jest.mock('@/lib/chat', () => ({
-  getUserLLMSettings: jest.fn(() =>
+vi.mock('@/lib/chat', () => ({
+  getUserLLMSettings: vi.fn(() =>
     Promise.resolve({ provider: 'groq', apiKey: 'test-key', ollamaUrl: null }),
   ),
-  joinContext: jest.fn((parts: string[]) => parts.join('\n\n---\n\n')),
+  joinContext: vi.fn((parts: string[]) => parts.join('\n\n---\n\n')),
 }));
 
-jest.mock('@/lib/context', () => ({
-  getRelevantContext: jest.fn(() => Promise.resolve([])),
-  extractAndSaveContext: jest.fn(() => Promise.resolve(0)),
+vi.mock('@/lib/context', () => ({
+  getRelevantContext: vi.fn(() => Promise.resolve([])),
+  extractAndSaveContext: vi.fn(() => Promise.resolve(0)),
 }));
 
 import { POST } from '@/app/api/professional-chat/route';
 import { verifyUser } from '@/lib/api-utils';
 import { generateLLMResponse } from '@/lib/llm-client';
 import { enforceRateLimit } from '@/lib/rate-limit';
+import type { MockedFunction } from 'vitest';
 
-const mockVerifyUser = verifyUser as jest.MockedFunction<typeof verifyUser>;
-const mockGenerateLLM = generateLLMResponse as jest.MockedFunction<typeof generateLLMResponse>;
-const mockEnforceRateLimit = enforceRateLimit as jest.MockedFunction<typeof enforceRateLimit>;
+const mockVerifyUser = verifyUser as MockedFunction<typeof verifyUser>;
+const mockGenerateLLM = generateLLMResponse as MockedFunction<typeof generateLLMResponse>;
+const mockEnforceRateLimit = enforceRateLimit as MockedFunction<typeof enforceRateLimit>;
 
 function makeRequest(body: Record<string, unknown>): NextRequest {
   return new NextRequest('http://localhost:3000/api/professional-chat', {
@@ -64,7 +65,7 @@ function makeRequest(body: Record<string, unknown>): NextRequest {
 
 describe('POST /api/professional-chat', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     mockEnforceRateLimit.mockResolvedValue(null);
     mockVerifyUser.mockResolvedValue(null);
     mockGenerateLLM.mockResolvedValue({

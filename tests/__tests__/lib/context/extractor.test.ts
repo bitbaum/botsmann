@@ -1,36 +1,37 @@
 import { extractAndSaveContext } from '@/lib/context/extractor';
 
 // Mock dependencies
-jest.mock('@/lib/llm-client', () => ({
-  generateLLMResponse: jest.fn(),
+vi.mock('@/lib/llm-client', () => ({
+  generateLLMResponse: vi.fn(),
 }));
 
-jest.mock('@/lib/context/store', () => ({
-  saveUserContext: jest.fn(),
+vi.mock('@/lib/context/store', () => ({
+  saveUserContext: vi.fn(),
 }));
 
-jest.mock('@/lib/context/domain-detector', () => ({
-  detectDomains: jest.fn(),
+vi.mock('@/lib/context/domain-detector', () => ({
+  detectDomains: vi.fn(),
 }));
 
 import { generateLLMResponse } from '@/lib/llm-client';
 import { saveUserContext } from '@/lib/context/store';
 import { detectDomains } from '@/lib/context/domain-detector';
+import type { Mock } from 'vitest';
 
 beforeEach(() => {
-  jest.clearAllMocks();
-  (detectDomains as jest.Mock).mockReturnValue(['general']);
+  vi.clearAllMocks();
+  (detectDomains as Mock).mockReturnValue(['general']);
 });
 
 describe('extractAndSaveContext', () => {
   it('extracts facts from conversation and saves them', async () => {
-    (generateLLMResponse as jest.Mock).mockResolvedValue({
+    (generateLLMResponse as Mock).mockResolvedValue({
       content: JSON.stringify([
         { fact: 'User lives in Zürich', confidence: 0.9 },
         { fact: 'User has two children', confidence: 0.85 },
       ]),
     });
-    (saveUserContext as jest.Mock).mockResolvedValue(2);
+    (saveUserContext as Mock).mockResolvedValue(2);
 
     const result = await extractAndSaveContext(
       'user-1',
@@ -65,10 +66,10 @@ describe('extractAndSaveContext', () => {
   });
 
   it('uses professional domain when provided', async () => {
-    (generateLLMResponse as jest.Mock).mockResolvedValue({
+    (generateLLMResponse as Mock).mockResolvedValue({
       content: JSON.stringify([{ fact: 'User has back pain', confidence: 0.9 }]),
     });
-    (saveUserContext as jest.Mock).mockResolvedValue(1);
+    (saveUserContext as Mock).mockResolvedValue(1);
 
     await extractAndSaveContext('user-1', 'conv-1', 'My back hurts', 'Sorry to hear', 'health');
 
@@ -82,11 +83,11 @@ describe('extractAndSaveContext', () => {
   });
 
   it('uses detectDomains when no professional domain', async () => {
-    (generateLLMResponse as jest.Mock).mockResolvedValue({
+    (generateLLMResponse as Mock).mockResolvedValue({
       content: JSON.stringify([{ fact: 'User needs a lawyer', confidence: 0.8 }]),
     });
-    (detectDomains as jest.Mock).mockReturnValue(['legal', 'general']);
-    (saveUserContext as jest.Mock).mockResolvedValue(1);
+    (detectDomains as Mock).mockReturnValue(['legal', 'general']);
+    (saveUserContext as Mock).mockResolvedValue(1);
 
     await extractAndSaveContext('user-1', 'conv-1', 'I need legal help', 'Sure');
 
@@ -99,7 +100,7 @@ describe('extractAndSaveContext', () => {
   });
 
   it('returns 0 when no facts extracted', async () => {
-    (generateLLMResponse as jest.Mock).mockResolvedValue({
+    (generateLLMResponse as Mock).mockResolvedValue({
       content: JSON.stringify([]),
     });
 
@@ -110,7 +111,7 @@ describe('extractAndSaveContext', () => {
   });
 
   it('returns 0 when LLM returns invalid JSON', async () => {
-    (generateLLMResponse as jest.Mock).mockResolvedValue({
+    (generateLLMResponse as Mock).mockResolvedValue({
       content: 'not json',
     });
 
@@ -119,7 +120,7 @@ describe('extractAndSaveContext', () => {
   });
 
   it('returns 0 when LLM returns non-array JSON', async () => {
-    (generateLLMResponse as jest.Mock).mockResolvedValue({
+    (generateLLMResponse as Mock).mockResolvedValue({
       content: JSON.stringify({ fact: 'not an array' }),
     });
 
@@ -128,7 +129,7 @@ describe('extractAndSaveContext', () => {
   });
 
   it('returns 0 when LLM call throws', async () => {
-    (generateLLMResponse as jest.Mock).mockRejectedValue(new Error('API error'));
+    (generateLLMResponse as Mock).mockRejectedValue(new Error('API error'));
 
     const result = await extractAndSaveContext('user-1', 'conv-1', 'Hi', 'Hello');
     expect(result).toBe(0);
@@ -136,13 +137,13 @@ describe('extractAndSaveContext', () => {
 
   it('filters out facts exceeding 200 characters', async () => {
     const longFact = 'A'.repeat(201);
-    (generateLLMResponse as jest.Mock).mockResolvedValue({
+    (generateLLMResponse as Mock).mockResolvedValue({
       content: JSON.stringify([
         { fact: longFact, confidence: 0.9 },
         { fact: 'Short valid fact', confidence: 0.8 },
       ]),
     });
-    (saveUserContext as jest.Mock).mockResolvedValue(1);
+    (saveUserContext as Mock).mockResolvedValue(1);
 
     await extractAndSaveContext('user-1', 'conv-1', 'msg', 'resp');
 
@@ -152,31 +153,31 @@ describe('extractAndSaveContext', () => {
   });
 
   it('clamps confidence to 0.5-1.0 range', async () => {
-    (generateLLMResponse as jest.Mock).mockResolvedValue({
+    (generateLLMResponse as Mock).mockResolvedValue({
       content: JSON.stringify([
         { fact: 'Low confidence', confidence: 0.1 },
         { fact: 'High confidence', confidence: 1.5 },
         { fact: 'No confidence' },
       ]),
     });
-    (saveUserContext as jest.Mock).mockResolvedValue(3);
+    (saveUserContext as Mock).mockResolvedValue(3);
 
     await extractAndSaveContext('user-1', 'conv-1', 'msg', 'resp');
 
-    const savedFacts = (saveUserContext as jest.Mock).mock.calls[0][1];
+    const savedFacts = (saveUserContext as Mock).mock.calls[0][1];
     expect(savedFacts[0].confidence).toBe(0.5);
     expect(savedFacts[1].confidence).toBe(1.0);
     expect(savedFacts[2].confidence).toBe(0.8); // default
   });
 
   it('filters out facts with empty string', async () => {
-    (generateLLMResponse as jest.Mock).mockResolvedValue({
+    (generateLLMResponse as Mock).mockResolvedValue({
       content: JSON.stringify([
         { fact: '', confidence: 0.9 },
         { fact: 'Valid fact', confidence: 0.8 },
       ]),
     });
-    (saveUserContext as jest.Mock).mockResolvedValue(1);
+    (saveUserContext as Mock).mockResolvedValue(1);
 
     await extractAndSaveContext('user-1', 'conv-1', 'msg', 'resp');
 
