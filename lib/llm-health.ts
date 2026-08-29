@@ -12,7 +12,16 @@
  * This is deliberately in-process: botsmann runs as a single systemd service
  * on one box, so module state is shared by every request. If it is ever
  * scaled horizontally this becomes per-instance and wants a shared store.
+ *
+ * The state machine itself now lives in `ai-kit` (`createHealthTracker`),
+ * extracted from this exact file so the next app that needs it does not
+ * hand-roll its own copy. This module is a thin, backward-compatible
+ * wrapper: one shared tracker instance, the same five function names
+ * every route and test already imports, and epoch timestamps turned into
+ * the ISO strings the health API has always returned.
  */
+
+import { createHealthTracker } from 'ai-kit';
 
 /** Consecutive failures before we call the chain down rather than flaky. */
 const DOWN_AFTER_CONSECUTIVE_FAILURES = 3;
@@ -27,45 +36,30 @@ export interface LLMHealth {
   lastFailureAt: string | null;
 }
 
-let consecutiveFailures = 0;
-let lastError: string | null = null;
-let lastSuccessAt: number | null = null;
-let lastFailureAt: number | null = null;
+const tracker = createHealthTracker({ downAfter: DOWN_AFTER_CONSECUTIVE_FAILURES });
 
 /** Call after a generation that produced usable content. */
 export function recordLLMSuccess(): void {
-  consecutiveFailures = 0;
-  lastError = null;
-  lastSuccessAt = Date.now();
+  tracker.recordSuccess();
 }
 
 /** Call when generation threw, or returned nothing usable. */
 export function recordLLMFailure(error: unknown): void {
-  consecutiveFailures += 1;
-  lastFailureAt = Date.now();
-  lastError = error instanceof Error ? error.message : String(error ?? 'unknown error');
+  tracker.recordFailure(error);
 }
 
 export function getLLMHealth(): LLMHealth {
-  let status: LLMHealthStatus;
-  if (consecutiveFailures >= DOWN_AFTER_CONSECUTIVE_FAILURES) status = 'down';
-  else if (consecutiveFailures > 0) status = 'degraded';
-  else if (lastSuccessAt !== null) status = 'ok';
-  else status = 'unknown';
-
+  const health = tracker.getHealth();
   return {
-    status,
-    consecutiveFailures,
-    lastError,
-    lastSuccessAt: lastSuccessAt ? new Date(lastSuccessAt).toISOString() : null,
-    lastFailureAt: lastFailureAt ? new Date(lastFailureAt).toISOString() : null,
+    status: health.status,
+    consecutiveFailures: health.consecutiveFailures,
+    lastError: health.lastError,
+    lastSuccessAt: health.lastSuccessAt ? new Date(health.lastSuccessAt).toISOString() : null,
+    lastFailureAt: health.lastFailureAt ? new Date(health.lastFailureAt).toISOString() : null,
   };
 }
 
 /** Test seam. */
 export function resetLLMHealth(): void {
-  consecutiveFailures = 0;
-  lastError = null;
-  lastSuccessAt = null;
-  lastFailureAt = null;
+  tracker.reset();
 }

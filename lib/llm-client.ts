@@ -7,7 +7,7 @@
  * - Ollama (local)
  */
 
-import { freeChain, providerModels } from 'ai-kit';
+import { freeChain, providerModels, usableChain, tryChain } from 'ai-kit';
 import { API_CONFIG } from '@/lib/constants';
 import { getServerEnv, getClientEnv } from '@/lib/config/env';
 import { logger } from './logger';
@@ -53,6 +53,11 @@ interface LLMResponse {
 // Ollama configuration (lazy to avoid calling getServerEnv at module scope during SSG)
 const getOllamaModel = () => getServerEnv().OLLAMA_MODEL;
 
+/** Trim whitespace and strip literal/escaped newlines a pasted key can carry. */
+function cleanApiKey(raw: string | null | undefined): string | undefined {
+  return raw?.trim().replace(/\\n/g, '').replace(/\n/g, '');
+}
+
 /**
  * Generate a response using the specified LLM provider
  */
@@ -75,7 +80,50 @@ export async function generateLLMResponse(
 }
 
 /**
- * Generate with Groq (free tier)
+ * One call, one model, at Groq. The single-shot primitive both
+ * `generateWithGroq`'s model loop and the ai-kit chain in
+ * `generateWithBestProvider` walk over — a 404 here means the id was
+ * retired, a 429 means this model is busy or spent, and either way the
+ * caller's job is to try the next link, not this function's.
+ */
+async function callGroqModel(
+  model: string,
+  key: string,
+  messages: LLMMessage[],
+  temperature: number,
+  maxTokens: number,
+): Promise<LLMResponse> {
+  const response = await fetch(API_CONFIG.GROQ_API_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${key}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model,
+      messages,
+      temperature,
+      max_tokens: maxTokens,
+    }),
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    logger.error(`Groq API error: ${response.status} (model ${model})`, text);
+    throw new Error(`Groq API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return {
+    content: data.choices[0]?.message?.content || '',
+    provider: 'groq',
+    model,
+  };
+}
+
+/**
+ * Generate with Groq (free tier), trying every model in the fleet's chain
+ * before giving up.
  */
 async function generateWithGroq(
   messages: LLMMessage[],
@@ -83,58 +131,72 @@ async function generateWithGroq(
   temperature: number,
   maxTokens: number,
 ): Promise<LLMResponse> {
-  // Use provided key or fallback to server-side key
-  // Clean the key: trim whitespace and remove any literal \n or escaped newlines
-  const rawKey = apiKey || getServerEnv().GROQ_API_KEY;
-  const key = rawKey?.trim().replace(/\\n/g, '').replace(/\n/g, '');
+  // Use provided key or fallback to server-side key.
+  const key = cleanApiKey(apiKey || getServerEnv().GROQ_API_KEY);
 
   if (!key) {
     throw new Error('Groq API key not configured');
   }
 
   const models = groqModels();
-  let lastStatus = 0;
-  let lastError = '';
+  let lastError: Error = new Error('Groq API error: no model attempted');
 
   for (const model of models) {
-    const response = await fetch(API_CONFIG.GROQ_API_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${key}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model,
-        messages,
-        temperature,
-        max_tokens: maxTokens,
-      }),
-    });
-
-    if (!response.ok) {
-      lastStatus = response.status;
-      lastError = await response.text();
-      // A 404 here means the id was retired, which is the whole reason this is
-      // a loop; a 429 means this model is busy or spent. Either way the next id
-      // is a different model and worth asking.
-      logger.error(`Groq API error: ${response.status} (model ${model})`, lastError);
-      continue;
+    try {
+      return await callGroqModel(model, key, messages, temperature, maxTokens);
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
     }
-
-    const data = await response.json();
-    return {
-      content: data.choices[0]?.message?.content || '',
-      provider: 'groq',
-      model,
-    };
   }
 
-  throw new Error(`Groq API error: ${lastStatus} — all ${models.length} model(s) failed`);
+  throw new Error(`${lastError.message} — all ${models.length} model(s) failed`);
 }
 
 /**
- * Generate with OpenRouter (100+ models)
- * Supports Claude, GPT-4, Gemini, Grok, Llama, Mistral, and more
+ * One call, one model, at OpenRouter — the single-shot primitive both
+ * `generateWithOpenRouter`'s model loop and the ai-kit chain walk over.
+ * Supports Claude, GPT-4, Gemini, Grok, Llama, Mistral, and more.
+ */
+async function callOpenRouterModel(
+  model: string,
+  apiKey: string,
+  messages: LLMMessage[],
+  temperature: number,
+  maxTokens: number,
+): Promise<LLMResponse> {
+  const response = await fetch(API_CONFIG.OPENROUTER_API_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+      'HTTP-Referer': getClientEnv().NEXT_PUBLIC_APP_URL,
+      'X-Title': 'Botsmann',
+    },
+    body: JSON.stringify({
+      model,
+      messages,
+      temperature,
+      max_tokens: maxTokens,
+    }),
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    logger.error(`OpenRouter API error: ${response.status} (model ${model})`, text);
+    throw new Error(`OpenRouter API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return {
+    content: data.choices[0]?.message?.content || '',
+    provider: 'openrouter',
+    model,
+  };
+}
+
+/**
+ * Generate with OpenRouter (100+ models), trying every model in the fleet's
+ * chain before giving up.
  */
 async function generateWithOpenRouter(
   messages: LLMMessage[],
@@ -150,44 +212,17 @@ async function generateWithOpenRouter(
   // An explicit caller override is honoured as-is and alone: if someone names a
   // model, silently answering from a different one is worse than failing.
   const models = model ? [model] : openRouterModels();
-  let lastStatus = 0;
-  let lastError = '';
+  let lastError: Error = new Error('OpenRouter API error: no model attempted');
 
   for (const selectedModel of models) {
-    const response = await fetch(API_CONFIG.OPENROUTER_API_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': getClientEnv().NEXT_PUBLIC_APP_URL,
-        'X-Title': 'Botsmann',
-      },
-      body: JSON.stringify({
-        model: selectedModel,
-        messages,
-        temperature,
-        max_tokens: maxTokens,
-      }),
-    });
-
-    if (!response.ok) {
-      lastStatus = response.status;
-      lastError = await response.text();
-      logger.error(`OpenRouter API error: ${response.status} (model ${selectedModel})`, lastError);
-      continue;
+    try {
+      return await callOpenRouterModel(selectedModel, apiKey, messages, temperature, maxTokens);
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
     }
-
-    const data = await response.json();
-    return {
-      content: data.choices[0]?.message?.content || '',
-      provider: 'openrouter',
-      model: selectedModel,
-    };
   }
 
-  throw new Error(
-    `OpenRouter API request failed: ${lastStatus} — all ${models.length} model(s) failed`,
-  );
+  throw new Error(`${lastError.message} — all ${models.length} model(s) failed`);
 }
 
 /**
@@ -321,74 +356,64 @@ export async function getBestProvider(): Promise<{
 }
 
 /**
- * Generate a response using the best available provider
- */
-/**
- * Every provider that is configured, in preference order.
+ * Generate using the first link \u2014 provider AND model \u2014 that actually answers.
  *
- * Ollama first (local, private, free), then Groq (free tier), then OpenRouter
- * (paid). Being configured is not the same as working -- a key can be present
- * and revoked -- so this returns the whole chain and lets the caller demote.
- */
-export async function getProviderChain(): Promise<
-  Array<{ provider: ModelProvider; reason: string }>
-> {
-  const chain: Array<{ provider: ModelProvider; reason: string }> = [];
-  const env = getServerEnv();
-
-  if (await isOllamaAvailable()) {
-    chain.push({ provider: 'ollama', reason: 'Local Ollama running' });
-  }
-  if (env.GROQ_API_KEY) {
-    chain.push({ provider: 'groq', reason: 'Groq API key configured' });
-  }
-  if (env.OPENROUTER_API_KEY) {
-    chain.push({ provider: 'openrouter', reason: 'OpenRouter API key configured' });
-  }
-
-  return chain;
-}
-
-/**
- * Generate using the first provider that actually answers.
+ * This used to be two hand-rolled loops: this function walked PROVIDERS,
+ * and `generateWithGroq`/`generateWithOpenRouter` separately walked MODELS
+ * within whichever provider got picked. That let a configured-but-revoked
+ * key look identical to having no provider at all \u2014 botsmann's Groq key
+ * started returning 401 and the whole AI layer went down while an
+ * OpenRouter key sat unused. Now it is ONE chain, built and walked by
+ * `ai-kit` (`usableChain`/`tryChain`): provider and model demote together,
+ * in a single pass, and `ai-kit` owns the ordering so a fix to the chain
+ * lands here without a matching edit in this file.
  *
- * This used to pick one provider and call it once, so a configured-but-revoked
- * key was indistinguishable from having no provider at all: botsmann's Groq key
- * started returning 401 and the whole AI layer went down while an OpenRouter
- * key sat unused. Being chosen must not mean being trusted -- each provider
- * gets demoted on failure and the next one is tried.
- *
- * generateLLMResponse already walks the model list within a provider, so this
- * is the layer above that: models, then providers.
+ * Ollama stays outside that chain and is tried first: its availability is a
+ * live ping, not an API key, which does not fit `ai-kit`'s `Provider` shape.
  */
 export async function generateWithBestProvider(
   messages: LLMMessage[],
   options?: Partial<Omit<LLMOptions, 'provider'>>,
 ): Promise<LLMResponse & { providerInfo: string }> {
-  const chain = await getProviderChain();
+  const { temperature = 0.7, maxTokens = 1024 } = options ?? {};
+  const env = getServerEnv();
+
+  if (await isOllamaAvailable()) {
+    try {
+      const response = await generateWithOllama(messages, env.OLLAMA_URL, temperature, maxTokens);
+      return { ...response, providerInfo: 'Local Ollama running' };
+    } catch (error) {
+      logger.warn('[LLM] ollama failed, trying cloud chain', {
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  const chain = usableChain(freeChain('BOTSMANN'), {
+    GROQ_API_KEY: env.GROQ_API_KEY,
+    OPENROUTER_API_KEY: env.OPENROUTER_API_KEY,
+  });
 
   if (chain.length === 0) {
     throw new Error('No LLM provider available. Start Ollama or configure API keys.');
   }
 
-  const env = getServerEnv();
-  const failures: string[] = [];
-
-  for (const { provider, reason } of chain) {
-    try {
-      const response = await generateLLMResponse(messages, {
-        provider,
-        apiKey: provider === 'groq' ? env.GROQ_API_KEY : env.OPENROUTER_API_KEY,
-        ollamaUrl: env.OLLAMA_URL,
-        ...options,
+  const response = await tryChain(chain, {
+    attempt: ({ provider, model }) => {
+      if (provider.id === 'groq') {
+        const key = cleanApiKey(env.GROQ_API_KEY);
+        if (!key) throw new Error('Groq API key not configured');
+        return callGroqModel(model, key, messages, temperature, maxTokens);
+      }
+      if (!env.OPENROUTER_API_KEY) throw new Error('OpenRouter API key required');
+      return callOpenRouterModel(model, env.OPENROUTER_API_KEY, messages, temperature, maxTokens);
+    },
+    onLinkFailure: (link, error) => {
+      logger.warn(`[LLM] ${link.provider.id}/${link.model} failed, trying next`, {
+        error: error instanceof Error ? error.message : String(error),
       });
-      return { ...response, providerInfo: reason };
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      failures.push(`${provider}: ${message}`);
-      logger.warn(`[LLM] ${provider} failed, trying next provider`, { error: message });
-    }
-  }
+    },
+  });
 
-  throw new Error(`All ${chain.length} provider(s) failed \u2014 ${failures.join('; ')}`);
+  return { ...response, providerInfo: `${response.provider} (${response.model})` };
 }
