@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    /* vitest globals: describe/it/expect/vi come from `globals: true`,
+       and TypeScript needs them declared now that @types/jest is gone. */
+    "types": ["vitest/globals"],
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

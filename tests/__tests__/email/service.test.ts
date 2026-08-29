@@ -2,11 +2,19 @@ import { EmailService } from '@/lib/email/service';
 import { CustomerSchema } from '@/lib/schemas/customer';
 
 // Mock the AWS SDK
-jest.mock('@aws-sdk/client-ses', () => ({
-  SESClient: jest.fn().mockImplementation(() => ({
-    send: jest.fn().mockResolvedValue({ MessageId: 'test-message-id' }),
-  })),
-  SendEmailCommand: jest.fn().mockImplementation((params) => params),
+vi.mock('@aws-sdk/client-ses', () => ({
+  // A function expression, not an arrow: vitest builds a mocked constructor
+  // with Reflect.construct, and an arrow function is not constructible, so
+  // `new SESClient()` threw "is not a constructor". jest tolerated the arrow.
+  SESClient: vi.fn().mockImplementation(function () {
+    return { send: vi.fn().mockResolvedValue({ MessageId: 'test-message-id' }) };
+  }),
+  // Also `new`-ed by the code under test, so it needs a constructible
+  // function too. Returning an object from a constructor overrides `this`,
+  // which is what makes the params object come back out.
+  SendEmailCommand: vi.fn().mockImplementation(function (params: unknown) {
+    return params;
+  }),
 }));
 
 describe('EmailService', () => {

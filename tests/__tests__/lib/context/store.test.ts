@@ -1,28 +1,29 @@
 import { saveUserContext, getRelevantContext, type UserContextEntry } from '@/lib/context/store';
 
 // Mock dependencies
-jest.mock('@/lib/supabase', () => ({
-  getServiceClient: jest.fn(),
+vi.mock('@/lib/supabase', () => ({
+  getServiceClient: vi.fn(),
 }));
 
-jest.mock('@/lib/embeddings', () => ({
-  generateEmbedding: jest.fn(),
+vi.mock('@/lib/embeddings', () => ({
+  generateEmbedding: vi.fn(),
 }));
 
 import { getServiceClient } from '@/lib/supabase';
 import { generateEmbedding } from '@/lib/embeddings';
+import type { Mock } from 'vitest';
 
-const mockInsert = jest.fn();
-const mockRpc = jest.fn();
+const mockInsert = vi.fn();
+const mockRpc = vi.fn();
 const mockSupabase = {
-  from: jest.fn(() => ({ insert: mockInsert })),
+  from: vi.fn(() => ({ insert: mockInsert })),
   rpc: mockRpc,
 };
 
 beforeEach(() => {
-  jest.clearAllMocks();
-  (getServiceClient as jest.Mock).mockReturnValue(mockSupabase);
-  (generateEmbedding as jest.Mock).mockResolvedValue([0.1, 0.2, 0.3]);
+  vi.clearAllMocks();
+  (getServiceClient as Mock).mockReturnValue(mockSupabase);
+  (generateEmbedding as Mock).mockResolvedValue([0.1, 0.2, 0.3]);
 });
 
 describe('saveUserContext', () => {
@@ -93,7 +94,7 @@ describe('saveUserContext', () => {
   });
 
   it('skips facts where embedding generation throws', async () => {
-    (generateEmbedding as jest.Mock)
+    (generateEmbedding as Mock)
       .mockRejectedValueOnce(new Error('model load failed'))
       .mockResolvedValueOnce([0.1, 0.2]);
     mockInsert.mockResolvedValue({ error: null });
@@ -157,7 +158,7 @@ describe('getRelevantContext', () => {
   });
 
   it('returns empty array when embedding generation fails', async () => {
-    (generateEmbedding as jest.Mock).mockRejectedValue(new Error('model error'));
+    (generateEmbedding as Mock).mockRejectedValue(new Error('model error'));
 
     const result = await getRelevantContext('user-1', ['general'], 'test');
     expect(result).toEqual([]);

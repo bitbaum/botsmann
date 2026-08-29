@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 /**
  * Mock for next/server in Jest tests
  *
@@ -54,11 +55,11 @@ export class NextRequest extends BaseRequest {
 
   get cookies() {
     return {
-      get: jest.fn(),
-      getAll: jest.fn(() => []),
-      set: jest.fn(),
-      delete: jest.fn(),
-      has: jest.fn(() => false),
+      get: vi.fn(),
+      getAll: vi.fn(() => []),
+      set: vi.fn(),
+      delete: vi.fn(),
+      has: vi.fn(() => false),
     };
   }
 
@@ -102,15 +103,15 @@ export class NextResponse extends BaseResponse {
 
   get cookies() {
     return {
-      get: jest.fn(),
-      getAll: jest.fn(() => []),
-      set: jest.fn(),
-      delete: jest.fn(),
+      get: vi.fn(),
+      getAll: vi.fn(() => []),
+      set: vi.fn(),
+      delete: vi.fn(),
     };
   }
 }
 
-export const userAgent = jest.fn(() => ({
+export const userAgent = vi.fn(() => ({
   isBot: false,
   browser: { name: 'Chrome', version: '100' },
   device: { type: undefined, vendor: undefined, model: undefined },
@@ -119,4 +120,4 @@ export const userAgent = jest.fn(() => ({
   cpu: { architecture: undefined },
 }));
 
-export const userAgentFromString = jest.fn(() => userAgent());
+export const userAgentFromString = vi.fn(() => userAgent());

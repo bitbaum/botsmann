@@ -1,4 +1,7 @@
-import '@testing-library/jest-dom';
+// Migrated from jest.setup.ts. `globals: true` in vitest.config.ts keeps
+// describe/it/expect/beforeEach/vi available without imports, so this file
+// changed only where the jest API name did.
+import '@testing-library/jest-dom/vitest';
 import { TextEncoder, TextDecoder } from 'util';
 
 // Polyfill TextEncoder/TextDecoder for Node test environment
@@ -6,7 +9,7 @@ global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder as typeof global.TextDecoder;
 
 // Mock fetch globally
-const mockFetch = jest.fn().mockImplementation(
+const mockFetch = vi.fn().mockImplementation(
   (): Promise<Partial<Response>> =>
     Promise.resolve({
       ok: true,
@@ -29,7 +32,7 @@ Object.assign(process.env, testEnvVars);
 
 // Reset mocks and env vars between tests
 beforeEach(() => {
-  jest.clearAllMocks();
+  vi.clearAllMocks();
   // Restore test env vars that may have been modified by tests
   Object.assign(process.env, testEnvVars);
 });
