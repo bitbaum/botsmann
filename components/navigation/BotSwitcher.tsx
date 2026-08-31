@@ -73,7 +73,7 @@ export function BotSwitcher({
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel static style={getDropdownStyle()} className="w-64">
-                <div className="overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-black ring-opacity-5 border border-gray-100">
+                <div className="overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-black/5 border border-gray-100">
                   {/* Header */}
                   <div className="border-b border-gray-100 bg-gray-50 px-4 py-3">
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">

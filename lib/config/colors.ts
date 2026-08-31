@@ -88,6 +88,39 @@ export function getAccentColorBgClass(color: string): string {
 }
 
 /**
+ * 20% tint background classes (Tailwind v4 slash-opacity syntax).
+ * Full literals so Tailwind's source scanner sees every class — v4 removed
+ * the composable `bg-opacity-*` utilities, so the tint must be baked into
+ * the class string itself.
+ */
+export const ACCENT_COLOR_BG_TINT_CLASSES: Record<AccentColor, string> = {
+  blue: 'bg-blue-500/20',
+  green: 'bg-green-500/20',
+  indigo: 'bg-indigo-500/20',
+  red: 'bg-red-500/20',
+  amber: 'bg-amber-500/20',
+  pink: 'bg-pink-500/20',
+  rose: 'bg-rose-500/20',
+  purple: 'bg-purple-500/20',
+  orange: 'bg-orange-500/20',
+  slate: 'bg-slate-500/20',
+  yellow: 'bg-yellow-500/20',
+  sky: 'bg-sky-500/20',
+  stone: 'bg-stone-500/20',
+  violet: 'bg-violet-500/20',
+  cyan: 'bg-cyan-500/20',
+  teal: 'bg-teal-500/20',
+};
+
+/**
+ * Get the 20% tint bg class for an accent color
+ * Falls back to purple if color not found
+ */
+export function getAccentColorBgTintClass(color: string): string {
+  return ACCENT_COLOR_BG_TINT_CLASSES[color as AccentColor] || 'bg-purple-500/20';
+}
+
+/**
  * Color picker options with labels (for forms) - uses restricted set
  */
 export const ACCENT_COLOR_OPTIONS = [

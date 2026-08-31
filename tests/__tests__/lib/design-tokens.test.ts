@@ -8,8 +8,8 @@
  * believed they owned colour.
  *
  * Components may only use semantic classes (bg-action, text-ink, border-edge...)
- * which tailwind.config maps to the CSS custom properties. Raw palette classes
- * are how the drift started, so they are refused here.
+ * which the @theme block in globals.css maps to the CSS custom properties. Raw
+ * palette classes are how the drift started, so they are refused here.
  */
 import { readFileSync, readdirSync, statSync } from 'fs';
 import { join, relative, sep } from 'path';

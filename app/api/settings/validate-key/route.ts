@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
 
     if (!parseResult.success) {
       return jsonError(
-        parseResult.error.errors[0].message,
+        parseResult.error.issues[0].message,
         'VALIDATION_ERROR',
         HTTP_STATUS.BAD_REQUEST,
       );
