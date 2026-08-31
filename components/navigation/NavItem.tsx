@@ -47,6 +47,9 @@ export function NavItem({ item, isActive, onNavigate }: NavItemProps) {
     return (
       <Link
         href={item.path}
+        // `isActive` already decides the colour; it never told assistive tech
+        // which page you were on. Zero aria-current existed in this codebase.
+        aria-current={isActive ? 'page' : undefined}
         className={`text-sm font-medium transition-colors ${
           isActive ? 'text-action' : 'text-gray-600'
         } hover:text-action`}
