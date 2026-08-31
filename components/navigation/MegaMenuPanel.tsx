@@ -24,7 +24,7 @@ export function MegaMenuPanel({ items, config, onNavigate }: MegaMenuPanelProps)
   }[columns];
 
   return (
-    <div className="overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 border border-gray-100">
+    <div className="overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black/5 border border-gray-100">
       {/* Optional Header */}
       {config?.header && (
         <div

@@ -118,7 +118,7 @@ export default function ContactPage() {
                   We've received your message and will get back to you soon.
                 </p>
                 <button
-                  className="mt-5 rounded-md bg-action px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity"
+                  className="mt-5 rounded-md bg-action px-4 py-2 text-sm font-medium text-white hover:bg-action/90 transition-colors"
                   onClick={() => setIsSubmitted(false)}
                 >
                   Send another message
@@ -192,7 +192,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full rounded-md bg-action px-4 py-2 text-sm font-medium text-white hover:bg-opacity-90 transition-opacity disabled:bg-opacity-70"
+                  className="w-full rounded-md bg-action px-4 py-2 text-sm font-medium text-white hover:bg-action/90 transition-colors disabled:bg-action/70"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>

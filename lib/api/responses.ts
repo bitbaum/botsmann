@@ -252,7 +252,7 @@ export function jsonLLMUnavailable(
  * Convert ZodError to ValidationError array
  */
 export function formatZodErrors(error: ZodError): ValidationError[] {
-  return error.errors.map((err) => ({
+  return error.issues.map((err) => ({
     field: err.path.join('.'),
     message: err.message,
   }));

@@ -46,7 +46,7 @@ export const UpdateUserProfileSchema = z.object({
  * Full user profile schema (for responses).
  */
 export const UserProfileSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string().guid(),
   display_name: z.string().nullable(),
   preferred_language: LanguageSchema,
   timezone: z.string().nullable(),

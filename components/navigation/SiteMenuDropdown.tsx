@@ -70,7 +70,7 @@ export function SiteMenuDropdown({ className = '' }: SiteMenuDropdownProps) {
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel static style={getDropdownStyle()} className="w-56">
-                <div className="overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-black ring-opacity-5 border border-gray-100">
+                <div className="overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-black/5 border border-gray-100">
                   {/* Header */}
                   <div className="border-b border-gray-100 bg-action-tint px-4 py-3">
                     <Link href="/" onClick={() => close()} className="flex items-center gap-2">

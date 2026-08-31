@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     // Validate input
     const result = SignUpSchema.safeParse(body);
     if (!result.success) {
-      return jsonError(result.error.errors[0].message, 'VALIDATION_ERROR', HTTP_STATUS.BAD_REQUEST);
+      return jsonError(result.error.issues[0].message, 'VALIDATION_ERROR', HTTP_STATUS.BAD_REQUEST);
     }
 
     const { email, password } = result.data;

@@ -57,7 +57,7 @@ export default function SignUpPage() {
     // Validate with Zod
     const result = SignUpSchema.safeParse({ email, password, confirmPassword });
     if (!result.success) {
-      setError(result.error.errors[0].message);
+      setError(result.error.issues[0].message);
       return;
     }
 

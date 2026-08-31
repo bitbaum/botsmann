@@ -9,10 +9,12 @@ import Script from 'next/script';
 
 // Brand typeface: a serif display (Fraunces) carries the editorial / "real
 // counsel" identity for headings & wordmark; Inter handles UI/body copy.
-// Bound to CSS vars consumed by tailwind.config (font-serif / font-sans).
+// Bound to CSS vars consumed by the @theme block in globals.css (font-sans /
+// font-serif). Named --font-inter/--font-fraunces so the @theme aliases
+// --font-sans/--font-serif can reference them without a circular var().
 const sans = Inter({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-inter',
   display: 'swap',
 });
 
@@ -20,7 +22,7 @@ const serif = Fraunces({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   style: ['normal', 'italic'],
-  variable: '--font-serif',
+  variable: '--font-fraunces',
   display: 'swap',
 });
 

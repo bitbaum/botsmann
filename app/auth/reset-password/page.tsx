@@ -42,7 +42,7 @@ export default function ResetPasswordPage() {
     // Validate with Zod
     const result = ResetPasswordSchema.safeParse({ password, confirmPassword });
     if (!result.success) {
-      setError(result.error.errors[0].message);
+      setError(result.error.issues[0].message);
       setLoading(false);
       return;
     }

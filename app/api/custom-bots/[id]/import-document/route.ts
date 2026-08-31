@@ -23,7 +23,7 @@ import { logger } from '@/lib/logger';
 const DOMAIN_ERROR = 'Failed to import document to bot';
 
 const ImportDocumentSchema = z.object({
-  document_id: z.string().uuid('Invalid document ID'),
+  document_id: z.string().guid('Invalid document ID'),
 });
 
 interface RouteParams {

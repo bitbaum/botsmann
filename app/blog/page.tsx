@@ -87,7 +87,7 @@ export default async function Blog() {
 
                     <Link
                       href={`/blog/${post.slug}` as Route}
-                      className="mt-6 inline-flex items-center text-sm font-medium text-action hover:text-opacity-80"
+                      className="mt-6 inline-flex items-center text-sm font-medium text-action hover:text-action/80"
                     >
                       Read more
                       <svg

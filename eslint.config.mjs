@@ -2,7 +2,7 @@ import nextCoreWebVitals from 'eslint-config-next/core-web-vitals';
 import nextTypeScript from 'eslint-config-next/typescript';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
-// ESLint 9 flat config. eslint-config-next 16 ships native flat configs, so we
+// ESLint 10 flat config. eslint-config-next 16 ships native flat configs, so we
 // compose them directly instead of wrapping legacy .eslintrc via FlatCompat
 // (which crashes on the react plugin's circular flat-config object). Rule set is
 // carried over verbatim from the previous .eslintrc.json.
@@ -23,6 +23,12 @@ const eslintConfig = [
   },
   ...nextCoreWebVitals,
   ...nextTypeScript,
+  {
+    // eslint-plugin-react's version:'detect' calls context.getFilename, removed
+    // in ESLint 10 — pin the React major so detection never runs. Must come
+    // AFTER the next configs, which set version:'detect'.
+    settings: { react: { version: '19' } },
+  },
   // Must come after the configs it disables formatting rules from.
   eslintConfigPrettier,
   {

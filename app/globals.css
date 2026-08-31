@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
 
 /*
  * ============================================================================
@@ -10,9 +11,9 @@
  * toy chatbot. Editorial ink + one authoritative warm accent (notarial ochre).
  * No generic "AI gradient" blue/purple. Typography (serif display) carries it.
  *
- * Every color/radius/shadow used in the product is defined HERE. tailwind.config
- * maps utilities to these vars; components consume semantic classes only.
- * Retheme = edit this block. Nothing else.
+ * Every color/radius/shadow used in the product is defined HERE. Tailwind v4
+ * CSS-first config: the @theme block below maps utility names to these vars;
+ * components consume semantic classes only. Retheme = edit this block.
  */
 :root {
   /* Tier 1 — Primitive palette (raw values; never used directly by components) */
@@ -26,16 +27,26 @@
   --primitive-surface: #ffffff;
   --primitive-border: #e8e2d8; /* warm hairline */
 
-  /* Tier 2 — Semantic tokens (what things MEAN — always use these) */
+  /* Back-compat for any legacy rgb() consumers */
+  --foreground-rgb: 26, 23, 20;
+  --background-rgb: 250, 248, 244;
+}
+
+/*
+ * Tier 2 — Semantic tokens (what things MEAN — always use these).
+ * `inline` so utilities resolve through the primitive vars above and the
+ * next/font vars (--font-inter / --font-fraunces) set on <html> in layout.tsx.
+ */
+@theme inline {
   --color-brand: var(--primitive-ink-950); /* the Botsmann mark / authority */
   --color-action: var(--primitive-ochre-600); /* primary CTAs, links, accents */
   --color-action-hover: var(--primitive-ochre-700);
   --color-action-tint: var(--primitive-ochre-50);
-  --color-bg: var(--primitive-paper);
+  --color-paper: var(--primitive-paper); /* page background */
   --color-surface: var(--primitive-surface);
-  --color-border: var(--primitive-border);
-  --color-text: var(--primitive-ink-950);
-  --color-text-muted: var(--primitive-ink-500);
+  --color-edge: var(--primitive-border);
+  --color-ink: var(--primitive-ink-950);
+  --color-ink-muted: var(--primitive-ink-500);
 
   /* Radii — restrained, editorial (not bubbly) */
   --radius-card: 12px;
@@ -45,14 +56,14 @@
   --shadow-card: 0 1px 2px rgb(26 23 20 / 0.04), 0 1px 3px rgb(26 23 20 / 0.06);
   --shadow-card-hover: 0 4px 12px rgb(26 23 20 / 0.08), 0 2px 4px rgb(26 23 20 / 0.06);
 
-  /* Back-compat for any legacy rgb() consumers */
-  --foreground-rgb: 26, 23, 20;
-  --background-rgb: 250, 248, 244;
+  /* Bound to next/font CSS vars set in app/layout.tsx */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, serif;
 }
 
 body {
-  color: var(--color-text);
-  background: var(--color-bg);
+  color: var(--primitive-ink-950);
+  background: var(--primitive-paper);
 }
 
 /* Smooth scrolling for anchor links */
@@ -84,13 +95,13 @@ html {
 
 @layer components {
   .btn-primary {
-    @apply rounded-btn bg-action px-4 py-2 text-sm md:text-base font-medium text-white hover:bg-action-hover transition-colors shadow-card hover:shadow-card-hover md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-action focus:ring-opacity-40;
+    @apply rounded-btn bg-action px-4 py-2 text-sm md:text-base font-medium text-white hover:bg-action-hover transition-colors shadow-card hover:shadow-card-hover md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-action/40;
   }
   .btn-secondary {
-    @apply rounded-btn border border-edge px-4 py-2 text-sm md:text-base font-medium text-ink hover:bg-action-tint transition-colors shadow-card hover:shadow-card-hover md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-action focus:ring-opacity-20;
+    @apply rounded-btn border border-edge px-4 py-2 text-sm md:text-base font-medium text-ink hover:bg-action-tint transition-colors shadow-card hover:shadow-card-hover md:px-5 md:py-2.5 focus:outline-none focus:ring-2 focus:ring-action/20;
   }
   .input-primary {
-    @apply w-full rounded-btn border border-edge bg-surface px-4 py-3 text-ink outline-none transition-colors focus:border-action focus:ring-2 focus:ring-action focus:ring-opacity-20;
+    @apply w-full rounded-btn border border-edge bg-surface px-4 py-3 text-ink outline-none transition-colors focus:border-action focus:ring-2 focus:ring-action/20;
   }
 }
 
@@ -114,32 +125,6 @@ html {
   right: 0;
   bottom: 0;
   left: 0;
-}
-
-@layer utilities {
-  .aspect-w-16 {
-    position: relative;
-    padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%);
-    --tw-aspect-w: 16;
-  }
-
-  .aspect-h-7 {
-    --tw-aspect-h: 7;
-  }
-
-  .aspect-h-9 {
-    --tw-aspect-h: 9;
-  }
-
-  .aspect-w-16 > * {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
 }
 
 /* Mobile menu fixes */
