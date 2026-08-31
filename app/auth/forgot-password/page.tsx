@@ -56,7 +56,7 @@ export default function ForgotPasswordPage() {
     // Validate with Zod
     const result = ForgotPasswordSchema.safeParse({ email });
     if (!result.success) {
-      setError(result.error.errors[0].message);
+      setError(result.error.issues[0].message);
       setLoading(false);
       return;
     }

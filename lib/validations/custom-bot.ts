@@ -89,7 +89,7 @@ export const UpdateCustomBotSchema = z.object({
  * Schema for creating a knowledge chunk
  */
 export const CreateKnowledgeChunkSchema = z.object({
-  bot_id: z.string().uuid('Invalid bot ID'),
+  bot_id: z.string().guid('Invalid bot ID'),
   topic: z.string().max(200, 'Topic must be at most 200 characters').optional(),
   question: z.string().max(500, 'Question must be at most 500 characters').optional(),
   content: z
@@ -98,7 +98,7 @@ export const CreateKnowledgeChunkSchema = z.object({
     .max(10000, 'Content must be at most 10,000 characters'),
   keywords: z.array(z.string().max(50)).max(20, 'Maximum 20 keywords').optional(),
   source: z.string().max(500, 'Source must be at most 500 characters').optional(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 /**
@@ -114,14 +114,14 @@ export const UpdateKnowledgeChunkSchema = z.object({
     .optional(),
   keywords: z.array(z.string().max(50)).max(20, 'Maximum 20 keywords').optional(),
   source: z.string().max(500, 'Source must be at most 500 characters').nullable().optional(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 /**
  * Schema for bulk creating knowledge chunks
  */
 export const BulkCreateKnowledgeChunksSchema = z.object({
-  bot_id: z.string().uuid('Invalid bot ID'),
+  bot_id: z.string().guid('Invalid bot ID'),
   chunks: z
     .array(
       z.object({

@@ -81,7 +81,7 @@ export default function ConsultationForm() {
           </p>
           <button
             onClick={() => setSubmitSuccess(false)}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-action hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-action"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-action hover:bg-action/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-action"
           >
             Submit another response
           </button>
@@ -174,7 +174,7 @@ export default function ConsultationForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-action hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-action disabled:opacity-50"
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-action hover:bg-action/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-action disabled:opacity-50"
         >
           {isSubmitting ? 'Submitting...' : 'Join the Community'}
         </button>

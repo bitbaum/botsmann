@@ -2,7 +2,7 @@
 
 import { type FC, useState, useRef, useEffect, useCallback } from 'react';
 import { type BotTemplate } from '@/lib/bot-templates';
-import { getAccentColorBgClass } from '@/lib/config/colors';
+import { getAccentColorBgTintClass } from '@/lib/config/colors';
 
 interface CreatedBot {
   template: BotTemplate;
@@ -163,7 +163,7 @@ export const QuickChat: FC<QuickChatProps> = ({ bot, onReset }) => {
     inputRef.current?.focus({ preventScroll: true });
   };
 
-  const accentColor = getAccentColorBgClass(bot.template.accentColor);
+  const accentTint = getAccentColorBgTintClass(bot.template.accentColor);
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -171,7 +171,7 @@ export const QuickChat: FC<QuickChatProps> = ({ bot, onReset }) => {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
           <div
-            className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl ${accentColor} bg-opacity-20`}
+            className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl ${accentTint}`}
           >
             {bot.template.emoji}
           </div>

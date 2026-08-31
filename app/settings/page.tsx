@@ -98,7 +98,7 @@ export default function SettingsPage() {
     });
 
     if (!result.success) {
-      setProfileError(result.error.errors[0].message);
+      setProfileError(result.error.issues[0].message);
       return;
     }
 

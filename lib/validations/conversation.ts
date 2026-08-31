@@ -30,8 +30,8 @@ export const ProfessionalSlugSchema = z.enum(professionalSlugs as [string, ...st
 export const MessageSourceSchema = z.object({
   document_name: z.string(),
   preview: z.string(),
-  chunk_id: z.string().uuid().optional(),
-  document_id: z.string().uuid().optional(),
+  chunk_id: z.string().guid().optional(),
+  document_id: z.string().guid().optional(),
   similarity: z.number().min(0).max(1).optional(),
 });
 
@@ -41,8 +41,8 @@ export const MessageSourceSchema = z.object({
 export const CreateConversationSchema = z.object({
   title: z.string().max(200, 'Title must be at most 200 characters').optional(),
   bot_type: ConversationBotTypeSchema.optional().default('documents'),
-  bot_id: z.string().uuid('Invalid bot ID').optional(),
-  document_id: z.string().uuid('Invalid document ID').optional(),
+  bot_id: z.string().guid('Invalid bot ID').optional(),
+  document_id: z.string().guid('Invalid document ID').optional(),
   professional_slug: ProfessionalSlugSchema.optional(),
 });
 
