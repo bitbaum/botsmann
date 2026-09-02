@@ -1,23 +1,23 @@
 import { NLPResult } from '@/types/products';
+import { generateWithBestProvider } from '@/lib/llm-client';
 
+/**
+ * Converts a one-word shopping query into structured search parameters.
+ *
+ * Routed through `generateWithBestProvider` (Ollama -> Groq -> OpenRouter),
+ * not a hardcoded OpenAI call: this used to `fetch` `api.openai.com` directly
+ * with a single model and no fallback, which meant it was dead code the
+ * moment `OPENAI_API_KEY` was unset (it always is in production) or OpenAI
+ * had an outage. Any failure -- provider unavailable, malformed JSON, no
+ * content -- degrades to a basic keyword search rather than surfacing an
+ * error, exactly as before.
+ */
 export async function processQuery(query: string): Promise<NLPResult> {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error('OpenAI API key is not configured');
-  }
-
   try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content: `Convert one-word shopping queries into structured product search parameters.
+    const { content } = await generateWithBestProvider([
+      {
+        role: 'system',
+        content: `Convert one-word shopping queries into structured product search parameters.
                    Return a JSON object with 'category' and 'attributes'.
                    Example: For "laptop", return:
                    {
@@ -28,26 +28,15 @@ export async function processQuery(query: string): Promise<NLPResult> {
                        "minStorage": "256GB"
                      }
                    }`,
-          },
-          {
-            role: 'user',
-            content: query,
-          },
-        ],
-        temperature: 0.7,
-        max_tokens: 150,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to process query with OpenAI');
-    }
-
-    const data = await response.json();
-    const content = data.choices[0]?.message?.content;
+      },
+      {
+        role: 'user',
+        content: query,
+      },
+    ]);
 
     if (!content) {
-      throw new Error('Invalid response from OpenAI');
+      throw new Error('Invalid response from LLM provider');
     }
 
     try {
