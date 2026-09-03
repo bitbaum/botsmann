@@ -34,7 +34,7 @@
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
     "@xenova/transformers": "^2.17.2",
-    "ai-kit": "github:bitbaum/ai-kit#v0.6.2",
+    "@bitbaum/ai-kit": "^0.6.2",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
     "next": "^16.2.12",
