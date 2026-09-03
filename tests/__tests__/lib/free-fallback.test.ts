@@ -23,7 +23,7 @@
  * routing and a per-call charge for identical weights, which is why an id one
  * token away from correct kept slipping through review.
  */
-import { freeChain, providerModels, modelCost } from 'ai-kit';
+import { freeChain, providerModels, modelCost } from '@bitbaum/ai-kit';
 
 const openRouter = freeChain('BOTSMANN')[1];
 

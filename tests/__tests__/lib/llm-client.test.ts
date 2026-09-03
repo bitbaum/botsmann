@@ -17,7 +17,7 @@ vi.mock('@/lib/constants', () => ({
   },
 }));
 
-import { freeChain, providerModels } from 'ai-kit';
+import { freeChain, providerModels } from '@bitbaum/ai-kit';
 
 const GROQ_MODELS = providerModels(freeChain('BOTSMANN')[0]);
 const OPENROUTER_MODELS = providerModels(freeChain('BOTSMANN')[1]);

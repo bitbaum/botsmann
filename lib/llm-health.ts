@@ -21,7 +21,7 @@
  * the ISO strings the health API has always returned.
  */
 
-import { createHealthTracker } from 'ai-kit';
+import { createHealthTracker } from '@bitbaum/ai-kit';
 
 /** Consecutive failures before we call the chain down rather than flaky. */
 const DOWN_AFTER_CONSECUTIVE_FAILURES = 3;

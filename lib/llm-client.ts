@@ -7,7 +7,7 @@
  * - Ollama (local)
  */
 
-import { freeChain, providerModels, usableChain, tryChain } from 'ai-kit';
+import { freeChain, providerModels, usableChain, tryChain } from '@bitbaum/ai-kit';
 import { API_CONFIG } from '@/lib/constants';
 import { getServerEnv, getClientEnv } from '@/lib/config/env';
 import { logger } from './logger';
