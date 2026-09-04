@@ -15,7 +15,7 @@ Hetzner box "bitbaum", the same box that serves the app.
 | Keys       | `/opt/botsmann/shared/.env` on the box                             |
 
 If you find a hosted-dashboard link anywhere in this repo, it is a
-leftover from before the move and it is wrong. `npm run check:selfhost` fails
+leftover from before the move and it is wrong. `pnpm run check:selfhost` fails
 the build on new ones.
 
 ## Why we are not in `public`
@@ -72,7 +72,7 @@ ssh ubuntu@167.233.22.31 "docker exec supabase-db psql -U postgres -d postgres \
 ## Checking the database
 
 ```bash
-npm run test:db   # connects with our schema and reports every expected table
+pnpm run test:db  # connects with our schema and reports every expected table
 ```
 
 Straight from the box, when you need to see the schema itself:

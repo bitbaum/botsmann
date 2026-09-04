@@ -8,14 +8,12 @@ This document provides comprehensive technical context for the Botsmann project.
 
 ### Frontend
 
-| Technology    | Version | Purpose                      |
-| ------------- | ------- | ---------------------------- |
-| Next.js       | 14.x    | React framework (App Router) |
-| React         | 18.x    | UI library                   |
-| TypeScript    | 5.x     | Type safety                  |
-| Tailwind CSS  | 3.x     | Utility-first styling        |
-| DaisyUI       | 5.x     | Component library            |
-| Framer Motion | 12.x    | Animations                   |
+| Technology   | Version | Purpose                      |
+| ------------ | ------- | ---------------------------- |
+| Next.js      | 16.x    | React framework (App Router) |
+| React        | 19.x    | UI library                   |
+| TypeScript   | 6.x     | Type safety                  |
+| Tailwind CSS | 4.x     | Utility-first styling        |
 
 ### Backend
 
@@ -24,7 +22,7 @@ This document provides comprehensive technical context for the Botsmann project.
 | Next.js API Routes  | -       | Serverless functions             |
 | Supabase (Postgres) | 15.x    | Database + Auth + Storage + RLS  |
 | @supabase/\*        | 2.x     | JS client + Next.js auth helpers |
-| Zod                 | 3.x     | Schema validation                |
+| Zod                 | 4.x     | Schema validation                |
 
 ### Infrastructure
 
@@ -38,7 +36,7 @@ This document provides comprehensive technical context for the Botsmann project.
 
 | Tool                  | Purpose           |
 | --------------------- | ----------------- |
-| Jest                  | Unit testing      |
+| Vitest                | Unit testing      |
 | React Testing Library | Component testing |
 | ESLint                | Code linting      |
 | Prettier              | Code formatting   |
@@ -89,7 +87,7 @@ botsmann/
 │   └── professionals.ts    # Professional configurations
 ├── docs/                   # Documentation
 │   ├── BEST_PRACTICES.md   # Coding principles
-│   ├── COMMANDS.md         # npm scripts
+│   ├── COMMANDS.md         # pnpm scripts
 │   ├── SSOT.md             # Single Source of Truth map
 │   ├── SUPABASE_SETUP.md   # Database setup guide
 │   └── SHARED_CONTEXT.md   # This file
@@ -221,12 +219,13 @@ User → components/*Form.tsx
 
 Push to `main` → local `.husky/pre-push` hook → self-hosted deploy on the
 Hetzner box "bitbaum" (build → rsync → systemd restart), behind Caddy.
-GitHub Actions runs build/lint/tests as CI only.
+GitHub Actions also deploys on push to `main` (`deploy.yml` → the shared
+`bitbaum/fleetcrown` self-host deploy workflow), alongside build/lint/test CI.
 
 ### Manual
 
 ```bash
-npm run build
+pnpm run build
 bash /home/g/dev/fleetcrown/scripts/hetzner/deploy.sh botsmann
 ```
 
@@ -241,4 +240,4 @@ bash /home/g/dev/fleetcrown/scripts/hetzner/deploy.sh botsmann
 
 ---
 
-**Last Updated:** 2026-02-10
+**Last Updated:** 2026-09-04

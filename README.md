@@ -93,15 +93,15 @@ Rate limits: 20 req/60s for chat, 15 req/60s for professional chat.
 
 ## Tech Stack
 
-| Layer      | Technology                                                   |
-| ---------- | ------------------------------------------------------------ |
-| Frontend   | Next.js 16, React 19, TypeScript 5, Tailwind CSS + DaisyUI 5 |
-| LLM        | Groq, OpenRouter (100+ models), Ollama (local)               |
-| Database   | Supabase PostgreSQL 15 + pgvector                            |
-| Embeddings | Transformers.js (all-MiniLM-L6-v2, 384d)                     |
-| Auth       | Supabase Auth + Row Level Security                           |
-| Email      | AWS SES                                                      |
-| Deployment | Self-hosted on Hetzner (behind Caddy); GitHub Actions CI     |
+| Layer      | Technology                                               |
+| ---------- | -------------------------------------------------------- |
+| Frontend   | Next.js 16, React 19, TypeScript 6, Tailwind CSS 4       |
+| LLM        | Groq, OpenRouter (100+ models), Ollama (local)           |
+| Database   | Supabase PostgreSQL 15 + pgvector                        |
+| Embeddings | Transformers.js (all-MiniLM-L6-v2, 384d)                 |
+| Auth       | Supabase Auth + Row Level Security                       |
+| Email      | AWS SES                                                  |
+| Deployment | Self-hosted on Hetzner (behind Caddy); GitHub Actions CI |
 
 ---
 
@@ -110,16 +110,16 @@ Rate limits: 20 req/60s for chat, 15 req/60s for professional chat.
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 24 (see `.nvmrc`)
 - A Supabase project with pgvector enabled
 - At least one LLM provider key (Groq is free)
 
 ### Setup
 
 ```bash
-git clone https://github.com/your-org/botsmann.git
+git clone https://github.com/bitbaum/botsmann.git
 cd botsmann
-npm install
+pnpm install
 ```
 
 ### Environment
@@ -152,7 +152,7 @@ FLEETCROWN_FEEDBACK_TOKEN=fcw_…
 ### Run
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).

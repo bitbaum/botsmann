@@ -18,7 +18,7 @@
 | UI         | React 19                      |
 | Language   | TypeScript                    |
 | Styling    | Tailwind CSS                  |
-| Testing    | Jest                          |
+| Testing    | Vitest                        |
 | Deployment | Self-hosted (Hetzner + Caddy) |
 
 ---
@@ -26,12 +26,12 @@
 ## Quick Start
 
 ```bash
-cd /home/g/botsmann
-npm install
-npm run dev          # Port 3000
-npm run build        # Production build
-npm run lint         # ESLint check
-npm run test         # Jest tests
+cd /home/g/dev/botsmann
+pnpm install
+pnpm run dev         # Port 3000
+pnpm run build       # Production build
+pnpm run lint        # ESLint check
+pnpm run test        # Vitest tests
 ```
 
 ---
@@ -88,7 +88,7 @@ export const Component: FC<ComponentProps> = ({ title, onAction }) => {
 | ------------------------ | ------------------------- |
 | `docs/BEST_PRACTICES.md` | DRY, SSOT, SoC principles |
 | `docs/SHARED_CONTEXT.md` | Tech stack, architecture  |
-| `docs/COMMANDS.md`       | npm scripts reference     |
+| `docs/COMMANDS.md`       | pnpm scripts reference    |
 | `README.md`              | Project overview          |
 
 ---
@@ -102,4 +102,4 @@ export const Component: FC<ComponentProps> = ({ title, onAction }) => {
 
 ---
 
-**Last Updated**: 2026-07-26
+**Last Updated**: 2026-09-04
