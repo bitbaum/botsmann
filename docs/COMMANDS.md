@@ -1,18 +1,18 @@
 # Commands Reference
 
-All npm scripts available in the Botsmann project.
+All pnpm scripts available in the Botsmann project.
 
 ---
 
 ## Quick Reference
 
-| Command         | Description              |
-| --------------- | ------------------------ |
-| `npm run dev`   | Start development server |
-| `npm run build` | Production build         |
-| `npm run start` | Start production server  |
-| `npm run lint`  | Run ESLint               |
-| `npm run test`  | Run tests                |
+| Command          | Description              |
+| ---------------- | ------------------------ |
+| `pnpm run dev`   | Start development server |
+| `pnpm run build` | Production build         |
+| `pnpm run start` | Start production server  |
+| `pnpm run lint`  | Run ESLint               |
+| `pnpm run test`  | Run tests                |
 
 ---
 
@@ -21,7 +21,7 @@ All npm scripts available in the Botsmann project.
 ### Start Dev Server
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Starts Next.js development server on `http://localhost:3000` with:
@@ -33,7 +33,7 @@ Starts Next.js development server on `http://localhost:3000` with:
 ### Run Linting
 
 ```bash
-npm run lint
+pnpm run lint
 ```
 
 Runs ESLint to check for code quality issues.
@@ -45,7 +45,7 @@ Runs ESLint to check for code quality issues.
 ### Production Build
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 Creates optimized production build in `.next/` directory.
@@ -53,18 +53,18 @@ Creates optimized production build in `.next/` directory.
 ### CI Build
 
 ```bash
-npm run build:ci
+pnpm run build:ci
 ```
 
-Runs `npm ci` (clean install) then builds. Used in CI pipelines.
+Runs `pnpm install --frozen-lockfile` (clean install) then builds. Used in CI pipelines.
 
 ### Start Production Server
 
 ```bash
-npm run start
+pnpm run start
 ```
 
-Starts the production server. Requires `npm run build` first.
+Starts the production server. Requires `pnpm run build` first.
 
 ---
 
@@ -73,15 +73,15 @@ Starts the production server. Requires `npm run build` first.
 ### Run All Tests
 
 ```bash
-npm run test
+pnpm run test
 ```
 
-Runs Jest test suite once.
+Runs the Vitest suite once.
 
 ### Watch Mode
 
 ```bash
-npm run test:watch
+pnpm run test:watch
 ```
 
 Runs tests in watch mode - re-runs on file changes.
@@ -93,7 +93,7 @@ Runs tests in watch mode - re-runs on file changes.
 ### Before Committing
 
 ```bash
-npm run lint && npm run build
+pnpm run lint && pnpm run build
 ```
 
 Ensures code passes linting and builds successfully.
@@ -101,7 +101,7 @@ Ensures code passes linting and builds successfully.
 ### Full Test Run
 
 ```bash
-npm run lint && npm run test && npm run build
+pnpm run lint && pnpm run test && pnpm run build
 ```
 
 Complete verification before pushing.
@@ -110,8 +110,8 @@ Complete verification before pushing.
 
 ```bash
 rm -rf node_modules .next
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Clean reinstall and restart.
@@ -124,36 +124,36 @@ Clean reinstall and restart.
 
 ```bash
 # Clone repository
-git clone git@github.com:g-but/botsmann.git
+git clone git@github.com:bitbaum/botsmann.git
 cd botsmann
 
 # Install dependencies
-npm install
+pnpm install
 
 # Copy environment variables
 cp .env.example .env
 # Edit .env with your values
 
 # Start development
-npm run dev
+pnpm run dev
 ```
 
 ### Update Dependencies
 
 ```bash
-npm update
+pnpm update
 ```
 
 ### Check for Vulnerabilities
 
 ```bash
-npm audit
+pnpm audit
 ```
 
 ### Fix Vulnerabilities
 
 ```bash
-npm audit fix
+pnpm audit --fix
 ```
 
 ---
@@ -194,17 +194,17 @@ kill -9 <PID>
 
 ```bash
 rm -rf .next
-npm run dev
+pnpm run dev
 ```
 
 ### Reset Everything
 
 ```bash
-rm -rf node_modules .next package-lock.json
-npm install
-npm run dev
+rm -rf node_modules .next
+pnpm install
+pnpm run dev
 ```
 
 ---
 
-**Last Updated:** 2026-01-07
+**Last Updated:** 2026-09-04
