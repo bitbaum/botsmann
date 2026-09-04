@@ -67,8 +67,8 @@ This document is the authoritative SSOT map for where things live and how to use
 
 ## Testing
 
-- Unit/integration: `jest`, `@testing-library/*` → `tests/__tests__/`
-- E2E: `playwright` → `npm run test:e2e`
+- Unit/integration: `vitest`, `@testing-library/*` → `tests/__tests__/`
+- E2E: `playwright` → `pnpm run test:e2e`
 
 ---
 
@@ -86,4 +86,4 @@ This document is the authoritative SSOT map for where things live and how to use
 ## Commit Discipline
 
 - Conventional commits: `type(scope): description`
-- Pre-commit: `npm run lint && npm run format:check && npm run build`
+- Pre-commit: husky runs `pnpm exec lint-staged` (ESLint + Prettier on staged files)
