@@ -22,15 +22,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+
+      # setup-pnpm's default store nests inside its own bin dir, which breaks
+      # any prepare-building dep (portable-type TS2742) — pin it outside.
+      - run: pnpm config set store-dir ~/.pnpm-store --global
+
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
-          cache: npm
+          cache: pnpm
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
       # SSOT: format + lint + typecheck + test + build are bundled in the
-      # `verify` npm script (package.json), and CI calls it verbatim so the
+      # `verify` script (package.json), and CI calls it verbatim so the
       # gating chain cannot drift from what a developer runs locally. This job
       # was already NAMED verify but re-inlined the chain, which is how the
       # typecheck gate went missing: `tsc --noEmit` ran nowhere, and type
@@ -41,4 +47,4 @@ jobs:
       # passes green instead of erroring. A gate that cannot go red is not a
       # gate — the same defect that let evig ship 25 failing tests under a ✓.
       - name: Verify (format + lint + typecheck + test + build)
-        run: npm run verify
+        run: pnpm run verify

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Lint-staged
-npx lint-staged
+pnpm exec lint-staged
 
 # Basic secrets scan on staged files only (lightweight patterns). Exit non-zero on match.
 # Only matches full keys (30+ chars), not truncated doc examples like "eyJhbGci..."
