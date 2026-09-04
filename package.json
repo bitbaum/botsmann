@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:ci": "npm ci && npm run build",
+    "build:ci": "pnpm install --frozen-lockfile && pnpm run build",
     "start": "next start",
     "test": "vitest run",
     "test:e2e": "NODE_ENV=test playwright test",
@@ -20,12 +20,13 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "check:selfhost": "bash scripts/ci/no-hosted-supabase.sh",
-    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run check:selfhost && npm run test && npm run build",
+    "verify": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run check:selfhost && pnpm run test && pnpm run build",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.980.0",
+    "@bitbaum/ai-kit": "^0.6.2",
     "@giscus/react": "^3.1.0",
     "@headlessui/react": "^2.2.0",
     "@supabase/ssr": "^0.8.0",
@@ -34,7 +35,6 @@
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
     "@xenova/transformers": "^2.17.2",
-    "@bitbaum/ai-kit": "^0.6.2",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
     "next": "^16.2.12",
@@ -52,24 +52,6 @@
     "tailwindcss": "^4.3.3",
     "zod": "^4.5.4"
   },
-  "overrides": {
-    "glob": "^10.5.0",
-    "fast-xml-parser": "^5.7.0",
-    "protobufjs": "^7.6.5",
-    "ws": "^8.21.1",
-    "handlebars": "^4.7.9",
-    "flatted": "^3.4.2",
-    "postcss": "$postcss",
-    "@babel/core": "^7.29.6",
-    "yaml": "^2.8.3",
-    "sharp": "^0.35.3",
-    "picomatch@2": "2.3.2",
-    "picomatch@4": "4.0.5",
-    "minimatch@3": "3.1.5",
-    "minimatch@9": "9.0.9",
-    "js-yaml@3": "3.15.0",
-    "js-yaml@4": "4.3.0"
-  },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -78,6 +60,7 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.65.0",
     "@typescript-eslint/parser": "^8.65.0",
+    "dotenv": "^17.4.2",
     "eslint": "^10.9.1",
     "eslint-config-next": "^16.2.12",
     "eslint-config-prettier": "^10.1.8",
@@ -87,6 +70,7 @@
     "lint-staged": "^17.3.0",
     "node-mocks-http": "^1.17.2",
     "prettier": "^3.3.3",
+    "tsx": "^4.23.13",
     "typescript": "^6.0.3",
     "vitest": "^4.1.11"
   },
@@ -96,5 +80,6 @@
       "prettier --write"
     ],
     "*.{json,md,css,scss,html,yml,yaml}": "prettier --write"
-  }
+  },
+  "packageManager": "pnpm@11.25.0"
 }

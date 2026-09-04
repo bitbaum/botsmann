@@ -1,0 +1,42 @@
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  '@tailwindcss/oxide': true
+  esbuild: true
+  protobufjs: true
+  sharp: true
+  unrs-resolver: true
+
+# Security/dedupe pins. These lived in package.json "overrides", which pnpm
+# silently IGNORES (npm-only field) — they must live here to keep applying.
+overrides:
+  glob: ^10.5.0
+  fast-xml-parser: ^5.7.0
+  protobufjs: ^7.6.5
+  ws: ^8.21.1
+  handlebars: ^4.7.9
+  flatted: ^3.4.2
+  # npm's override said `$postcss` (follow the direct dep); pnpm 11 deprecates
+  # that reference syntax, so the range is spelled out — keep in sync with the
+  # postcss entry in package.json dependencies.
+  postcss: ^8.5.10
+  '@babel/core': ^7.29.6
+  yaml: ^2.8.3
+  sharp: ^0.35.3
+  picomatch@2: 2.3.2
+  picomatch@4: 4.0.5
+  minimatch@3: 3.1.5
+  minimatch@9: 9.0.9
+  js-yaml@3: 3.15.0
+  js-yaml@4: 4.3.0
+
+# pnpm refuses packages published within its minimum-release-age window — a
+# supply-chain guard against a compromised release being installed before
+# anyone notices. @bitbaum/ai-kit 0.6.2 is our own package, published to npm
+# the day before this commit, so it needs an explicit exemption.
+#
+# Temporary: once 0.6.2 is older than the window this entry is redundant and
+# should be deleted. Add lines only for versions we published ourselves —
+# never to hurry along a third-party package.
+minimumReleaseAgeExclude:
+  - '@bitbaum/ai-kit@0.6.2'
