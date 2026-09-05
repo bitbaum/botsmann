@@ -16,23 +16,12 @@ const getEnvWithDefault = (key: string, fallback: string): string => {
 };
 
 /**
- * AWS SES Configuration
- */
-export const AWS_CONFIG = {
-  region: process.env.NEXT_AWS_REGION || 'eu-central-1', // Frankfurt for Swiss compliance
-  credentials: {
-    accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.NEXT_AWS_SECRET_ACCESS_KEY || '',
-  },
-} as const;
-
-/**
  * Email Addresses
+ *
+ * The SENDER is not configured here: @bitbaum/mail-kit reads RESEND_FROM
+ * (fleet env SSOT) with the conventional fleet sender as fallback.
  */
 export const EMAIL_ADDRESSES = {
-  /** Email address used as the sender for outgoing emails */
-  from: getEnvWithDefault('FROM_EMAIL', 'noreply@botsmann.com'),
-
   /** Email address for admin notifications */
   admin: getEnvWithDefault('ADMIN_EMAIL', 'admin@botsmann.com'),
 
@@ -63,14 +52,12 @@ export const EMAIL_URLS = {
 } as const;
 
 export type EmailConfig = {
-  aws: typeof AWS_CONFIG;
   addresses: typeof EMAIL_ADDRESSES;
   subjects: typeof EMAIL_SUBJECTS;
   urls: typeof EMAIL_URLS;
 };
 
 export const emailConfig: EmailConfig = {
-  aws: AWS_CONFIG,
   addresses: EMAIL_ADDRESSES,
   subjects: EMAIL_SUBJECTS,
   urls: EMAIL_URLS,
