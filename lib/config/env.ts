@@ -32,11 +32,8 @@ const serverSchema = z.object({
   OLLAMA_MODEL: z.string().default('llama3.2:latest'),
   OLLAMA_URL: z.string().url().default('http://localhost:11434'),
 
-  // Email (AWS SES)
-  NEXT_AWS_REGION: z.string().default('eu-central-1'),
-  NEXT_AWS_ACCESS_KEY_ID: z.string().default(''),
-  NEXT_AWS_SECRET_ACCESS_KEY: z.string().default(''),
-  FROM_EMAIL: z.string().email().default('noreply@botsmann.com'),
+  // Email — transport env (RESEND_API_KEY / RESEND_FROM) is read by
+  // @bitbaum/mail-kit directly; only recipient addresses live here.
   ADMIN_EMAIL: z.string().email().default('admin@botsmann.com'),
 
   // API key for middleware
@@ -88,10 +85,6 @@ export function getServerEnv(): ServerEnv {
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     OLLAMA_MODEL: process.env.OLLAMA_MODEL,
     OLLAMA_URL: process.env.OLLAMA_URL,
-    NEXT_AWS_REGION: process.env.NEXT_AWS_REGION,
-    NEXT_AWS_ACCESS_KEY_ID: process.env.NEXT_AWS_ACCESS_KEY_ID,
-    NEXT_AWS_SECRET_ACCESS_KEY: process.env.NEXT_AWS_SECRET_ACCESS_KEY,
-    FROM_EMAIL: process.env.FROM_EMAIL,
     ADMIN_EMAIL: process.env.ADMIN_EMAIL,
     API_KEY: process.env.API_KEY,
   });

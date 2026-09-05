@@ -25,8 +25,8 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.980.0",
     "@bitbaum/ai-kit": "^0.6.2",
+    "@bitbaum/mail-kit": "^0.1.0",
     "@giscus/react": "^3.1.0",
     "@headlessui/react": "^2.2.0",
     "@supabase/ssr": "^0.8.0",
