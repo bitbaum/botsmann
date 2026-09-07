@@ -1,4 +1,12 @@
-# The LiberTech Revolution: Transparency Through Technology
+---
+title: 'The LiberTech Revolution: Transparency Through Technology'
+date: '2025-02-08'
+author: 'Botsmann Team'
+excerpt: "In an age where government accountability is more crucial than ever, we're proud to introduce LiberTech - our initiative to maximize human liberty through technological innovation. At the heart of this revolution is our government spending tracker, a tool that brings unprecedente"
+published: false
+---
+
+## The LiberTech Revolution: Transparency Through Technology
 
 In an age where government accountability is more crucial than ever, we're proud to introduce LiberTech - our initiative to maximize human liberty through technological innovation. At the heart of this revolution is our government spending tracker, a tool that brings unprecedented transparency to public finance.
 

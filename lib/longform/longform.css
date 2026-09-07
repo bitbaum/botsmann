@@ -1,0 +1,80 @@
+/*
+ * Botsmann tokens → bip-kit's --bp-* theming contract, for the long-form
+ * surfaces only (/blog/[slug] and /knowledge/guides/[slug] import this, not
+ * globals.css).
+ *
+ * Every value is a reference into the design-token SSOT (app/globals.css).
+ * Before this file, the article body carried ~40 hardcoded Tailwind greys
+ * (text-gray-600, border-gray-200, bg-gray-50 …) spread across two bespoke
+ * MDX component maps that had already drifted apart; retheming meant editing
+ * components. Now the whole article follows the token block in globals.css.
+ *
+ * The three-selector list is deliberate: bip-kit/styles.css defines its
+ * neutral defaults on `:root`, `[data-theme="dark"]`, and (inside a
+ * prefers-color-scheme media query) `:root:not([data-theme="light"])` — that
+ * last one has higher specificity than a bare `:root`, so a plain mapping
+ * would lose to it whenever the reader's OS is dark. Matching each selector
+ * and loading after styles.css makes this mapping win everywhere.
+ *
+ * Botsmann has no dark theme: zero `dark:` utilities in the app, no theme
+ * provider, and the site chrome (header, footer, page shells) hardcodes a
+ * light paper ground. Letting bip-kit's dark defaults through for OS-dark
+ * readers would put a dark article inside a white page — worse than what we
+ * replaced. So the mapping covers ALL --bp-* colour vars, pinning the
+ * article to the one theme the rest of the site actually has. When Botsmann
+ * grows a dark tier, this file flips with it for free: change the values in
+ * globals.css, not here, and not in any component.
+ */
+@import 'bip-kit/styles.css';
+
+:root,
+:root:not([data-theme='light']),
+:root[data-theme='dark'] {
+  --bp-font-sans: var(--font-inter), system-ui, sans-serif;
+  --bp-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --bp-bg: var(--primitive-paper);
+  --bp-surface: var(--primitive-surface);
+  --bp-fg: var(--primitive-ink-950);
+  --bp-fg-muted: var(--primitive-ink-500);
+  --bp-fg-faint: color-mix(in srgb, var(--primitive-ink-500) 65%, var(--primitive-paper));
+  --bp-border: var(--primitive-border);
+
+  /* The ochre accent: links, active TOC entry, reading-progress hairline —
+     the same `text-action` the rest of the site uses for emphasis. */
+  --bp-accent: var(--primitive-ochre-600);
+  --bp-accent-contrast: var(--primitive-surface);
+
+  /* Notes are informational, so they take the brand accent — this is exactly
+     what the retired <Callout type="info"> rendered (bg-action-tint /
+     text-action). Tip/warn/danger take the status tier. */
+  --bp-note: var(--primitive-ochre-600);
+  --bp-note-bg: var(--primitive-ochre-50);
+  --bp-tip: var(--primitive-status-positive);
+  --bp-tip-bg: var(--primitive-status-positive-tint);
+  --bp-warn: var(--primitive-status-warning);
+  --bp-warn-bg: var(--primitive-status-warning-tint);
+  --bp-danger: var(--primitive-status-negative);
+  --bp-danger-bg: var(--primitive-status-negative-tint);
+}
+
+/*
+ * Shiki emits both themes as CSS vars and bip-kit's styles.css flips them on
+ * the OS preference / data-theme. Since the article is pinned light above,
+ * pin the code tokens with it — otherwise an OS-dark reader would get a
+ * dark-theme syntax palette painted on a light code frame.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .bp-codeblock-highlighted span {
+    color: var(--shiki-light);
+  }
+}
+
+/* Headings take the serif display stack that carries Botsmann's identity
+   everywhere else (globals.css @layer base). */
+.bp-article .bp-h2,
+.bp-article .bp-h3,
+.bp-article .bp-h4 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  letter-spacing: -0.011em;
+}

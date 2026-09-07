@@ -1,202 +1,128 @@
-import matter from 'gray-matter';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { parseContentBlocks, parseFrontmatter, readingTime } from 'bip-kit';
 import type {
   Guide,
   GuideMetadata,
   GuideCategory,
   DifficultyLevel,
   GuideFilters,
-  TableOfContentsItem,
   ComparisonGuide,
 } from '@/types/knowledge';
 import { toDateString } from './format';
 
-// GitHub repository configuration for knowledge content
-const GITHUB_USERNAME = 'g-but';
-const GITHUB_REPO = 'botsmann-knowledge-content';
-const GITHUB_BRANCH = 'main';
-
-// Base URL for raw GitHub content
-const GITHUB_RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
-
-// Revalidation time in seconds (1 hour) - enables ISR
-const REVALIDATE_INTERVAL = 3600;
-
 /**
- * Extract table of contents from markdown content
+ * The Knowledge Center's content collection: markdown files under
+ * content/knowledge/, committed and reviewed like code (bip-kit's content
+ * contract). This replaced the runtime GitHub fetching of a separate content
+ * repo — no API rate limits, no ISR staleness, and every guide is visible to
+ * generateStaticParams at build time.
+ *
+ * This module answers "what guides exist and what do they say about
+ * themselves". Rendering — blocks, TOC — belongs to lib/longform, which the
+ * detail page calls; deriving a second TOC here would be a second source of
+ * truth for the same anchors.
  */
-function extractTableOfContents(content: string): TableOfContentsItem[] {
-  const headingRegex = /^(#{2,4})\s+(.+)$/gm;
-  const toc: TableOfContentsItem[] = [];
-  let match;
 
-  while ((match = headingRegex.exec(content)) !== null) {
-    const level = match[1].length;
-    const title = match[2].trim();
-    const id = title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
+const GUIDES_DIR = join(process.cwd(), 'content', 'knowledge', 'guides');
+const INFRA_DIR = join(process.cwd(), 'content', 'knowledge', 'infrastructure');
+const DIFFICULTY_DIRS = ['beginner', 'intermediate', 'advanced'] as const;
 
-    toc.push({ id, title, level });
+const SLUG_RE = /^[a-z0-9-]+$/i;
+
+const str = (v: string | string[] | undefined, fallback = ''): string =>
+  typeof v === 'string' && v ? v : fallback;
+
+const optStr = (v: string | string[] | undefined): string | undefined =>
+  typeof v === 'string' && v ? v : undefined;
+
+const list = (v: string | string[] | undefined): string[] => (Array.isArray(v) ? v : v ? [v] : []);
+
+interface ParsedFile {
+  meta: Record<string, string | string[]>;
+  content: string;
+  readTime: string;
+}
+
+function readContentFile(path: string): ParsedFile | null {
+  let raw: string;
+  try {
+    raw = readFileSync(path, 'utf8');
+  } catch {
+    return null;
   }
+  const { meta, body } = parseFrontmatter(raw);
+  if (meta.published !== 'true') return null;
+  // Only for the word count that the index/hero show; the detail page parses
+  // again through lib/longform for the blocks it actually renders.
+  const blocks = parseContentBlocks(body);
+  return {
+    meta,
+    content: body,
+    readTime: `${readingTime(blocks).minutes} min`,
+  };
+}
 
-  return toc;
+function guideMetadata(slug: string, file: ParsedFile): GuideMetadata {
+  const { meta } = file;
+  return {
+    slug,
+    title: str(meta.title, slug),
+    description: str(meta.description),
+    difficulty: str(meta.difficulty, 'Beginner') as DifficultyLevel,
+    readTime: str(meta.readTime, file.readTime),
+    author: optStr(meta.author),
+    publishedAt: str(meta.publishedAt, toDateString()),
+    updatedAt: optStr(meta.updatedAt),
+    tags: list(meta.tags),
+    prerequisites: meta.prerequisites === undefined ? undefined : list(meta.prerequisites),
+    icon: optStr(meta.icon),
+    category: str(meta.category, 'getting-started') as GuideCategory,
+    published: true,
+  };
 }
 
 /**
- * Calculate read time from content
- */
-function calculateReadTime(content: string): string {
-  const wordsPerMinute = 200;
-  const words = content.split(/\s+/).length;
-  const minutes = Math.ceil(words / wordsPerMinute);
-  return `${minutes} min`;
-}
-
-/**
- * Sanitize MDX content by fixing problematic patterns
- * - Escapes `<` followed by numbers (MDX tries to parse as JSX tag)
- * - Removes broken Unicode characters
- */
-function sanitizeMdxContent(content: string): string {
-  return (
-    content
-      // Escape < followed by numbers (e.g., "<1%" becomes "&lt;1%")
-      // This prevents MDX from interpreting it as JSX
-      .replace(/<(\d)/g, '&lt;$1')
-      // Remove replacement character (U+FFFD) and other broken Unicode
-      .replace(/\uFFFD/g, ' ')
-      // Remove other common problematic Unicode ranges (surrogate pairs)
-      .replace(/[\uD800-\uDFFF]/g, ' ')
-  );
-}
-
-/**
- * Fetch all guides from the knowledge repository
+ * Fetch all guides from the content collection
  */
 export async function fetchAllGuides(): Promise<GuideMetadata[]> {
-  try {
-    // Fetch guides directory listing
-    const res = await fetch(
-      `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/guides`,
-      { next: { revalidate: REVALIDATE_INTERVAL } },
-    );
+  const allGuides: GuideMetadata[] = [];
 
-    if (!res.ok) {
-      return [];
+  for (const difficulty of DIFFICULTY_DIRS) {
+    let files: string[];
+    try {
+      files = readdirSync(join(GUIDES_DIR, difficulty)).filter((f) => f.endsWith('.md'));
+    } catch {
+      continue;
     }
-
-    const categories = await res.json();
-    const allGuides: GuideMetadata[] = [];
-
-    // Process each category directory (beginner, intermediate, advanced)
-    for (const category of categories) {
-      if (category.type !== 'dir') continue;
-
-      // Fetch guides in this category
-      const categoryRes = await fetch(
-        `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/guides/${category.name}`,
-        { next: { revalidate: REVALIDATE_INTERVAL } },
-      );
-
-      if (!categoryRes.ok) continue;
-
-      const guides = await categoryRes.json();
-
-      for (const guide of guides) {
-        if (guide.type !== 'dir') continue;
-
-        const slug = guide.name;
-
-        // Fetch the index.mdx for this guide
-        const mdxRes = await fetch(`${GITHUB_RAW_BASE}/guides/${category.name}/${slug}/index.mdx`, {
-          next: { revalidate: REVALIDATE_INTERVAL },
-        });
-
-        if (!mdxRes.ok) continue;
-
-        const mdxContent = await mdxRes.text();
-        const { data } = matter(mdxContent);
-
-        // Skip unpublished guides
-        if (data.published !== true) continue;
-
-        allGuides.push({
-          slug,
-          title: data.title || slug,
-          description: data.description || '',
-          difficulty: data.difficulty || 'Beginner',
-          readTime: data.readTime || calculateReadTime(mdxContent),
-          author: data.author,
-          publishedAt: data.publishedAt || toDateString(),
-          updatedAt: data.updatedAt,
-          tags: data.tags || [],
-          prerequisites: data.prerequisites,
-          icon: data.icon,
-          category: data.category || 'getting-started',
-          published: true,
-        });
-      }
+    for (const f of files) {
+      const parsed = readContentFile(join(GUIDES_DIR, difficulty, f));
+      if (parsed) allGuides.push(guideMetadata(f.replace(/\.md$/, ''), parsed));
     }
-
-    // Sort by date (newest first)
-    return allGuides.sort(
-      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-    );
-  } catch {
-    return [];
   }
+
+  // Sort by date (newest first)
+  return allGuides.sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  );
 }
 
 /**
  * Fetch a single guide by slug
  */
 export async function fetchGuideBySlug(slug: string): Promise<Guide | null> {
-  try {
-    if (!slug) return null;
+  if (!slug || !SLUG_RE.test(slug)) return null;
 
-    // Try to find the guide in each difficulty category
-    for (const difficulty of ['beginner', 'intermediate', 'advanced']) {
-      const mdxRes = await fetch(`${GITHUB_RAW_BASE}/guides/${difficulty}/${slug}/index.mdx`, {
-        next: { revalidate: REVALIDATE_INTERVAL },
-      });
-
-      if (!mdxRes.ok) continue;
-
-      const mdxContent = await mdxRes.text();
-      const { data, content } = matter(mdxContent);
-
-      // Skip unpublished
-      if (data.published !== true) continue;
-
-      // Sanitize content to fix broken Unicode characters
-      const sanitizedContent = sanitizeMdxContent(content);
-
-      return {
-        metadata: {
-          slug,
-          title: data.title || slug,
-          description: data.description || '',
-          difficulty: data.difficulty || 'Beginner',
-          readTime: data.readTime || calculateReadTime(sanitizedContent),
-          author: data.author,
-          publishedAt: data.publishedAt || toDateString(),
-          updatedAt: data.updatedAt,
-          tags: data.tags || [],
-          prerequisites: data.prerequisites,
-          icon: data.icon,
-          category: data.category || 'getting-started',
-          published: true,
-        },
-        content: sanitizedContent,
-        tableOfContents: extractTableOfContents(sanitizedContent),
-      };
-    }
-
-    return null;
-  } catch {
-    return null;
+  for (const difficulty of DIFFICULTY_DIRS) {
+    const parsed = readContentFile(join(GUIDES_DIR, difficulty, `${slug}.md`));
+    if (!parsed) continue;
+    return {
+      metadata: guideMetadata(slug, parsed),
+      content: parsed.content,
+    };
   }
+
+  return null;
 }
 
 /**
@@ -248,59 +174,47 @@ export async function fetchGuidesWithFilters(filters: GuideFilters): Promise<Gui
   return guides;
 }
 
+function comparisonGuide(slug: string, file: ParsedFile): ComparisonGuide {
+  const { meta } = file;
+  return {
+    slug,
+    title: str(meta.title, slug),
+    description: str(meta.description),
+    difficulty: str(meta.difficulty, 'Intermediate') as DifficultyLevel,
+    readTime: str(meta.readTime, file.readTime),
+    publishedAt: str(meta.publishedAt, toDateString()),
+    tags: list(meta.tags),
+    category: 'infrastructure',
+    published: true,
+    comparisonType: str(meta.comparisonType, 'tools') as ComparisonGuide['comparisonType'],
+    // `options` is a list of structured ComparisonOption objects — nested
+    // records that frontmatter never carried. The gray-matter version read
+    // `data.options || []` and every one of the three infrastructure files
+    // fell through to `[]`, so this preserves the behaviour exactly rather
+    // than inventing a string→object coercion. bip-kit's frontmatter parser
+    // is scalars and string lists by design; when these guides grow real
+    // options they belong in a typed module, not in YAML.
+    options: [],
+    recommendation: optStr(meta.recommendation),
+  };
+}
+
 /**
  * Fetch all infrastructure comparison guides
  */
 export async function fetchInfrastructureGuides(): Promise<ComparisonGuide[]> {
+  let files: string[];
   try {
-    const res = await fetch(
-      `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/infrastructure`,
-      { next: { revalidate: REVALIDATE_INTERVAL } },
-    );
-
-    if (!res.ok) {
-      return [];
-    }
-
-    const items = await res.json();
-    const guides: ComparisonGuide[] = [];
-
-    for (const item of items) {
-      if (item.type !== 'dir') continue;
-
-      const slug = item.name;
-
-      const mdxRes = await fetch(`${GITHUB_RAW_BASE}/infrastructure/${slug}/index.mdx`, {
-        next: { revalidate: REVALIDATE_INTERVAL },
-      });
-
-      if (!mdxRes.ok) continue;
-
-      const mdxContent = await mdxRes.text();
-      const { data } = matter(mdxContent);
-
-      if (data.published !== true) continue;
-
-      guides.push({
-        slug,
-        title: data.title || slug,
-        description: data.description || '',
-        difficulty: data.difficulty || 'Intermediate',
-        readTime: data.readTime || calculateReadTime(mdxContent),
-        publishedAt: data.publishedAt || toDateString(),
-        tags: data.tags || [],
-        category: 'infrastructure',
-        published: true,
-        comparisonType: data.comparisonType || 'tools',
-        options: data.options || [],
-        recommendation: data.recommendation,
-      });
-    }
-
-    return guides;
+    files = readdirSync(INFRA_DIR).filter((f) => f.endsWith('.md'));
   } catch {
     return [];
   }
+  const guides: ComparisonGuide[] = [];
+  for (const f of files) {
+    const parsed = readContentFile(join(INFRA_DIR, f));
+    if (parsed) guides.push(comparisonGuide(f.replace(/\.md$/, ''), parsed));
+  }
+  return guides;
 }
 
 /**
@@ -308,43 +222,14 @@ export async function fetchInfrastructureGuides(): Promise<ComparisonGuide[]> {
  */
 export async function fetchInfrastructureGuideBySlug(
   slug: string,
-): Promise<(ComparisonGuide & { content: string; tableOfContents: TableOfContentsItem[] }) | null> {
-  try {
-    if (!slug) return null;
-
-    const mdxRes = await fetch(`${GITHUB_RAW_BASE}/infrastructure/${slug}/index.mdx`, {
-      next: { revalidate: REVALIDATE_INTERVAL },
-    });
-
-    if (!mdxRes.ok) return null;
-
-    const mdxContent = await mdxRes.text();
-    const { data, content } = matter(mdxContent);
-
-    if (data.published !== true) return null;
-
-    // Sanitize content to fix broken Unicode characters
-    const sanitizedContent = sanitizeMdxContent(content);
-
-    return {
-      slug,
-      title: data.title || slug,
-      description: data.description || '',
-      difficulty: data.difficulty || 'Intermediate',
-      readTime: data.readTime || calculateReadTime(sanitizedContent),
-      publishedAt: data.publishedAt || toDateString(),
-      tags: data.tags || [],
-      category: 'infrastructure',
-      published: true,
-      comparisonType: data.comparisonType || 'tools',
-      options: data.options || [],
-      recommendation: data.recommendation,
-      content: sanitizedContent,
-      tableOfContents: extractTableOfContents(sanitizedContent),
-    };
-  } catch {
-    return null;
-  }
+): Promise<(ComparisonGuide & { content: string }) | null> {
+  if (!slug || !SLUG_RE.test(slug)) return null;
+  const parsed = readContentFile(join(INFRA_DIR, `${slug}.md`));
+  if (!parsed) return null;
+  return {
+    ...comparisonGuide(slug, parsed),
+    content: parsed.content,
+  };
 }
 
 /**

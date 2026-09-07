@@ -1,11 +1,13 @@
 import React from 'react';
 
+/**
+ * A bare shell. The `prose prose-gray` wrapper that used to live here was
+ * doing two wrong jobs at once: it styled the blog INDEX (a card grid, not
+ * prose) and it fought the article renderer for control of article
+ * typography. bip-kit's stylesheet now owns the article (`.bp-article`,
+ * measured ~70ch, its own vertical rhythm), and each page owns its own
+ * container — so the shell stays out of the way.
+ */
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="min-h-screen bg-white">
-      <div className="mx-auto max-w-screen-xl px-6 py-16">
-        <div className="prose prose-gray mx-auto">{children}</div>
-      </div>
-    </div>
-  );
+  return <div className="min-h-screen bg-paper">{children}</div>;
 }
