@@ -1,4 +1,12 @@
-# The Future of Shopping: One Word is All You Need
+---
+title: 'The Future of Shopping: One Word is All You Need'
+date: '2025-02-12'
+author: 'Botsmann Team'
+excerpt: 'Shopping is about to become radically simpler with our revolutionary one-word query system. Our AI-powered shopping assistant understands exactly what you need from a single word, making online shopping more efficient and intuitive than ever before.'
+published: false
+---
+
+## The Future of Shopping: One Word is All You Need
 
 Shopping is about to become radically simpler with our revolutionary one-word query system. Our AI-powered shopping assistant understands exactly what you need from a single word, making online shopping more efficient and intuitive than ever before.
 

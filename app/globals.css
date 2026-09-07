@@ -27,6 +27,16 @@
   --primitive-surface: #ffffff;
   --primitive-border: #e8e2d8; /* warm hairline */
 
+  /* Status — colour means STATUS, nothing else. Used by long-form callouts
+     (lib/longform/longform.css maps these onto bip-kit's --bp-* contract).
+     Desaturated to sit next to the ochre accent without competing with it. */
+  --primitive-status-positive: #15803d;
+  --primitive-status-positive-tint: #f2f9f4;
+  --primitive-status-warning: #a16207;
+  --primitive-status-warning-tint: #fdf8ec;
+  --primitive-status-negative: #b91c1c;
+  --primitive-status-negative-tint: #fdf3f2;
+
   /* Back-compat for any legacy rgb() consumers */
   --foreground-rgb: 26, 23, 20;
   --background-rgb: 250, 248, 244;

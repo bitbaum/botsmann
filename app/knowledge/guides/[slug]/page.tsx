@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { ReadingProgress, Toc } from 'bip-kit/react';
 import { fetchGuideBySlug, fetchAllGuides } from '@/lib/knowledge';
-import { DifficultyBadge, TableOfContents, Callout, CodeBlock } from '@/components/knowledge';
+import { DifficultyBadge } from '@/components/knowledge';
+import LongformBody from '@/lib/longform/LongformBody';
+import { parseLongform } from '@/lib/longform/parse';
 import { categoryConfig } from '@/types/knowledge';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import '@/lib/longform/longform.css';
 
 interface GuidePageProps {
   params: Promise<{ slug: string }>;
@@ -44,159 +47,6 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
   };
 }
 
-// MDX components for rendering
-const mdxComponents = {
-  Callout,
-  CodeBlock,
-  // Custom heading components with anchor links
-  h1: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => {
-    const id =
-      typeof children === 'string'
-        ? children
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[^\w-]/g, '')
-        : '';
-    return (
-      <h1 id={id} className="text-3xl font-bold text-gray-900 mt-8 mb-4 scroll-mt-24" {...props}>
-        {children}
-      </h1>
-    );
-  },
-  h2: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => {
-    const id =
-      typeof children === 'string'
-        ? children
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[^\w-]/g, '')
-        : '';
-    return (
-      <h2 id={id} className="text-2xl font-bold text-gray-900 mt-8 mb-4 scroll-mt-24" {...props}>
-        <a href={`#${id}`} className="hover:text-action transition-colors">
-          {children}
-        </a>
-      </h2>
-    );
-  },
-  h3: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => {
-    const id =
-      typeof children === 'string'
-        ? children
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[^\w-]/g, '')
-        : '';
-    return (
-      <h3 id={id} className="text-xl font-semibold text-gray-900 mt-6 mb-3 scroll-mt-24" {...props}>
-        <a href={`#${id}`} className="hover:text-action transition-colors">
-          {children}
-        </a>
-      </h3>
-    );
-  },
-  p: ({ children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className="text-gray-700 mb-4 leading-relaxed" {...props}>
-      {children}
-    </p>
-  ),
-  ul: ({ children, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul className="list-disc list-inside mb-4 space-y-2 text-gray-700" {...props}>
-      {children}
-    </ul>
-  ),
-  ol: ({ children, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
-    <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-700" {...props}>
-      {children}
-    </ol>
-  ),
-  li: ({ children, ...props }: React.HTMLAttributes<HTMLLIElement>) => (
-    <li className="leading-relaxed" {...props}>
-      {children}
-    </li>
-  ),
-  a: ({ href, children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-    <a
-      href={href}
-      className="text-action hover:text-action underline transition-colors"
-      target={href?.startsWith('http') ? '_blank' : undefined}
-      rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-      {...props}
-    >
-      {children}
-    </a>
-  ),
-  blockquote: ({ children, ...props }: React.HTMLAttributes<HTMLQuoteElement>) => (
-    <blockquote
-      className="border-l-4 border-edge pl-4 py-2 my-4 bg-action-tint rounded-r-lg italic text-gray-700"
-      {...props}
-    >
-      {children}
-    </blockquote>
-  ),
-  code: ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => {
-    // Inline code (no className means not in a code block)
-    if (!className) {
-      return (
-        <code
-          className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono"
-          {...props}
-        >
-          {children}
-        </code>
-      );
-    }
-    // Code blocks are handled by CodeBlock component
-    return (
-      <code className={className} {...props}>
-        {children}
-      </code>
-    );
-  },
-  pre: ({ children }: React.HTMLAttributes<HTMLPreElement>) => {
-    // Extract language from code element if present
-    // React 19 typed ReactElement['props'] as unknown; annotate the shape we read.
-    const codeElement = children as React.ReactElement<{
-      className?: string;
-      children?: React.ReactNode;
-    }>;
-    const className = codeElement?.props?.className || '';
-    const language = className.replace('language-', '');
-
-    return <CodeBlock language={language}>{codeElement?.props?.children}</CodeBlock>;
-  },
-  table: ({ children, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className="overflow-x-auto my-6">
-      <table
-        className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg"
-        {...props}
-      >
-        {children}
-      </table>
-    </div>
-  ),
-  th: ({ children, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
-    <th className="px-4 py-3 bg-gray-50 text-left text-sm font-semibold text-gray-900" {...props}>
-      {children}
-    </th>
-  ),
-  td: ({ children, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
-    <td className="px-4 py-3 text-sm text-gray-700 border-t border-gray-200" {...props}>
-      {children}
-    </td>
-  ),
-  hr: () => <hr className="my-8 border-gray-200" />,
-  img: ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={src}
-      alt={alt || ''}
-      className="rounded-lg shadow-md my-6 max-w-full h-auto"
-      {...props}
-    />
-  ),
-};
-
 export default async function GuidePage({ params }: GuidePageProps) {
   const { slug } = await params;
   const guide = await fetchGuideBySlug(slug);
@@ -205,7 +55,8 @@ export default async function GuidePage({ params }: GuidePageProps) {
     notFound();
   }
 
-  const { metadata, content, tableOfContents } = guide;
+  const { metadata, content } = guide;
+  const { blocks, toc } = parseLongform(content);
   const categoryInfo = categoryConfig[metadata.category];
 
   // Fetch related guides (same category, different slug)
@@ -216,6 +67,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <ReadingProgress />
       {/* Hero Section */}
       <div className="bg-action-tint border-b border-edge">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -298,13 +150,13 @@ export default async function GuidePage({ params }: GuidePageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex gap-12">
           {/* Table of Contents - Desktop */}
-          <TableOfContents items={tableOfContents} />
+          <aside className="hidden xl:block w-64 shrink-0">
+            <Toc items={toc} />
+          </aside>
 
           {/* Main Content */}
           <article className="flex-1 min-w-0 max-w-3xl">
-            <div className="prose prose-lg max-w-none">
-              <MDXRemote source={content} components={mdxComponents} />
-            </div>
+            <LongformBody blocks={blocks} />
 
             {/* Tags */}
             {metadata.tags && metadata.tags.length > 0 && (

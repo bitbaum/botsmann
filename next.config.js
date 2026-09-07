@@ -2,14 +2,10 @@
 const nextConfig = {
   output: 'standalone',
   images: {
+    // The remotePatterns entry that lived here allowed post images to be
+    // loaded from the retired botsmann-blog-content GitHub repo. Post images
+    // are committed under public/blog/ now, so nothing remote is left to allow.
     unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'raw.githubusercontent.com',
-        pathname: '/g-but/botsmann-blog-content/**',
-      },
-    ],
   },
   serverExternalPackages: ['onnxruntime-node', '@xenova/transformers', 'sharp'],
   // typedRoutes graduated from `experimental` to a stable top-level option in Next 16.
@@ -73,10 +69,18 @@ const nextConfig = {
           "default-src 'self'",
           "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giscus.app https://platform.twitter.com https://fleetcrown.orangecat.ch",
           "style-src 'self' 'unsafe-inline'",
-          "img-src 'self' data: blob: https://raw.githubusercontent.com https://images.unsplash.com",
+          "img-src 'self' data: blob: https://images.unsplash.com",
           "font-src 'self'",
-          "connect-src 'self' https://api.groq.com https://openrouter.ai https://api.openai.com https://api.github.com https://raw.githubusercontent.com https://*.supabase.co https://supabase.orangecat.ch https://fleetcrown.orangecat.ch",
-          "frame-src 'self' https://www.youtube.com https://giscus.app",
+          // api.github.com / raw.githubusercontent.com were here so the blog and
+          // Knowledge Center could fetch their markdown from two separate
+          // GitHub repos at request time. That content is committed under
+          // content/ now and read from disk at build time — nothing in the app
+          // talks to GitHub any more.
+          "connect-src 'self' https://api.groq.com https://openrouter.ai https://api.openai.com https://*.supabase.co https://supabase.orangecat.ch https://fleetcrown.orangecat.ch",
+          // bip-kit renders video embeds through the privacy players only
+          // (youtube-nocookie / player.vimeo.com) and allowlists the source
+          // hosts at parse time — a markdown file cannot inject another iframe.
+          "frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com https://giscus.app",
           "frame-ancestors 'none'",
         ].join('; '),
       },
