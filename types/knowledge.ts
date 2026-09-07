@@ -38,18 +38,17 @@ export interface GuideMetadata {
 export interface Guide {
   metadata: GuideMetadata;
   content: string;
-  tableOfContents: TableOfContentsItem[];
 }
 
-/**
- * Table of contents item for guide navigation
+/*
+ * There is deliberately no TableOfContentsItem type here any more. A guide's
+ * TOC is derived by `parseLongform` (lib/longform/parse.ts) from the SAME
+ * typed blocks the page renders — bip-kit's `extractToc`, sharing one
+ * slugger — so a TOC entry and the heading id it points at cannot drift.
+ * What this replaced was two sources of truth for the same strings: a TOC
+ * built in lib/knowledge.ts from one heading regex, and heading ids built in
+ * the renderer from a different slug rule.
  */
-export interface TableOfContentsItem {
-  id: string;
-  title: string;
-  level: number;
-  children?: TableOfContentsItem[];
-}
 
 /**
  * Pricing information for comparison options

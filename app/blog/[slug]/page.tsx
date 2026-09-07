@@ -1,10 +1,13 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import { ReadingProgress, Toc } from 'bip-kit/react';
 import { fetchBlogPosts, fetchBlogPostBySlug } from '@/lib/blog';
 import Comments from '@/components/blog/Comments';
-import ServerMDXContent from '@/components/blog/ServerMDXContent';
+import LongformBody from '@/lib/longform/LongformBody';
+import { parseLongform } from '@/lib/longform/parse';
 import { Metadata } from 'next';
 import { format } from 'date-fns';
+import '@/lib/longform/longform.css';
 
 // Generate static paths for all blog posts
 export async function generateStaticParams() {
@@ -89,13 +92,18 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     notFound();
   }
 
+  const { blocks, toc, readingMinutes } = parseLongform(post.content);
+
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">
+      <ReadingProgress />
       <header className="mb-12">
         <div className="flex items-center gap-4 text-sm text-gray-500">
           <time dateTime={post.date}>{format(new Date(post.date), 'MMMM d, yyyy')}</time>
           <span>•</span>
           <span>{post.author}</span>
+          <span>•</span>
+          <span>{readingMinutes} min read</span>
         </div>
 
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-gray-900">{post.title}</h1>
@@ -127,7 +135,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         )}
       </header>
 
-      <ServerMDXContent content={post.content} slug={post.slug} />
+      <Toc items={toc} />
+
+      <LongformBody blocks={blocks} />
 
       <Comments slug={post.slug} />
     </article>

@@ -1,4 +1,12 @@
-# Welcome to Botsmann: AI Solutions for Human Progress
+---
+title: 'Welcome to Botsmann: AI Solutions for Human Progress'
+date: '2026-01-23'
+author: 'Botsmann Team'
+excerpt: "At Botsmann, we're dedicated to developing cutting-edge AI solutions that help businesses automate tasks, enhance productivity, and unlock new possibilities. Our suite of specialized bots and innovative projects are designed to transform industries and promote transparency."
+published: false
+---
+
+## Welcome to Botsmann: AI Solutions for Human Progress
 
 At Botsmann, we're dedicated to developing cutting-edge AI solutions that help businesses automate tasks, enhance productivity, and unlock new possibilities. Our suite of specialized bots and innovative projects are designed to transform industries and promote transparency.
 
