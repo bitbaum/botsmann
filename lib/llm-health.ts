@@ -36,7 +36,20 @@ export interface LLMHealth {
   lastFailureAt: string | null;
 }
 
-const tracker = createHealthTracker({ downAfter: DOWN_AFTER_CONSECUTIVE_FAILURES });
+/**
+ * Exported so the liveness probe can write into the SAME tracker the real chat
+ * writes into. Otherwise one probe proves the chain works and /api/health
+ * carries on saying it has never seen a call — the probe's knowledge would die
+ * with the request that made it.
+ *
+ * Prefer the record* helpers below in ordinary code; this exists for handing
+ * the tracker to something that records on your behalf.
+ */
+export const llmHealthTracker = createHealthTracker({
+  downAfter: DOWN_AFTER_CONSECUTIVE_FAILURES,
+});
+
+const tracker = llmHealthTracker;
 
 /** Call after a generation that produced usable content. */
 export function recordLLMSuccess(): void {
