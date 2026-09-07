@@ -51,7 +51,6 @@ jobs:
             nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
             nextjs-${{ runner.os }}-
 
-
       # SSOT: format + lint + typecheck + test + build are bundled in the
       # `verify` script (package.json), and CI calls it verbatim so the
       # gating chain cannot drift from what a developer runs locally. This job
