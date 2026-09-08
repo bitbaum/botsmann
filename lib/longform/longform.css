@@ -78,23 +78,3 @@
   font-family: var(--font-fraunces), Georgia, serif;
   letter-spacing: -0.011em;
 }
-
-/*
- * Tailwind's preflight resets `list-style: none` on every ul/ol. bip-kit's
- * stylesheet styles list ::markers (`.bp-ul .bp-li::marker`) but never
- * re-declares a list type, so under Tailwind it colours markers that do not
- * exist: every bullet and every number in an article silently disappears,
- * leaving indented naked lines. Caught on the live guides, where "What
- * You'll Need" rendered as four unmarked lines.
- *
- * The durable fix belongs upstream in bip-kit/styles.css — this hits every
- * Tailwind consumer of the renderer, not just us. Drop these two rules once
- * a bip-kit release declares the list types itself.
- */
-.bp-article .bp-ul {
-  list-style-type: disc;
-}
-
-.bp-article .bp-ol {
-  list-style-type: decimal;
-}
