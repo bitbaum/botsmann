@@ -67,7 +67,7 @@ const nextConfig = {
         key: 'Content-Security-Policy',
         value: [
           "default-src 'self'",
-          "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giscus.app https://platform.twitter.com https://fleetcrown.orangecat.ch",
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giscus.app https://platform.twitter.com https://loki.orangecat.ch",
           "style-src 'self' 'unsafe-inline'",
           "img-src 'self' data: blob: https://images.unsplash.com",
           "font-src 'self'",
@@ -76,7 +76,7 @@ const nextConfig = {
           // GitHub repos at request time. That content is committed under
           // content/ now and read from disk at build time — nothing in the app
           // talks to GitHub any more.
-          "connect-src 'self' https://api.groq.com https://openrouter.ai https://api.openai.com https://*.supabase.co https://supabase.orangecat.ch https://fleetcrown.orangecat.ch",
+          "connect-src 'self' https://api.groq.com https://openrouter.ai https://api.openai.com https://*.supabase.co https://supabase.orangecat.ch https://loki.orangecat.ch",
           // bip-kit renders video embeds through the privacy players only
           // (youtube-nocookie / player.vimeo.com) and allowlists the source
           // hosts at parse time — a markdown file cannot inject another iframe.

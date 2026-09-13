@@ -2,7 +2,7 @@
 
 **Created:** 2026-01-23  
 **Last modified:** 2026-08-14  
-**Last modified summary:** CSP must allow `https://fleetcrown.orangecat.ch` on script-src and connect-src, and the widget token must be present at `next build`.
+**Last modified summary:** CSP must allow `https://loki.orangecat.ch` on script-src and connect-src, and the widget token must be present at `next build`.
 
 This document is the authoritative SSOT map for where things live and how to use them. Follow this to avoid duplication and drift.
 
@@ -58,12 +58,12 @@ This document is the authoritative SSOT map for where things live and how to use
 - SSOT: `.env.local` (not committed) built from `.env.example`
 - Never commit: any `.env*` files. `.gitignore` already ignores them.
 - Rotate immediately if a secret leaks (Supabase service role, anon key, Groq, AWS, etc.).
-- `FLEETCROWN_FEEDBACK_TOKEN`: public widget token. Must be present at `next build`
+- `LOKI_FEEDBACK_TOKEN`: public widget token. Must be present at `next build`
   (self-host CD pulls box `.env`). Runtime-only `.env` after deploy does not emit
   the script — Next tree-shakes an empty token. Production layout also has a
   public-token fallback so the FAB still ships if the env var is missing at build.
 - CSP (`next.config.js`): `script-src` and `connect-src` must allow
-  `https://fleetcrown.orangecat.ch` or the browser blocks `widget.js` and boot/submit.
+  `https://loki.orangecat.ch` or the browser blocks `widget.js` and boot/submit.
 
 ## Testing
 

@@ -42,7 +42,7 @@ took the app down; `tests/__tests__/lib/supabase-schema.test.ts` now guards it.
 
 **Automatically, on deploy. You never paste SQL anywhere.**
 
-Pushing to `main` runs `.github/workflows/deploy.yml`, which calls fleetcrown's
+Pushing to `main` runs `.github/workflows/deploy.yml`, which calls loki's
 `selfhost-deploy.yml`. That pipeline runs
 `scripts/hetzner/apply-schema.sh botsmann … supabase:botsmann` before restarting
 the app. It:
@@ -97,4 +97,4 @@ prefer a bucket per app over a shared one.
   right reference; only the hosted dashboard does not apply to us.
 - [pgvector](https://github.com/pgvector/pgvector)
 - [PostgreSQL Row Level Security](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)
-- fleetcrown: `scripts/hetzner/apply-schema.sh`, `docs/infrastructure/migration-strategy.md`
+- loki: `scripts/hetzner/apply-schema.sh`, `docs/infrastructure/migration-strategy.md`
