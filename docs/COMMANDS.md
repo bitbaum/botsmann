@@ -173,7 +173,7 @@ script (build → rsync → systemd restart) in the background. Logs stream to
 
 ```bash
 # Re-run the same self-hosted deploy the pre-push hook triggers
-bash /home/g/dev/fleetcrown/scripts/hetzner/deploy.sh botsmann
+bash /home/g/dev/loki/scripts/hetzner/deploy.sh botsmann
 ```
 
 ---

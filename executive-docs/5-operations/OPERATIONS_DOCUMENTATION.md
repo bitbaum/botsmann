@@ -938,7 +938,7 @@ All Hands On Deck
 
 **Monitoring:**
 
-- Uptime: fleetcrown `fleet-uptime` workflow probes `/api/health` every 15
+- Uptime: loki `fleet-uptime` workflow probes `/api/health` every 15
   minutes and opens a GitHub issue when this app goes down.
 - Sentry: (to be set up)
 

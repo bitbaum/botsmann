@@ -19,7 +19,7 @@
  * `public` and gets PGRST205 "Could not find the table" (which is the 503
  * /api/health served for months).
  *
- * SSOT: this constant and `supabase:botsmann` in fleetcrown's apps.conf.
+ * SSOT: this constant and `supabase:botsmann` in loki's apps.conf.
  */
 export const DB_SCHEMA = 'botsmann';
 

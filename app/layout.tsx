@@ -46,8 +46,8 @@ export const metadata = {
 // process.env.* at `next build` — a runtime-only .env after deploy will not
 // resurrect a Script branch that was tree-shaken when the var was empty.
 // Fallback keeps the embed live even if CI/box env drifts; override via env.
-const FLEETCROWN_FEEDBACK_TOKEN =
-  process.env.FLEETCROWN_FEEDBACK_TOKEN || 'fcw_73518de7a20c97c968d6c53bf964874d';
+const LOKI_FEEDBACK_TOKEN =
+  process.env.LOKI_FEEDBACK_TOKEN || 'fcw_73518de7a20c97c968d6c53bf964874d';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -67,9 +67,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         </Providers>
         <Script
-          src="https://fleetcrown.orangecat.ch/widget.js"
+          src="https://loki.orangecat.ch/widget.js"
           strategy="afterInteractive"
-          data-fc-project={FLEETCROWN_FEEDBACK_TOKEN}
+          data-fc-project={LOKI_FEEDBACK_TOKEN}
           data-fc-bottom="88"
         />
       </body>

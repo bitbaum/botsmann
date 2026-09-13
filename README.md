@@ -146,7 +146,7 @@ OLLAMA_BASE_URL=http://localhost:11434
 Optional (visitor feedback FAB — must be set at `next build`, not only at runtime):
 
 ```
-FLEETCROWN_FEEDBACK_TOKEN=fcw_…
+LOKI_FEEDBACK_TOKEN=fcw_…
 ```
 
 ### Run

@@ -60,7 +60,7 @@ describe('every Supabase client is scoped to our schema', () => {
   it('leaves no hand-rolled migration runner that would write to public', () => {
     // These applied SQL through the service-role client with no schema set, so
     // they would create our tables inside orangecat's `public`. Schema is the
-    // deploy pipeline's job now (fleetcrown apply-schema.sh, `supabase:botsmann`).
+    // deploy pipeline's job now (loki apply-schema.sh, `supabase:botsmann`).
     for (const gone of ['scripts/run-migration.ts', 'scripts/migrate-via-api.ts']) {
       expect(() => readFileSync(join(ROOT, gone), 'utf-8')).toThrow();
     }

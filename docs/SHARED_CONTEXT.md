@@ -220,13 +220,13 @@ User → components/*Form.tsx
 Push to `main` → local `.husky/pre-push` hook → self-hosted deploy on the
 Hetzner box "bitbaum" (build → rsync → systemd restart), behind Caddy.
 GitHub Actions also deploys on push to `main` (`deploy.yml` → the shared
-`bitbaum/fleetcrown` self-host deploy workflow), alongside build/lint/test CI.
+`bitbaum/loki` self-host deploy workflow), alongside build/lint/test CI.
 
 ### Manual
 
 ```bash
 pnpm run build
-bash /home/g/dev/fleetcrown/scripts/hetzner/deploy.sh botsmann
+bash /home/g/dev/loki/scripts/hetzner/deploy.sh botsmann
 ```
 
 ---
