@@ -10,7 +10,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@/lib/supabase-server';
 import { z } from 'zod';
-import { rateLimit, RATE_LIMIT_CONFIGS } from '@/lib/middleware/rate-limit';
+import { enforceRateLimit } from '@/lib/rate-limit';
 import { logger } from '@/lib/logger';
 
 const UpdateProfileSchema = z.object({
@@ -36,7 +36,7 @@ const UpdateProfileSchema = z.object({
  */
 export async function GET(req: NextRequest) {
   // Rate limiting
-  const rateLimitResult = await rateLimit(req, RATE_LIMIT_CONFIGS.api);
+  const rateLimitResult = enforceRateLimit(req, 'profile');
   if (rateLimitResult) return rateLimitResult;
 
   try {
@@ -90,7 +90,7 @@ export async function GET(req: NextRequest) {
  */
 export async function PUT(req: NextRequest) {
   // Rate limiting (stricter for profile updates)
-  const rateLimitResult = await rateLimit(req, RATE_LIMIT_CONFIGS.api);
+  const rateLimitResult = enforceRateLimit(req, 'profile');
   if (rateLimitResult) return rateLimitResult;
 
   try {

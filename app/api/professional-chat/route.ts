@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
 
   try {
     // Rate limit per IP
-    const limited = await enforceRateLimit(request, 'professional-chat');
+    const limited = enforceRateLimit(request, 'professional-chat');
     if (limited) return limited;
 
     const body = await request.json();

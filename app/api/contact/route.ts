@@ -23,7 +23,7 @@ const ContactSchema = z.object({
 export async function POST(req: NextRequest) {
   try {
     // Rate limit by IP (5 per 10 minutes)
-    const limited = await enforceRateLimit(req, 'contact');
+    const limited = enforceRateLimit(req, 'contact');
     if (limited) return limited;
     // Validate input
     const validation = await validateBody(req, ContactSchema);

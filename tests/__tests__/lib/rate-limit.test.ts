@@ -1,89 +1,86 @@
 /**
  * Rate Limit Tests
  *
- * Tests the checkRateLimit function's fallback behavior when Supabase is not configured.
- * Full integration tests with Supabase would require a running database.
+ * The algorithm is limitkit's and tested there. What is pinned here is the
+ * app's contract on top of it: a bucket refuses at its budget with the
+ * response shape the auth forms read, keys are per client IP unless the
+ * bucket is global, and every bucket a route can name has a sane budget.
  */
 
-// Mock supabase before import
-vi.mock('@/lib/supabase', () => ({
-  isSupabaseConfigured: vi.fn(),
-  getServiceClient: vi.fn(),
-}));
+import { NextRequest } from 'next/server';
+import { enforceRateLimit, RATE_LIMITS, type RateLimitBucket } from '@/lib/rate-limit';
 
-import { checkRateLimit } from '@/lib/rate-limit';
-import { isSupabaseConfigured, getServiceClient } from '@/lib/supabase';
-import type { MockedFunction } from 'vitest';
+function request(ip: string): NextRequest {
+  return new NextRequest('http://localhost:3000/api/x', {
+    method: 'POST',
+    // Caddy appends the hop it saw; limitkit trusts exactly that one.
+    headers: { 'x-forwarded-for': `10.0.0.1, ${ip}` },
+  });
+}
 
-const mockIsConfigured = isSupabaseConfigured as MockedFunction<typeof isSupabaseConfigured>;
-const mockGetServiceClient = getServiceClient as MockedFunction<typeof getServiceClient>;
+/** A scope no other test touches, so buckets never bleed between cases. */
+let scopeSeq = 0;
+const freshScope = () => `t${++scopeSeq}`;
 
-describe('checkRateLimit', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
+describe('enforceRateLimit', () => {
+  it('allows up to the budget, then refuses with a 429 the auth forms can read', async () => {
+    const scope = freshScope();
+    const { max, windowSeconds } = RATE_LIMITS.auth;
+
+    for (let i = 0; i < max; i++) {
+      expect(enforceRateLimit(request('203.0.113.7'), 'auth', scope)).toBeNull();
+    }
+
+    const refused = enforceRateLimit(request('203.0.113.7'), 'auth', scope);
+    expect(refused).not.toBeNull();
+    expect(refused!.status).toBe(429);
+    expect(refused!.headers.get('Retry-After')).toBe(String(windowSeconds));
+    expect(refused!.headers.get('X-RateLimit-Limit')).toBe(String(max));
+    expect(refused!.headers.get('X-RateLimit-Remaining')).toBe('0');
+
+    const body = await refused!.json();
+    expect(body).toMatchObject({ success: false, code: 'RATE_LIMIT', retryAfter: windowSeconds });
+    expect(typeof body.error).toBe('string');
   });
 
-  it('allows all requests when Supabase is not configured', async () => {
-    mockIsConfigured.mockReturnValue(false);
-
-    const result = await checkRateLimit('test:ip', 10, 60);
-    expect(result.isRateLimited).toBe(false);
-    expect(result.remaining).toBe(10);
-    expect(mockGetServiceClient).not.toHaveBeenCalled();
+  it('keys per client IP: one caller filling a bucket does not lock another out', () => {
+    const scope = freshScope();
+    for (let i = 0; i < RATE_LIMITS.auth.max; i++) {
+      enforceRateLimit(request('198.51.100.1'), 'auth', scope);
+    }
+    expect(enforceRateLimit(request('198.51.100.1'), 'auth', scope)).not.toBeNull();
+    expect(enforceRateLimit(request('198.51.100.2'), 'auth', scope)).toBeNull();
   });
 
-  it('calls Supabase RPC when configured', async () => {
-    mockIsConfigured.mockReturnValue(true);
-    const mockRpc = vi.fn().mockResolvedValue({
-      data: { allowed: true, remaining: 9 },
-      error: null,
-    });
-    mockGetServiceClient.mockReturnValue({ rpc: mockRpc } as never);
-
-    const result = await checkRateLimit('test:ip', 10, 60);
-    expect(result.isRateLimited).toBe(false);
-    expect(result.remaining).toBe(9);
-    expect(mockRpc).toHaveBeenCalledWith('check_rate_limit', {
-      p_key: 'test:ip',
-      p_max_requests: 10,
-      p_window_seconds: 60,
-    });
+  it('a global bucket counts every caller together', () => {
+    const scope = freshScope();
+    for (let i = 0; i < RATE_LIMITS.consultations.max; i++) {
+      expect(enforceRateLimit(request(`192.0.2.${i}`), 'consultations', scope)).toBeNull();
+    }
+    expect(enforceRateLimit(request('192.0.2.200'), 'consultations', scope)).not.toBeNull();
   });
 
-  it('reports rate limited when RPC returns allowed=false', async () => {
-    mockIsConfigured.mockReturnValue(true);
-    const mockRpc = vi.fn().mockResolvedValue({
-      data: { allowed: false, remaining: 0 },
-      error: null,
+  it('a forged first hop does not mint a fresh bucket', () => {
+    const scope = freshScope();
+    for (let i = 0; i < RATE_LIMITS.auth.max; i++) {
+      const req = new NextRequest('http://localhost:3000/api/x', {
+        method: 'POST',
+        headers: { 'x-forwarded-for': `1.2.3.${i}, 203.0.113.9` },
+      });
+      enforceRateLimit(req, 'auth', scope);
+    }
+    const req = new NextRequest('http://localhost:3000/api/x', {
+      method: 'POST',
+      headers: { 'x-forwarded-for': '9.9.9.9, 203.0.113.9' },
     });
-    mockGetServiceClient.mockReturnValue({ rpc: mockRpc } as never);
-
-    const result = await checkRateLimit('test:ip', 5, 60);
-    expect(result.isRateLimited).toBe(true);
-    expect(result.remaining).toBe(0);
+    expect(enforceRateLimit(req, 'auth', scope)).not.toBeNull();
   });
 
-  it('fails open on RPC error', async () => {
-    mockIsConfigured.mockReturnValue(true);
-    const mockRpc = vi.fn().mockResolvedValue({
-      data: null,
-      error: { message: 'DB error' },
-    });
-    mockGetServiceClient.mockReturnValue({ rpc: mockRpc } as never);
-
-    const result = await checkRateLimit('test:ip', 10, 60);
-    expect(result.isRateLimited).toBe(false);
-    expect(result.remaining).toBe(10);
-  });
-
-  it('fails open on unexpected exception', async () => {
-    mockIsConfigured.mockReturnValue(true);
-    mockGetServiceClient.mockImplementation(() => {
-      throw new Error('Connection failed');
-    });
-
-    const result = await checkRateLimit('test:ip', 10, 60);
-    expect(result.isRateLimited).toBe(false);
-    expect(result.remaining).toBe(10);
+  it('every bucket has a positive budget and window', () => {
+    for (const bucket of Object.keys(RATE_LIMITS) as RateLimitBucket[]) {
+      const rule = RATE_LIMITS[bucket];
+      expect(rule.max, bucket).toBeGreaterThan(0);
+      expect(rule.windowSeconds, bucket).toBeGreaterThan(0);
+    }
   });
 });

@@ -5,7 +5,7 @@ import { jsonSuccess, jsonError, HTTP_STATUS } from '@/lib/api';
 
 export async function GET(request: NextRequest) {
   try {
-    const limited = await enforceRateLimit(request, 'rebuild');
+    const limited = enforceRateLimit(request, 'rebuild');
     if (limited) return limited;
 
     // Revalidate the blog pages

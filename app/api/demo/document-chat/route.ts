@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
   try {
     // Rate limit per IP (stricter since no auth)
-    const limited = await enforceRateLimit(request, 'demo-doc-chat');
+    const limited = enforceRateLimit(request, 'demo-doc-chat');
     if (limited) return limited;
 
     const body = await request.json();

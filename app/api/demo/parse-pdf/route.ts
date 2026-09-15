@@ -18,7 +18,7 @@ export const maxDuration = 30;
 export async function POST(request: NextRequest) {
   try {
     // Rate limit per IP (stricter since no auth)
-    const limited = await enforceRateLimit(request, 'demo-pdf-parse');
+    const limited = enforceRateLimit(request, 'demo-pdf-parse');
     if (limited) return limited;
 
     const formData = await request.formData();

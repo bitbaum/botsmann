@@ -8,7 +8,7 @@
 import { NextRequest } from 'next/server';
 import { createRouteHandlerClient } from '@/lib/supabase-server';
 import { z } from 'zod';
-import { rateLimit, RATE_LIMIT_CONFIGS } from '@/lib/middleware/rate-limit';
+import { enforceRateLimit } from '@/lib/rate-limit';
 import { jsonSuccess, jsonError, handleError, HTTP_STATUS } from '@/lib/api';
 
 const SignUpSchema = z.object({
@@ -18,7 +18,7 @@ const SignUpSchema = z.object({
 
 export async function POST(req: NextRequest) {
   // Rate limiting
-  const rateLimitResult = await rateLimit(req, RATE_LIMIT_CONFIGS.auth);
+  const rateLimitResult = enforceRateLimit(req, 'auth');
   if (rateLimitResult) return rateLimitResult;
 
   try {

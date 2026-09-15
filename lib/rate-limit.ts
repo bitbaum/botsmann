@@ -1,72 +1,43 @@
 /**
- * Distributed Rate Limiting via Supabase
+ * Rate limiting — one module, one table of budgets.
  *
- * Uses a PostgreSQL function (check_rate_limit) for atomic check-and-increment.
- * Works correctly across serverless function instances.
+ * The decision (sliding window, bounded in-process store, the standard
+ * X-RateLimit-* / Retry-After headers, which forwarded hop to trust) is
+ * limitkit's — see fleet/SHARED.md. What stays here is app semantics: WHICH
+ * buckets exist and how much each allows. A route names a bucket; it does not
+ * get to invent a number.
+ *
+ * Counts live in process memory. This app runs as ONE `next start` process
+ * behind Caddy on bitbaum, so that is the shared store. The Supabase RPC
+ * (`check_rate_limit`, migration 010) the two previous limiters called was
+ * written for serverless instances this app no longer has — and it failed
+ * OPEN on every error, i.e. the limiter switched itself off whenever the
+ * database hiccupped. limitkit has no such mode. Behind N workers the
+ * effective limit would multiply by N; if that ever happens, implement
+ * limitkit's two-method `Store` over Postgres and change nothing else.
  */
 
 import type { NextRequest, NextResponse } from 'next/server';
-import { jsonRateLimitError } from '@/lib/api';
-import { getClientIp } from '@/lib/request';
-import { getServiceClient, isSupabaseConfigured } from '@/lib/supabase';
+import { slidingWindow, clientIp, toHeaders, type Limiter } from 'limitkit';
+import { jsonRateLimitError, type ApiResponse } from '@/lib/api';
 
-export interface RateLimitResult {
-  isRateLimited: boolean;
-  remaining: number;
+interface RateLimitRule {
+  /** Hits allowed inside the window. */
+  max: number;
+  /** Window length in seconds. */
+  windowSeconds: number;
+  /**
+   * Count every caller together instead of per client IP. For budgets that
+   * protect a downstream (an outbound mailbox), not a caller.
+   */
+  global?: boolean;
 }
-
-/**
- * Check rate limit for a given key.
- *
- * @param key - Unique identifier (e.g. "contact:192.168.1.1")
- * @param maxRequests - Maximum requests allowed in the window
- * @param windowSeconds - Window duration in seconds
- * @returns Whether the request is rate limited
- */
-export async function checkRateLimit(
-  key: string,
-  maxRequests: number,
-  windowSeconds: number,
-): Promise<RateLimitResult> {
-  if (!isSupabaseConfigured()) {
-    // Development fallback: allow all requests
-    return { isRateLimited: false, remaining: maxRequests };
-  }
-
-  try {
-    const supabase = getServiceClient();
-    const { data, error } = await supabase.rpc('check_rate_limit', {
-      p_key: key,
-      p_max_requests: maxRequests,
-      p_window_seconds: windowSeconds,
-    });
-
-    if (error) {
-      // Fail open: if rate limiting breaks, don't block users
-      return { isRateLimited: false, remaining: maxRequests };
-    }
-
-    return {
-      isRateLimited: !data.allowed,
-      remaining: data.remaining,
-    };
-  } catch {
-    // Fail open on unexpected errors
-    return { isRateLimited: false, remaining: maxRequests };
-  }
-}
-
-// ============================================================================
-// Route-level enforcement
-// ============================================================================
 
 /**
  * Every rate-limited bucket in the product, with its budget.
- *
- * SSOT: limits live here, not as magic numbers scattered across route files.
- * A route names a bucket; it does not get to invent a number.
  */
 export const RATE_LIMITS = {
+  // Routes that call an LLM — each request costs money.
   chat: { max: 20, windowSeconds: 60 },
   'professional-chat': { max: 15, windowSeconds: 60 },
   'quick-chat': { max: 10, windowSeconds: 60 },
@@ -74,11 +45,27 @@ export const RATE_LIMITS = {
   'demo-doc-chat': { max: 15, windowSeconds: 60 },
   'demo-pdf-parse': { max: 10, windowSeconds: 60 },
   'custom-bot-chat': { max: 15, windowSeconds: 60 },
+
+  // Auth — strict, because every attempt is a guess at somebody's password.
+  auth: { max: 5, windowSeconds: 60 },
+  'password-reset': { max: 3, windowSeconds: 300 },
+  'email-resend': { max: 2, windowSeconds: 120 },
+  profile: { max: 60, windowSeconds: 60 },
+
+  // Forms and operations.
   contact: { max: 5, windowSeconds: 600 },
+  consultations: { max: 5, windowSeconds: 60, global: true },
   rebuild: { max: 5, windowSeconds: 600 },
-} as const;
+} as const satisfies Record<string, RateLimitRule>;
 
 export type RateLimitBucket = keyof typeof RATE_LIMITS;
+
+const limiters = Object.fromEntries(
+  (Object.entries(RATE_LIMITS) as [RateLimitBucket, RateLimitRule][]).map(([bucket, rule]) => [
+    bucket,
+    slidingWindow({ limit: rule.max, windowMs: rule.windowSeconds * 1000 }),
+  ]),
+) as Record<RateLimitBucket, Limiter>;
 
 /**
  * Enforce a bucket's limit for the caller, scoped per client IP.
@@ -86,23 +73,26 @@ export type RateLimitBucket = keyof typeof RATE_LIMITS;
  * Returns a ready-to-return 429 when the caller is over budget, or null when
  * the request may proceed — so a route reads:
  *
- *   const limited = await enforceRateLimit(request, 'demo-chat');
+ *   const limited = enforceRateLimit(request, 'demo-chat');
  *   if (limited) return limited;
  *
  * `scope` narrows the key further (e.g. a bot id), so one hot resource cannot
  * exhaust another's budget.
  */
-export async function enforceRateLimit(
+export function enforceRateLimit(
   request: NextRequest,
   bucket: RateLimitBucket,
   scope?: string,
-): Promise<NextResponse | null> {
-  const { max, windowSeconds } = RATE_LIMITS[bucket];
-  const ip = getClientIp(request);
-  const key = scope ? `${bucket}:${scope}:${ip}` : `${bucket}:${ip}`;
+): NextResponse<ApiResponse> | null {
+  const rule: RateLimitRule = RATE_LIMITS[bucket];
+  const who = rule.global ? 'all' : clientIp(request.headers);
+  const key = scope ? `${bucket}:${scope}:${who}` : `${bucket}:${who}`;
 
-  const { isRateLimited } = await checkRateLimit(key, max, windowSeconds);
-  if (!isRateLimited) return null;
+  const result = limiters[bucket].check(key);
+  if (result.allowed) return null;
 
-  return jsonRateLimitError('Too many requests. Please slow down.');
+  return jsonRateLimitError('Too many requests. Please slow down.', {
+    retryAfter: result.retryAfterSeconds,
+    headers: toHeaders(result),
+  });
 }

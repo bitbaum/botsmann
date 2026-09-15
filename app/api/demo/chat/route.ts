@@ -450,7 +450,7 @@ const ChatRequestSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     // Public, unauthenticated endpoint that spends LLM budget — limit before any work.
-    const limited = await enforceRateLimit(request, 'demo-chat');
+    const limited = enforceRateLimit(request, 'demo-chat');
     if (limited) return limited;
 
     const body = await request.json();

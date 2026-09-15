@@ -82,6 +82,8 @@ export interface ApiResponse<T = unknown> {
   error?: string;
   code?: ErrorCode;
   details?: ValidationError[];
+  /** Seconds until a RATE_LIMIT refusal lifts — what the auth forms count down. */
+  retryAfter?: number;
 }
 
 /**
@@ -207,8 +209,14 @@ export function jsonValidationError(
  */
 export function jsonRateLimitError(
   message = 'Rate limit exceeded. Please try again later.',
+  limit?: { retryAfter: number; headers?: Record<string, string> },
 ): NextResponse<ApiResponse> {
-  return jsonError(message, 'RATE_LIMIT', HTTP_STATUS.RATE_LIMIT);
+  const response: ApiResponse = { success: false, error: message, code: 'RATE_LIMIT' };
+  if (limit) response.retryAfter = limit.retryAfter;
+  return NextResponse.json(response, {
+    status: HTTP_STATUS.RATE_LIMIT,
+    headers: { 'Cache-Control': CACHE_CONTROL.NONE, ...limit?.headers },
+  });
 }
 
 /**

@@ -8,12 +8,12 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@/lib/supabase-server';
-import { rateLimit, RATE_LIMIT_CONFIGS } from '@/lib/middleware/rate-limit';
+import { enforceRateLimit } from '@/lib/rate-limit';
 import { logger } from '@/lib/logger';
 
 export async function POST(req: NextRequest) {
   // Rate limiting (strict for email resend)
-  const rateLimitResult = await rateLimit(req, RATE_LIMIT_CONFIGS.emailResend);
+  const rateLimitResult = enforceRateLimit(req, 'email-resend');
   if (rateLimitResult) return rateLimitResult;
 
   try {
