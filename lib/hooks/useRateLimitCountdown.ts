@@ -5,7 +5,7 @@
  * Automatically clears error message when countdown reaches 0.
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface UseRateLimitCountdownOptions {
   onExpire?: () => void;
@@ -29,7 +29,12 @@ export function useRateLimitCountdown(
   options: UseRateLimitCountdownOptions = {},
 ): UseRateLimitCountdownReturn {
   const [rateLimitSeconds, setRateLimitSeconds] = useState(0);
-  const { onExpire } = options;
+
+  // Held in a ref so an inline `onExpire` never restarts the interval.
+  const onExpire = useRef(options.onExpire);
+  useEffect(() => {
+    onExpire.current = options.onExpire;
+  }, [options.onExpire]);
 
   useEffect(() => {
     if (rateLimitSeconds <= 0) return;
@@ -37,7 +42,7 @@ export function useRateLimitCountdown(
     const timer = setInterval(() => {
       setRateLimitSeconds((prev) => {
         if (prev <= 1) {
-          onExpire?.();
+          onExpire.current?.();
           return 0;
         }
         return prev - 1;
@@ -45,7 +50,7 @@ export function useRateLimitCountdown(
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [rateLimitSeconds, onExpire]);
+  }, [rateLimitSeconds]);
 
   return {
     rateLimitSeconds,

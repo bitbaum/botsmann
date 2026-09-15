@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
-import { checkRateLimit } from '@/lib/rate-limit';
+import { enforceRateLimit } from '@/lib/rate-limit';
 import { CustomerSchema } from '@/lib/schemas/customer';
 import { validateApiKey } from '@/lib/middleware/auth';
 import { monitorRequest } from '@/lib/middleware/monitoring';
@@ -8,7 +8,6 @@ import { EmailService } from '@/lib/email/service';
 import {
   jsonSuccess,
   jsonValidationError,
-  jsonRateLimitError,
   jsonServiceUnavailable,
   formatZodErrors,
   handleError,
@@ -27,13 +26,9 @@ async function handler(req: NextRequest) {
       return authResponse;
     }
 
-    // Check rate limit (5 per minute, 3 per second in test)
-    const windowSeconds = process.env.NODE_ENV === 'test' ? 1 : 60;
-    const maxRequests = process.env.NODE_ENV === 'test' ? 3 : 5;
-    const { isRateLimited } = await checkRateLimit('CONSULTATION_FORM', maxRequests, windowSeconds);
-    if (isRateLimited) {
-      return jsonRateLimitError();
-    }
+    // One global budget for the form (it sends mail), not one per caller.
+    const limited = enforceRateLimit(req, 'consultations');
+    if (limited) return limited;
 
     const body = await req.json();
     const validatedData = CustomerSchema.parse(body);

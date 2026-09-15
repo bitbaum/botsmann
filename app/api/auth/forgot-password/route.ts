@@ -8,7 +8,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@/lib/supabase-server';
 import { z } from 'zod';
-import { rateLimit, RATE_LIMIT_CONFIGS } from '@/lib/middleware/rate-limit';
+import { enforceRateLimit } from '@/lib/rate-limit';
 import { logger } from '@/lib/logger';
 
 const ForgotPasswordSchema = z.object({
@@ -17,7 +17,7 @@ const ForgotPasswordSchema = z.object({
 
 export async function POST(req: NextRequest) {
   // Rate limiting (stricter for password reset)
-  const rateLimitResult = await rateLimit(req, RATE_LIMIT_CONFIGS.passwordReset);
+  const rateLimitResult = enforceRateLimit(req, 'password-reset');
   if (rateLimitResult) return rateLimitResult;
 
   try {

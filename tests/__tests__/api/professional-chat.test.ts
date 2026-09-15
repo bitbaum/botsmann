@@ -30,7 +30,7 @@ vi.mock('@/lib/embeddings', () => ({
 }));
 
 vi.mock('@/lib/rate-limit', () => ({
-  enforceRateLimit: vi.fn(() => Promise.resolve(null)),
+  enforceRateLimit: vi.fn(() => null),
 }));
 
 vi.mock('@/lib/chat', () => ({
@@ -66,7 +66,7 @@ function makeRequest(body: Record<string, unknown>): NextRequest {
 describe('POST /api/professional-chat', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockEnforceRateLimit.mockResolvedValue(null);
+    mockEnforceRateLimit.mockReturnValue(null);
     mockVerifyUser.mockResolvedValue(null);
     mockGenerateLLM.mockResolvedValue({
       content: 'Test response from AI',
@@ -111,7 +111,7 @@ describe('POST /api/professional-chat', () => {
   });
 
   it('returns 429 when rate limited', async () => {
-    mockEnforceRateLimit.mockResolvedValue(
+    mockEnforceRateLimit.mockReturnValue(
       NextResponse.json(
         { success: false, error: 'Too many requests. Please slow down.', code: 'RATE_LIMIT' },
         { status: 429 },

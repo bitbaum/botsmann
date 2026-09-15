@@ -63,9 +63,9 @@ describe('rate limit coverage', () => {
 
     for (const file of files) {
       const source = stripComments(readFileSync(file, 'utf-8'));
-      // checkRateLimit takes raw (key, max, window) — routes must not call it
-      // directly, or the budget stops living in one place.
-      if (/\bcheckRateLimit\s*\(/.test(source)) {
+      // A route must not build its own limiter from limitkit — every budget
+      // is a named bucket in lib/rate-limit.ts, or it stops living in one place.
+      if (/from 'limitkit'/.test(source)) {
         offenders.push(file.slice(API_DIR.length + 1));
       }
     }

@@ -169,7 +169,7 @@ export default function SettingsPage() {
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   {profileAvatarUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
+                    // eslint-disable-next-line @next/next/no-img-element -- live preview of a user-typed avatar URL from any host
                     <img
                       src={profileAvatarUrl}
                       alt="Avatar preview"

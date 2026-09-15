@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState, useCallback, type React
 import type { User, Session } from '@supabase/supabase-js';
 import { createClientComponentClient, isSupabaseConfigured } from '@/lib/supabase';
 import { ROUTES } from '@/lib/routes';
+import { useRateLimitCountdown } from '@/lib/hooks/useRateLimitCountdown';
 import type { UserProfile } from '@/lib/schemas/auth';
 
 // Lazy-loaded client - only created when Supabase is configured and first used
@@ -336,7 +337,7 @@ export function useRequireAuth(options?: { requireVerified?: boolean }) {
  * Check if an error is a rate limit error
  */
 export function isRateLimitError(error: AuthError | null): boolean {
-  return error?.code === 'RATE_LIMITED';
+  return error?.code === 'RATE_LIMIT';
 }
 
 /**
@@ -344,4 +345,41 @@ export function isRateLimitError(error: AuthError | null): boolean {
  */
 export function getRateLimitRetryAfter(error: AuthError | null): number {
   return error?.retryAfter ?? 60;
+}
+
+/**
+ * Error state for an auth form: the message to show, and the countdown when
+ * the server refused for rate limiting.
+ */
+export function useAuthError() {
+  const [error, setError] = useState('');
+  const { rateLimitSeconds, setRateLimitSeconds, isRateLimited } = useRateLimitCountdown({
+    onExpire: () => setError(''),
+  });
+
+  const showAuthError = useCallback(
+    (err: AuthError) => {
+      if (isRateLimitError(err)) {
+        const retryAfter = getRateLimitRetryAfter(err);
+        setRateLimitSeconds(retryAfter);
+        setError(`Too many attempts. Please wait ${retryAfter} seconds.`);
+      } else {
+        setError(err.message);
+      }
+    },
+    [setRateLimitSeconds],
+  );
+
+  return { error, setError, showAuthError, rateLimitSeconds, isRateLimited };
+}
+
+/** Guests only: a signed-in user is sent on to their settings. */
+export function useRedirectWhenSignedIn(user: User | null) {
+  // Runs in an effect (not during render) so the navigation side effect stays
+  // out of the render phase.
+  useEffect(() => {
+    if (user) {
+      window.location.href = ROUTES.SETTINGS;
+    }
+  }, [user]);
 }

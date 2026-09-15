@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
 
   try {
     // Rate limit per user/IP
-    const limited = await enforceRateLimit(request, 'chat');
+    const limited = enforceRateLimit(request, 'chat');
     if (limited) return limited;
     logger.log('[Chat API] Verifying user...');
     const user = await verifyUser(request);

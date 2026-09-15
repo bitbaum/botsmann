@@ -62,7 +62,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
 
     // Anonymous callers may chat with public bots, and the call is billed to the
     // bot OWNER's API key — so limit per bot, not just per IP.
-    const limited = await enforceRateLimit(request, 'custom-bot-chat', botId);
+    const limited = enforceRateLimit(request, 'custom-bot-chat', botId);
     if (limited) return limited;
 
     const supabase = getServiceClient();
