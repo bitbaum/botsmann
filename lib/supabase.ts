@@ -158,12 +158,10 @@ export function createClientComponentClient() {
           'Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.',
       );
     }
-    // Return mock during SSG - will be replaced on hydration
-    // Using 'any' here because properly typing the full Supabase client mock
-    // would require importing internal Supabase types that aren't exported.
-    // This mock is only used during build-time SSG, never at runtime.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mockClient: any = {
+    // Return mock during SSG - will be replaced on hydration. Cast through
+    // unknown at the return: typing the full client mock would mean importing
+    // internal Supabase types, and it only ever runs at build-time SSG.
+    const mockClient = {
       auth: {
         getSession: () => Promise.resolve({ data: { session: null }, error: null }),
         getUser: () => Promise.resolve({ data: { user: null }, error: null }),
@@ -204,7 +202,7 @@ export function createClientComponentClient() {
         }),
       },
     };
-    return mockClient;
+    return mockClient as unknown as ReturnType<typeof createBrowserClient>;
   }
 
   return createBrowserClient(supabaseUrl, supabaseAnonKey, { db: { schema: DB_SCHEMA } });

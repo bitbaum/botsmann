@@ -1,15 +1,21 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useSyncExternalStore } from 'react';
+
+/** giscus never changes; the store has nothing to subscribe to. */
+const noSubscription = () => () => undefined;
+
+/** false on the server and during hydration, true once the client owns the tree. */
+const useIsClient = () =>
+  useSyncExternalStore(
+    noSubscription,
+    () => true,
+    () => false,
+  );
 
 export default function Comments({ slug }: { slug: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- client-mount detection for SSR-safe giscus embed
-    setIsClient(true);
-  }, []);
+  const isClient = useIsClient();
 
   useEffect(() => {
     if (!isClient) return;

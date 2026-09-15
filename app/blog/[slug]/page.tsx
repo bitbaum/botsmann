@@ -7,6 +7,7 @@ import LongformBody from '@/lib/longform/LongformBody';
 import { parseLongform } from '@/lib/longform/parse';
 import { Metadata } from 'next';
 import { format } from 'date-fns';
+import { logger } from '@/lib/logger';
 import '@/lib/longform/longform.css';
 
 // Generate static paths for all blog posts
@@ -17,7 +18,7 @@ export async function generateStaticParams() {
       slug: post.slug,
     }));
   } catch (error) {
-    console.info('Error generating static params:', error);
+    logger.error('Error generating static params', error);
     return [];
   }
 }
@@ -66,7 +67,7 @@ export async function generateMetadata({
       },
     };
   } catch (error) {
-    console.info('Error generating metadata:', error);
+    logger.error('Error generating metadata', error);
     return {
       title: 'Error | Botsmann',
     };
@@ -75,20 +76,20 @@ export async function generateMetadata({
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  console.info('Rendering blog post for slug:', slug);
+  logger.debug('Rendering blog post', { slug });
 
   // No try/catch: notFound() and render errors must propagate to Next's
   // not-found.tsx / error.tsx boundaries. A catch that only re-throws would also
   // spuriously log notFound() as an error.
   if (!slug) {
-    console.info('Missing slug parameter');
+    logger.warn('Missing slug parameter');
     notFound();
   }
 
   const post = await fetchBlogPostBySlug(slug);
 
   if (!post) {
-    console.info('Blog post not found for slug:', slug);
+    logger.warn('Blog post not found', { slug });
     notFound();
   }
 

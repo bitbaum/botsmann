@@ -45,7 +45,7 @@ const eslintConfig = [
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-empty-function': 'warn',
       '@typescript-eslint/no-require-imports': 'off',
-      'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
+      'no-console': ['error', { allow: ['warn', 'error'] }],
       'prefer-const': 'error',
       'no-var': 'error',
       'react/no-unescaped-entities': 'off',

@@ -41,7 +41,7 @@ export const UserAvatar: FC<UserAvatarProps> = ({
   // Using img tag for external URLs from any domain (avatars can be user-provided)
   if (avatarUrl && !imageError) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
+      // eslint-disable-next-line @next/next/no-img-element -- user-provided avatar URL from any host; next/image needs a host allowlist
       <img
         src={avatarUrl}
         alt="User avatar"
