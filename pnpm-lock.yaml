@@ -27,8 +27,8 @@ importers:
   .:
     dependencies:
       '@bitbaum/ai-kit':
-        specifier: ^1.10.0
-        version: 1.10.0(react@19.3.0)
+        specifier: ^1.11.0
+        version: 1.11.0(react@19.3.0)
       '@bitbaum/mail-kit':
         specifier: ^0.1.1
         version: 0.1.1
@@ -57,8 +57,8 @@ importers:
         specifier: ^2.17.2
         version: 2.17.2(@types/node@26.6.2)
       bip-kit:
-        specifier: ^0.3.0
-        version: 0.3.0(katex@0.16.47)(mermaid@11.17.2)(react@19.3.0)(shiki@4.4.3)
+        specifier: ^0.3.1
+        version: 0.3.1(katex@0.16.47)(mermaid@11.17.2)(react@19.3.0)(shiki@4.4.3)
       date-fns:
         specifier: ^4.4.0
         version: 4.4.0
@@ -245,8 +245,8 @@ packages:
     resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==}
     engines: {node: '>=6.9.0'}
 
-  '@bitbaum/ai-kit@1.10.0':
-    resolution: {integrity: sha512-XlqyyLEYDmXqIwDjJ+WMM/MhnK5TRnIpcHgTybVfXTmfHzOEg3FBgzPXOR7CbHi0ppCHmF4qTRd8L+uwyG0TpQ==}
+  '@bitbaum/ai-kit@1.11.0':
+    resolution: {integrity: sha512-WNprP0kydOfxyFz4itnkbc1Khu2R7CP+z4809usXKFukc+xEiooKT1qKnf0RWu0ti4CIFikz3BluoNlF1Di83w==}
     engines: {node: '>=20'}
     peerDependencies:
       react: '>=18'
@@ -1789,8 +1789,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  bip-kit@0.3.0:
-    resolution: {integrity: sha512-oQvznlDGEEHqQ6Hmw7vm2Eg9NSSidYVWXgaE3nAapYk5Uh8/yQTsvvdhQMCQ3Ny2bseLiFNDp4xyw3vcAYKE3w==}
+  bip-kit@0.3.1:
+    resolution: {integrity: sha512-OnkaJiDCRz0UeMifgI8NHnHoaBWyvpYOgdDIfOcxMiIWDWliVyHU+jg5aYX6zccIH15G5uze1vaGJV1XdRDDJg==}
     engines: {node: '>=20'}
     peerDependencies:
       katex: '>=0.16'
@@ -4047,7 +4047,7 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@bitbaum/ai-kit@1.10.0(react@19.3.0)':
+  '@bitbaum/ai-kit@1.11.0(react@19.3.0)':
     dependencies:
       ai-forms: 0.1.2(react@19.3.0)
     optionalDependencies:
@@ -5410,7 +5410,7 @@ snapshots:
 
   baseline-browser-mapping@2.11.20: {}
 
-  bip-kit@0.3.0(katex@0.16.47)(mermaid@11.17.2)(react@19.3.0)(shiki@4.4.3):
+  bip-kit@0.3.1(katex@0.16.47)(mermaid@11.17.2)(react@19.3.0)(shiki@4.4.3):
     dependencies:
       react: 19.3.0
     optionalDependencies:
