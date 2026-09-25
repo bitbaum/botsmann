@@ -5,7 +5,7 @@
  * Extracted facts are stored in user_context for future personalization.
  */
 
-import { generateLLMResponse } from '@/lib/llm-client';
+import { generateLLMResponse, type ModelProvider } from '@/lib/llm-client';
 import { detectDomains } from '@/lib/context/domain-detector';
 import { saveUserContext } from '@/lib/context/store';
 
@@ -28,20 +28,33 @@ interface ExtractedFact {
   confidence: number;
 }
 
+/** The user's OWN model settings. Extraction never runs on the site's keys. */
+export interface OwnLLM {
+  provider: ModelProvider;
+  apiKey: string | null | undefined;
+}
+
 /**
  * Extract facts from a conversation turn and save them as user context.
  *
  * Called asynchronously after each conversation turn — not in the critical path.
+ *
+ * Only on the user's own key. Nobody asked for this call: it is a second model
+ * request fired after the answer they did ask for, and on the shared free-tier
+ * key every chat turn cost two. `generateLLMResponse` falls back to the
+ * server's key when given none, so a missing key must stop here, not there.
  */
 export async function extractAndSaveContext(
   userId: string,
   conversationId: string,
   userMessage: string,
   assistantResponse: string,
-  professionalDomain?: string,
+  professionalDomain: string | undefined,
+  own: OwnLLM,
 ): Promise<number> {
+  if (!own.apiKey) return 0;
   try {
-    const facts = await extractFacts(userMessage, assistantResponse);
+    const facts = await extractFacts(userMessage, assistantResponse, own);
     if (facts.length === 0) return 0;
 
     const contextFacts = facts.map((f) => ({
@@ -64,6 +77,7 @@ export async function extractAndSaveContext(
 async function extractFacts(
   userMessage: string,
   assistantResponse: string,
+  own: OwnLLM,
 ): Promise<ExtractedFact[]> {
   const conversationText = `User: ${userMessage}\nAssistant: ${assistantResponse}`;
 
@@ -74,7 +88,8 @@ async function extractFacts(
         { role: 'user', content: conversationText },
       ],
       {
-        provider: 'groq',
+        provider: own.provider,
+        apiKey: own.apiKey,
         temperature: 0.1,
         maxTokens: 512,
       },
