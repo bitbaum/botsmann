@@ -9,12 +9,11 @@ global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder as typeof global.TextDecoder;
 
 // Mock fetch globally
-const mockFetch = vi.fn().mockImplementation(
-  (): Promise<Partial<Response>> =>
-    Promise.resolve({
-      ok: true,
-      json: () => Promise.resolve({}),
-    }),
+const mockFetch = vi.fn().mockImplementation((): Promise<Partial<Response>> =>
+  Promise.resolve({
+    ok: true,
+    json: () => Promise.resolve({}),
+  }),
 );
 
 global.fetch = mockFetch;

@@ -206,14 +206,17 @@ export async function POST(request: NextRequest) {
       logger.log(`[Professional Chat API] LLM response in ${Date.now() - llmStartTime} ms`);
       logger.log(`[Professional Chat API] Total time: ${Date.now() - startTime} ms`);
 
-      // Async: extract and save user context from this conversation turn (fire-and-forget)
-      if (user) {
+      // Async: extract and save user context from this conversation turn (fire-and-forget).
+      // Only on the user's own key: a second call nobody asked for must not
+      // spend the site's shared free tier.
+      if (user && apiKey) {
         extractAndSaveContext(
           user.id,
           conversationId || `${professionalSlug}-${Date.now()}`,
           message,
           llmResponse.content,
           professionalSlug,
+          { provider, apiKey },
         ).catch((err) => logger.error('[Professional Chat API] Context extraction error:', err));
       }
 

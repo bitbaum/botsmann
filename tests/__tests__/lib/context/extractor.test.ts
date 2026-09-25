@@ -18,12 +18,37 @@ import { saveUserContext } from '@/lib/context/store';
 import { detectDomains } from '@/lib/context/domain-detector';
 import type { Mock } from 'vitest';
 
+/** The user's own key. Without one, extraction must not call a model at all. */
+const OWN = { provider: 'groq' as const, apiKey: 'gsk_users_own' };
+
 beforeEach(() => {
   vi.clearAllMocks();
   (detectDomains as Mock).mockReturnValue(['general']);
 });
 
 describe('extractAndSaveContext', () => {
+  it.each([null, undefined, ''])(
+    "never calls a model without the user's own key (apiKey=%s) — the shared free tier is not for background work",
+    async (apiKey) => {
+      (generateLLMResponse as Mock).mockResolvedValue({
+        content: '[{"fact":"x","confidence":0.9}]',
+      });
+      const result = await extractAndSaveContext(
+        'user-1',
+        'conv-1',
+        'I live in Zürich',
+        'Nice',
+        undefined,
+        {
+          provider: 'groq',
+          apiKey,
+        },
+      );
+      expect(result).toBe(0);
+      expect(generateLLMResponse).not.toHaveBeenCalled();
+    },
+  );
+
   it('extracts facts from conversation and saves them', async () => {
     (generateLLMResponse as Mock).mockResolvedValue({
       content: JSON.stringify([
@@ -38,6 +63,8 @@ describe('extractAndSaveContext', () => {
       'conv-1',
       'I live in Zürich with my two kids',
       'That sounds lovely!',
+      undefined,
+      OWN,
     );
 
     expect(result).toBe(2);
@@ -49,7 +76,7 @@ describe('extractAndSaveContext', () => {
           content: expect.stringContaining('I live in Zürich with my two kids'),
         }),
       ]),
-      expect.objectContaining({ provider: 'groq', temperature: 0.1 }),
+      expect.objectContaining({ provider: 'groq', apiKey: 'gsk_users_own', temperature: 0.1 }),
     );
     expect(saveUserContext).toHaveBeenCalledWith('user-1', [
       expect.objectContaining({
@@ -71,7 +98,14 @@ describe('extractAndSaveContext', () => {
     });
     (saveUserContext as Mock).mockResolvedValue(1);
 
-    await extractAndSaveContext('user-1', 'conv-1', 'My back hurts', 'Sorry to hear', 'health');
+    await extractAndSaveContext(
+      'user-1',
+      'conv-1',
+      'My back hurts',
+      'Sorry to hear',
+      'health',
+      OWN,
+    );
 
     expect(saveUserContext).toHaveBeenCalledWith('user-1', [
       expect.objectContaining({
@@ -89,7 +123,7 @@ describe('extractAndSaveContext', () => {
     (detectDomains as Mock).mockReturnValue(['legal', 'general']);
     (saveUserContext as Mock).mockResolvedValue(1);
 
-    await extractAndSaveContext('user-1', 'conv-1', 'I need legal help', 'Sure');
+    await extractAndSaveContext('user-1', 'conv-1', 'I need legal help', 'Sure', undefined, OWN);
 
     expect(detectDomains).toHaveBeenCalledWith('User needs a lawyer');
     expect(saveUserContext).toHaveBeenCalledWith('user-1', [
@@ -104,7 +138,7 @@ describe('extractAndSaveContext', () => {
       content: JSON.stringify([]),
     });
 
-    const result = await extractAndSaveContext('user-1', 'conv-1', 'Hello', 'Hi!');
+    const result = await extractAndSaveContext('user-1', 'conv-1', 'Hello', 'Hi!', undefined, OWN);
 
     expect(result).toBe(0);
     expect(saveUserContext).not.toHaveBeenCalled();
@@ -115,7 +149,7 @@ describe('extractAndSaveContext', () => {
       content: 'not json',
     });
 
-    const result = await extractAndSaveContext('user-1', 'conv-1', 'Hi', 'Hello');
+    const result = await extractAndSaveContext('user-1', 'conv-1', 'Hi', 'Hello', undefined, OWN);
     expect(result).toBe(0);
   });
 
@@ -124,14 +158,14 @@ describe('extractAndSaveContext', () => {
       content: JSON.stringify({ fact: 'not an array' }),
     });
 
-    const result = await extractAndSaveContext('user-1', 'conv-1', 'Hi', 'Hello');
+    const result = await extractAndSaveContext('user-1', 'conv-1', 'Hi', 'Hello', undefined, OWN);
     expect(result).toBe(0);
   });
 
   it('returns 0 when LLM call throws', async () => {
     (generateLLMResponse as Mock).mockRejectedValue(new Error('API error'));
 
-    const result = await extractAndSaveContext('user-1', 'conv-1', 'Hi', 'Hello');
+    const result = await extractAndSaveContext('user-1', 'conv-1', 'Hi', 'Hello', undefined, OWN);
     expect(result).toBe(0);
   });
 
@@ -145,7 +179,7 @@ describe('extractAndSaveContext', () => {
     });
     (saveUserContext as Mock).mockResolvedValue(1);
 
-    await extractAndSaveContext('user-1', 'conv-1', 'msg', 'resp');
+    await extractAndSaveContext('user-1', 'conv-1', 'msg', 'resp', undefined, OWN);
 
     expect(saveUserContext).toHaveBeenCalledWith('user-1', [
       expect.objectContaining({ content: 'Short valid fact' }),
@@ -162,7 +196,7 @@ describe('extractAndSaveContext', () => {
     });
     (saveUserContext as Mock).mockResolvedValue(3);
 
-    await extractAndSaveContext('user-1', 'conv-1', 'msg', 'resp');
+    await extractAndSaveContext('user-1', 'conv-1', 'msg', 'resp', undefined, OWN);
 
     const savedFacts = (saveUserContext as Mock).mock.calls[0][1];
     expect(savedFacts[0].confidence).toBe(0.5);
@@ -179,7 +213,7 @@ describe('extractAndSaveContext', () => {
     });
     (saveUserContext as Mock).mockResolvedValue(1);
 
-    await extractAndSaveContext('user-1', 'conv-1', 'msg', 'resp');
+    await extractAndSaveContext('user-1', 'conv-1', 'msg', 'resp', undefined, OWN);
 
     expect(saveUserContext).toHaveBeenCalledWith('user-1', [
       expect.objectContaining({ content: 'Valid fact' }),
