@@ -16,8 +16,10 @@ import {
 // would assert a copy nothing reads.
 import { freeChain, providerModels } from '@bitbaum/ai-kit';
 
-const GROQ_MODELS = providerModels(freeChain('BOTSMANN')[0]);
-const OPENROUTER_MODELS = providerModels(freeChain('BOTSMANN')[1]);
+// By id, as lib/llm-client does: positions moved when ai-kit 1.10 added Gemini.
+const vendor = (id: string) => freeChain('BOTSMANN').find((p) => p.id === id)!;
+const GROQ_MODELS = providerModels(vendor('groq'));
+const OPENROUTER_MODELS = providerModels(vendor('openrouter'));
 
 vi.mock('@/lib/config/env', () => ({
   getServerEnv: vi.fn(() => ({

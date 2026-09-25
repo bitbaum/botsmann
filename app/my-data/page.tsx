@@ -41,7 +41,8 @@ export default function MyDataPage() {
 
   const handleSignOut = async () => {
     await signOut();
-    window.location.href = '/';
+    // A full load, not router.push: sign-out must drop every client cache.
+    window.location.href = window.location.origin;
   };
 
   if (authLoading || !user) {
