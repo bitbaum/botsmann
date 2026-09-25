@@ -78,11 +78,14 @@ export async function generateLLMResponse(
  * key and this server's own key take the same path instead of two.
  */
 function vendorChain(
-  which: 0 | 1,
+  which: 'groq' | 'openrouter',
   key: string,
   models?: string[],
 ): { chain: Link[]; env: Record<string, string> } {
-  const provider = freeChain('BOTSMANN')[which] as Provider;
+  // By id, never by position: ai-kit 1.10 put Gemini second in the free chain,
+  // and `[1]` silently turned "OpenRouter" into Gemini with an OpenRouter key.
+  const provider = freeChain('BOTSMANN').find((p) => p.id === which) as Provider | undefined;
+  if (!provider) throw new Error(`ai-kit's free chain has no ${which} provider`);
   const ids = models?.length ? models : providerModels(provider);
   return {
     chain: ids.map((model) => ({ provider, model })),
@@ -156,7 +159,7 @@ async function generateWithGroq(
     throw new Error('Groq API key not configured');
   }
 
-  return completeOn(vendorChain(0, key), messages, temperature, maxTokens);
+  return completeOn(vendorChain('groq', key), messages, temperature, maxTokens);
 }
 
 /**
@@ -192,7 +195,7 @@ async function generateWithOpenRouter(
   // An explicit caller override is honoured as-is and alone: if someone names a
   // model, silently answering from a different one is worse than failing.
   return completeOn(
-    vendorChain(1, apiKey, model ? [model] : undefined),
+    vendorChain('openrouter', apiKey, model ? [model] : undefined),
     messages,
     temperature,
     maxTokens,

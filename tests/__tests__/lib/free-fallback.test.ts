@@ -25,14 +25,13 @@
  */
 import { freeChain, providerModels, modelCost } from '@bitbaum/ai-kit';
 
-const openRouter = freeChain('BOTSMANN')[1];
+const openRouter = freeChain('BOTSMANN').find((p) => p.id === 'openrouter')!;
 
 describe('free-first fallback', () => {
   it('has an OpenRouter list to fall back to at all', () => {
-    // Guards the indexing above. If the chain is ever reordered so that [1] is
-    // not OpenRouter, every assertion below would pass vacuously against the
-    // wrong vendor.
-    expect(openRouter.id).toBe('openrouter');
+    // Guards the lookup above: if ai-kit ever drops OpenRouter from the chain,
+    // every assertion below would pass vacuously.
+    expect(openRouter?.id).toBe('openrouter');
     expect(providerModels(openRouter).length).toBeGreaterThan(0);
   });
 

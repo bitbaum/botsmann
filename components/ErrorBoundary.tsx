@@ -87,7 +87,7 @@ function ErrorFallback({ onReset, error }: ErrorFallbackProps): ReactNode {
             Try Again
           </button>
           <button
-            onClick={() => (window.location.href = '/')}
+            onClick={() => (window.location.href = window.location.origin)}
             className="px-6 py-3 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition-colors"
           >
             Go to Home
