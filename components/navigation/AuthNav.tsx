@@ -44,7 +44,7 @@ export function AuthNav() {
       <div className="flex items-center gap-3">
         <Link
           href="/auth/signin"
-          className="inline-flex min-h-11 items-center text-sm font-medium text-gray-700 hover:text-action transition-colors"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center text-sm font-medium text-gray-700 hover:text-action transition-colors"
         >
           Login
         </Link>
