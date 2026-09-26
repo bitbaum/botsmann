@@ -6,6 +6,7 @@
 
 import { type NextRequest } from 'next/server';
 import { z } from 'zod';
+import { probeByokKey } from '@bitbaum/ai-kit/byok-probe';
 import { verifyUser } from '@/lib/api-utils';
 import { jsonSuccess, jsonError, jsonUnauthorized, handleError, HTTP_STATUS } from '@/lib/api';
 
@@ -14,10 +15,6 @@ const ValidateKeySchema = z.object({
   provider: z.enum(['groq', 'openrouter', 'ollama']),
   key: z.string().min(1, 'Key is required'),
 });
-
-// API URLs for validation
-const GROQ_API_URL = 'https://api.groq.com/openai/v1/models';
-const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/models';
 
 export async function POST(req: NextRequest) {
   try {
@@ -41,9 +38,8 @@ export async function POST(req: NextRequest) {
 
     switch (provider) {
       case 'groq':
-        return await validateGroqKey(key);
       case 'openrouter':
-        return await validateOpenRouterKey(key);
+        return await validateProviderKey(provider, key);
       case 'ollama':
         return await validateOllamaConnection(key);
       default:
@@ -54,58 +50,18 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function validateGroqKey(apiKey: string) {
-  try {
-    const cleanKey = apiKey.trim().replace(/\\n/g, '').replace(/\n/g, '');
-
-    const response = await fetch(GROQ_API_URL, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${cleanKey}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      return jsonSuccess({ valid: true, message: 'Groq API key is valid' });
-    }
-
-    if (response.status === 401) {
-      return jsonSuccess({ valid: false, error: 'Invalid API key' });
-    }
-
-    return jsonSuccess({ valid: false, error: `API error: ${response.status}` });
-  } catch {
-    return jsonSuccess({ valid: false, error: 'Failed to connect to Groq API' });
-  }
-}
-
-async function validateOpenRouterKey(apiKey: string) {
-  try {
-    const response = await fetch(OPENROUTER_API_URL, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      return jsonSuccess({ valid: true, message: 'OpenRouter API key is valid' });
-    }
-
-    if (response.status === 401) {
-      return jsonSuccess({ valid: false, error: 'Invalid API key' });
-    }
-
-    if (response.status === 429) {
-      return jsonSuccess({ valid: false, error: 'API key is rate limited' });
-    }
-
-    return jsonSuccess({ valid: false, error: `API error: ${response.status}` });
-  } catch {
-    return jsonSuccess({ valid: false, error: 'Failed to connect to OpenRouter API' });
-  }
+/**
+ * Groq and OpenRouter go through ai-kit's probe: the vendor's own verdict and
+ * words, the key redacted, and the right endpoint. OpenRouter's /models is
+ * public and answers 200 for a dead key, so the check that used to run there
+ * called anything pasted "valid".
+ */
+async function validateProviderKey(provider: 'groq' | 'openrouter', apiKey: string) {
+  const cleanKey = apiKey.trim().replace(/\\n/g, '').replace(/\n/g, '');
+  const probe = await probeByokKey(provider, cleanKey);
+  return probe.ok
+    ? jsonSuccess({ valid: true, message: probe.message })
+    : jsonSuccess({ valid: false, error: probe.message });
 }
 
 async function validateOllamaConnection(url: string) {
