@@ -35,7 +35,7 @@ export function NavItem({ item, isActive, onNavigate }: NavItemProps) {
     return (
       <Link
         href={item.path}
-        className="rounded-btn bg-action px-4 py-2 text-sm font-medium text-white hover:bg-action-hover transition-colors"
+        className="inline-flex min-h-11 items-center rounded-btn bg-action px-4 text-sm font-medium text-white hover:bg-action-hover transition-colors"
       >
         {item.label}
       </Link>
@@ -50,7 +50,7 @@ export function NavItem({ item, isActive, onNavigate }: NavItemProps) {
         // `isActive` already decides the colour; it never told assistive tech
         // which page you were on. Zero aria-current existed in this codebase.
         aria-current={isActive ? 'page' : undefined}
-        className={`text-sm font-medium transition-colors ${
+        className={`inline-flex min-h-11 items-center text-sm font-medium transition-colors ${
           isActive ? 'text-action' : 'text-gray-600'
         } hover:text-action`}
       >
@@ -66,7 +66,7 @@ export function NavItem({ item, isActive, onNavigate }: NavItemProps) {
         <>
           <Popover.Button
             ref={buttonRef}
-            className={`group inline-flex items-center gap-1 text-sm font-medium transition-colors focus:outline-none ${
+            className={`group inline-flex min-h-11 items-center gap-1 text-sm font-medium transition-colors focus:outline-none ${
               open || isActive ? 'text-action' : 'text-gray-600'
             } hover:text-action`}
           >
