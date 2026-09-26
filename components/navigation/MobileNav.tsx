@@ -62,7 +62,7 @@ export function MobileNav({ isOpen, onClose, items, currentPath }: MobileNavProp
                       </div>
                       <button
                         type="button"
-                        className="rounded-md p-2 text-gray-400 hover:bg-white/50"
+                        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-gray-400 hover:bg-white/50"
                         onClick={onClose}
                       >
                         <span className="sr-only">Close menu</span>
@@ -78,7 +78,7 @@ export function MobileNav({ isOpen, onClose, items, currentPath }: MobileNavProp
                             {/* Parent Item */}
                             <Link
                               href={item.path}
-                              className={`flex items-center px-3 py-2 rounded-btn text-base font-medium transition-colors ${
+                              className={`flex min-h-11 items-center px-3 py-2 rounded-btn text-base font-medium transition-colors ${
                                 currentPath === item.path
                                   ? 'bg-action-tint text-action'
                                   : 'text-ink hover:bg-action-tint'
@@ -95,7 +95,7 @@ export function MobileNav({ isOpen, onClose, items, currentPath }: MobileNavProp
                                   <Link
                                     key={child.label}
                                     href={child.path}
-                                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-gray-600 hover:bg-gray-100 transition-colors"
+                                    className="flex min-h-11 items-center gap-2 px-3 py-2 rounded-md text-sm text-gray-600 hover:bg-gray-100 transition-colors"
                                     onClick={onClose}
                                   >
                                     {child.icon && <span className="text-lg">{child.icon}</span>}

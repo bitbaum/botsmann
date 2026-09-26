@@ -44,13 +44,13 @@ export function AuthNav() {
       <div className="flex items-center gap-3">
         <Link
           href="/auth/signin"
-          className="text-sm font-medium text-gray-700 hover:text-action transition-colors"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center text-sm font-medium text-gray-700 hover:text-action transition-colors"
         >
           Login
         </Link>
         <Link
           href="/auth/signup"
-          className="text-sm font-medium px-4 py-2 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all"
+          className="inline-flex min-h-11 items-center text-sm font-medium px-4 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all"
         >
           Register
         </Link>
@@ -68,7 +68,7 @@ export function AuthNav() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-action transition-colors"
+        className="flex min-h-11 items-center gap-2 text-sm font-medium text-gray-700 hover:text-action transition-colors"
       >
         <UserAvatar email={user.email} initial={displayName?.[0]} avatarUrl={avatarUrl} size="sm" />
         <ChevronIcon open={dropdownOpen} className="w-4 h-4" />
