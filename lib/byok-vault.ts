@@ -29,7 +29,9 @@ export const KEY_COLUMN: Record<KeyProvider, 'groq_api_key' | 'openrouter_api_ke
 };
 
 /** The sealing secret, or null when this server is not set up to store keys. */
-export function sealingSecret(env: NodeJS.ProcessEnv = process.env): string | null {
+export function sealingSecret(
+  env: Record<string, string | undefined> = process.env,
+): string | null {
   const secret = env.BYOK_SEAL_SECRET?.trim();
   return secret && secret.length >= 16 ? secret : null;
 }

@@ -41,9 +41,9 @@ describe('byok vault', () => {
   });
 
   it('needs a real secret before anything is stored', () => {
-    expect(sealingSecret({} as NodeJS.ProcessEnv)).toBeNull();
-    expect(sealingSecret({ BYOK_SEAL_SECRET: 'short' } as NodeJS.ProcessEnv)).toBeNull();
-    expect(sealingSecret({ BYOK_SEAL_SECRET: SECRET } as NodeJS.ProcessEnv)).toBe(SECRET);
+    expect(sealingSecret({})).toBeNull();
+    expect(sealingSecret({ BYOK_SEAL_SECRET: 'short' })).toBeNull();
+    expect(sealingSecret({ BYOK_SEAL_SECRET: SECRET })).toBe(SECRET);
   });
 
   it('keeps a saved key when the field is empty or absent — removing is explicit', () => {
