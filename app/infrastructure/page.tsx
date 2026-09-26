@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, type FormEvent } from 'react';
 import Link from 'next/link';
+import { byokKeyHint } from '@bitbaum/ai-kit/byok';
 import { useRequireAuth } from '@/lib/auth';
 import {
   providers,
@@ -16,10 +17,16 @@ import { ProviderCard, StorageCard, APIKeyInput } from '@/components/infrastruct
 
 interface UserSettings {
   preferred_model: ProviderId;
-  groq_api_key: string | null;
-  openrouter_api_key: string | null;
+  /** "…abcd" for a saved key — the key itself never comes back from the server. */
+  groq_key_hint: string | null;
+  openrouter_key_hint: string | null;
   ollama_url: string | null;
 }
+
+type KeyProviderId = 'groq' | 'openrouter';
+
+/** Pause after typing before a pasted key is checked, so a paste checks once. */
+const AUTO_CHECK_MS = 600;
 
 export default function InfrastructurePage() {
   const { user, loading: authLoading } = useRequireAuth();
@@ -37,6 +44,11 @@ export default function InfrastructurePage() {
   const [openrouterApiKey, setOpenrouterApiKey] = useState('');
   const [ollamaUrl, setOllamaUrl] = useState('');
   const [keyError, setKeyError] = useState<string | null>(null);
+  const [keyHints, setKeyHints] = useState<Record<KeyProviderId, string | null>>({
+    groq: null,
+    openrouter: null,
+  });
+  const [removeKeys, setRemoveKeys] = useState<KeyProviderId[]>([]);
 
   // Storage state
   const [selectedStorage, setSelectedStorage] = useState<StorageId>('cloud');
@@ -54,21 +66,23 @@ export default function InfrastructurePage() {
       try {
         const response = await fetch('/api/settings');
         if (response.ok) {
-          const data = await response.json();
-          if (data.settings) {
-            const settings: UserSettings = data.settings;
+          const body = await response.json();
+          // jsonSuccess wraps the payload in `data`; reading `body.settings`
+          // found nothing, so this screen never showed what was saved.
+          const settings: UserSettings | undefined = body.data?.settings;
+          if (settings) {
             setSelectedProvider(settings.preferred_model || 'groq');
-
-            // Set API keys
-            if (settings.groq_api_key) setGroqApiKey(settings.groq_api_key);
-            if (settings.openrouter_api_key) setOpenrouterApiKey(settings.openrouter_api_key);
+            setKeyHints({
+              groq: settings.groq_key_hint,
+              openrouter: settings.openrouter_key_hint,
+            });
             if (settings.ollama_url) setOllamaUrl(settings.ollama_url);
 
             // Update provider statuses based on configured keys
             setProviderStatuses((prev) => ({
               ...prev,
-              groq: settings.groq_api_key ? 'connected' : 'connected', // Groq works without key
-              openrouter: settings.openrouter_api_key ? 'connected' : 'not-configured',
+              groq: 'connected', // Groq works without key
+              openrouter: settings.openrouter_key_hint ? 'connected' : 'not-configured',
               ollama: settings.ollama_url ? 'connected' : 'not-configured',
             }));
           }
@@ -93,9 +107,11 @@ export default function InfrastructurePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           preferred_model: selectedProvider,
-          groq_api_key: groqApiKey || null,
-          openrouter_api_key: openrouterApiKey || null,
+          // Empty = keep the saved key; the server checks and seals a new one.
+          groq_api_key: groqApiKey || undefined,
+          openrouter_api_key: openrouterApiKey || undefined,
           ollama_url: ollamaUrl || null,
+          remove_keys: removeKeys,
         }),
       });
 
@@ -104,6 +120,22 @@ export default function InfrastructurePage() {
         throw new Error(data.error || 'Failed to save settings');
       }
 
+      // The saved keys now live on the server only; show their hints instead.
+      setKeyHints((prev) => ({
+        groq: groqApiKey
+          ? byokKeyHint(groqApiKey.trim())
+          : removeKeys.includes('groq')
+            ? null
+            : prev.groq,
+        openrouter: openrouterApiKey
+          ? byokKeyHint(openrouterApiKey.trim())
+          : removeKeys.includes('openrouter')
+            ? null
+            : prev.openrouter,
+      }));
+      setGroqApiKey('');
+      setOpenrouterApiKey('');
+      setRemoveKeys([]);
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch (err) {
@@ -132,7 +164,10 @@ export default function InfrastructurePage() {
           body: JSON.stringify({ provider: providerId, key: keyValue }),
         });
 
-        const data = await response.json();
+        const body = await response.json();
+        // jsonSuccess wraps the verdict in `data`: reading `body.valid` made
+        // every key, good or bad, fail with "Invalid API key".
+        const data = body.data ?? body;
 
         if (data.valid) {
           setProviderStatuses((prev) => ({ ...prev, [providerId]: 'connected' }));
@@ -151,6 +186,27 @@ export default function InfrastructurePage() {
     [groqApiKey, openrouterApiKey, ollamaUrl],
   );
 
+  // Paste → checked. A typed key is checked once typing pauses, instead of
+  // waiting for someone to find the button (and Save checks again anyway).
+  const typedKey =
+    selectedProvider === 'groq'
+      ? groqApiKey
+      : selectedProvider === 'openrouter'
+        ? openrouterApiKey
+        : '';
+  useEffect(() => {
+    if (!typedKey.trim()) return;
+    const timer = setTimeout(() => void handleValidateKey(selectedProvider), AUTO_CHECK_MS);
+    return () => clearTimeout(timer);
+    // Re-run on the key text only; the callback's identity changes with it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typedKey, selectedProvider]);
+
+  const toggleRemoveKey = (providerId: KeyProviderId) =>
+    setRemoveKeys((prev) =>
+      prev.includes(providerId) ? prev.filter((p) => p !== providerId) : [...prev, providerId],
+    );
+
   const getKeyValue = (providerId: ProviderId): string => {
     if (providerId === 'groq') return groqApiKey;
     if (providerId === 'openrouter') return openrouterApiKey;
@@ -167,7 +223,8 @@ export default function InfrastructurePage() {
     const provider = getProviderById(providerId);
     if (!provider?.keyRequired) return true; // Groq doesn't require key
     const key = getKeyValue(providerId);
-    return Boolean(key);
+    const saved = providerId === 'ollama' ? null : keyHints[providerId];
+    return Boolean(key || saved);
   };
 
   if (authLoading || !user) {
@@ -231,6 +288,21 @@ export default function InfrastructurePage() {
                   status={providerStatuses[selectedProvider]}
                   errorMessage={keyError || undefined}
                 />
+                {selectedProvider !== 'ollama' && keyHints[selectedProvider] && (
+                  <p className="mt-3 text-sm text-gray-600">
+                    Saved key {keyHints[selectedProvider]}
+                    {removeKeys.includes(selectedProvider) ? ' — removed when you save. ' : ' · '}
+                    <button
+                      type="button"
+                      onClick={() => toggleRemoveKey(selectedProvider)}
+                      className="font-medium text-action hover:text-action-hover"
+                    >
+                      {removeKeys.includes(selectedProvider) ? 'Keep it' : 'Remove'}
+                    </button>
+                    {!removeKeys.includes(selectedProvider) &&
+                      '. Paste a new key above to replace it.'}
+                  </p>
+                )}
               </div>
             )}
 

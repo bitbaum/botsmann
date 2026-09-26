@@ -12,8 +12,8 @@ import { type ProviderId, type ConnectionStatus } from '@/lib/infrastructure';
 
 interface UserSettings {
   preferred_model: ProviderId;
-  groq_api_key: string | null;
-  openrouter_api_key: string | null;
+  groq_key_hint: string | null;
+  openrouter_key_hint: string | null;
   ollama_url: string | null;
 }
 
@@ -28,8 +28,8 @@ export default function SettingsPage() {
   } = useRequireAuth();
   const [settings, setSettings] = useState<UserSettings>({
     preferred_model: 'groq',
-    groq_api_key: null,
-    openrouter_api_key: null,
+    groq_key_hint: null,
+    openrouter_key_hint: null,
     ollama_url: null,
   });
   const [providerStatus, setProviderStatus] = useState<ConnectionStatus>('connected');
@@ -58,15 +58,15 @@ export default function SettingsPage() {
         const response = await fetch('/api/settings');
         if (response.ok) {
           const data = await response.json();
-          if (data.settings) {
-            setSettings(data.settings);
+          if (data.data?.settings) {
+            setSettings(data.data.settings);
             // Determine provider status based on configuration
-            const provider = data.settings.preferred_model || 'groq';
+            const provider = data.data.settings.preferred_model || 'groq';
             if (provider === 'groq') {
               setProviderStatus('connected'); // Groq always works
-            } else if (provider === 'openrouter' && data.settings.openrouter_api_key) {
+            } else if (provider === 'openrouter' && data.data.settings.openrouter_key_hint) {
               setProviderStatus('connected');
-            } else if (provider === 'ollama' && data.settings.ollama_url) {
+            } else if (provider === 'ollama' && data.data.settings.ollama_url) {
               setProviderStatus('connected');
             } else {
               setProviderStatus('not-configured');
