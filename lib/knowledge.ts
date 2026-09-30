@@ -1,6 +1,5 @@
-import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { parseContentBlocks, parseFrontmatter, readingTime } from 'bip-kit';
+import { readCollection, readEntry, type CollectionEntry } from 'bip-kit/node';
 import type {
   Guide,
   GuideMetadata,
@@ -13,8 +12,9 @@ import { toDateString } from './format';
 
 /**
  * The Knowledge Center's content collection: markdown files under
- * content/knowledge/, committed and reviewed like code (bip-kit's content
- * contract). This replaced the runtime GitHub fetching of a separate content
+ * content/knowledge/, committed and reviewed like code, read by bip-kit's
+ * collection reader (one collection per folder). As on the blog, only
+ * `published: true` ships. This replaced the runtime GitHub fetching of a separate content
  * repo — no API rate limits, no ISR staleness, and every guide is visible to
  * generateStaticParams at build time.
  *
@@ -28,8 +28,6 @@ const GUIDES_DIR = join(process.cwd(), 'content', 'knowledge', 'guides');
 const INFRA_DIR = join(process.cwd(), 'content', 'knowledge', 'infrastructure');
 const DIFFICULTY_DIRS = ['beginner', 'intermediate', 'advanced'] as const;
 
-const SLUG_RE = /^[a-z0-9-]+$/i;
-
 const str = (v: string | string[] | undefined, fallback = ''): string =>
   typeof v === 'string' && v ? v : fallback;
 
@@ -38,39 +36,28 @@ const optStr = (v: string | string[] | undefined): string | undefined =>
 
 const list = (v: string | string[] | undefined): string[] => (Array.isArray(v) ? v : v ? [v] : []);
 
-interface ParsedFile {
-  meta: Record<string, string | string[]>;
-  content: string;
-  readTime: string;
+const isPublished = (entry: CollectionEntry) => entry.meta.published === 'true';
+
+/** Published entries of one folder; a missing folder is empty. */
+const readFolder = (dir: string): CollectionEntry[] => readCollection(dir).filter(isPublished);
+
+/** One published entry of a folder by slug (bip-kit only looks up plain names). */
+function readPublished(dir: string, slug: string): CollectionEntry | undefined {
+  const entry = readEntry(dir, slug);
+  return entry && isPublished(entry) ? entry : undefined;
 }
 
-function readContentFile(path: string): ParsedFile | null {
-  let raw: string;
-  try {
-    raw = readFileSync(path, 'utf8');
-  } catch {
-    return null;
-  }
-  const { meta, body } = parseFrontmatter(raw);
-  if (meta.published !== 'true') return null;
-  // Only for the word count that the index/hero show; the detail page parses
-  // again through lib/longform for the blocks it actually renders.
-  const blocks = parseContentBlocks(body);
-  return {
-    meta,
-    content: body,
-    readTime: `${readingTime(blocks).minutes} min`,
-  };
-}
+const readTime = (entry: CollectionEntry) =>
+  str(entry.meta.readTime, `${entry.readingMinutes} min`);
 
-function guideMetadata(slug: string, file: ParsedFile): GuideMetadata {
-  const { meta } = file;
+function guideMetadata(entry: CollectionEntry): GuideMetadata {
+  const { meta } = entry;
   return {
-    slug,
-    title: str(meta.title, slug),
+    slug: entry.slug,
+    title: entry.title,
     description: str(meta.description),
     difficulty: str(meta.difficulty, 'Beginner') as DifficultyLevel,
-    readTime: str(meta.readTime, file.readTime),
+    readTime: readTime(entry),
     author: optStr(meta.author),
     publishedAt: str(meta.publishedAt, toDateString()),
     updatedAt: optStr(meta.updatedAt),
@@ -89,16 +76,7 @@ export async function fetchAllGuides(): Promise<GuideMetadata[]> {
   const allGuides: GuideMetadata[] = [];
 
   for (const difficulty of DIFFICULTY_DIRS) {
-    let files: string[];
-    try {
-      files = readdirSync(join(GUIDES_DIR, difficulty)).filter((f) => f.endsWith('.md'));
-    } catch {
-      continue;
-    }
-    for (const f of files) {
-      const parsed = readContentFile(join(GUIDES_DIR, difficulty, f));
-      if (parsed) allGuides.push(guideMetadata(f.replace(/\.md$/, ''), parsed));
-    }
+    allGuides.push(...readFolder(join(GUIDES_DIR, difficulty)).map(guideMetadata));
   }
 
   // Sort by date (newest first)
@@ -111,15 +89,9 @@ export async function fetchAllGuides(): Promise<GuideMetadata[]> {
  * Fetch a single guide by slug
  */
 export async function fetchGuideBySlug(slug: string): Promise<Guide | null> {
-  if (!slug || !SLUG_RE.test(slug)) return null;
-
   for (const difficulty of DIFFICULTY_DIRS) {
-    const parsed = readContentFile(join(GUIDES_DIR, difficulty, `${slug}.md`));
-    if (!parsed) continue;
-    return {
-      metadata: guideMetadata(slug, parsed),
-      content: parsed.content,
-    };
+    const entry = readPublished(join(GUIDES_DIR, difficulty), slug);
+    if (entry) return { metadata: guideMetadata(entry), content: entry.body };
   }
 
   return null;
@@ -174,14 +146,14 @@ export async function fetchGuidesWithFilters(filters: GuideFilters): Promise<Gui
   return guides;
 }
 
-function comparisonGuide(slug: string, file: ParsedFile): ComparisonGuide {
-  const { meta } = file;
+function comparisonGuide(entry: CollectionEntry): ComparisonGuide {
+  const { meta } = entry;
   return {
-    slug,
-    title: str(meta.title, slug),
+    slug: entry.slug,
+    title: entry.title,
     description: str(meta.description),
     difficulty: str(meta.difficulty, 'Intermediate') as DifficultyLevel,
-    readTime: str(meta.readTime, file.readTime),
+    readTime: readTime(entry),
     publishedAt: str(meta.publishedAt, toDateString()),
     tags: list(meta.tags),
     category: 'infrastructure',
@@ -203,18 +175,7 @@ function comparisonGuide(slug: string, file: ParsedFile): ComparisonGuide {
  * Fetch all infrastructure comparison guides
  */
 export async function fetchInfrastructureGuides(): Promise<ComparisonGuide[]> {
-  let files: string[];
-  try {
-    files = readdirSync(INFRA_DIR).filter((f) => f.endsWith('.md'));
-  } catch {
-    return [];
-  }
-  const guides: ComparisonGuide[] = [];
-  for (const f of files) {
-    const parsed = readContentFile(join(INFRA_DIR, f));
-    if (parsed) guides.push(comparisonGuide(f.replace(/\.md$/, ''), parsed));
-  }
-  return guides;
+  return readFolder(INFRA_DIR).map(comparisonGuide);
 }
 
 /**
@@ -223,13 +184,8 @@ export async function fetchInfrastructureGuides(): Promise<ComparisonGuide[]> {
 export async function fetchInfrastructureGuideBySlug(
   slug: string,
 ): Promise<(ComparisonGuide & { content: string }) | null> {
-  if (!slug || !SLUG_RE.test(slug)) return null;
-  const parsed = readContentFile(join(INFRA_DIR, `${slug}.md`));
-  if (!parsed) return null;
-  return {
-    ...comparisonGuide(slug, parsed),
-    content: parsed.content,
-  };
+  const entry = readPublished(INFRA_DIR, slug);
+  return entry ? { ...comparisonGuide(entry), content: entry.body } : null;
 }
 
 /**
