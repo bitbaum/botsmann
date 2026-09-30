@@ -57,8 +57,8 @@ importers:
         specifier: ^2.17.2
         version: 2.17.2(@types/node@26.6.2)
       bip-kit:
-        specifier: ^0.3.1
-        version: 0.3.1(katex@0.16.47)(mermaid@11.17.2)(react@19.3.0)(shiki@4.4.3)
+        specifier: ^0.5.1
+        version: 0.5.1(katex@0.16.47)(mermaid@11.17.2)(react@19.3.0)(shiki@4.4.3)
       date-fns:
         specifier: ^4.4.0
         version: 4.4.0
@@ -1789,8 +1789,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  bip-kit@0.3.1:
-    resolution: {integrity: sha512-OnkaJiDCRz0UeMifgI8NHnHoaBWyvpYOgdDIfOcxMiIWDWliVyHU+jg5aYX6zccIH15G5uze1vaGJV1XdRDDJg==}
+  bip-kit@0.5.1:
+    resolution: {integrity: sha512-0+AbK4rrnz+RZbrDCD/i2bbroja4rQcS77ntfrQCF9cZd8tfvxawI5ObJrgiN1se3+JmVeMJGPptMRCQBTIVaw==}
     engines: {node: '>=20'}
     peerDependencies:
       katex: '>=0.16'
@@ -5410,7 +5410,7 @@ snapshots:
 
   baseline-browser-mapping@2.11.20: {}
 
-  bip-kit@0.3.1(katex@0.16.47)(mermaid@11.17.2)(react@19.3.0)(shiki@4.4.3):
+  bip-kit@0.5.1(katex@0.16.47)(mermaid@11.17.2)(react@19.3.0)(shiki@4.4.3):
     dependencies:
       react: 19.3.0
     optionalDependencies:

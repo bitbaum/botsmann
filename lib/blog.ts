@@ -1,16 +1,17 @@
-import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { parseFrontmatter } from 'bip-kit';
+import { readCollection, readEntry, type CollectionEntry } from 'bip-kit/node';
 
 /**
  * The blog's content collection: markdown files in content/blog/, committed
- * and reviewed like code (bip-kit's content contract). This replaced the
- * runtime GitHub fetching of a separate content repo — no API rate limits,
+ * and reviewed like code, read by bip-kit's collection reader. This replaced
+ * the runtime GitHub fetching of a separate content repo — no API rate limits,
  * no ISR staleness, no dependency on a renamed GitHub handle redirecting,
  * and generateStaticParams sees every post at build time.
  *
- * A post ships when its frontmatter says `published: true`; anything else
- * stays out of the index and 404s, exactly like the old remote flow.
+ * A post ships only when its frontmatter says `published: true` (stricter than
+ * bip-kit's default, which publishes anything not marked as a draft); anything
+ * else stays out of the index and 404s. A `date:` that is not YYYY-MM-DD fails
+ * the build and names the file.
  */
 export interface BlogPost {
   slug: string;
@@ -25,47 +26,28 @@ export interface BlogPost {
 
 const CONTENT_DIR = join(process.cwd(), 'content', 'blog');
 
-const asList = (v: string | string[] | undefined): string[] =>
-  Array.isArray(v) ? v : v ? [v] : [];
+const isPublished = (entry: CollectionEntry) => entry.meta.published === 'true';
 
-function readPost(file: string): BlogPost | null {
-  const raw = readFileSync(join(CONTENT_DIR, file), 'utf8');
-  const { meta, body } = parseFrontmatter(raw);
-  if (meta.published !== 'true') return null;
-
-  const slug = file.replace(/\.md$/, '');
+function toPost(entry: CollectionEntry): BlogPost {
+  const { featuredImage, excerpt } = entry.meta;
   return {
-    slug,
-    title: typeof meta.title === 'string' && meta.title ? meta.title : slug,
-    date: typeof meta.date === 'string' ? meta.date : '',
-    author: typeof meta.author === 'string' && meta.author ? meta.author : 'Botsmann Team',
-    excerpt: typeof meta.excerpt === 'string' ? meta.excerpt : '',
-    content: body,
-    tags: asList(meta.tags),
-    featuredImage:
-      typeof meta.featuredImage === 'string' && meta.featuredImage ? meta.featuredImage : undefined,
+    slug: entry.slug,
+    title: entry.title,
+    date: entry.date,
+    author: entry.author ?? 'Botsmann Team',
+    excerpt: typeof excerpt === 'string' ? excerpt : '',
+    content: entry.body,
+    tags: entry.tags,
+    featuredImage: typeof featuredImage === 'string' && featuredImage ? featuredImage : undefined,
   };
 }
 
+/** Published posts, newest first. */
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
-  let files: string[];
-  try {
-    files = readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.md'));
-  } catch {
-    return [];
-  }
-  return files
-    .map(readPost)
-    .filter((post): post is BlogPost => post !== null)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return readCollection(CONTENT_DIR).filter(isPublished).map(toPost);
 }
 
 export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  // Slugs come from the URL; only plain names may reach the filesystem.
-  if (!slug || !/^[a-z0-9-]+$/i.test(slug)) return null;
-  try {
-    return readPost(`${slug}.md`);
-  } catch {
-    return null;
-  }
+  const entry = readEntry(CONTENT_DIR, slug);
+  return entry && isPublished(entry) ? toPost(entry) : null;
 }
