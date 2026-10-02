@@ -286,12 +286,8 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             {
               icon: '📁',
               title: 'Smart File Organization',
-              description: 'AI auto-categorizes and analyzes documents. 8 intelligent categories.',
-            },
-            {
-              icon: '🌍',
-              title: '130+ Jurisdictions',
-              description: 'All 50 US states, 27 EU countries, 26 Swiss cantons, and more.',
+              description:
+                'Sort documents into categories so each professional reads what is relevant.',
             },
             {
               icon: '📋',
@@ -367,46 +363,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
         } as BenefitsContent,
       },
       {
-        id: 'testimonials',
-        type: 'testimonials',
-        content: {
-          badge: 'What Legal Professionals Say',
-          title: 'Trusted by Legal Professionals',
-          subtitle:
-            'Legal experts collaborate in AI-powered data rooms with multi-level privacy controls.',
-          testimonials: [
-            {
-              quote:
-                'The team behind Lex is doing something extraordinary. Their combination of deep legal understanding and cutting-edge AI is impressive.',
-              author: '@LegalEagle_CH',
-              role: 'Partner, International Law Firm',
-              company: 'Zurich, Switzerland',
-              tag: 'Corporate Law',
-            },
-            {
-              quote:
-                "I've reviewed their technical approach and vision for AI-assisted legal work. The methodology is sound and forward-thinking.",
-              author: '@TechLawProf',
-              role: 'Professor of Legal Tech',
-              company: 'University of St. Gallen',
-              tag: 'Legal Technology',
-            },
-            {
-              quote:
-                "What impressed me most is their commitment to building this responsibly. They're not promising overnight transformation.",
-              author: '@DataRoomQueen',
-              role: 'Legal Counsel, Tech Startup',
-              company: 'Berlin, Germany',
-              tag: 'Tech & IP Law',
-            },
-          ],
-          cta: {
-            text: 'Join Legal Professionals Shaping the Future',
-            href: '#cta',
-          },
-        } as TestimonialsContent,
-      },
-      {
         id: 'vision',
         type: 'vision',
         content: {
@@ -438,7 +394,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 1',
               status: 'in-progress',
               title: 'AI Legal Assistant',
-              timeline: '2025-2026',
               description:
                 'Lex assists lawyers with research, document analysis, and compliance checking.',
               capabilities: [
@@ -452,7 +407,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 2',
               status: 'planned',
               title: 'AI Legal Advisor',
-              timeline: '2026-2027',
               description:
                 'Advanced reasoning for legal strategy, case evaluation, and predictive analytics.',
               capabilities: [
@@ -466,7 +420,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 3',
               status: 'vision',
               title: 'AI Judge',
-              timeline: '2028+',
               description: 'Impartial adjudication for specific case types, with human oversight.',
               capabilities: [
                 'Small claims adjudication',
@@ -486,8 +439,7 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             {
               icon: '🎓',
               title: 'Enhanced Expertise',
-              description:
-                'Lawyers spend 30-40% on routine tasks. AI frees them to focus on strategy.',
+              description: 'AI takes on routine tasks so lawyers can focus on strategy.',
             },
             {
               icon: '⚖️',
@@ -518,11 +470,11 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               items: [
                 {
                   title: 'Large Language Models',
-                  description: 'Claude, GPT-4, custom fine-tuned models',
+                  description: 'Models served through Groq and OpenRouter, with failover',
                 },
                 {
                   title: 'Vector Databases',
-                  description: 'Pinecone, Weaviate for semantic search',
+                  description: 'PostgreSQL with pgvector for semantic search',
                 },
                 {
                   title: 'RAG Architecture',
@@ -545,9 +497,11 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             {
               title: 'Privacy & Security',
               items: [
-                { title: 'End-to-End Encryption', description: 'Zero-knowledge architecture' },
+                {
+                  title: 'Row-Level Security',
+                  description: 'Your documents are visible to your account alone',
+                },
                 { title: 'On-Premise Deployment', description: 'Self-hosted for sensitive data' },
-                { title: 'GDPR Compliance', description: 'Privacy-first by design' },
               ],
             },
           ],
@@ -587,13 +541,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             text: 'Try Lex Now',
             href: '#demo',
           },
-          metrics: [
-            { label: 'Waitlist Members', dynamic: true },
-            { label: 'Active Cases', dynamic: true },
-            { label: 'Data Rooms Created', dynamic: true },
-            { label: 'Expected Launch', value: 'Q2 2026' },
-          ],
-          note: 'We believe in transparency. These numbers update in real-time.',
         } as CTAContent,
         isLast: true,
       },
@@ -703,10 +650,10 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
         id: 'medbox',
         type: 'features',
         content: {
-          badge: 'Home Health Lab',
+          badge: 'Concept',
           title: 'MedBox: Your Home Health Laboratory',
           subtitle:
-            'Clinical-grade diagnostics at home. MedBox automates health monitoring and puts the power of a medical lab at your fingertips.',
+            'A concept, not yet built: a home lab that automates health monitoring and feeds its readings to Imhotep.',
           columns: 3,
           features: [
             {
@@ -824,7 +771,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 1',
               status: 'in-progress',
               title: 'Health Information Assistant',
-              timeline: '2025-2026',
               description: 'AI-powered health education and guidance.',
               capabilities: [
                 'Symptom information',
@@ -837,7 +783,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 2',
               status: 'planned',
               title: 'Clinical Support Tool',
-              timeline: '2026',
               description: 'Enhanced decision support for healthcare providers.',
               capabilities: [
                 'Case analysis assistance',
@@ -1225,7 +1170,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 1',
               status: 'in-progress',
               title: 'Research Assistant',
-              timeline: '2025-2026',
               description: 'Organization, search, and synthesis tools.',
               capabilities: [
                 'Material organization',
@@ -1238,7 +1182,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 2',
               status: 'planned',
               title: 'Discovery Engine',
-              timeline: '2026',
               description: 'Advanced pattern recognition and gap analysis.',
               capabilities: [
                 'Cross-domain connections',

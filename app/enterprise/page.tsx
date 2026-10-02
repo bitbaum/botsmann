@@ -5,7 +5,7 @@ import { ConsultationFormLoader } from '@/components/ConsultationFormLoader';
 export const metadata: Metadata = {
   title: 'Enterprise | Botsmann',
   description:
-    'Deploy private AI professionals for your organization. On-premises deployment, team accounts, custom training, and enterprise-grade security.',
+    'Deploy private AI professionals for your organization: self-hosted, answering from your own documents.',
 };
 
 /**
@@ -39,8 +39,8 @@ export default function EnterprisePage() {
       icon: '🏢',
       title: 'Enterprises',
       description:
-        'Custom AI professionals trained on your internal knowledge base. Private, secure, and compliant.',
-      features: ['Custom training', 'Knowledge base', 'Team collaboration', 'Usage analytics'],
+        'Custom AI professionals that answer from your internal documents, on your own servers.',
+      features: ['Custom professionals', 'Your documents', 'Self-hosting'],
     },
   ];
 
@@ -58,22 +58,7 @@ export default function EnterprisePage() {
       ),
       title: 'On-Premises Deployment',
       description:
-        'Deploy Botsmann entirely on your infrastructure. Your data never leaves your network.',
-    },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-          />
-        </svg>
-      ),
-      title: 'Team Accounts',
-      description:
-        'Manage user access, set permissions, and monitor usage across your organization.',
+        'Botsmann is MIT-licensed: run it entirely on your infrastructure, so your data stays on your network.',
     },
     {
       icon: (
@@ -86,63 +71,10 @@ export default function EnterprisePage() {
           />
         </svg>
       ),
-      title: 'Custom Training',
+      title: 'Your Own Documents',
       description:
-        'Train AI professionals on your internal documents, procedures, and knowledge base.',
+        'Upload your internal documents; professionals answer from them and cite their sources.',
     },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-          />
-        </svg>
-      ),
-      title: 'SSO Integration',
-      description:
-        'Single sign-on with your existing identity provider. Support for SAML, OAuth, and OIDC.',
-    },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-          />
-        </svg>
-      ),
-      title: 'Audit Logs',
-      description: 'Complete activity logging for compliance. Track who accessed what and when.',
-    },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-          />
-        </svg>
-      ),
-      title: 'API Access',
-      description:
-        'Integrate AI professionals into your existing workflows and applications via REST API.',
-    },
-  ];
-
-  const compliance = [
-    { name: 'SOC 2 Type II', icon: '✓' },
-    { name: 'HIPAA', icon: '✓' },
-    { name: 'GDPR', icon: '✓' },
-    { name: 'ISO 27001', icon: '✓' },
-    { name: 'Data Residency', icon: '✓' },
-    { name: 'BAA Available', icon: '✓' },
   ];
 
   return (
@@ -158,7 +90,7 @@ export default function EnterprisePage() {
         <section className="text-center mb-20 pt-8">
           <div className="inline-flex items-center gap-2 bg-action-tint text-action px-4 py-2 rounded-full text-sm font-medium mb-8">
             <span className="w-2 h-2 bg-action rounded-full" />
-            <span>Enterprise-Grade AI Professionals</span>
+            <span>Private AI Professionals for Teams</span>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">
@@ -168,8 +100,8 @@ export default function EnterprisePage() {
           </h1>
 
           <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Deploy private AI assistants for your law firm, medical practice, or business. Full data
-            sovereignty, custom training, and enterprise security.
+            Deploy private AI assistants for your law firm, medical practice, or business, on your
+            own infrastructure and grounded in your own documents.
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -260,11 +192,11 @@ export default function EnterprisePage() {
               <span className="text-ink">Enterprise Features</span>
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Everything you need to deploy AI professionals at scale
+              What you get when you deploy Botsmann for your team
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {features.map((feature) => (
               <div
                 key={feature.title}
@@ -277,34 +209,6 @@ export default function EnterprisePage() {
                 <p className="text-sm text-gray-600">{feature.description}</p>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* Security & Compliance */}
-        <section className="mb-20">
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 md:p-12 text-white">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold mb-4">Security & Compliance</h2>
-              <p className="text-gray-300 max-w-2xl mx-auto">
-                Enterprise-grade security with full compliance support for regulated industries
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
-              {compliance.map((item) => (
-                <div
-                  key={item.name}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center"
-                >
-                  <div className="text-2xl text-green-400 mb-2">{item.icon}</div>
-                  <div className="text-sm font-medium">{item.name}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-10 text-center text-gray-400 text-sm">
-              Need a specific compliance certification? Contact us to discuss your requirements.
-            </div>
           </div>
         </section>
 

@@ -249,7 +249,7 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'privacy-first',
     topic: 'Privacy & Security',
     question: 'How does Botsmann handle privacy and data security?',
-    content: `Privacy is at the core of Botsmann. We build private AI assistants where your data stays yours. You can choose to run the AI locally on your computer for maximum privacy, or in the cloud for anywhere access. For local setups, there are no subscriptions required—you own it forever. We never share your data with third parties, and you have complete control over your information.`,
+    content: `Privacy is at the core of Botsmann. We build private AI assistants where your data stays yours. You can choose to run the AI locally on your computer for maximum privacy, or in the cloud for anywhere access. For local setups, there are no subscriptions required—you own it forever. We never sell your data or use it to train models, and you have complete control over your information.`,
     keywords: ['privacy', 'security', 'data', 'private', 'local', 'safe', 'secure', 'protection'],
   },
 
@@ -386,7 +386,7 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'consulting-overview',
     topic: 'Consulting',
     question: 'What consulting services does Botsmann offer?',
-    content: `Botsmann offers expert AI bot consulting services. We provide: Custom bot development (we design and build AI bots tailored to your business processes), Integration & deployment (seamlessly integrate AI into your existing systems), and Training & support (knowledge transfer, best practices, and ongoing support). Our team helps you design, develop, and deploy intelligent assistants tailored to your specific needs.`,
+    content: `Botsmann offers expert AI bot consulting services. We provide: Custom bot development (we design and build AI bots tailored to your business processes), Integration & deployment (seamlessly integrate AI into your existing systems), and Training & support (knowledge transfer, best practices, and ongoing support). We help you design, develop, and deploy intelligent assistants tailored to your specific needs.`,
     keywords: [
       'consulting',
       'services',
@@ -401,7 +401,7 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'consulting-diy',
     topic: 'Consulting',
     question: 'Can I build my own AI assistant?',
-    content: `Yes! If you prefer to build it yourself, we offer free DIY guides in our Knowledge Center with step-by-step instructions. We believe in empowering users with knowledge. However, if you want expert guidance or don't have the time, our consulting team is happy to help with custom development and deployment.`,
+    content: `Yes! If you prefer to build it yourself, we offer free DIY guides in our Knowledge Center with step-by-step instructions. We believe in empowering users with knowledge. However, if you want expert guidance or don't have the time, we are happy to help with custom development and deployment.`,
     keywords: ['diy', 'self', 'build', 'guide', 'knowledge', 'tutorial', 'learn'],
   },
 
@@ -417,7 +417,7 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'demo-available',
     topic: 'Demo',
     question: 'Can I try a demo?',
-    content: `Yes! You're using the demo right now! This assistant demonstrates how our RAG (Retrieval Augmented Generation) technology works. It searches a knowledge base to find relevant information and uses AI to generate helpful responses. This is the same technology we use to build private AI assistants for clients. Want to see how it could work with your data? Book a consultation!`,
+    content: `Yes! You're using the demo right now! This assistant demonstrates how our RAG (Retrieval Augmented Generation) technology works. It searches a knowledge base to find relevant information and uses AI to generate helpful responses. This is the same technology behind every Botsmann professional. Want to see how it could work with your data? Book a consultation!`,
     keywords: ['demo', 'try', 'test', 'example', 'live', 'experience', 'sample', 'rag'],
   },
 
@@ -426,7 +426,7 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'bots-overview',
     topic: 'AI Assistants',
     question: 'What AI assistants does Botsmann offer?',
-    content: `Botsmann offers six specialized AI assistants: 1) Heidi - Swiss German Teacher (live), 2) Lex - Legal Expert (demo available), 3) Imhotep - Medical Expert (demo available), 4) Nerd - Research Assistant (demo available), 5) Trident - AI Product Manager (demo available), and 6) Muse - Artistic Advisor (demo available). Each bot is specialized for its domain while keeping your data private and secure.`,
+    content: `Botsmann offers six specialized AI assistants: Heidi (Swiss German Teacher), Lex (Legal Expert), Imhotep (Medical Expert), Nerd (Research Assistant), Trident (AI Product Manager), and Muse (Artistic Advisor). You can chat with every one of them on the Professionals page. Each bot is specialized for its domain while keeping your data private and secure.`,
     keywords: ['bots', 'assistants', 'all', 'list', 'available', 'offer', 'which'],
   },
 ];

@@ -17,8 +17,7 @@ export const site = {
   url: 'https://botsmann.orangecat.ch',
   author: 'Botsmann AI',
   social: {
-    github: 'https://github.com/g-but',
-    twitter: 'https://twitter.com/AithelionV',
+    github: 'https://github.com/bitbaum/botsmann',
   },
 } as const;
 

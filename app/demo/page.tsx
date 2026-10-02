@@ -240,14 +240,14 @@ const DemoPage: FC = () => {
                 <li>
                   • <strong>Generation:</strong> LLM creates a natural response
                 </li>
-                <li>• 23 knowledge chunks about Botsmann</li>
+                <li>• 24 knowledge chunks about Botsmann</li>
               </ul>
             </div>
             <div>
               <h3 className="font-medium text-gray-900 mb-2">Technology Stack</h3>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>
-                  • <strong>LLM:</strong> Groq (Llama 3.1) - free tier, no cost
+                  • <strong>LLM:</strong> Groq and OpenRouter free tiers, with failover
                 </li>
                 <li>
                   • <strong>Search:</strong> TF-IDF-like keyword scoring
