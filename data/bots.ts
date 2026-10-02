@@ -182,7 +182,6 @@ const bots: Bot[] = [
       menuItems: [
         { id: 'demo', label: 'Demo', icon: '💻', section: 'demo' },
         { id: 'features', label: 'Features', icon: '⚖️', section: 'features' },
-        { id: 'testimonials', label: 'Testimonials', icon: '💬', section: 'testimonials' },
         { id: 'vision', label: 'Vision', icon: '🚀', section: 'vision' },
         { id: 'technology', label: 'Technology', icon: '⚙️', section: 'technology' },
         { id: 'get-started', label: 'Join Waitlist', icon: '✨', section: 'cta' },
@@ -191,9 +190,9 @@ const bots: Bot[] = [
     display: {
       tagline: 'Your AI-powered legal companion',
       whatItDoes:
-        'Analyzes legal cases, matches you with expert lawyers, and provides secure collaborative workspaces',
+        'Reviews contracts, answers legal questions, and analyzes cases in plain language',
       inputData: 'Legal documents, case descriptions, jurisdiction info',
-      output: 'AI case analysis, lawyer matches, secure data room',
+      output: 'Case analysis, contract review, plain-language explanations',
       useCases: [
         'Immigration cases',
         'Employment disputes',

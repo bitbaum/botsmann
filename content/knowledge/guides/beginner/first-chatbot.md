@@ -269,5 +269,3 @@ node bot.js
 - **Add RAG** - Give your bot custom knowledge
 - **Try different models** - Each has unique strengths
 - **Add streaming** - Show responses as they generate
-
-See our [Model Comparison Guide](/knowledge/infrastructure/model-comparison) for detailed provider profiles.

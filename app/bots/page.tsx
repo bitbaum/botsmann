@@ -6,8 +6,6 @@ import { getChatPathFromBotSlug } from '@/data/professionals';
 export default function BotsList() {
   // Only mark bots as "ready" if they have actual working try links
   // Currently only Heidi (swiss-german-teacher) has a GPT link
-  const readyBots = bots.filter((b) => b.tryLink).map((b) => b.slug);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-action-tint">
       <div className="mx-auto max-w-screen-xl px-6 py-16">
@@ -77,20 +75,12 @@ export default function BotsList() {
                 .join(' ');
             const emoji = bot.nav?.emoji || '🤖';
 
-            const isReady = readyBots.includes(bot.slug);
-
             return (
               <Link
                 key={bot.slug}
                 href={getChatPathFromBotSlug(bot.slug)}
                 className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-gray-100 hover:border-action"
               >
-                {!isReady && (
-                  <span className="absolute right-4 top-4 z-10 inline-block bg-gray-900 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                    Coming Soon
-                  </span>
-                )}
-
                 {/* Bot Header */}
                 <div className="p-6 pb-4">
                   <div className="flex items-center mb-3">

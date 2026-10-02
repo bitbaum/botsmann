@@ -29,7 +29,7 @@ export default function Comments({ slug }: { slug: string }) {
     // Create giscus script element
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
-    script.setAttribute('data-repo', 'g-but/botsmann-blog-content');
+    script.setAttribute('data-repo', 'bitbaum/botsmann-blog-content');
     script.setAttribute('data-repo-id', 'R_kgDOODOnUA');
     script.setAttribute('data-category', 'Blog Comments');
     script.setAttribute('data-category-id', 'DIC_kwDOODOnUM4CnkL1');
