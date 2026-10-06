@@ -13,6 +13,7 @@ export function CTASection({ content, tryLink }: CTASectionProps) {
   const accent = BRAND_ACCENT;
 
   const primaryHref = primaryButton.useTryLink ? tryLink : (primaryButton.href ?? '#');
+  const opensExternal = primaryHref.startsWith('http');
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -24,8 +25,8 @@ export function CTASection({ content, tryLink }: CTASectionProps) {
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
           <a
             href={primaryHref}
-            target={primaryButton.useTryLink ? '_blank' : undefined}
-            rel={primaryButton.useTryLink ? 'noopener noreferrer' : undefined}
+            target={opensExternal ? '_blank' : undefined}
+            rel={opensExternal ? 'noopener noreferrer' : undefined}
             className={`px-8 py-3 rounded-lg font-medium text-white ${accent.primary} hover:opacity-90 transition-opacity`}
           >
             {primaryButton.text}

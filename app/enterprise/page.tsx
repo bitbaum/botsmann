@@ -1,11 +1,10 @@
 import { type Metadata } from 'next';
 import Link from 'next/link';
-import { ConsultationFormLoader } from '@/components/ConsultationFormLoader';
 
 export const metadata: Metadata = {
   title: 'Enterprise | Botsmann',
   description:
-    'Deploy private AI professionals for your organization: self-hosted, answering from your own documents.',
+    'Deploy private AI professionals for your organization: self-hosted, with chat over your own documents.',
 };
 
 /**
@@ -18,7 +17,7 @@ export default function EnterprisePage() {
       icon: '⚖️',
       title: 'Law Firms',
       description:
-        'AI legal research assistants for associates. Contract analysis, case law search, and document review at scale.',
+        'AI legal research assistants for associates: contract analysis, legal research, and document review.',
       features: ['Contract analysis', 'Legal research', 'Document review', 'Case summarization'],
     },
     {
@@ -38,8 +37,7 @@ export default function EnterprisePage() {
     {
       icon: '🏢',
       title: 'Enterprises',
-      description:
-        'Custom AI professionals that answer from your internal documents, on your own servers.',
+      description: 'Custom AI assistants built with your own knowledge, on your own servers.',
       features: ['Custom professionals', 'Your documents', 'Self-hosting'],
     },
   ];
@@ -73,7 +71,7 @@ export default function EnterprisePage() {
       ),
       title: 'Your Own Documents',
       description:
-        'Upload your internal documents; professionals answer from them and cite their sources.',
+        'Upload your internal documents and ask questions about them; each answer names its source.',
     },
   ];
 
@@ -101,7 +99,7 @@ export default function EnterprisePage() {
 
           <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
             Deploy private AI assistants for your law firm, medical practice, or business, on your
-            own infrastructure and grounded in your own documents.
+            own infrastructure, with chat over your own documents.
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -110,7 +108,7 @@ export default function EnterprisePage() {
               className="group bg-action text-white px-8 py-4 rounded-xl text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
               <span className="flex items-center justify-center gap-2">
-                Schedule a Demo
+                Write to Us
                 <svg
                   className="w-5 h-5 group-hover:translate-x-1 transition-transform"
                   fill="none"
@@ -219,12 +217,12 @@ export default function EnterprisePage() {
               <span className="text-ink">Get in Touch</span>
             </h2>
             <p className="text-gray-600">
-              Schedule a demo or discuss your specific requirements with our team
+              Questions about running Botsmann for your organization? Write to{' '}
+              <a href="mailto:cato@orangecat.ch" className="text-action hover:underline">
+                cato@orangecat.ch
+              </a>
+              .
             </p>
-          </div>
-
-          <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 max-w-xl mx-auto">
-            <ConsultationFormLoader />
           </div>
         </section>
       </main>

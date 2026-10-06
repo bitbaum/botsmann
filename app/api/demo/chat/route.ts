@@ -56,23 +56,23 @@ Guidelines:
 - Be friendly, professional, and concise
 - Use the provided context to answer questions accurately
 - If the context doesn't contain relevant information, say so honestly
-- Encourage users to book a consultation for detailed discussions
+- For questions the context cannot answer, point users to cato@orangecat.ch
 - Mention specific bot names (Heidi, Lex, Imhotep, Nerd, Trident, Muse) when relevant
 - Emphasize Botsmann's privacy-first approach when discussing data handling
 
 Available AI Assistants:
 - Heidi: Swiss German Teacher (live)
-- Lex: Legal Expert (demo available)
-- Imhotep: Medical Expert (demo available)
-- Nerd: Research Assistant (demo available)
-- Trident: AI Product Manager (demo available)
-- Muse: Artistic Advisor (demo available)
+- Lex: Legal Expert (live)
+- Imhotep: Medical Expert (live)
+- Nerd: Research Assistant (live)
+- Trident: AI Product Manager (live)
+- Muse: Artistic Advisor (live)
 
 Key value propositions:
 - Your data stays yours (privacy-first)
 - Local or cloud deployment options
 - No subscriptions for local setups
-- Expert consulting available`;
+- MIT-licensed, so anyone can run it themselves`;
 
 interface LLMResult {
   content: string;
@@ -249,7 +249,7 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'privacy-first',
     topic: 'Privacy & Security',
     question: 'How does Botsmann handle privacy and data security?',
-    content: `Privacy is at the core of Botsmann. We build private AI assistants where your data stays yours. You can choose to run the AI locally on your computer for maximum privacy, or in the cloud for anywhere access. For local setups, there are no subscriptions required—you own it forever. We never sell your data or use it to train models, and you have complete control over your information.`,
+    content: `Privacy is at the core of Botsmann. We build private AI assistants where your data stays yours. You can choose to run the AI locally on your computer for maximum privacy, or in the cloud for anywhere access. For local setups, there are no subscriptions required—you own it forever. We never sell your data or use it to train models, and your documents are visible to your account alone.`,
     keywords: ['privacy', 'security', 'data', 'private', 'local', 'safe', 'secure', 'protection'],
   },
 
@@ -258,14 +258,14 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'how-step-1',
     topic: 'How It Works',
     question: 'How do I get started with Botsmann?',
-    content: `Getting started is simple! Step 1: Book a free consultation call. We'll understand your use case—whether it's medical, legal, financial, or learning—and recommend the best approach for your needs. No commitment required, just a friendly conversation to explore possibilities.`,
-    keywords: ['start', 'begin', 'first', 'consultation', 'call', 'book', 'free', 'getting'],
+    content: `Getting started is simple: pick a professional on the Professionals page and start chatting. To ask questions about your own documents, sign in and upload them on the Documents page.`,
+    keywords: ['start', 'begin', 'first', 'consultation', 'try', 'free', 'getting'],
   },
   {
     id: 'how-step-2',
     topic: 'How It Works',
-    question: 'What happens after the consultation?',
-    content: `Step 2: We set everything up for you. You choose whether you want local deployment (runs on your computer, maximum privacy) or cloud deployment (access from anywhere). We handle all the technical complexity—configuring the AI, loading your data, and making sure everything works smoothly.`,
+    question: 'Can I run Botsmann on my own computer?',
+    content: `Yes. Botsmann is MIT-licensed. You can use the hosted site, or run it yourself and point it at a local model through Ollama, so your data stays on your machine. Running it yourself takes technical setup; the Knowledge Center has guides.`,
     keywords: [
       'setup',
       'configure',
@@ -281,7 +281,7 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'how-step-3',
     topic: 'How It Works',
     question: 'Do I need a subscription?',
-    content: `Step 3: You own it forever! Your AI assistant knows your information and is ready to help. For local setups, there are no subscriptions required—it's yours to keep. Cloud deployments have ongoing hosting costs, but you still own your data and can export it anytime.`,
+    content: `No. The professionals on the site are free to use, and if you run Botsmann yourself there is no subscription: it is MIT-licensed.`,
     keywords: ['subscription', 'cost', 'price', 'own', 'forever', 'keep', 'payment', 'pricing'],
   },
 
@@ -297,7 +297,7 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'bot-heidi-features',
     topic: 'AI Assistants',
     question: 'What can Heidi do?',
-    content: `Heidi's features include: Adaptive learning that tests your progress in smart ways, discovering tonight's events and activities in Zurich, dual-language comparison between High German and Züridütsch, real-life context examples for words and phrases, instant writing help for emails and texts in both languages, and Swiss cultural insights including history and social life tips. Heidi is currently live and available!`,
+    content: `Heidi's features include: quizzes on what you have learned, discovering tonight's events and activities in Zurich, dual-language comparison between High German and Züridütsch, real-life context examples for words and phrases, instant writing help for emails and texts in both languages, and Swiss cultural insights including history and social life tips. Heidi is currently live and available!`,
     keywords: ['heidi', 'features', 'learn', 'events', 'zurich', 'language', 'culture', 'writing'],
   },
 
@@ -313,8 +313,8 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'bot-research-features',
     topic: 'AI Assistants',
     question: 'What can the Research Assistant do?',
-    content: `The Research Assistant features: Automated research systematization (organizes your uploaded materials), web scraping for the latest updates in your field, AI-generated research drafts with proper citations, daily thought-provoking questions to challenge your thinking, Big Discovery Mode to identify research gaps and novel connections, and integration tools for collaboration. It helps transform how you conduct research.`,
-    keywords: ['research', 'features', 'organize', 'scraping', 'drafts', 'citations', 'discovery'],
+    content: `The Research Assistant turns rough notes into structured drafts, and asks questions that challenge your thinking and expose gaps in an argument.`,
+    keywords: ['research', 'features', 'papers', 'upload', 'drafts', 'questions', 'gaps'],
   },
 
   // Bots - Medical Expert
@@ -338,7 +338,7 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'bot-legal-overview',
     topic: 'AI Assistants',
     question: 'What is Lex the Legal Expert?',
-    content: `Lex is our Legal Expert Assistant—a Swiss legal assistant with AI analysis, lawyer collaboration features, and jurisdiction-specific expertise. It helps navigate legal complexities with comprehensive legal research and analysis support for legal professionals.`,
+    content: `Lex is our Legal Expert Assistant—a legal assistant with AI analysis that asks about your jurisdiction and legal area. It does not connect you with a lawyer; it suggests the questions to put to one. It helps navigate legal complexities with comprehensive legal research and analysis support for legal professionals.`,
     keywords: ['lex', 'legal', 'lawyer', 'law', 'swiss', 'jurisdiction', 'contract'],
   },
   {
@@ -385,8 +385,8 @@ const knowledgeChunks: KnowledgeChunk[] = [
   {
     id: 'consulting-overview',
     topic: 'Consulting',
-    question: 'What consulting services does Botsmann offer?',
-    content: `Botsmann offers expert AI bot consulting services. We provide: Custom bot development (we design and build AI bots tailored to your business processes), Integration & deployment (seamlessly integrate AI into your existing systems), and Training & support (knowledge transfer, best practices, and ongoing support). We help you design, develop, and deploy intelligent assistants tailored to your specific needs.`,
+    question: 'Can Botsmann help me set it up?',
+    content: `Botsmann is MIT-licensed, so you can run it on your own servers. The Knowledge Center has free guides for building and hosting AI assistants. For questions about running Botsmann for your organization, write to cato@orangecat.ch.`,
     keywords: [
       'consulting',
       'services',
@@ -401,7 +401,7 @@ const knowledgeChunks: KnowledgeChunk[] = [
     id: 'consulting-diy',
     topic: 'Consulting',
     question: 'Can I build my own AI assistant?',
-    content: `Yes! If you prefer to build it yourself, we offer free DIY guides in our Knowledge Center with step-by-step instructions. We believe in empowering users with knowledge. However, if you want expert guidance or don't have the time, we are happy to help with custom development and deployment.`,
+    content: `Yes. The Knowledge Center has free step-by-step guides, and the bot builder lets you create your own assistant with its own personality, instructions and knowledge.`,
     keywords: ['diy', 'self', 'build', 'guide', 'knowledge', 'tutorial', 'learn'],
   },
 
@@ -409,15 +409,15 @@ const knowledgeChunks: KnowledgeChunk[] = [
   {
     id: 'contact-consultation',
     topic: 'Contact',
-    question: 'How do I book a consultation?',
-    content: `You can book a free consultation by visiting the Contact page on our website or clicking "Book a Consultation" on the homepage. We'll schedule a call to understand your needs—whether it's medical, legal, financial, or learning use cases—and recommend the best approach. No commitment required!`,
-    keywords: ['contact', 'consultation', 'book', 'call', 'talk', 'meet', 'schedule'],
+    question: 'How do I get in touch?',
+    content: `Write to cato@orangecat.ch. The address is also on the Contact page.`,
+    keywords: ['contact', 'email', 'consultation', 'talk', 'reach', 'question'],
   },
   {
     id: 'demo-available',
     topic: 'Demo',
     question: 'Can I try a demo?',
-    content: `Yes! You're using the demo right now! This assistant demonstrates how our RAG (Retrieval Augmented Generation) technology works. It searches a knowledge base to find relevant information and uses AI to generate helpful responses. This is the same technology behind every Botsmann professional. Want to see how it could work with your data? Book a consultation!`,
+    content: `Yes! You're using the demo right now! This assistant demonstrates how our RAG (Retrieval Augmented Generation) technology works. It searches a knowledge base to find relevant information and uses AI to generate helpful responses. This is the same technology behind every Botsmann professional. To see it work with your own data, sign in and upload a document on the Documents page.`,
     keywords: ['demo', 'try', 'test', 'example', 'live', 'experience', 'sample', 'rag'],
   },
 
@@ -472,7 +472,7 @@ export async function POST(request: NextRequest) {
       context =
         results.length > 0
           ? results.map((r) => r.chunk.content).join('\n\n')
-          : "I don't have specific information about that. Try asking about Botsmann's AI assistants (Heidi, Lex, Imhotep, Nerd, Trident, Muse), how to get started, our consulting services, or privacy practices!";
+          : "I don't have specific information about that. Try asking about Botsmann's AI assistants (Heidi, Lex, Imhotep, Nerd, Trident, Muse), how to get started, or privacy practices!";
     }
 
     // Generate response with best available LLM (Ollama > Groq > OpenRouter)

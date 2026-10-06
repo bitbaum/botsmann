@@ -3,6 +3,7 @@
 import { useParams } from 'next/navigation';
 import { getBotPageConfig } from '@/lib/config/bot-pages';
 import { getBotBySlug, getBotTryLink } from '@/data/bots';
+import { getChatPathFromBotSlug } from '@/data/professionals';
 import { getBotHeroConfig } from '@/data/botHeroConfigs';
 import BotNavigation from '@/app/bots/BotNavigation';
 import { BotNotFoundFallback } from '@/components/shared/BotNotFoundFallback';
@@ -50,7 +51,8 @@ export default function BotPage() {
   }
 
   const rawTryLink = getBotTryLink(bot);
-  const tryLink = rawTryLink || '#waitlist';
+  // Every professional chats live at /professionals/<slug>; there is no waitlist.
+  const tryLink = rawTryLink || getChatPathFromBotSlug(slug);
 
   return (
     <div className="min-h-screen bg-paper">
@@ -96,7 +98,11 @@ function SectionRenderer({ section, botSlug, tryLink, heroConfig }: SectionRende
     if (!heroConfig) return null;
     const config = {
       ...heroConfig,
-      primaryCTA: { ...heroConfig.primaryCTA, href: tryLink },
+      primaryCTA: {
+        ...heroConfig.primaryCTA,
+        href: tryLink,
+        external: tryLink.startsWith('http'),
+      },
     };
     return <BotHeroSection config={config} />;
   }

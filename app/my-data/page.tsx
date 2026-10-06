@@ -58,9 +58,7 @@ export default function MyDataPage() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">My Data</h1>
-            <p className="text-gray-600">
-              Manage your documents and personalize your AI Professionals
-            </p>
+            <p className="text-gray-600">Manage your documents</p>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/professionals" className="text-sm text-action hover:text-action">
@@ -97,7 +95,7 @@ export default function MyDataPage() {
           <div>
             <p className="font-medium text-green-800">Your data is private</p>
             <p className="text-sm text-green-700">
-              Documents are encrypted and only accessible to you. We never use your data to train AI
+              Documents are visible to your account alone. We never use your data to train AI
               models.
             </p>
           </div>
@@ -127,13 +125,11 @@ export default function MyDataPage() {
 
         {/* Info Box */}
         <div className="mt-8 bg-action-tint rounded-xl p-6 border border-edge">
-          <h3 className="font-semibold text-action mb-2">
-            How to personalize your AI Professionals
-          </h3>
+          <h3 className="font-semibold text-action mb-2">How to use your documents</h3>
           <ol className="list-decimal list-inside space-y-2 text-action">
             <li>Upload your documents (contracts, medical records, research papers, etc.)</li>
             <li>Click &quot;Process&quot; to extract and index the content securely</li>
-            <li>Your AI Professionals will use this knowledge to provide personalized guidance</li>
+            <li>Ask about them in the chat on the Documents page; each answer names its source</li>
           </ol>
           <div className="mt-4">
             <Link

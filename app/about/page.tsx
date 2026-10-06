@@ -84,7 +84,7 @@ export default function About() {
               <span className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600">
                 &#10003;
               </span>
-              <span className="text-gray-700">Your data is never used for model training</span>
+              <span className="text-gray-700">Botsmann never trains models on your data</span>
             </li>
             <li className="flex items-center gap-3">
               <span className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600">
@@ -131,7 +131,7 @@ export default function About() {
             </li>
             <li className="flex items-center gap-3">
               <span className="text-action">&#10140;</span>
-              <span className="text-gray-700">Answers grounded in your own documents</span>
+              <span className="text-gray-700">Chat over your own documents, with sources</span>
             </li>
           </ul>
           <Link

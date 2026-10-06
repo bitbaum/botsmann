@@ -25,7 +25,7 @@ const faqData: FAQItem[] = [
     category: 'Getting Started',
     question: 'What is Botsmann?',
     answer:
-      'Botsmann is a set of AI professionals, each specialised in one domain: legal, health, research, language, art, and business. You chat with them, and you can upload your own documents so their answers draw on what you gave them.',
+      'Botsmann is a set of AI professionals, each specialised in one domain: legal, health, research, language, art, and business. You chat with them, and you can upload your own documents and ask questions about them.',
   },
   {
     category: 'Getting Started',
@@ -44,7 +44,7 @@ const faqData: FAQItem[] = [
     category: 'Building AI Bots',
     question: 'Can I build my own professional?',
     answer:
-      'Yes. The builder lets you set a personality, write its instructions, and give it its own knowledge from text you upload.',
+      'Yes. The builder lets you set a personality, write its instructions, and give it its own knowledge from text you add.',
   },
   {
     category: 'Building AI Bots',

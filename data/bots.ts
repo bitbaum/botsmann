@@ -54,7 +54,6 @@ const bots: Bot[] = [
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
         { id: 'learning', label: 'Learning', icon: '📖', section: 'language-learning' },
         { id: 'communication', label: 'Communication', icon: '✉️', section: 'communication' },
-        { id: 'culture', label: 'Culture', icon: '🏔️', section: 'culture' },
       ],
     },
     display: {
@@ -76,19 +75,10 @@ const bots: Bot[] = [
     title: 'Research Assistant',
     description:
       'AI-powered research companion for organizing data, generating insights, and discovering connections.',
-    overview:
-      'Elevate your research workflow with AI automation that organizes materials, provides real-time updates, and sparks innovation.',
-    features: [
-      'Automated Research Systematization',
-      'Web Scraping for Updates',
-      'AI-Generated Research Drafts',
-      'Daily Thought-Provoking Questions',
-      'Big Discovery Mode',
-      'Integration & Collaboration',
-    ],
+    overview: 'An AI research partner that drafts with you and questions your thinking.',
+    features: ['AI-Generated Research Drafts', 'Questions that challenge your assumptions'],
     details:
-      'The Research Assistant Bot transforms how academics, scientists, journalists, and industry professionals conduct research. It automatically organizes uploaded materials, keeps you updated with the latest developments in your field, generates structured content with proper citations, and challenges your thinking with insightful questions. The unique Big Discovery Mode helps identify research gaps and novel connections between concepts, potentially leading to breakthrough insights.',
-    // tryLink removed - GPT not yet created
+      'Nerd helps academics, scientists, journalists, and industry professionals work through their material. It turns rough notes into structured drafts and asks the questions that expose gaps in an argument.',
     nav: {
       navTitle: 'Nerd',
       emoji: '🔬',
@@ -97,18 +87,15 @@ const bots: Bot[] = [
       menuItems: [
         { id: 'demo', label: 'Demo', icon: '💻', section: 'demo' },
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
-        { id: 'system', label: 'Organise', icon: '🗂️', section: 'research-system' },
-        { id: 'scraping', label: 'Sources', icon: '🌐', section: 'scraping' },
         { id: 'drafts', label: 'Drafts', icon: '✍️', section: 'drafts' },
         { id: 'vision', label: 'Vision', icon: '🚀', section: 'vision' },
       ],
     },
     display: {
       tagline: 'Accelerate your research workflow',
-      whatItDoes:
-        'Organizes research materials, tracks citations, finds relevant papers, and synthesizes findings',
+      whatItDoes: 'Drafts with you, questions your thinking, and synthesizes findings',
       inputData: 'Research papers, notes, queries, data sets',
-      output: 'Literature reviews, citation networks, summaries, insights',
+      output: 'Literature reviews, summaries, insights',
       useCases: [
         'Academic research',
         'Market analysis',
@@ -184,7 +171,7 @@ const bots: Bot[] = [
         { id: 'features', label: 'Features', icon: '⚖️', section: 'features' },
         { id: 'vision', label: 'Vision', icon: '🚀', section: 'vision' },
         { id: 'technology', label: 'Technology', icon: '⚙️', section: 'technology' },
-        { id: 'get-started', label: 'Join Waitlist', icon: '✨', section: 'cta' },
+        { id: 'get-started', label: 'Get Started', icon: '✨', section: 'cta' },
       ],
     },
     display: {
@@ -268,7 +255,6 @@ const bots: Bot[] = [
         { id: 'features', label: 'Features', icon: '✨', section: 'features' },
         { id: 'benefits', label: 'Benefits', icon: '⚡', section: 'benefits' },
         { id: 'showcase', label: 'Showcase', icon: '🎯', section: 'showcase' },
-        { id: 'integration', label: 'Integrations', icon: '🔗', section: 'integration' },
       ],
     },
     display: {
