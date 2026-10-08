@@ -268,40 +268,25 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
         content: {
           badge: 'Platform Features',
           title: 'Everything You Need in One Workspace',
-          subtitle:
-            'Collaborative data rooms designed for modern legal work. Secure, transparent, and built for teams.',
+          subtitle: 'Your legal questions and the documents behind them, in one place.',
           columns: 3,
           features: [
             {
               icon: '🤖',
-              title: 'AI + Human Collaboration',
-              description:
-                'Chat with AI 24/7, human lawyer joins when needed. No appointments required.',
+              title: 'Ask Any Time',
+              description: 'Chat with Lex whenever a question comes up. No appointment needed.',
             },
             {
-              icon: '🔐',
-              title: 'Multi-Level Access Control',
-              description: 'Granular permissions for your entire team. Control who sees what.',
+              icon: '📄',
+              title: 'Ask About Your Documents',
+              description:
+                'Upload contracts and letters on the Documents page and ask about them; each answer names its source.',
             },
             {
               icon: '📁',
               title: 'Smart File Organization',
-              description: 'AI auto-categorizes and analyzes documents. 8 intelligent categories.',
-            },
-            {
-              icon: '🌍',
-              title: '130+ Jurisdictions',
-              description: 'All 50 US states, 27 EU countries, 26 Swiss cantons, and more.',
-            },
-            {
-              icon: '📋',
-              title: 'Complete Audit Trail',
-              description: 'Every action logged and encrypted. Full transparency for compliance.',
-            },
-            {
-              icon: '💬',
-              title: 'Real-Time Collaboration',
-              description: 'Live chat, file sharing, annotations. Everyone stays in sync.',
+              description:
+                'Sort documents into categories so each professional reads what is relevant.',
             },
           ],
         } as FeaturesContent,
@@ -315,23 +300,17 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             {
               icon: '📝',
               title: 'Describe Your Case',
-              description:
-                'Select jurisdiction, legal area, upload files, and describe your situation.',
+              description: 'Select jurisdiction and legal area, and describe your situation.',
             },
             {
-              icon: '🎯',
-              title: 'Match with Lawyer',
-              description: 'AI finds the perfect attorney based on expertise and availability.',
+              icon: '🔍',
+              title: 'Get an Analysis',
+              description: 'Lex explains your situation in plain language.',
             },
             {
-              icon: '🏗️',
-              title: 'Workspace Created',
-              description: 'Private data room set up with files organized and encrypted.',
-            },
-            {
-              icon: '🚀',
-              title: 'Start Collaborating',
-              description: 'Chat with AI & lawyer, manage files, track timeline.',
+              icon: '⚖️',
+              title: 'Talk to a Lawyer Prepared',
+              description: 'Lex suggests the questions to put to a licensed attorney.',
             },
           ],
         } as HowItWorksContent,
@@ -356,7 +335,7 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             {
               icon: '⚖️',
               title: 'Law Firms',
-              description: 'Case management, client collaboration, document workflow',
+              description: 'First-pass research, contract review, document analysis',
             },
             {
               icon: '🏛️',
@@ -365,46 +344,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             },
           ],
         } as BenefitsContent,
-      },
-      {
-        id: 'testimonials',
-        type: 'testimonials',
-        content: {
-          badge: 'What Legal Professionals Say',
-          title: 'Trusted by Legal Professionals',
-          subtitle:
-            'Legal experts collaborate in AI-powered data rooms with multi-level privacy controls.',
-          testimonials: [
-            {
-              quote:
-                'The team behind Lex is doing something extraordinary. Their combination of deep legal understanding and cutting-edge AI is impressive.',
-              author: '@LegalEagle_CH',
-              role: 'Partner, International Law Firm',
-              company: 'Zurich, Switzerland',
-              tag: 'Corporate Law',
-            },
-            {
-              quote:
-                "I've reviewed their technical approach and vision for AI-assisted legal work. The methodology is sound and forward-thinking.",
-              author: '@TechLawProf',
-              role: 'Professor of Legal Tech',
-              company: 'University of St. Gallen',
-              tag: 'Legal Technology',
-            },
-            {
-              quote:
-                "What impressed me most is their commitment to building this responsibly. They're not promising overnight transformation.",
-              author: '@DataRoomQueen',
-              role: 'Legal Counsel, Tech Startup',
-              company: 'Berlin, Germany',
-              tag: 'Tech & IP Law',
-            },
-          ],
-          cta: {
-            text: 'Join Legal Professionals Shaping the Future',
-            href: '#cta',
-          },
-        } as TestimonialsContent,
       },
       {
         id: 'vision',
@@ -425,10 +364,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               description: 'Open about capabilities, limitations, and development progress',
             },
             {
-              title: 'Collaborative',
-              description: 'Built with input from legal professionals and researchers',
-            },
-            {
               title: 'Responsible',
               description: 'Privacy-first, bias-aware, and human-overseen',
             },
@@ -438,7 +373,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 1',
               status: 'in-progress',
               title: 'AI Legal Assistant',
-              timeline: '2025-2026',
               description:
                 'Lex assists lawyers with research, document analysis, and compliance checking.',
               capabilities: [
@@ -452,7 +386,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 2',
               status: 'planned',
               title: 'AI Legal Advisor',
-              timeline: '2026-2027',
               description:
                 'Advanced reasoning for legal strategy, case evaluation, and predictive analytics.',
               capabilities: [
@@ -466,7 +399,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 3',
               status: 'vision',
               title: 'AI Judge',
-              timeline: '2028+',
               description: 'Impartial adjudication for specific case types, with human oversight.',
               capabilities: [
                 'Small claims adjudication',
@@ -486,8 +418,7 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             {
               icon: '🎓',
               title: 'Enhanced Expertise',
-              description:
-                'Lawyers spend 30-40% on routine tasks. AI frees them to focus on strategy.',
+              description: 'AI takes on routine tasks so lawyers can focus on strategy.',
             },
             {
               icon: '⚖️',
@@ -518,11 +449,11 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               items: [
                 {
                   title: 'Large Language Models',
-                  description: 'Claude, GPT-4, custom fine-tuned models',
+                  description: 'Models served through Groq and OpenRouter, with failover',
                 },
                 {
                   title: 'Vector Databases',
-                  description: 'Pinecone, Weaviate for semantic search',
+                  description: 'PostgreSQL with pgvector for semantic search',
                 },
                 {
                   title: 'RAG Architecture',
@@ -533,21 +464,23 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             {
               title: 'Legal Data',
               items: [
-                { title: 'Case Law APIs', description: 'Integration with legal databases' },
-                { title: 'Document Processing', description: 'OCR, NLP for contract analysis' },
                 {
-                  icon: '🕸️',
-                  title: 'Knowledge Graphs',
-                  description: 'Structured legal relationships',
+                  title: 'Document Processing',
+                  description: 'Text extracted from your uploads and searched by meaning',
                 },
               ],
             },
             {
               title: 'Privacy & Security',
               items: [
-                { title: 'End-to-End Encryption', description: 'Zero-knowledge architecture' },
-                { title: 'On-Premise Deployment', description: 'Self-hosted for sensitive data' },
-                { title: 'GDPR Compliance', description: 'Privacy-first by design' },
+                {
+                  title: 'Row-Level Security',
+                  description: 'Your documents are visible to your account alone',
+                },
+                {
+                  title: 'Self-Hosting',
+                  description: 'Botsmann is MIT-licensed, so you can run it on your own servers',
+                },
               ],
             },
           ],
@@ -561,39 +494,25 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
           },
           principles: [
             { label: 'Modular:', description: 'Easy to update and improve' },
-            { label: 'Scalable:', description: 'From single user to enterprise' },
-            { label: 'Private:', description: 'Your data never leaves your infrastructure' },
-            { label: 'Auditable:', description: 'Transparent reasoning and sources' },
+            { label: 'Private:', description: 'Botsmann does not train models on your documents' },
+            { label: 'Grounded:', description: 'Document chat names the source of each answer' },
           ],
-          feedbackForm: {
-            title: 'We Want Your Feedback',
-            description: 'Help us build better. Share your thoughts on our approach.',
-            types: ['General Feedback', 'Technical Feedback'],
-          },
         } as TechnologyContent,
       },
       {
         id: 'cta',
         type: 'cta',
         content: {
-          title: 'Join the Waitlist',
-          subtitle:
-            'Be among the first to access Lex when we launch. Get early access, exclusive updates, and special pricing.',
+          title: 'Ask Lex Now',
+          subtitle: 'Describe your situation and get a first analysis in plain language.',
           primaryButton: {
-            text: 'Join the Waitlist',
-            href: '#waitlist',
+            text: 'Chat with Lex',
+            useTryLink: true,
           },
           secondaryButton: {
-            text: 'Try Lex Now',
+            text: 'Try Demo',
             href: '#demo',
           },
-          metrics: [
-            { label: 'Waitlist Members', dynamic: true },
-            { label: 'Active Cases', dynamic: true },
-            { label: 'Data Rooms Created', dynamic: true },
-            { label: 'Expected Launch', value: 'Q2 2026' },
-          ],
-          note: 'We believe in transparency. These numbers update in real-time.',
         } as CTAContent,
         isLast: true,
       },
@@ -647,7 +566,7 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             {
               icon: '📊',
               title: 'Lab Results Explained',
-              description: 'Upload test results and understand what they mean.',
+              description: 'Paste test results into the chat and understand what they mean.',
             },
             {
               icon: '💊',
@@ -666,8 +585,8 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             },
             {
               icon: '🔒',
-              title: 'Private & Secure',
-              description: 'Your health data stays encrypted and private.',
+              title: 'Private',
+              description: 'Your documents are visible to your account alone.',
             },
           ],
         } as FeaturesContent,
@@ -703,10 +622,10 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
         id: 'medbox',
         type: 'features',
         content: {
-          badge: 'Home Health Lab',
+          badge: 'Concept',
           title: 'MedBox: Your Home Health Laboratory',
           subtitle:
-            'Clinical-grade diagnostics at home. MedBox automates health monitoring and puts the power of a medical lab at your fingertips.',
+            'A concept, not yet built: a home lab that automates health monitoring and feeds its readings to Imhotep.',
           columns: 3,
           features: [
             {
@@ -786,33 +705,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
         } as FeaturesContent,
       },
       {
-        id: 'regimens',
-        type: 'how-it-works',
-        content: {
-          title: 'Personalized Health Regimens',
-          steps: [
-            {
-              icon: '\u{1F4CB}',
-              title: 'Imhotep Basic',
-              description:
-                'Low cost, about 30 minutes a day, low complexity — and still fully customised to you.',
-            },
-            {
-              icon: '\u{1F4C8}',
-              title: 'Imhotep Advanced',
-              description:
-                'Medium cost, one to two hours a day, for people who want to go deeper without a full protocol.',
-            },
-            {
-              icon: '\u2696\uFE0F',
-              title: 'Compared to Blueprint',
-              description:
-                'High cost, three or more hours a day, high complexity, and limited customisation.',
-            },
-          ],
-        } as HowItWorksContent,
-      },
-      {
         id: 'vision',
         type: 'vision',
         content: {
@@ -824,7 +716,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 1',
               status: 'in-progress',
               title: 'Health Information Assistant',
-              timeline: '2025-2026',
               description: 'AI-powered health education and guidance.',
               capabilities: [
                 'Symptom information',
@@ -837,7 +728,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 2',
               status: 'planned',
               title: 'Clinical Support Tool',
-              timeline: '2026',
               description: 'Enhanced decision support for healthcare providers.',
               capabilities: [
                 'Case analysis assistance',
@@ -948,8 +838,8 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             },
             {
               icon: '✅',
-              title: 'Practice & Review',
-              description: 'Heidi tracks your progress and tests your knowledge.',
+              title: 'Practice',
+              description: 'Ask Heidi to quiz you on what you have learned.',
             },
           ],
         } as HowItWorksContent,
@@ -1008,34 +898,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
         } as FeaturesContent,
       },
       {
-        id: 'culture',
-        type: 'features',
-        content: {
-          badge: 'Swiss Content',
-          title: 'Immerse Yourself',
-          subtitle:
-            'Authentic Swiss German content, matched to your level so it stretches you without losing you.',
-          columns: 3,
-          features: [
-            {
-              icon: '🎬',
-              title: 'Video',
-              description: 'Short videos subtitled in both Standard and Swiss German.',
-            },
-            {
-              icon: '🎙️',
-              title: 'Podcasts',
-              description: 'Audio with transcripts, for listening practice you can follow along.',
-            },
-            {
-              icon: '📰',
-              title: 'Articles',
-              description: 'News and blog posts with vocabulary assistance built in.',
-            },
-          ],
-        } as FeaturesContent,
-      },
-      {
         id: 'cta',
         type: 'cta',
         content: {
@@ -1075,112 +937,24 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
         content: {
           badge: 'Core Features',
           title: 'Transform Your Research Workflow',
-          subtitle: 'AI-powered tools for organizing, discovering, and creating.',
+          subtitle: 'An AI research partner that drafts with you and questions your thinking.',
           columns: 3,
           features: [
             {
               icon: '📚',
-              title: 'Research Organization',
-              description: 'Automatically organize and categorize your research materials.',
-            },
-            {
-              icon: '🔄',
-              title: 'Real-Time Updates',
-              description: 'Stay current with the latest papers in your field.',
+              title: 'Ask About Your Papers',
+              description:
+                'Upload papers and notes on the Documents page and ask about them; each answer names its source.',
             },
             {
               icon: '✍️',
               title: 'Draft Generation',
-              description: 'Generate structured drafts with proper citations.',
+              description: 'Turn rough notes into a structured draft.',
             },
             {
               icon: '❓',
-              title: 'Daily Questions',
-              description: 'Thought-provoking questions to challenge your thinking.',
-            },
-            {
-              icon: '💡',
-              title: 'Big Discovery Mode',
-              description: 'Find novel connections and research gaps.',
-            },
-            {
-              icon: '🔗',
-              title: 'Collaboration',
-              description: 'Share findings and work with other researchers.',
-            },
-          ],
-        } as FeaturesContent,
-      },
-      {
-        id: 'research-system',
-        type: 'features',
-        content: {
-          badge: 'Systematisation',
-          title: 'Upload Once, Organise Automatically',
-          subtitle:
-            'Drop in papers, notes and transcripts. Nerd sorts them into a system you can actually navigate.',
-          columns: 3,
-          features: [
-            {
-              icon: '🏷️',
-              title: 'By Theme',
-              description: 'Group research by topics and subtopics.',
-            },
-            {
-              icon: '⭐',
-              title: 'By Relevance',
-              description: 'Prioritise by importance to your core question.',
-            },
-            {
-              icon: '📅',
-              title: 'By Chronology',
-              description: 'Organise materials along a timeline.',
-            },
-            {
-              icon: '📚',
-              title: 'By Source Type',
-              description: 'Group by papers, books, interviews and more.',
-            },
-            {
-              icon: '🧪',
-              title: 'By Methodology',
-              description: 'Categorise by the research methods used.',
-            },
-            { icon: '👩‍🔬', title: 'By Author', description: 'Group research by key contributors.' },
-          ],
-        } as FeaturesContent,
-      },
-      {
-        id: 'scraping',
-        type: 'features',
-        content: {
-          badge: 'Real-Time Sources',
-          title: 'Never Miss Important Developments',
-          subtitle:
-            'Nerd watches the literature and the news, so a relevant paper does not sit unread for three months.',
-          columns: 3,
-          features: [
-            { icon: '📑', title: 'ArXiv', description: 'Preprint server for scientific papers.' },
-            {
-              icon: '🎓',
-              title: 'Google Scholar',
-              description: 'Search across scholarly literature.',
-            },
-            { icon: '🔬', title: 'PubMed', description: 'Biomedical literature and abstracts.' },
-            {
-              icon: '🌿',
-              title: 'Nature',
-              description: 'Leading multidisciplinary science journal.',
-            },
-            {
-              icon: '📰',
-              title: 'Science Daily',
-              description: 'Science news articles and summaries.',
-            },
-            {
-              icon: '💻',
-              title: 'MIT Technology Review',
-              description: 'Technology and innovation reporting.',
+              title: 'Hard Questions',
+              description: 'Ask Nerd to challenge your assumptions and find the gaps.',
             },
           ],
         } as FeaturesContent,
@@ -1225,20 +999,17 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
               phase: 'Phase 1',
               status: 'in-progress',
               title: 'Research Assistant',
-              timeline: '2025-2026',
               description: 'Organization, search, and synthesis tools.',
               capabilities: [
-                'Material organization',
-                'Literature search',
+                'Chat about your uploaded papers',
                 'Draft generation',
-                'Citation management',
+                'Finding gaps in an argument',
               ],
             },
             {
               phase: 'Phase 2',
               status: 'planned',
               title: 'Discovery Engine',
-              timeline: '2026',
               description: 'Advanced pattern recognition and gap analysis.',
               capabilities: [
                 'Cross-domain connections',
@@ -1254,11 +1025,11 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
         id: 'cta',
         type: 'cta',
         content: {
-          title: 'Join the Waitlist',
-          subtitle: 'Be first to access Nerd when we launch.',
+          title: 'Start Researching',
+          subtitle: 'Bring a question; Nerd works through it with you.',
           primaryButton: {
-            text: 'Join Waitlist',
-            href: '#waitlist',
+            text: 'Chat with Nerd',
+            useTryLink: true,
           },
           secondaryButton: {
             text: 'Try Demo',
@@ -1419,29 +1190,6 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
         } as HowItWorksContent,
       },
       {
-        id: 'integration',
-        type: 'features',
-        content: {
-          badge: 'Integrations',
-          title: 'Fits the Tools You Already Use',
-          columns: 2,
-          features: [
-            {
-              icon: '🐙',
-              title: 'GitHub',
-              description:
-                'Link tasks to pull requests, track milestones, and generate documentation from the code itself.',
-            },
-            {
-              icon: '📋',
-              title: 'Jira',
-              description:
-                'Sync tasks with tickets, import existing sprint structures, and generate sprint reports.',
-            },
-          ],
-        } as FeaturesContent,
-      },
-      {
         id: 'cta',
         type: 'cta',
         content: {
@@ -1525,7 +1273,7 @@ export const botPageConfigs: Record<string, BotPageConfig> = {
             {
               icon: '📝',
               title: 'Share Your Vision',
-              description: 'Describe your creative project or upload your work.',
+              description: 'Describe your creative project and what you are aiming for.',
             },
             {
               icon: '🔍',

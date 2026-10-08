@@ -204,9 +204,9 @@ export default async function ProfessionalPage({ params }: PageProps) {
               </div>
               <div className="bg-white rounded-xl p-5 shadow-sm">
                 <div className="text-2xl mb-3">📄</div>
-                <h3 className="font-bold text-gray-900 mb-2">Upload Documents</h3>
+                <h3 className="font-bold text-gray-900 mb-2">Paste the Text</h3>
                 <p className="text-sm text-gray-600">
-                  Share relevant files for personalized analysis and more accurate recommendations.
+                  Paste the clause, result or passage you are asking about straight into the chat.
                 </p>
               </div>
               <div className="bg-white rounded-xl p-5 shadow-sm">
@@ -249,8 +249,7 @@ export default async function ProfessionalPage({ params }: PageProps) {
             <div className={`bg-gradient-to-r ${colors.bgGradient} rounded-2xl p-8 text-white`}>
               <h2 className="text-2xl font-bold mb-4">Ready to Get Started?</h2>
               <p className="text-lg opacity-90 mb-6">
-                Create a free account to save conversations and personalize {professional.name} with
-                your documents.
+                Create a free account to upload documents and ask questions about them.
               </p>
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                 <Link

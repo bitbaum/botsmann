@@ -155,8 +155,8 @@ export default function DocumentsPage() {
             </li>
           </ol>
           <p className="mt-4 text-sm text-action">
-            Your documents are private and only accessible to you. Processing happens locally using
-            free AI models. Your conversations are saved automatically.
+            Your documents are private and only accessible to you. Text is indexed on our server,
+            and answers come from free AI models. Your conversations are saved automatically.
           </p>
         </div>
       </div>

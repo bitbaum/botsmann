@@ -107,8 +107,8 @@ export const DashboardEmptyState: FC<DashboardEmptyStateProps> = ({ displayName 
           iconColor="text-green-600"
           iconBg="bg-green-100"
           title="Get Expert Advice"
-          description="Chat with AI professionals trained in legal, medical, and financial domains"
-          examples={['Ask legal questions', 'Understand medical terms', 'Get financial guidance']}
+          description="Chat with AI professionals for legal, health, research and business questions"
+          examples={['Ask legal questions', 'Understand medical terms', 'Plan a business']}
         />
 
         <CapabilityCard
@@ -116,36 +116,9 @@ export const DashboardEmptyState: FC<DashboardEmptyStateProps> = ({ displayName 
           iconColor="text-action"
           iconBg="bg-action-tint"
           title="Build Custom Bots"
-          description="Create your own AI assistant trained on your specific knowledge"
+          description="Create your own AI assistant with its own instructions and knowledge"
           examples={['Company FAQ bot', 'Product support assistant', 'Personal knowledge base']}
         />
-      </div>
-
-      {/* Social Proof */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
-        <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-            />
-          </svg>
-          What users are saying
-        </div>
-        <div className="grid md:grid-cols-2 gap-4">
-          <TestimonialCard
-            quote="I uploaded my lease and understood the termination clause in 30 seconds. Game changer."
-            author="Sarah M."
-            context="Reviewed rental agreement"
-          />
-          <TestimonialCard
-            quote="Finally, a way to ask medical questions without the anxiety of a doctor's office."
-            author="Marcus T."
-            context="Health consultation"
-          />
-        </div>
       </div>
     </div>
   );
@@ -185,24 +158,6 @@ function CapabilityCard({
           </li>
         ))}
       </ul>
-    </div>
-  );
-}
-
-interface TestimonialCardProps {
-  quote: string;
-  author: string;
-  context: string;
-}
-
-function TestimonialCard({ quote, author, context }: TestimonialCardProps) {
-  return (
-    <div className="bg-gray-50 rounded-lg p-4">
-      <p className="text-gray-700 text-sm mb-2 italic">&ldquo;{quote}&rdquo;</p>
-      <div className="flex items-center justify-between text-xs text-gray-500">
-        <span className="font-medium">{author}</span>
-        <span>{context}</span>
-      </div>
     </div>
   );
 }

@@ -4,10 +4,6 @@ import bots from '@/data/bots';
 import { getChatPathFromBotSlug } from '@/data/professionals';
 
 export default function BotsList() {
-  // Only mark bots as "ready" if they have actual working try links
-  // Currently only Heidi (swiss-german-teacher) has a GPT link
-  const readyBots = bots.filter((b) => b.tryLink).map((b) => b.slug);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-action-tint">
       <div className="mx-auto max-w-screen-xl px-6 py-16">
@@ -15,8 +11,7 @@ export default function BotsList() {
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">Specialized AI Bots</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Each bot is an expert in its domain, trained to ingest your data and deliver exactly
-            what you need
+            Each bot is focused on one domain
           </p>
 
           {/* Core Concept Visualization */}
@@ -77,20 +72,12 @@ export default function BotsList() {
                 .join(' ');
             const emoji = bot.nav?.emoji || '🤖';
 
-            const isReady = readyBots.includes(bot.slug);
-
             return (
               <Link
                 key={bot.slug}
                 href={getChatPathFromBotSlug(bot.slug)}
                 className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-gray-100 hover:border-action"
               >
-                {!isReady && (
-                  <span className="absolute right-4 top-4 z-10 inline-block bg-gray-900 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                    Coming Soon
-                  </span>
-                )}
-
                 {/* Bot Header */}
                 <div className="p-6 pb-4">
                   <div className="flex items-center mb-3">
@@ -178,14 +165,14 @@ export default function BotsList() {
             Need a custom bot for your domain?
           </h3>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            We build specialized AI bots for any field. From healthcare to finance, education to
-            engineering - if you have data, we can build intelligence around it.
+            Use the bot builder to give your own assistant a personality, instructions and knowledge
+            for your field.
           </p>
           <Link
-            href="/#collaboration"
+            href="/bots/create"
             className="inline-flex items-center gap-2 px-6 py-3 bg-action hover:bg-action-hover text-white font-semibold rounded-lg transition-all shadow-md"
           >
-            Let's Build Together
+            Build Your Own Bot
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"

@@ -20,7 +20,7 @@ export const providers: AIProvider[] = [
     id: 'openrouter',
     name: 'OpenRouter',
     tagline: 'All Models, One Key',
-    description: 'Access Claude, GPT-4, Gemini, Grok, Llama & 100+ models with one API key.',
+    description: 'Access many models, including Claude, GPT, Gemini and Llama, with one API key.',
     features: ['Claude, GPT, Gemini, Grok', '100+ models available', 'Pay-as-you-go'],
     color: 'green',
     keyRequired: true,

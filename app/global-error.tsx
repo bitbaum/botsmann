@@ -41,7 +41,7 @@ export default function GlobalError({
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Application Error</h1>
 
             <p className="text-gray-600 mb-6">
-              We encountered a critical error. Our team has been notified.
+              We encountered a critical error. Please reload the page.
             </p>
 
             {process.env.NODE_ENV === 'development' && error.message && (

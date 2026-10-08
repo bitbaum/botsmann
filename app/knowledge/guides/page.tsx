@@ -159,8 +159,7 @@ export default async function GuidesPage({ searchParams }: GuidesPageProps) {
         <div className="mt-16 rounded-2xl bg-action p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">Need Help?</h2>
           <p className="text-paper mb-6 max-w-xl mx-auto">
-            Can&apos;t find what you&apos;re looking for? Our team is here to help you build your AI
-            infrastructure.
+            Can&apos;t find what you&apos;re looking for? Write to us.
           </p>
           <Link
             href="/contact"

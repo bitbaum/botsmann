@@ -4,6 +4,7 @@ import { fetchBlogPosts } from '@/lib/blog';
 import { Metadata } from 'next';
 import type { Route } from 'next';
 import { format } from 'date-fns';
+import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Blog | Botsmann',
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Blog | Botsmann',
     description: 'Insights and updates from the Botsmann team on AI, technology, and innovation.',
-    url: 'https://botsmann.com/blog',
+    url: `${site.url}/blog`,
     siteName: 'Botsmann',
     type: 'website',
   },
