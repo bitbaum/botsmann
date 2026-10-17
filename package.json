@@ -38,7 +38,7 @@
     "bip-kit": "^0.6.0",
     "date-fns": "^4.4.0",
     "limitkit": "^0.2.0",
-    "mermaid": "^11.17.2",
+    "mermaid": "^12.2.0",
     "next": "^16.4.0",
     "pdf-parse": "^2.4.5",
     "postcss": "^8.5.29",
