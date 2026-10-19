@@ -77,14 +77,14 @@ import { BOTS } from '@/data/bots';
 
 **In Practice:**
 
-| Layer      | Responsibility   | Location        |
-| ---------- | ---------------- | --------------- |
-| Pages      | Routing, layout  | `app/`          |
-| Components | UI rendering     | `components/`   |
-| Hooks      | State logic      | `lib/hooks/`    |
-| Services   | API calls        | `lib/services/` |
-| Utilities  | Pure functions   | `lib/`          |
-| Types      | Type definitions | `types/`        |
+| Layer      | Responsibility   | Location      |
+| ---------- | ---------------- | ------------- |
+| Pages      | Routing, layout  | `app/`        |
+| Components | UI rendering     | `components/` |
+| Hooks      | State logic      | `lib/hooks/`  |
+| API        | Route helpers    | `lib/api/`    |
+| Utilities  | Pure functions   | `lib/`        |
+| Types      | Type definitions | `types/`      |
 
 **Bad:**
 

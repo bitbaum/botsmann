@@ -208,7 +208,7 @@ User → components/*Form.tsx
 | `data/bots.ts`             | Bot configurations | Adding/editing bots    |
 | `app/layout.tsx`           | Root layout        | Global UI changes      |
 | `lib/config/navigation.ts` | Nav config (SSOT)  | Adding nav items       |
-| `tailwind.config.js`       | Theme config       | Styling changes        |
+| `app/globals.css`          | Theme (`@theme`)   | Styling changes        |
 | `types/*.ts`               | Type definitions   | Data structure changes |
 
 ---

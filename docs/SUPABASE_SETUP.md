@@ -57,8 +57,9 @@ Current state: 11 migrations applied, 13 tables in the schema.
 
 ### Adding one
 
-1. Add `supabase/migrations/0NN_what_it_does.sql`. Keep it forward-only and
-   non-destructive, or the deploy will refuse it.
+1. Add `supabase/migrations/<NNN>_what_it_does.sql` (the next number
+   after the highest one there). Keep it forward-only and non-destructive, or
+   the deploy will refuse it.
 2. Open a PR. Merging deploys it and applies it.
 
 A genuinely destructive change is applied by hand, then recorded so the
