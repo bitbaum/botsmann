@@ -1,3 +1,4 @@
+import { RICH_ANSWERS_INSTRUCTION } from '@bitbaum/chatkit';
 /**
  * Demo Document Chat API
  *
@@ -115,7 +116,10 @@ Documents have been provided below. Use them to answer the user's question.`;
     try {
       const llmResponse = await generateLLMResponse(
         [
-          { role: 'system', content: systemPrompt },
+          {
+            role: 'system',
+            content: `${systemPrompt}\n\n${RICH_ANSWERS_INSTRUCTION}\nUse diagrams, galleries and callouts here; ask any follow-up as ordinary prose because this preview has no interactive choice submission.`,
+          },
           {
             role: 'user',
             content: `Documents:\n\n${context}\n\n---\n\nQuestion: ${sanitizedMessage.sanitized}`,

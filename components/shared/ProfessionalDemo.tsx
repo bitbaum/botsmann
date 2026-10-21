@@ -1,5 +1,7 @@
 'use client';
 
+import { Markdown } from '@bitbaum/chatkit/react';
+
 import { type FC, useState, useRef, useEffect, useCallback } from 'react';
 import { type Professional, getAccentColorClasses } from '@/data/professionals';
 import { useAuth } from '@/lib/auth';
@@ -211,7 +213,13 @@ export const ProfessionalDemo: FC<ProfessionalDemoProps> = ({ professional }) =>
                 {message.role === 'assistant' && (
                   <span className="text-lg mr-2">{professional.emoji}</span>
                 )}
-                <span className="whitespace-pre-wrap">{message.content}</span>
+                <div className="min-w-0">
+                  {message.role === 'user' ? (
+                    <span className="whitespace-pre-wrap">{message.content}</span>
+                  ) : (
+                    <Markdown text={message.content} />
+                  )}
+                </div>
               </div>
             </div>
           ))}

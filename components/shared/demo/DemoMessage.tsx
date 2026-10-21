@@ -1,5 +1,7 @@
 'use client';
 
+import { Markdown } from '@bitbaum/chatkit/react';
+
 import type { FC } from 'react';
 import type { ChatMessage, DemoOutputConfig } from '@/lib/demo/types';
 import { BRAND_MESSAGE } from '@/lib/config/colors';
@@ -47,7 +49,9 @@ export const DemoMessage: FC<DemoMessageProps> = ({ message, botIcon, outputConf
           ) : (
             <>
               {/* Message text */}
-              <div className="whitespace-pre-wrap text-sm leading-relaxed">{message.content}</div>
+              <div className="min-w-0 text-sm leading-relaxed">
+                {isUser ? message.content : <Markdown text={message.content} />}
+              </div>
 
               {/* Sources (for bot messages) */}
               {!isUser &&

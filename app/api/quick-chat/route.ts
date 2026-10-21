@@ -1,3 +1,4 @@
+import { RICH_ANSWERS_INSTRUCTION } from '@bitbaum/chatkit';
 /**
  * Quick Chat API for Build Your Own Bot
  *
@@ -70,7 +71,10 @@ export async function POST(request: NextRequest) {
 
     // Build messages array with conversation history
     const messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }> = [
-      { role: 'system', content: fullSystemPrompt },
+      {
+        role: 'system',
+        content: `${fullSystemPrompt}\n\n${RICH_ANSWERS_INSTRUCTION}\nUse diagrams, galleries and callouts here; ask any follow-up as ordinary prose because this preview has no interactive choice submission.`,
+      },
     ];
 
     // Add sanitized conversation history if provided
