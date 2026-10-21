@@ -23,7 +23,7 @@ export const botHeroConfigs: Record<string, BotHeroConfig> = {
       {
         role: 'bot',
         content:
-          "I'll search through the latest directives and case law to provide a concise overview.",
+          'Here is an overview of the main directives and leading cases, with the points worth checking against the current text.',
       },
     ],
   },
@@ -66,13 +66,12 @@ export const botHeroConfigs: Record<string, BotHeroConfig> = {
   },
 
   'research-assistant': {
-    badge: { emoji: '🧠', text: 'Launching in 2026' },
+    badge: { emoji: '🧠', text: 'AI Research Assistant' },
     title: 'Nerd',
     titleSuffix: 'Your AI Research Assistant',
-    subtitle:
-      'Transform your research with an AI companion that organizes, updates, creates, engages, connects, and empowers your independent research journey.',
-    primaryCTA: { text: 'Join Waitlist', href: '', external: true },
-    secondaryCTA: { text: 'Explore Features', href: '#core-features' },
+    subtitle: 'An AI research partner that drafts with you and questions your thinking.',
+    primaryCTA: { text: 'Chat with Nerd', href: '', external: true },
+    secondaryCTA: { text: 'Explore Features', href: '#features' },
     botInfo: {
       name: 'Nerd',
       emoji: '🧠',
@@ -82,22 +81,17 @@ export const botHeroConfigs: Record<string, BotHeroConfig> = {
       { role: 'bot', content: 'How can I transform your research experience today?' },
       {
         role: 'user',
-        content:
-          'I need to organize my quantum computing research, stay updated on new papers, and create shareable content.',
+        content: 'Here is my argument on quantum error correction. Where are the gaps?',
       },
       {
         role: 'bot',
         content:
-          "I'll organize your quantum research, set up real-time updates for new papers, and generate drafts for articles and social media. Would you like to connect with other quantum researchers too?",
+          'The argument assumes a noise model you never justify, and the threshold you cite depends on it. Want a draft of how to address that?',
       },
     ],
     keyBenefits: [
-      { emoji: '📚', text: 'Research Organization' },
-      { emoji: '🔄', text: 'Real-time Updates' },
-      { emoji: '✍️', text: 'Content Creation' },
-      { emoji: '🔍', text: 'Research Engagement' },
-      { emoji: '👥', text: 'Research Collaboration' },
-      { emoji: '🔒', text: 'Independent Research' },
+      { emoji: '✍️', text: 'Draft Generation' },
+      { emoji: '🔍', text: 'Hard Questions' },
     ],
   },
 
@@ -126,7 +120,7 @@ export const botHeroConfigs: Record<string, BotHeroConfig> = {
     keyBenefits: [
       { emoji: '🗣️', text: 'Dual-Language Learning' },
       { emoji: '📅', text: 'Local Events' },
-      { emoji: '🎯', text: 'Progress Tracking' },
+      { emoji: '🎯', text: 'Practice Quizzes' },
       { emoji: '🏔️', text: 'Swiss Culture' },
     ],
   },
@@ -138,7 +132,7 @@ export const botHeroConfigs: Record<string, BotHeroConfig> = {
     subtitle:
       'A specialized tool that combines project management capabilities with technical guidance to streamline development workflow in Cursor.',
     primaryCTA: { text: 'Get Started', href: '', external: true },
-    secondaryCTA: { text: 'See Examples', href: '#examples' },
+    secondaryCTA: { text: 'See Examples', href: '#demo' },
     botInfo: {
       name: 'Trident',
       emoji: '🔱',

@@ -281,4 +281,4 @@ The AI model landscape is rich with options. For most projects:
 2. **Evaluate open source** once you understand your needs
 3. **Consider hybrid** - use cloud APIs for complex tasks, local models for simple ones
 
-See our [Cost Estimation Guide](/knowledge/infrastructure/cost-estimation) to calculate your expected costs, or our [Hosting Comparison](/knowledge/infrastructure/hosting-comparison) to decide where to deploy.
+See [Infrastructure & Hosting](/knowledge/infrastructure) to decide where to deploy.

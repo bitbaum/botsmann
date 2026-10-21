@@ -69,18 +69,18 @@ export interface ModelDisplayInfo {
 
 export const MODEL_DISPLAY_CONFIG: Record<ModelProvider, ModelDisplayInfo> = {
   groq: {
-    label: 'Llama 3.1',
+    label: 'Groq',
     provider: 'Groq',
     tier: 'cloud',
     icon: '⚡',
     description: 'Fast inference, free tier available',
   },
   openrouter: {
-    label: 'Claude 3.5',
+    label: 'OpenRouter',
     provider: 'OpenRouter',
     tier: 'cloud',
     icon: '🧠',
-    description: 'Premium models via OpenRouter',
+    description: 'Many models via OpenRouter',
   },
   ollama: {
     label: 'Local Model',

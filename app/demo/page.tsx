@@ -24,7 +24,7 @@ const suggestedQuestions = [
   'How do I get started?',
   'How do you handle privacy?',
   'Tell me about Heidi',
-  'What consulting services do you offer?',
+  'Can I run Botsmann myself?',
 ];
 
 const DemoPage: FC = () => {
@@ -33,7 +33,7 @@ const DemoPage: FC = () => {
       id: 'welcome',
       role: 'assistant',
       content:
-        "Hello! 👋 I'm the Botsmann AI Assistant. I can answer questions about our platform, AI assistants (Heidi, Lex, Imhotep, and more), consulting services, and how to get started. Ask me anything!",
+        "Hello! 👋 I'm the Botsmann AI Assistant. I can answer questions about our platform, AI assistants (Heidi, Lex, Imhotep, and more), and how to get started. Ask me anything!",
     },
   ]);
   const [input, setInput] = useState('');
@@ -240,14 +240,14 @@ const DemoPage: FC = () => {
                 <li>
                   • <strong>Generation:</strong> LLM creates a natural response
                 </li>
-                <li>• 23 knowledge chunks about Botsmann</li>
+                <li>• 24 knowledge chunks about Botsmann</li>
               </ul>
             </div>
             <div>
               <h3 className="font-medium text-gray-900 mb-2">Technology Stack</h3>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>
-                  • <strong>LLM:</strong> Groq (Llama 3.1) - free tier, no cost
+                  • <strong>LLM:</strong> Groq and OpenRouter free tiers, with failover
                 </li>
                 <li>
                   • <strong>Search:</strong> TF-IDF-like keyword scoring
@@ -267,7 +267,7 @@ const DemoPage: FC = () => {
               production, we use vector embeddings for semantic search, and can deploy locally on
               your infrastructure for maximum privacy.{' '}
               <Link href="/contact" className="text-action hover:underline">
-                Book a consultation →
+                Write to us →
               </Link>
             </p>
           </div>

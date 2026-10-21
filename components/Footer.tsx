@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaGithub, FaTwitter } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 import { Logo } from '@/components/shared/Logo';
 import { site } from '@/lib/site';
 import { ROUTES } from '@/lib/routes';
@@ -111,16 +111,6 @@ export function Footer() {
                 className="flex items-center gap-2 hover:text-action transition-colors"
               >
                 <FaGithub className="text-lg" /> GitHub
-              </a>
-            </li>
-            <li>
-              <a
-                href={site.social.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-action transition-colors"
-              >
-                <FaTwitter className="text-lg" /> Twitter
               </a>
             </li>
           </ul>

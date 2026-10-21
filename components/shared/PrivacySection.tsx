@@ -18,9 +18,9 @@ export const PrivacySection: FC = () => {
         </svg>
       ),
       iconBg: 'bg-action-tint',
-      title: 'End-to-End Encryption',
+      title: 'Private by Default',
       description:
-        'Your conversations and documents are encrypted in transit and at rest. We cannot read your data.',
+        'Row-level security in the database keeps your documents and conversations visible to your account alone.',
     },
     {
       icon: (
@@ -36,7 +36,7 @@ export const PrivacySection: FC = () => {
       iconBg: 'bg-action-tint',
       title: 'No Data Training',
       description:
-        'Your information is never used to train AI models. Your intellectual property stays yours.',
+        'Botsmann does not train models on your data. Your intellectual property stays yours.',
     },
     {
       icon: (
@@ -51,7 +51,8 @@ export const PrivacySection: FC = () => {
       ),
       iconBg: 'bg-action-tint',
       title: 'You Control Your Data',
-      description: 'Delete your data anytime. Export everything. No lock-in, no hidden retention.',
+      description:
+        'Delete your documents and conversations anytime. The code is MIT-licensed, so you can run it yourself.',
     },
   ];
 
@@ -63,8 +64,8 @@ export const PrivacySection: FC = () => {
             Your Data Stays Yours
           </h2>
           <p className="text-ink-muted max-w-2xl mx-auto text-lg">
-            Unlike other AI tools, we built privacy into our foundation. Your conversations are
-            confidential, your documents are secure, and you remain in control.
+            Privacy is built into the foundation: your conversations stay confidential and you
+            remain in control.
           </p>
         </div>
 

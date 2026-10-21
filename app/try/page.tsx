@@ -87,9 +87,9 @@ export default function TryPage() {
             </ol>
             <div className="mt-4 pt-4 border-t border-edge">
               <p className="text-sm text-gray-600">
-                <strong>Privacy:</strong> Your documents are processed in your browser and sent
-                directly to the AI. Nothing is stored on our servers. For persistent storage and
-                advanced features,{' '}
+                <strong>Privacy:</strong> Your documents stay in your browser and are passed through
+                our server to the AI model with each question. Nothing is stored on our servers. For
+                persistent storage and advanced features,{' '}
                 <Link href="/auth/signup" className="text-action hover:underline">
                   create a free account
                 </Link>

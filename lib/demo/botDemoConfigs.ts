@@ -27,7 +27,7 @@ IMPORTANT GUIDELINES:
 Remember: You're here to help users understand their legal situation, not to provide official legal advice.`,
 
   welcomeMessage:
-    "Hello! I'm Lex, your AI legal assistant. Upload your legal documents or describe your situation, and I'll help analyze it. What type of legal matter can I help you with today?",
+    "Hello! I'm Lex, your AI legal assistant. Describe your situation, and I'll help analyze it. What type of legal matter can I help you with today?",
 
   starterQuestions: [
     'What type of legal matter is this?',
@@ -153,7 +153,7 @@ IMPORTANT GUIDELINES:
 Remember: You're here to help users understand health information, not to diagnose or prescribe treatment.`,
 
   welcomeMessage:
-    "Hello! I'm Imhotep, your AI health companion. Share your health questions or upload medical documents for analysis. How can I help you today?",
+    "Hello! I'm Imhotep, your AI health companion. Share your health questions, or paste results you want explained. How can I help you today?",
 
   starterQuestions: [
     'What symptoms are you experiencing?',

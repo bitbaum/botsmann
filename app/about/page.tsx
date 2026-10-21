@@ -67,28 +67,31 @@ export default function About() {
         <div className="bg-action-tint rounded-2xl p-8 border border-edge">
           <p className="text-lg text-gray-700 mb-6">
             Your conversations with our AI professionals are private. We do not use your data to
-            train models. We do not share your information with third parties. Your health
-            questions, legal concerns, and business plans remain yours.
+            train models and we do not sell it. Your health questions, legal concerns, and business
+            plans remain yours.
           </p>
           <ul className="space-y-3">
             <li className="flex items-center gap-3">
               <span className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600">
                 &#10003;
               </span>
-              <span className="text-gray-700">End-to-end encryption for all conversations</span>
+              <span className="text-gray-700">
+                Row-level security: your documents and conversations are visible to your account
+                alone
+              </span>
             </li>
             <li className="flex items-center gap-3">
               <span className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600">
                 &#10003;
               </span>
-              <span className="text-gray-700">Your data is never used for model training</span>
+              <span className="text-gray-700">Botsmann never trains models on your data</span>
             </li>
             <li className="flex items-center gap-3">
               <span className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600">
                 &#10003;
               </span>
               <span className="text-gray-700">
-                On-premises deployment available for enterprises
+                MIT-licensed code you can run on your own servers
               </span>
             </li>
           </ul>
@@ -106,14 +109,9 @@ export default function About() {
             your meetings.
           </p>
           <p className="text-lg text-gray-700 mb-6">
-            <strong className="text-gray-900">Embodied AI is a core part of our vision.</strong> We
-            are working with leading hardware and robotics companies to bring AI professionals into
-            the physical world - as companions, assistants, and trusted advisors that can see, hear,
-            and interact with your environment.
-          </p>
-          <p className="text-lg text-gray-700">
-            This is not science fiction. It is the next step in making expert guidance truly
-            accessible - wherever you are, whenever you need it.
+            <strong className="text-gray-900">Embodied AI is a core part of our vision:</strong> AI
+            professionals in the physical world, as companions, assistants, and trusted advisors
+            that can see, hear, and interact with your environment.
           </p>
         </div>
       </section>
@@ -124,24 +122,16 @@ export default function About() {
         <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
           <p className="text-lg text-gray-600 mb-6">
             Law firms, medical practices, research institutions, and businesses can deploy Botsmann
-            professionals for their teams with enterprise-grade security and compliance.
+            professionals for their teams on their own infrastructure.
           </p>
           <ul className="space-y-3 mb-8">
             <li className="flex items-center gap-3">
               <span className="text-action">&#10140;</span>
-              <span className="text-gray-700">On-premises deployment options</span>
+              <span className="text-gray-700">Self-hosting on your own servers</span>
             </li>
             <li className="flex items-center gap-3">
               <span className="text-action">&#10140;</span>
-              <span className="text-gray-700">SSO and team management</span>
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="text-action">&#10140;</span>
-              <span className="text-gray-700">HIPAA and GDPR compliance</span>
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="text-action">&#10140;</span>
-              <span className="text-gray-700">Custom training on your knowledge base</span>
+              <span className="text-gray-700">Chat over your own documents, with sources</span>
             </li>
           </ul>
           <Link

@@ -74,7 +74,9 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-edge rounded-card overflow-hidden border border-edge max-w-4xl mx-auto">
             <div className="bg-surface p-6 text-left">
               <div className="font-serif font-semibold text-ink mb-1">Complete privacy</div>
-              <div className="text-sm text-ink-muted">Your data never leaves your control.</div>
+              <div className="text-sm text-ink-muted">
+                Your documents are visible to your account alone.
+              </div>
             </div>
             <div className="bg-surface p-6 text-left">
               <div className="font-serif font-semibold text-ink mb-1">Always available</div>
@@ -82,7 +84,7 @@ export default function HomePage() {
             </div>
             <div className="bg-surface p-6 text-left">
               <div className="font-serif font-semibold text-ink mb-1">Personalised</div>
-              <div className="text-sm text-ink-muted">Upload documents for tailored advice.</div>
+              <div className="text-sm text-ink-muted">Upload documents and ask about them.</div>
             </div>
           </div>
         </section>

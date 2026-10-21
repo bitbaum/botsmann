@@ -4,7 +4,7 @@ Domain-specialized AI professionals, not another generic chatbot wrapper.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6.svg)](https://www.typescriptlang.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-14-000000.svg)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16-000000.svg)](https://nextjs.org/)
 [![Live](https://img.shields.io/badge/Live-botsmann.orangecat.ch-brightgreen.svg)](https://botsmann.orangecat.ch)
 
 ---
@@ -30,17 +30,14 @@ SSOT: `data/bots.ts`. Each bot defines `system_prompt`, `expertise[]`, `interest
 
 ### Multi-LLM Routing
 
-Three-tier provider strategy with graceful fallback:
+Local first, then free cloud:
 
-| Priority | Provider           | Model                                                  | Cost              |
-| -------- | ------------------ | ------------------------------------------------------ | ----------------- |
-| 1        | Ollama (local)     | llama3.2:latest                                        | Free, self-hosted |
-| 2        | Groq (cloud)       | llama-3.1-8b-instant                                   | Free tier         |
-| 3        | OpenRouter (cloud) | Claude 3.5 Sonnet, GPT-4, Gemini, Grok, Llama, Mistral | Paid              |
+1. **Ollama** (local, self-hosted) -- tried first whenever it answers a ping.
+2. **Groq and OpenRouter** -- one chain of provider + model links, defined and ordered by [`@bitbaum/ai-kit`](https://github.com/bitbaum/ai-kit). If a link fails, the next one answers.
 
-Local first, free cloud second, paid cloud last. Users can override via settings. If a provider key is invalid, the system falls back silently to the next tier.
+Users can bring their own provider key in Settings.
 
-Entry point: `lib/llm-client.ts` -- `generateWithBestProvider()` handles selection, timeout (30s), and fallback logic.
+Entry point: `lib/llm-client.ts` -- `generateWithBestProvider()`.
 
 ### RAG Knowledge Retrieval
 
@@ -55,10 +52,10 @@ Zero-cost client-side embeddings with server-side semantic search.
 
 ### Privacy Model
 
-Every table enforces Row Level Security. No exceptions.
+Every user-data table enforces Row Level Security.
 
 - User documents isolated by `user_id` -- no cross-user data leakage
-- API keys stored encrypted per-user
+- API keys sealed at rest per user
 - Four-layer prompt injection defense:
   1. `sanitizeSystemPrompt()` -- prevents instruction override
   2. `sanitizeUserMessage()` -- removes malicious payloads
@@ -96,11 +93,11 @@ Rate limits: 20 req/60s for chat, 15 req/60s for professional chat.
 | Layer      | Technology                                               |
 | ---------- | -------------------------------------------------------- |
 | Frontend   | Next.js 16, React 19, TypeScript 6, Tailwind CSS 4       |
-| LLM        | Groq, OpenRouter (100+ models), Ollama (local)           |
+| LLM        | Groq, OpenRouter, Ollama (local) via `@bitbaum/ai-kit`   |
 | Database   | Supabase PostgreSQL 15 + pgvector                        |
 | Embeddings | Transformers.js (all-MiniLM-L6-v2, 384d)                 |
 | Auth       | Supabase Auth + Row Level Security                       |
-| Email      | AWS SES                                                  |
+| Email      | Resend via `@bitbaum/mail-kit`                           |
 | Deployment | Self-hosted on Hetzner (behind Caddy); GitHub Actions CI |
 
 ---

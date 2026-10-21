@@ -6,7 +6,7 @@ export const storageOptions: StorageOption[] = [
   {
     id: 'cloud',
     name: 'Cloud',
-    description: 'Secure cloud storage with end-to-end encryption',
+    description: 'Stored on our server, visible to your account alone',
     status: 'available',
     icon: '☁️',
   },
