@@ -1,3 +1,4 @@
+import { RICH_ANSWERS_INSTRUCTION } from '@bitbaum/chatkit';
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
@@ -115,7 +116,10 @@ async function generateResponse(
 
   try {
     const result = await generateWithBestProvider([
-      { role: 'system', content: systemPrompt },
+      {
+        role: 'system',
+        content: `${systemPrompt}\n\n${RICH_ANSWERS_INSTRUCTION}\nUse diagrams, galleries and callouts here; ask any follow-up as ordinary prose because this preview has no interactive choice submission.`,
+      },
       { role: 'user', content: userContent },
     ]);
 

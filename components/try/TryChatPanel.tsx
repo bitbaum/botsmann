@@ -1,5 +1,7 @@
 'use client';
 
+import { Markdown } from '@bitbaum/chatkit/react';
+
 import { useState, useRef, type FormEvent } from 'react';
 import type { TryDocument } from './TryDocumentsPanel';
 
@@ -177,7 +179,13 @@ export const TryChatPanel = ({ documents, onError }: TryChatPanelProps) => {
                   msg.role === 'user' ? 'bg-action text-white' : 'bg-gray-100 text-gray-900'
                 }`}
               >
-                <p className="whitespace-pre-wrap">{msg.content}</p>
+                <div className="min-w-0">
+                  {msg.role === 'user' ? (
+                    <p className="whitespace-pre-wrap">{msg.content}</p>
+                  ) : (
+                    <Markdown text={msg.content} />
+                  )}
+                </div>
                 {msg.sources && msg.sources.length > 0 && (
                   <div className="mt-3 pt-3 border-t border-gray-200/30">
                     <p className="text-xs opacity-70 mb-1">Sources:</p>

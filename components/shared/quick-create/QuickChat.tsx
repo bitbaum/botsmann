@@ -1,5 +1,7 @@
 'use client';
 
+import { Markdown } from '@bitbaum/chatkit/react';
+
 import { type FC, useState, useRef, useEffect, useCallback } from 'react';
 import { type BotTemplate } from '@/lib/bot-templates';
 import { getAccentColorBgTintClass } from '@/lib/config/colors';
@@ -209,7 +211,13 @@ export const QuickChat: FC<QuickChatProps> = ({ bot, onReset }) => {
                 {message.role === 'assistant' && (
                   <span className="text-lg mr-2">{bot.template.emoji}</span>
                 )}
-                <span className="whitespace-pre-wrap">{message.content}</span>
+                <div className="min-w-0">
+                  {message.role === 'user' ? (
+                    <span className="whitespace-pre-wrap">{message.content}</span>
+                  ) : (
+                    <Markdown text={message.content} />
+                  )}
+                </div>
               </div>
             </div>
           ))}

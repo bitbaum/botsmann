@@ -1,5 +1,7 @@
 'use client';
 
+import { Markdown } from '@bitbaum/chatkit/react';
+
 import type { RefObject } from 'react';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
 import type { ChatMessage } from '@/hooks/useDocumentChat';
@@ -36,7 +38,13 @@ export const ChatMessageList = ({
               msg.role === 'user' ? 'bg-action-tint ml-8' : 'bg-gray-100 mr-8'
             }`}
           >
-            <p className="text-gray-900 whitespace-pre-wrap">{msg.content}</p>
+            <div className="min-w-0 text-gray-900">
+              {msg.role === 'user' ? (
+                <p className="whitespace-pre-wrap">{msg.content}</p>
+              ) : (
+                <Markdown text={msg.content} />
+              )}
+            </div>
             {msg.sources && msg.sources.length > 0 && (
               <div className="mt-3 pt-3 border-t border-gray-200">
                 <p className="text-xs text-gray-500 mb-2">Sources:</p>
