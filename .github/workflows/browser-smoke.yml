@@ -1,0 +1,45 @@
+name: Browser smoke
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: browser-smoke-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  shared-journeys:
+    # The locked Playwright browser supports this LTS image. Do not inherit
+    # an ubuntu-latest upgrade before the browser/runtime compatibility check.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      # No live database, production account, mail recipient or paid model calls.
+      NEXT_PUBLIC_SUPABASE_URL: ''
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ''
+      SUPABASE_SERVICE_ROLE_KEY: ''
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Exercise actual shared article and failed-delivery journeys
+        run: pnpm exec playwright test --config=playwright.shared.config.ts
+      - name: Preserve failed local journey diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shared-browser-diagnostics
+          path: test-results/
+          retention-days: 7

@@ -27,8 +27,22 @@ export default function ContactPage() {
     setError('');
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          expertise: 'general',
+          message: formState.company
+            ? `Company: ${formState.company}\n\n${formState.message}`
+            : formState.message,
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok || result.success !== true) {
+        throw new Error('Message could not be saved');
+      }
 
       // Reset form and show success message
       setFormState({
@@ -127,7 +141,9 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={handleSubmit}>
                 {error && (
-                  <div className="mb-4 rounded-md bg-red-50 p-4 text-sm text-red-700">{error}</div>
+                  <div role="alert" className="mb-4 rounded-md bg-red-50 p-4 text-sm text-red-700">
+                    {error}
+                  </div>
                 )}
 
                 <div className="mb-4">

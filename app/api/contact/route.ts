@@ -52,12 +52,15 @@ export async function POST(req: NextRequest) {
         return jsonSuccess({ id: data.id }, "Thank you! We'll be in touch soon.");
       } catch (dbErr) {
         logger.error('Supabase client error (contact):', dbErr);
-        // Fall through to local message (no persistence)
+        // Never report success when the request was not saved.
       }
     }
 
-    // Minimal fallback: accept without persistence (serverless FS not reliable)
-    return jsonSuccess({ id: `contact_${Date.now()}` }, "Thank you! We'll be in touch soon.");
+    return jsonError(
+      'Contact delivery is temporarily unavailable. Please use the email link instead.',
+      'SERVICE_UNAVAILABLE',
+      HTTP_STATUS.SERVICE_UNAVAILABLE,
+    );
   } catch (error) {
     return handleError(error, DOMAIN_ERRORS.FAILED_SUBMIT_CONTACT);
   }
