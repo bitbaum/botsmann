@@ -51,7 +51,7 @@ test('unconfigured contact delivery fails visibly and retains the message', asyn
   const response = page.waitForResponse((response) => response.url().endsWith('/api/contact'));
   await page.getByRole('button', { name: 'Send Message', exact: true }).click();
   expect((await response).status()).toBe(503);
-  await expect(page.getByRole('alert')).toBeVisible();
+  await expect(page.locator('form').getByRole('alert')).toBeVisible();
   await expect(page.getByLabel('Message', { exact: true })).toHaveValue(
     'Do not send: synthetic local delivery check',
   );
