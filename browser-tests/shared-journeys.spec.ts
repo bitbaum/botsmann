@@ -1,7 +1,11 @@
 import { expect, test } from '@playwright/test';
 
-test('published shared article is readable without JavaScript', async ({ browser, baseURL }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false });
+test('published shared article is readable without JavaScript', async ({
+  browser,
+  baseURL,
+  viewport,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport });
   const page = await context.newPage();
   const response = await page.goto(`${baseURL}/blog/welcome-post`);
   expect(response?.status()).toBe(200);
