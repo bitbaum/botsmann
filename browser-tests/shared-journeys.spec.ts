@@ -19,7 +19,7 @@ test('published shared article is readable without JavaScript', async ({
 test('shared article navigation works at the actual viewport', async ({ page }) => {
   await page.route('https://giscus.app/**', (route) => route.fulfill({ status: 204 }));
   const errors: string[] = [];
-  page.on('pageerror', (error) => errors.push(error.message));
+  page.on('pageerror', (error) => errors.push(error.stack ?? error.message));
   await page.goto('/blog');
   await page.locator('a[href="/blog/future-focused-investment-strategy"]').first().click();
   await expect(

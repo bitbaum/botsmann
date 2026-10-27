@@ -36,3 +36,10 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium
       - name: Exercise actual shared article and failed-delivery journeys
         run: pnpm exec playwright test --config=playwright.shared.config.ts
+      - name: Preserve failed local journey diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shared-browser-diagnostics
+          path: test-results/
+          retention-days: 7

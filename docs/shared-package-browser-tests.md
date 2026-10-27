@@ -1,7 +1,7 @@
 # Shared package browser checks
 
-`pnpm exec playwright test --config=playwright.shared.config.ts` starts the real
-local app and exercises the committed published article at phone and desktop
+`pnpm exec playwright test --config=playwright.shared.config.ts` builds and starts the real
+local production app and exercises the committed published article at phone and desktop
 widths, server-rendered reading without JavaScript, article navigation, and a
 contact request that cannot be delivered. The contact fixture has no database
 credentials and must show an error while retaining the draft. It must never

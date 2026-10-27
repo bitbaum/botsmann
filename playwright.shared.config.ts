@@ -10,7 +10,7 @@ export default defineConfig({
     { name: 'desktop', use: { viewport: { width: 1280, height: 900 } } },
   ],
   webServer: {
-    command: 'pnpm exec next dev --webpack --hostname 127.0.0.1 --port 3919',
+    command: 'pnpm run build && pnpm exec next start --hostname 127.0.0.1 --port 3919',
     url: 'http://127.0.0.1:3919/blog/welcome-post',
     timeout: 180_000,
     reuseExistingServer: false,
