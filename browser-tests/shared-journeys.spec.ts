@@ -21,15 +21,20 @@ test('shared article navigation works at the actual viewport', async ({ page }) 
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/blog');
-  await page.locator('a[href="/blog/welcome-post"]').first().click();
+  await page.locator('a[href="/blog/future-focused-investment-strategy"]').first().click();
   await expect(
-    page.getByRole('heading', { name: 'Welcome to the Botsmann Blog', level: 1 }),
+    page.getByRole('heading', {
+      name: 'The Future-Focused Investment Strategy: Balancing Vision and Volatility',
+      level: 1,
+    }),
   ).toBeVisible();
-  const toc = page.locator('a[href="#our-mission"]');
+  const toc = page.locator('a[href="#the-foundation-commodities-as-the-bedrock"]');
   await expect(toc.first()).toBeVisible();
   await toc.first().click();
-  await expect(page).toHaveURL(/#our-mission$/);
-  await expect(page.getByRole('heading', { name: 'Our Mission' })).toBeInViewport();
+  await expect(page).toHaveURL(/#the-foundation-commodities-as-the-bedrock$/);
+  await expect(
+    page.getByRole('heading', { name: 'The Foundation: Commodities as the Bedrock' }),
+  ).toBeInViewport();
   expect(
     await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1),
   ).toBe(true);
