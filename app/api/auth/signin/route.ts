@@ -9,11 +9,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@/lib/supabase-server';
 import { z } from 'zod';
 import { enforceRateLimit } from '@/lib/rate-limit';
+import { passwordSchema } from '@/lib/schemas/auth';
 import { logger } from '@/lib/logger';
 
 const SignInSchema = z.object({
   email: z.string().email('Invalid email address'),
-  password: z.string().min(1, 'Password is required'),
+  password: passwordSchema,
 });
 
 export async function POST(req: NextRequest) {

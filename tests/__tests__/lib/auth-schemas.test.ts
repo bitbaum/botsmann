@@ -5,7 +5,6 @@ import {
   ResetPasswordSchema,
   UpdateSettingsSchema,
   UpdateProfileSchema,
-  PASSWORD_MIN_LENGTH,
   DISPLAY_NAME_MAX_LENGTH,
 } from '@/lib/schemas/auth';
 
@@ -32,14 +31,18 @@ describe('Auth Schemas', () => {
       }
     });
 
-    it('rejects password shorter than minimum length', () => {
-      const shortPassword = 'a'.repeat(PASSWORD_MIN_LENGTH - 1);
-      const result = SignUpSchema.safeParse({
-        email: 'test@example.com',
-        password: shortPassword,
-        confirmPassword: shortPassword,
-      });
-      expect(result.success).toBe(false);
+    it('rejects an empty password and accepts a one-character one (the one bitbaum rule)', () => {
+      for (const [password, ok] of [
+        ['', false],
+        ['x', true],
+      ] as const) {
+        const result = SignUpSchema.safeParse({
+          email: 'test@example.com',
+          password,
+          confirmPassword: password,
+        });
+        expect(result.success).toBe(ok);
+      }
     });
 
     it('rejects mismatched passwords', () => {
@@ -123,10 +126,10 @@ describe('Auth Schemas', () => {
       expect(result.success).toBe(false);
     });
 
-    it('rejects short passwords', () => {
+    it('rejects an empty password', () => {
       const result = ResetPasswordSchema.safeParse({
-        password: 'short',
-        confirmPassword: 'short',
+        password: '',
+        confirmPassword: '',
       });
       expect(result.success).toBe(false);
     });

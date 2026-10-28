@@ -6,20 +6,16 @@
  */
 
 import { z } from 'zod';
+import { MAX_PASSWORD_LENGTH, MIN_PASSWORD_LENGTH } from '@bitbaum/accountkit/auth/password';
 
 /**
- * Password validation rules
+ * The one bitbaum password rule (@bitbaum/accountkit): not empty, at most 128
+ * characters. Sign-in, sign-up and reset all use this schema.
  */
-export const PASSWORD_MIN_LENGTH = 6;
-export const PASSWORD_MAX_LENGTH = 100;
-
-/**
- * Base password schema with common rules
- */
-const passwordSchema = z
+export const passwordSchema = z
   .string()
-  .min(PASSWORD_MIN_LENGTH, `Password must be at least ${PASSWORD_MIN_LENGTH} characters`)
-  .max(PASSWORD_MAX_LENGTH, `Password must be less than ${PASSWORD_MAX_LENGTH} characters`);
+  .min(MIN_PASSWORD_LENGTH, 'Password is required')
+  .max(MAX_PASSWORD_LENGTH, `Password must be at most ${MAX_PASSWORD_LENGTH} characters`);
 
 /**
  * Email schema
@@ -31,7 +27,7 @@ const emailSchema = z.string().email('Please enter a valid email address');
  */
 export const SignInSchema = z.object({
   email: emailSchema,
-  password: z.string().min(1, 'Password is required'),
+  password: passwordSchema,
 });
 
 export type SignInFormData = z.infer<typeof SignInSchema>;
