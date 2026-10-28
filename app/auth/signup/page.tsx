@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useAuth, useAuthError, useRedirectWhenSignedIn } from '@/lib/auth';
-import { SignUpSchema, PASSWORD_MIN_LENGTH } from '@/lib/schemas/auth';
+import { SignUpSchema } from '@/lib/schemas/auth';
 import { ROUTES } from '@/lib/routes';
 import { PageLoading } from '@/components/shared/LoadingSpinner';
 import { AuthShell, AuthAlert, AuthField, AuthSubmitButton } from '@/components/auth/AuthShell';
@@ -92,8 +92,6 @@ export default function SignUpPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             disabled={isRateLimited}
-            minLength={PASSWORD_MIN_LENGTH}
-            placeholder={`At least ${PASSWORD_MIN_LENGTH} characters`}
           />
 
           <AuthField
@@ -104,7 +102,6 @@ export default function SignUpPage() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
             disabled={isRateLimited}
-            minLength={PASSWORD_MIN_LENGTH}
             placeholder="Confirm your password"
           />
 

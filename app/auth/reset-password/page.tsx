@@ -3,7 +3,7 @@
 import { useState, useEffect, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth';
-import { ResetPasswordSchema, PASSWORD_MIN_LENGTH } from '@/lib/schemas/auth';
+import { ResetPasswordSchema } from '@/lib/schemas/auth';
 import { ROUTES } from '@/lib/routes';
 import { PageLoading } from '@/components/shared/LoadingSpinner';
 
@@ -142,9 +142,7 @@ export default function ResetPasswordPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  minLength={PASSWORD_MIN_LENGTH}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-action"
-                  placeholder={`At least ${PASSWORD_MIN_LENGTH} characters`}
                 />
               </div>
 
@@ -161,7 +159,6 @@ export default function ResetPasswordPage() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
-                  minLength={PASSWORD_MIN_LENGTH}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-action"
                   placeholder="Confirm your new password"
                 />
