@@ -43,4 +43,5 @@ minimumReleaseAgeExclude:
   - '@bitbaum/mail-kit'
   - 'bip-kit'
   - '@bitbaum/chatkit'
-  - '@bitbaum/accountkit@0.9.0'
+  - '@bitbaum/accountkit@0.9.0 || 0.9.1'
+  - limitkit@0.2.1

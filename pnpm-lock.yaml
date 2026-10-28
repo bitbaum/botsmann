@@ -27,8 +27,8 @@ importers:
   .:
     dependencies:
       '@bitbaum/accountkit':
-        specifier: ^0.9.0
-        version: 0.9.0(@bitbaum/mail-kit@0.2.0)(next@16.4.3(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@26.6.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
+        specifier: ^0.9.1
+        version: 0.9.1(@bitbaum/mail-kit@0.2.0)(next@16.4.3(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@26.6.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
       '@bitbaum/ai-kit':
         specifier: ^1.21.4
         version: 1.21.4(react@19.3.1)
@@ -69,8 +69,8 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
       limitkit:
-        specifier: ^0.2.0
-        version: 0.2.0
+        specifier: ^0.2.1
+        version: 0.2.1
       mermaid:
         specifier: ^11.17.2
         version: 11.17.2
@@ -254,8 +254,8 @@ packages:
     resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==}
     engines: {node: '>=6.9.0'}
 
-  '@bitbaum/accountkit@0.9.0':
-    resolution: {integrity: sha512-4PzsTrVQvngpkHgeKHsNDEjLCSeIdcJe7e4nZdlUYkn0v+hif0MMWRlTWxmsRyVkX9G39tE/OJharojOe2kxiQ==}
+  '@bitbaum/accountkit@0.9.1':
+    resolution: {integrity: sha512-Y2q4VkbJV7S1uJlBT5FgzYPqecUB3tYu/1b8ln46bYdYcKrDOyKpioyisypDVKPoG4n3h+4xWf6XTbI8lR21PQ==}
     engines: {node: '>=20'}
     peerDependencies:
       '@better-auth/passkey': ^1.7.10
@@ -3120,6 +3120,10 @@ packages:
     resolution: {integrity: sha512-x05857iOBGf04eRBAXWTtRTrGhRdBfW9fZa8rfJDx3rQNRBVQpwK2z9aiMYNWhRp71QoIjvA0rl4ZiL4+6O8rA==}
     engines: {node: '>=20'}
 
+  limitkit@0.2.1:
+    resolution: {integrity: sha512-8IBrAi+W9axLDDiUE5F2+wabhLTNs1wpaBSf+RfytdXDm/KpOB6S8Xw7j0uoTQH5ti4A/EiRfyK1DbR6NcY1gA==}
+    engines: {node: '>=20'}
+
   linkedom@0.18.14:
     resolution: {integrity: sha512-BRUnkOm4YR5vo+qI3j0EbungB0vZPSCue5AdnTQRaxAGSbsOZiBFRO0rh4zlo8qXUhli8pxvnpEXDklMnlq2Rg==}
     engines: {node: '>=16'}
@@ -4249,7 +4253,7 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@bitbaum/accountkit@0.9.0(@bitbaum/mail-kit@0.2.0)(next@16.4.3(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@26.6.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)':
+  '@bitbaum/accountkit@0.9.1(@bitbaum/mail-kit@0.2.0)(next@16.4.3(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@26.6.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)':
     dependencies:
       limitkit: 0.2.0
       react: 19.3.1
@@ -7035,6 +7039,8 @@ snapshots:
       lightningcss-win32-x64-msvc: 1.33.0
 
   limitkit@0.2.0: {}
+
+  limitkit@0.2.1: {}
 
   linkedom@0.18.14:
     dependencies:
