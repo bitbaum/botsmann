@@ -10,6 +10,9 @@ allowBuilds:
 # Security/dedupe pins. These lived in package.json "overrides", which pnpm
 # silently IGNORES (npm-only field) — they must live here to keep applying.
 overrides:
+  # Security floors (2026-10-30 dev-toolchain sweep): stay inside the
+  # major the parents already allow; pnpm does not re-resolve these on update.
+  'vite@8': '^8.2.4'
   glob: ^10.5.0
   fast-xml-parser: ^5.7.0
   protobufjs: ^7.6.5
