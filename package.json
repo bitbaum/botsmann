@@ -25,7 +25,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "@bitbaum/accountkit": "^0.19.0",
+    "@bitbaum/accountkit": "^0.20.0",
     "@bitbaum/ai-kit": "^1.22.0",
     "@bitbaum/mail-kit": "^0.2.0",
     "@giscus/react": "^3.1.0",
@@ -51,7 +51,7 @@
     "sonner": "^2.0.8",
     "tailwindcss": "^4.3.3",
     "zod": "^4.6.7",
-    "@bitbaum/chatkit": "^0.22.0"
+    "@bitbaum/chatkit": "^0.22.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",
