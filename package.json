@@ -25,7 +25,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "@bitbaum/accountkit": "github:bitbaum/accountkit#4e6451e690b20b17bfa1ec32acc74b152b19780a",
+    "@bitbaum/accountkit": "^0.18.1",
     "@bitbaum/ai-kit": "^1.22.0",
     "@bitbaum/mail-kit": "^0.2.0",
     "@giscus/react": "^3.1.0",
