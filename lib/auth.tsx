@@ -108,8 +108,17 @@ export function useRequireAuth() {
 
   useEffect(() => {
     if (loading || user) return;
-    const next = `${window.location.pathname}${window.location.search}`;
-    router.replace(`${ROUTES.AUTH.SIGNIN}?next=${encodeURIComponent(next)}` as Route);
+    // The session hook can read "nobody" for a moment before its first
+    // answer arrives; ask the server once before sending anyone away.
+    let live = true;
+    void authClient.getSession().then(({ data }) => {
+      if (!live || data?.user) return;
+      const next = `${window.location.pathname}${window.location.search}`;
+      router.replace(`${ROUTES.AUTH.SIGNIN}?next=${encodeURIComponent(next)}` as Route);
+    });
+    return () => {
+      live = false;
+    };
   }, [user, loading, router]);
 
   return { user, loading, signOut, isEmailVerified, displayName, avatarUrl, updateProfile };
