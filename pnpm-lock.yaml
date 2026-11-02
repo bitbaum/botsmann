@@ -28,8 +28,8 @@ importers:
   .:
     dependencies:
       '@bitbaum/accountkit':
-        specifier: github:bitbaum/accountkit#99d43a4439da4b57a471ebceae98a1203861d070
-        version: https://codeload.github.com/bitbaum/accountkit/tar.gz/99d43a4439da4b57a471ebceae98a1203861d070(@bitbaum/mail-kit@0.2.0)(next@16.4.3(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@26.6.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
+        specifier: github:bitbaum/accountkit#11f7c93b9e87fc63a7ad833ae9add584e4161f43
+        version: https://codeload.github.com/bitbaum/accountkit/tar.gz/11f7c93b9e87fc63a7ad833ae9add584e4161f43(@bitbaum/mail-kit@0.2.0)(next@16.4.3(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@26.6.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
       '@bitbaum/ai-kit':
         specifier: ^1.22.0
         version: 1.22.0(react@19.3.1)
@@ -255,9 +255,9 @@ packages:
     resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==}
     engines: {node: '>=6.9.0'}
 
-  '@bitbaum/accountkit@https://codeload.github.com/bitbaum/accountkit/tar.gz/99d43a4439da4b57a471ebceae98a1203861d070':
-    resolution: {gitHosted: true, integrity: sha512-QET3nYEtiOp1Zz17Qt1w1d+v2p9viZzkwlKNLa0RGdEeKles5iN3jehqIJ58UZjLD1bRu7RrmgNd0a6+UADj3w==, tarball: https://codeload.github.com/bitbaum/accountkit/tar.gz/99d43a4439da4b57a471ebceae98a1203861d070}
-    version: 0.21.0
+  '@bitbaum/accountkit@https://codeload.github.com/bitbaum/accountkit/tar.gz/11f7c93b9e87fc63a7ad833ae9add584e4161f43':
+    resolution: {gitHosted: true, integrity: sha512-rRRk9JAeF5O5VfVLnIwKz8eaaktMSZ9m0kt0F/G3d+UzFVdIjYTQe4odlm9ltkvctnPHcN7Fddc2XjAoDRUn3g==, tarball: https://codeload.github.com/bitbaum/accountkit/tar.gz/11f7c93b9e87fc63a7ad833ae9add584e4161f43}
+    version: 0.22.0
     engines: {node: '>=20'}
     hasBin: true
     peerDependencies:
@@ -4252,7 +4252,7 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@bitbaum/accountkit@https://codeload.github.com/bitbaum/accountkit/tar.gz/99d43a4439da4b57a471ebceae98a1203861d070(@bitbaum/mail-kit@0.2.0)(next@16.4.3(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@26.6.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)':
+  '@bitbaum/accountkit@https://codeload.github.com/bitbaum/accountkit/tar.gz/11f7c93b9e87fc63a7ad833ae9add584e4161f43(@bitbaum/mail-kit@0.2.0)(next@16.4.3(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@26.6.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)':
     dependencies:
       limitkit: 0.2.1
       react: 19.3.1
