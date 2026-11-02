@@ -4,7 +4,7 @@ import { Providers } from '@/components/Providers';
 import { site } from '@/lib/site';
 import './globals.css';
 import { Toaster } from 'sonner';
-import { Inter, Fraunces } from 'next/font/google';
+import { fraunces, sans } from './fonts';
 import Script from 'next/script';
 
 // Brand typeface: a serif display (Fraunces) carries the editorial / "real
@@ -12,20 +12,7 @@ import Script from 'next/script';
 // Bound to CSS vars consumed by the @theme block in globals.css (font-sans /
 // font-serif). Named --font-inter/--font-fraunces so the @theme aliases
 // --font-sans/--font-serif can reference them without a circular var().
-const sans = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const serif = Fraunces({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-fraunces',
-  display: 'swap',
-});
-
+// Both ship in @bitbaum/design-tokens; ./fonts is generated from it.
 export const metadata = {
   // Load-bearing: Next resolves the generated og:image against metadataBase.
   // Without it the tag is emitted as http://localhost:3000/opengraph-image —
@@ -51,7 +38,7 @@ const LOKI_FEEDBACK_TOKEN =
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
+    <html lang="en" className={`${sans.variable} ${fraunces.variable}`}>
       <body className="bg-paper font-sans text-ink">
         <Providers>
           <Header />
