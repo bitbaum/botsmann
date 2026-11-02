@@ -64,6 +64,26 @@ const button = (page, name) =>
   page.getByRole('button', name instanceof RegExp ? { name } : { name, exact: true });
 // The shared sign-in's button names the providers Morulia publishes, so its
 // words change with Morulia; it always starts the same way.
+/**
+ * Wait until the page is at `path`. A page that lands and is sent on (a
+ * client-side redirect after sign-in) aborts the navigation being watched;
+ * that is not a failure, so look again until the time is up.
+ */
+async function waitForPath(page, path, timeout = 30_000) {
+  const end = Date.now() + timeout;
+  for (;;) {
+    try {
+      await page.waitForURL((url) => url.pathname === path, {
+        timeout: Math.max(1, end - Date.now()),
+        waitUntil: 'commit',
+      });
+      return;
+    } catch (error) {
+      if (Date.now() >= end || !String(error).includes('ERR_ABORTED')) throw error;
+    }
+  }
+}
+
 const SHARED_SIGNIN = /^Continue with Google\b/;
 
 /** The newest link to `route` in a message to `to`, from the mail sink. */
@@ -93,10 +113,7 @@ async function signOut(page) {
   await page.goto(`${BASE}/settings`);
   await page.getByRole('button', { name: 'Account menu' }).first().click();
   await page.getByRole('button', { name: 'Sign Out', exact: true }).first().click();
-  await page.waitForURL((url) => url.pathname === '/', {
-    timeout: 30_000,
-    waitUntil: 'commit',
-  });
+  await waitForPath(page, '/');
 }
 
 await mkdir(OUT, { recursive: true });
@@ -157,10 +174,7 @@ try {
   await page.locator('input[autocomplete="email"]').fill(EMAIL);
   await page.locator('input[autocomplete="new-password"]').fill(PASSWORD);
   await button(page, 'Create an account').click();
-  await page.waitForURL((url) => url.pathname === '/account', {
-    timeout: 30_000,
-    waitUntil: 'commit',
-  });
+  await waitForPath(page, '/account');
   check(
     (await session(page))?.email === EMAIL,
     'sign-up signs the new person in, where they were going',
@@ -191,10 +205,7 @@ try {
   await shot(page, 'login-refused');
 
   await signInWithPassword(page, EMAIL, PASSWORD);
-  await page.waitForURL((url) => url.pathname === '/settings', {
-    timeout: 30_000,
-    waitUntil: 'commit',
-  });
+  await waitForPath(page, '/settings');
   check((await session(page))?.email === EMAIL, 'sign-in with the right password works');
   await page.goto(`${BASE}/`);
   await page
@@ -229,10 +240,7 @@ try {
       .waitFor({ timeout: 30_000, waitUntil: 'commit' });
     check(true, 'the sign-in page sends a reset link');
     await page.goto(await mailedLink(EMAIL, '/api/auth/reset-password/'));
-    await page.waitForURL((url) => url.pathname === '/auth/signin', {
-      timeout: 30_000,
-      waitUntil: 'commit',
-    });
+    await waitForPath(page, '/auth/signin');
     await page.locator('input[autocomplete="new-password"]').fill(NEW_PASSWORD);
     check(!page.url().includes('token='), 'the reset token leaves the address bar');
     await button(page, 'Reset password').click();
@@ -246,10 +254,7 @@ try {
       .waitFor({ timeout: 30_000, waitUntil: 'commit' });
     check(true, 'after a reset the old password is refused');
     await signInWithPassword(page, EMAIL, NEW_PASSWORD);
-    await page.waitForURL((url) => url.pathname === '/settings', {
-      timeout: 30_000,
-      waitUntil: 'commit',
-    });
+    await waitForPath(page, '/settings');
     check((await session(page))?.email === EMAIL, 'the new password signs in');
     await signOut(page);
 
@@ -261,10 +266,7 @@ try {
       .getByText(`We sent a link to ${EMAIL}`)
       .waitFor({ timeout: 30_000, waitUntil: 'commit' });
     await page.goto(await mailedLink(EMAIL, '/api/auth/magic-link/verify'));
-    await page.waitForURL((url) => url.pathname === '/settings', {
-      timeout: 30_000,
-      waitUntil: 'commit',
-    });
+    await waitForPath(page, '/settings');
     check((await session(page))?.email === EMAIL, 'an emailed sign-in link signs in');
   }
 
