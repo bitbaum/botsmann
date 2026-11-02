@@ -1,6 +1,8 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, type ReactNode } from 'react';
+import type { Route } from 'next';
+import { useRouter } from 'next/navigation';
 import { authClient } from '@/lib/accounts/client';
 import { ROUTES } from '@/lib/routes';
 
@@ -102,12 +104,13 @@ export function useAuth() {
 export function useRequireAuth() {
   const { user, loading, signOut, isEmailVerified, displayName, avatarUrl, updateProfile } =
     useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     if (loading || user) return;
     const next = `${window.location.pathname}${window.location.search}`;
-    window.location.href = `${ROUTES.AUTH.SIGNIN}?next=${encodeURIComponent(next)}`;
-  }, [user, loading]);
+    router.replace(`${ROUTES.AUTH.SIGNIN}?next=${encodeURIComponent(next)}` as Route);
+  }, [user, loading, router]);
 
   return { user, loading, signOut, isEmailVerified, displayName, avatarUrl, updateProfile };
 }
