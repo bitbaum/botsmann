@@ -34,10 +34,8 @@ export const ROUTES = {
   AUTH: {
     SIGNIN: '/auth/signin',
     SIGNUP: '/auth/signup',
-    FORGOT_PASSWORD: '/auth/forgot-password',
-    RESET_PASSWORD: '/auth/reset-password',
-    CALLBACK: '/auth/callback',
-    VERIFY_EMAIL: '/auth/verify-email',
+    // Password, passkeys, second factor, linked sign-ins, deletion (AccountKit).
+    ACCOUNT: '/account',
   },
 } as const;
 

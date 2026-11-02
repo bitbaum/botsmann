@@ -68,6 +68,8 @@ export function AuthNav() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
+        aria-label="Account menu"
+        aria-expanded={dropdownOpen}
         className="flex min-h-11 items-center gap-2 text-sm font-medium text-gray-700 hover:text-action transition-colors"
       >
         <UserAvatar email={user.email} initial={displayName?.[0]} avatarUrl={avatarUrl} size="sm" />

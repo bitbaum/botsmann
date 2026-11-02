@@ -1,6 +1,6 @@
 'use client';
 
-import type { User } from '@supabase/supabase-js';
+import type { AppUser as User } from '@/lib/auth';
 import { UserAvatar } from '@/components/shared/UserAvatar';
 
 interface WelcomeHeaderProps {

@@ -86,9 +86,16 @@ ssh ubuntu@167.233.22.31 \
 
 ## Storage and auth
 
-Storage (`supabase-storage`) and auth (`supabase-auth`, GoTrue) are shared
-services on the box, not per-app. Buckets and auth redirect URLs are configured
-in Studio. Storage policies live on `storage.objects`, which is shared with
+Storage (`supabase-storage`) is a shared service on the box, not per-app.
+Buckets are configured in Studio. Botsmann no longer uses the stack's auth
+(GoTrue): accounts are `@bitbaum/accountkit` (`lib/accounts`), with their
+tables in a host accounts database (`DATABASE_URL`, migrations in `drizzle/`;
+loki `accounts-db.conf`). Every route reads the `botsmann` schema with the
+service-role client and filters by the session's user id (`lib/api-utils.ts`).
+People who signed in through GoTrue before keep their ids:
+`scripts/db/accountkit-import.sql` (run by loki `accountkit-supabase.yml`)
+gave each one an account under the same id, linked to OrangeCat by their
+actor id, never by address; they sign in with "Continue with OrangeCat". Storage policies live on `storage.objects`, which is shared with
 every other app on this stack — scope any policy you add to our bucket, and
 prefer a bucket per app over a shared one.
 

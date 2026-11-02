@@ -93,15 +93,15 @@ Rate limits: 20 req/60s for chat, 15 req/60s for professional chat.
 
 ## Tech Stack
 
-| Layer      | Technology                                               |
-| ---------- | -------------------------------------------------------- |
-| Frontend   | Next.js 16, React 19, TypeScript 6, Tailwind CSS 4       |
-| LLM        | Groq, OpenRouter (100+ models), Ollama (local)           |
-| Database   | Supabase PostgreSQL 15 + pgvector                        |
-| Embeddings | Transformers.js (all-MiniLM-L6-v2, 384d)                 |
-| Auth       | Supabase Auth + Row Level Security                       |
-| Email      | AWS SES                                                  |
-| Deployment | Self-hosted on Hetzner (behind Caddy); GitHub Actions CI |
+| Layer      | Technology                                                  |
+| ---------- | ----------------------------------------------------------- |
+| Frontend   | Next.js 16, React 19, TypeScript 6, Tailwind CSS 4          |
+| LLM        | Groq, OpenRouter (100+ models), Ollama (local)              |
+| Database   | Supabase PostgreSQL 15 + pgvector                           |
+| Embeddings | Transformers.js (all-MiniLM-L6-v2, 384d)                    |
+| Auth       | `@bitbaum/accountkit` (accounts database beside the schema) |
+| Email      | AWS SES                                                     |
+| Deployment | Self-hosted on Hetzner (behind Caddy); GitHub Actions CI    |
 
 ---
 
