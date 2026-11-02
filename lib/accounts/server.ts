@@ -3,6 +3,7 @@ import { createAuthMailer } from '@bitbaum/accountkit/auth/mail';
 import { createAuthRuntime } from '@bitbaum/accountkit/auth/next';
 import { signInMethods } from '@bitbaum/accountkit/auth';
 import { getDb } from '@/lib/db';
+import { removePersonData } from './deletion';
 import { authSite, botsmannAuthOptions } from './options';
 
 /**
@@ -16,6 +17,9 @@ export const authMail = createAuthMailer({ site: authSite() });
 export const mailConfigured = () => authMail.configured;
 export const methods = () => signInMethods(process.env, mailConfigured());
 
-export const { GET, POST, getSession, sessionFor, authStatus, getAuth } = createAuthRuntime(
-  botsmannAuthOptions({ mail: authMail, getDatabase: () => getDb() }),
-);
+export const { GET, POST, getSession, sessionFor, authStatus, getAuth } = createAuthRuntime({
+  ...botsmannAuthOptions({ mail: authMail, getDatabase: () => getDb() }),
+  // A deleted account takes its documents, bots, conversations and settings
+  // with it, as deleting the auth.users row used to.
+  onAccountDeleted: ({ userId }) => removePersonData(userId),
+});
