@@ -47,7 +47,11 @@ const shot = (page, name) =>
 const session = (page) =>
   page.evaluate(async () => (await (await fetch('/api/auth/get-session')).json())?.user ?? null);
 const pathOf = (page) => new URL(page.url()).pathname;
-const button = (page, name) => page.getByRole('button', { name, exact: true });
+const button = (page, name) =>
+  page.getByRole('button', name instanceof RegExp ? { name } : { name, exact: true });
+// The shared sign-in's button names the providers Morulia publishes, so its
+// words change with Morulia; it always starts the same way.
+const SHARED_SIGNIN = /^Continue with Google\b/;
 
 /** The newest link to `route` in a message to `to`, from the mail sink. */
 async function mailedLink(to, route) {
@@ -125,14 +129,14 @@ try {
     ['Email me a sign-in link instead', EXPECT.mail],
     ['Forgot your password?', EXPECT.mail],
     ['Continue with OrangeCat', EXPECT.orangecat],
-    ['Continue with Google, Apple, GitHub, X or Facebook', EXPECT.signin],
+    [SHARED_SIGNIN, EXPECT.signin],
   ]);
   await shot(page, 'login-methods');
   await offered('/auth/signup', [
     ['Create an account', true],
     ['Email me a link instead', EXPECT.mail],
     ['Continue with OrangeCat', EXPECT.orangecat],
-    ['Continue with Google, Apple, GitHub, X or Facebook', EXPECT.signin],
+    [SHARED_SIGNIN, EXPECT.signin],
   ]);
 
   // ── Sign up through AccountKit's form ──────────────────────────────────
