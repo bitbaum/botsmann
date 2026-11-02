@@ -4,12 +4,14 @@
  * GET /api/user/profile - Get or create user profile from user_profiles table
  * PATCH /api/user/profile - Update user profile preferences
  *
- * This is separate from /api/auth/profile which handles auth.users metadata.
- * This route manages the user_profiles table for domain preferences and stats.
+ * The person comes from AccountKit's session (verifyUser); the row is read with
+ * the service-role client and scoped to their id. This route manages the
+ * user_profiles table for domain preferences and stats.
  */
 
 import { type NextRequest } from 'next/server';
-import { createRouteHandlerClient } from '@/lib/supabase-server';
+import { getServiceClient } from '@/lib/supabase';
+import { verifyUser } from '@/lib/api-utils';
 import {
   jsonSuccess,
   jsonError,
@@ -25,19 +27,13 @@ import { logger } from '@/lib/logger';
  * GET - Get or create user profile
  * Uses the ensure_user_profile database function to create if doesn't exist
  */
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const supabase = await createRouteHandlerClient();
-
-    // Check authentication
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-
-    if (userError || !user) {
+    const user = await verifyUser(request);
+    if (!user) {
       return jsonUnauthorized();
     }
+    const supabase = getServiceClient();
 
     // Call database function to get or create profile
     const { data: profile, error: profileError } = await supabase.rpc('ensure_user_profile', {
@@ -61,17 +57,11 @@ export async function GET() {
  */
 export async function PATCH(request: NextRequest) {
   try {
-    const supabase = await createRouteHandlerClient();
-
-    // Check authentication
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-
-    if (userError || !user) {
+    const user = await verifyUser(request);
+    if (!user) {
       return jsonUnauthorized();
     }
+    const supabase = getServiceClient();
 
     // Validate request body
     const validation = await validateBody(request, UpdateUserProfileSchema);

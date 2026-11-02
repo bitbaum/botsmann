@@ -5,34 +5,28 @@
  * Auth helpers for API routes. For response formatting, use lib/api/responses.
  */
 
-import { NextRequest } from 'next/server';
-import { getServiceClient } from './supabase';
-import type { User } from '@supabase/supabase-js';
-import { cookies } from 'next/headers';
-import { createRouteHandlerClient } from './supabase-server';
+import { isDeliverable } from '@bitbaum/accountkit/auth';
+import { sessionFor } from '@/lib/accounts/server';
+
+/** The signed-in person as API routes read them. */
+export interface ApiUser {
+  id: string;
+  /** Their address, or null for one that cannot receive mail (an OrangeCat sign-in's placeholder). */
+  email: string | null;
+}
 
 /**
- * Verify user from JWT token in Authorization header
- * Extracts Bearer token and validates against Supabase
+ * The person behind this request, from AccountKit's session cookie, or null.
  *
- * @param request - Next.js request object
- * @returns User object if valid, null otherwise
+ * Botsmann's data stays in the `botsmann` supabase schema and every route
+ * reads it with the service-role client (lib/supabase getServiceClient), which
+ * bypasses row-level security; each route filters by this id.
  */
-export async function verifyUser(request: NextRequest): Promise<User | null> {
-  // Preferred: cookie-based via auth-helpers
-  try {
-    const routeClient = await createRouteHandlerClient({ cookies });
-    const { data, error } = await routeClient.auth.getUser();
-    if (!error && data.user) return data.user;
-  } catch {}
-
-  // Fallback: Bearer token header
-  const authHeader = request.headers.get('authorization');
-  if (authHeader?.startsWith('Bearer ')) {
-    const token = authHeader.substring(7);
-    const supabase = getServiceClient();
-    const { data, error } = await supabase.auth.getUser(token);
-    if (!error && data.user) return data.user;
-  }
-  return null;
+export async function verifyUser(request: Request): Promise<ApiUser | null> {
+  const session = await sessionFor(request.headers).catch(() => null);
+  if (!session) return null;
+  return {
+    id: session.user.id,
+    email: isDeliverable(session.user.email) ? session.user.email : null,
+  };
 }

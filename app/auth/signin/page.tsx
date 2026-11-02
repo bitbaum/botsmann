@@ -1,108 +1,36 @@
-'use client';
+import type { Metadata, Route } from 'next';
+import { redirect } from 'next/navigation';
+import { authLabelsFor } from '@bitbaum/accountkit/auth';
+import { AuthShell } from '@/components/auth/AuthShell';
+import { BotsmannSignIn } from '@/components/auth/AuthScreens';
+import { authStatus, getSession, methods } from '@/lib/accounts/server';
+import { safeNext } from '@/lib/accounts/paths';
 
-import { useState, type FormEvent } from 'react';
-import Link from 'next/link';
-import { useAuth, useAuthError, useRedirectWhenSignedIn } from '@/lib/auth';
-import { SignInSchema } from '@/lib/schemas/auth';
-import { ROUTES } from '@/lib/routes';
-import { PageLoading } from '@/components/shared/LoadingSpinner';
-import { AuthShell, AuthAlert, AuthField, AuthSubmitButton } from '@/components/auth/AuthShell';
+export const metadata: Metadata = { title: 'Sign in', robots: { index: false } };
 
-export default function SignInPage() {
-  const { signIn, loading: authLoading, user } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const { error, setError, showAuthError, rateLimitSeconds, isRateLimited } = useAuthError();
+type Search = Promise<{ next?: string; token?: string; error?: string; method?: string }>;
 
-  useRedirectWhenSignedIn(user);
-
-  if (user) {
-    return null;
-  }
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    // Don't allow submit while rate limited
-    if (isRateLimited) return;
-
-    setError('');
-    setLoading(true);
-
-    // Validate with Zod
-    const result = SignInSchema.safeParse({ email, password });
-    if (!result.success) {
-      setError(result.error.issues[0].message);
-      setLoading(false);
-      return;
-    }
-
-    const { error } = await signIn(email, password);
-
-    if (error) {
-      showAuthError(error);
-      setLoading(false);
-    } else {
-      window.location.href = ROUTES.SETTINGS;
-    }
-  };
-
-  if (authLoading) {
-    return <PageLoading />;
-  }
-
+/** Every way in on one screen; the mailed reset link comes back here too. */
+export default async function SignInPage({ searchParams }: { searchParams: Search }) {
+  const query = await searchParams;
+  const next = safeNext(query.next);
+  const recovering =
+    Boolean(query.token) || (query.error === 'INVALID_TOKEN' && query.method !== 'magic-link');
+  if (!recovering && (await getSession())) redirect(next as Route);
   return (
-    <AuthShell subtitle="Sign in to your account">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <AuthAlert error={error} rateLimitSeconds={rateLimitSeconds} />
-
-        <AuthField
-          id="email"
-          label="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          disabled={isRateLimited}
-          placeholder="you@example.com"
+    <AuthShell subtitle={recovering ? 'Choose a new password' : 'Sign in to your account'}>
+      {authStatus().ready ? (
+        <BotsmannSignIn
+          labels={authLabelsFor('en')}
+          methods={methods()}
+          next={next}
+          initialError={Boolean(query.error) && !recovering}
         />
-
-        <AuthField
-          id="password"
-          label="Password"
-          labelExtra={
-            <Link
-              href={ROUTES.AUTH.FORGOT_PASSWORD}
-              className="text-sm text-action hover:underline"
-            >
-              Forgot password?
-            </Link>
-          }
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          disabled={isRateLimited}
-          minLength={6}
-          placeholder="Enter your password"
-        />
-
-        <AuthSubmitButton
-          loading={loading}
-          loadingLabel="Signing in..."
-          rateLimitSeconds={rateLimitSeconds}
-        >
-          Sign In
-        </AuthSubmitButton>
-      </form>
-
-      <div className="mt-6 text-center text-sm text-gray-600">
-        Don&apos;t have an account?{' '}
-        <Link href={ROUTES.AUTH.SIGNUP} className="text-action hover:underline">
-          Sign up
-        </Link>
-      </div>
+      ) : (
+        <p className="text-sm text-gray-600">
+          Accounts are not available right now. Try again in a little while.
+        </p>
+      )}
     </AuthShell>
   );
 }

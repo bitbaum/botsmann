@@ -32,6 +32,13 @@ export const AUTH_NAV_ITEMS: AuthNavItem[] = [
   { label: 'My Bots', href: '/bots/create' as Route, icon: BotIcon, section: 'main' },
   { label: 'Profile', href: '/profile' as Route, icon: ProfileIcon, section: 'account' },
   { label: 'Settings', href: '/settings' as Route, icon: NavSettingsIcon, section: 'account' },
+  // Password, passkeys, second factor, linked sign-ins, deletion (AccountKit).
+  {
+    label: 'Sign-in and security',
+    href: '/account' as Route,
+    icon: ProfileIcon,
+    section: 'account',
+  },
 ];
 
 export const SIGN_OUT_ICON = SignOutIcon;

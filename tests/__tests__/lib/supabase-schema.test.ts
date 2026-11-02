@@ -25,7 +25,9 @@ function stripComments(source: string): string {
   return source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/[^\n]*/g, '$1');
 }
 
-const CLIENT_FILES = ['lib/supabase.ts', 'lib/supabase-server.ts'];
+// lib/supabase-server.ts (the cookie-session client) went with GoTrue sign-in:
+// who someone is comes from AccountKit now (lib/accounts).
+const CLIENT_FILES = ['lib/supabase.ts'];
 
 const CREATE_CALL = /\bcreate(?:Browser|Server)?Client\s*\(/g;
 const SCHEMA_OPT = /db:\s*\{\s*schema:\s*DB_SCHEMA\s*\}/g;

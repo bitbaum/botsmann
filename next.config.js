@@ -96,13 +96,25 @@ const nextConfig = {
         headers: securityHeaders,
       },
       {
-        source: '/((?!api).*)',
+        // The account pages answer per person (the session decides whether
+        // /account shows your account or sends you to sign in), so no
+        // browser or proxy may keep a copy: a cached /account was served to
+        // the same browser after sign-out.
+        source: '/((?!api|account|auth).*)',
         headers: [
           {
             key: 'Cache-Control',
             value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=60',
           },
         ],
+      },
+      {
+        source: '/:path(account|auth)/:rest*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-store' }],
+      },
+      {
+        source: '/account',
+        headers: [{ key: 'Cache-Control', value: 'private, no-store' }],
       },
     ];
   },
