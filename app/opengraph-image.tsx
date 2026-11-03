@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { ogFonts } from '@bitbaum/design-tokens/og';
 import { site } from '@/lib/site';
 
 /**
@@ -22,7 +23,7 @@ const PAPER = '#FAF8F4';
 const OCHRE = '#B45309';
 const MUTED = '#6F655C';
 
-export default function OGImage() {
+export default async function OGImage() {
   return new ImageResponse(
     <div
       style={{
@@ -70,6 +71,6 @@ export default function OGImage() {
         <div style={{ fontSize: 24, color: MUTED }}>botsmann.orangecat.ch</div>
       </div>
     </div>,
-    { ...size },
+    { ...size, fonts: await ogFonts() },
   );
 }
