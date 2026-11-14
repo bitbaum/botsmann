@@ -38,7 +38,7 @@ jobs:
         run: pnpm exec playwright test --config=playwright.shared.config.ts
       - name: Preserve failed local journey diagnostics
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: shared-browser-diagnostics
           path: test-results/
@@ -114,7 +114,7 @@ jobs:
           node scripts/ci/account-journey.mjs
       - name: Keep screenshots and the server log
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: botsmann-account-journey
           path: |
